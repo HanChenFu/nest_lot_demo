@@ -32,5 +32,10 @@ public class Role extends PageParam{
 	public void setRoleTime(String roleTime) {
 		this.roleTime = roleTime;
 	}
+	@Override
+	public String toString() {
+		return "Role [roleId=" + roleId + ", roleUuid=" + roleUuid + ", roleName=" + roleName + ", roleTime=" + roleTime
+				+ "]";
+	}
 	
 }
