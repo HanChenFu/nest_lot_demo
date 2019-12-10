@@ -35,7 +35,7 @@ public class TbUserServerImpl implements TbUserServer{
 	public ResultBase login(TbAdmin tbAdmin) throws Exception, CustomException {
 		TbAdmin user = tbUserMapper.checkUserLoginId(tbAdmin);
 		if (user!=null) {
-			String str = user.getTbId().toString();
+			int str = user.getTbId();
 			if(redis.checkKey("web"+str)){//如果 存在则删除，防止多点登录
 				loginUserUtil.logout(redis.get("web"+str).toString());
 				loginUserUtil.setLoginUser(user);

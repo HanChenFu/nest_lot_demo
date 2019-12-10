@@ -27,7 +27,7 @@ public class LoginUserUtil {
 	public String setLoginUser(TbAdmin user) {
 		String token = MD5Util.MD5(UUID.randomUUID().toString().replaceAll("-", "a")).toLowerCase();
 		getRedis().set(KEY_LOGIN_USER + token, user, logout_time);//保存user，并设置保存时间，单位 秒
-		getRedis().set("web"+user.getTbId().toString(), KEY_LOGIN_USER + token, logout_time);//保存token，并且设置保存时间
+		getRedis().set("web"+user.getTbId(), KEY_LOGIN_USER + token, logout_time);//保存token，并且设置保存时间
 		user.setToken(token);
 		return token;
 	}
