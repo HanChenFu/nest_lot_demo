@@ -1,37 +1,61 @@
 package com.hc.pojo.base;
 
 public class TbAdmin {
-    private Integer tbId;
-
-    private String tbUuid;
-
-    private String tbAccount;
-
-    private String tbPhone;
-
-    private String tbPassword;
-    
-    private String tbName;
-
-    private String tbHeadPath;
-
-    private Integer adminType;
-
-    private String delTime;
-
-    private String createTime;
+	private int tbId;
+	private int tbRoleId;
+	private String tbAccount;
+	private String tbPhone;
+	private String tbPassword;
+	private String tbName;
+	private String tbHeadPath;
+	private String tbEmail;
+	private String delTime;
+	private String createTime;
+	private String tbUuid;
     
     private String token;//用户token
 
-    public String getTbUuid() {
-        return tbUuid;
-    }
+	public int getTbId() {
+		return tbId;
+	}
 
-    public void setTbUuid(String tbUuid) {
-        this.tbUuid = tbUuid;
-    }
+	public void setTbId(int tbId) {
+		this.tbId = tbId;
+	}
 
-    public String getTbName() {
+	public int getTbRoleId() {
+		return tbRoleId;
+	}
+
+	public void setTbRoleId(int tbRoleId) {
+		this.tbRoleId = tbRoleId;
+	}
+
+	public String getTbAccount() {
+		return tbAccount;
+	}
+
+	public void setTbAccount(String tbAccount) {
+		this.tbAccount = tbAccount;
+	}
+
+	public String getTbPhone() {
+		return tbPhone;
+	}
+
+	public void setTbPhone(String tbPhone) {
+		this.tbPhone = tbPhone;
+	}
+
+	public String getTbPassword() {
+		return tbPassword;
+	}
+
+	public void setTbPassword(String tbPassword) {
+		this.tbPassword = tbPassword;
+	}
+
+	public String getTbName() {
 		return tbName;
 	}
 
@@ -39,69 +63,45 @@ public class TbAdmin {
 		this.tbName = tbName;
 	}
 
-	public Integer getTbId() {
-        return tbId;
-    }
+	public String getTbHeadPath() {
+		return tbHeadPath;
+	}
 
-    public void setTbId(Integer tbId) {
-        this.tbId = tbId;
-    }
+	public void setTbHeadPath(String tbHeadPath) {
+		this.tbHeadPath = tbHeadPath;
+	}
 
-    public String getTbAccount() {
-        return tbAccount;
-    }
+	public String getTbEmail() {
+		return tbEmail;
+	}
 
-    public void setTbAccount(String tbAccount) {
-        this.tbAccount = tbAccount == null ? null : tbAccount.trim();
-    }
+	public void setTbEmail(String tbEmail) {
+		this.tbEmail = tbEmail;
+	}
 
-    public String getTbPhone() {
-        return tbPhone;
-    }
+	public String getDelTime() {
+		return delTime;
+	}
 
-    public void setTbPhone(String tbPhone) {
-        this.tbPhone = tbPhone == null ? null : tbPhone.trim();
-    }
+	public void setDelTime(String delTime) {
+		this.delTime = delTime;
+	}
 
-    public String getTbPassword() {
-        return tbPassword;
-    }
+	public String getCreateTime() {
+		return createTime;
+	}
 
-    public void setTbPassword(String tbPassword) {
-        this.tbPassword = tbPassword == null ? null : tbPassword.trim();
-    }
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 
-    public String getTbHeadPath() {
-        return tbHeadPath;
-    }
+	public String getTbUuid() {
+		return tbUuid;
+	}
 
-    public void setTbHeadPath(String tbHeadPath) {
-        this.tbHeadPath = tbHeadPath == null ? null : tbHeadPath.trim();
-    }
-
-    public Integer getAdminType() {
-        return adminType;
-    }
-
-    public void setAdminType(Integer adminType) {
-        this.adminType = adminType;
-    }
-
-    public String getDelTime() {
-        return delTime;
-    }
-
-    public void setDelTime(String delTime) {
-        this.delTime = delTime == null ? null : delTime.trim();
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime == null ? null : createTime.trim();
-    }
+	public void setTbUuid(String tbUuid) {
+		this.tbUuid = tbUuid;
+	}
 
 	public String getToken() {
 		return token;
@@ -111,13 +111,5 @@ public class TbAdmin {
 		this.token = token;
 	}
 
-	@Override
-	public String toString() {
-		return "TbAdmin [tbId=" + tbId + ", tbUuid=" + tbUuid + ", tbAccount=" + tbAccount + ", tbPhone=" + tbPhone
-				+ ", tbPassword=" + tbPassword + ", tbName=" + tbName + ", tbHeadPath=" + tbHeadPath + ", adminType="
-				+ adminType + ", delTime=" + delTime + ", createTime=" + createTime + ", token=" + token + "]"
-				+ "test........";
-	}
-    
-	
+
 }
