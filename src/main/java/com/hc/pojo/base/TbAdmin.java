@@ -115,8 +115,7 @@ public class TbAdmin {
 	public String toString() {
 		return "TbAdmin [tbId=" + tbId + ", tbUuid=" + tbUuid + ", tbAccount=" + tbAccount + ", tbPhone=" + tbPhone
 				+ ", tbPassword=" + tbPassword + ", tbName=" + tbName + ", tbHeadPath=" + tbHeadPath + ", adminType="
-				+ adminType + ", delTime=" + delTime + ", createTime=" + createTime + ", token=" + token + "]"
-				+ "test........";
+				+ adminType + ", delTime=" + delTime + ", createTime=" + createTime + ", token=" + token + "]";
 	}
     
 	
