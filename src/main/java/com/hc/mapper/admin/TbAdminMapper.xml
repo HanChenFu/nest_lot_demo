@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.admin.TbAdminMapper" >
+	  
+	<sql id="Base_Column_List">
+		tb_id as tbId,
+		tb_role_id as tbRoleId,
+		tb_account as tbAccount,
+		tb_phone as tbPhone,
+		tb_password as tbPassword,
+		tb_name as tbName,
+		tb_head_path as tbHeadPath,
+		tb_email as tbEmail,
+		del_time as delTime,
+		create_time as createTime,
+		tb_uuid as tbUuid
+	</sql>
+  
+	<select id="AdminLogin" resultType="com.hc.pojo.base.TbAdmin" >
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM
+			tb_admin
+		WHERE
+			tb_account = #{tbAccount}
+		AND tb_password = #{tbPassword}
+	</select>
+  
+</mapper>
