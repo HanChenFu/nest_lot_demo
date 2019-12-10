@@ -110,5 +110,13 @@ public class TbAdmin {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+	@Override
+	public String toString() {
+		return "TbAdmin [tbId=" + tbId + ", tbUuid=" + tbUuid + ", tbAccount=" + tbAccount + ", tbPhone=" + tbPhone
+				+ ", tbPassword=" + tbPassword + ", tbName=" + tbName + ", tbHeadPath=" + tbHeadPath + ", adminType="
+				+ adminType + ", delTime=" + delTime + ", createTime=" + createTime + ", token=" + token + "]";
+	}
     
+	
 }
