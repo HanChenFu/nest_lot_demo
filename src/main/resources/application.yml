@@ -1,0 +1,17 @@
+# 配置运行环境：dev 开发环境，test 测试环境，pro 生产环境
+spring:
+  profiles:
+    active: dev
+
+# 相当于 mybatis-config 配置
+mybatis:
+  mapper-locations: classpath:com/hc/mapper/**/*.xml
+  type-aliases-package: com.hc.pojo
+  
+
+# 分页配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

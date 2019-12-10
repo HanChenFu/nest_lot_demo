@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.role.TbRoleMapper" >
+	  
+	<select id="getRoleMess" resultType="com.hc.pojo.role.Role">
+		SELECT role_id as roleId,role_uuid as roleUuid,role_name as roleName,role_time as roleTime FROM `sys_role_info`
+		<if test="page != null and size != null">
+			LIMIT #{start}, #{size}
+		</if>
+	</select>
+	
+	  <!-- 统计角色数量 -->
+	 <select id="getRoleMessCount" resultType="integer">
+	 	SELECT COUNT(1)
+		FROM `sys_role_info`
+	 </select>
+  
+</mapper>

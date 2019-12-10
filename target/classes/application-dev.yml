@@ -1,0 +1,53 @@
+# 开发环境配置文件
+server:
+  port: 8080
+  
+myProps:
+  params:
+    test: 1
+    array:
+      a1: 3
+      a2: 4
+   
+spring:
+  datasource:
+    name: dev
+    url: jdbc:mysql://localhost:3306/nest_lot?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    # driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      filters: stat
+      maxActive: 300
+      initialSize: 10
+      maxWait: 60000
+      minIdle: 5
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+  redis:
+    database: 0
+    host: localhost
+    port: 3306
+    password: 123456
+    timeout: 5000
+    jedis:
+      pool:
+        max-idle: 50
+        max-wait: 10
+        max-active: 300
+        min-idle: 5
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+        
+mybatis:
+ configuration:
+  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
