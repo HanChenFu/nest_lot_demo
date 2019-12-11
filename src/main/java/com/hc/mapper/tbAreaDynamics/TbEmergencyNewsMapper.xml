@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.tbAreaDynamics.TbEmergencyNewsMapper" >
+	
+	<sql id="Base_Column_List">
+		tb_id as tbId,tb_title as tbTitle,tb_content as tbContent,
+		tb_figure_path as tbFigurePath ,del_time as delTime, create_time as createTime,
+		tb_html_path as tbHtmlPath
+	</sql>
+	
+	
+	<select id="queryEmergencyNews" resultType="com.hc.pojo.entity.TbEmergencyNews">
+		select
+		<include refid="Base_Column_List" />
+		from tb_emergency_news
+	</select>
+  
+</mapper>
