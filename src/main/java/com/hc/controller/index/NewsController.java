@@ -41,7 +41,7 @@ public class NewsController {
 			}else if(Integer.valueOf(type)==3) {
 				return tbAreaDynamicsService.queryEveryAreaDynamics();
 			}else if(Integer.valueOf(type)==4) {
-				return tbEmergencyNewsService.queryEmergencyNews();
+				return tbEmergencyNewsService.queryEmergencyNews(); 
 			}
 		}
 		return null;
