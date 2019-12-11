@@ -25,7 +25,7 @@ public class WebConfig extends fastJsonConfig {
 		// web 拦截器
 		System.err.println(" -加载拦截器 -");
 		registry.addInterceptor(webInterceptor)// 添加拦截器
-				.addPathPatterns("/web/**")// 添加拦截路径
+				.addPathPatterns("/**")// 添加拦截路径
 				.excludePathPatterns(webNoUrl);// 添加不拦截路径
 	}
 }
