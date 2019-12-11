@@ -1,4 +1,0 @@
-(1)mapper里面建文件(对应表的名字),然后编写xml,根据业务编写sql (增删改)
-(2)service里面编写服务层调用,先写接口，然后写实现
-(3)controller调用service层
-(4)
