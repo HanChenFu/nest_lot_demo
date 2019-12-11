@@ -31,9 +31,9 @@ public class NewsController {
 	
 	@RequestMapping("/everyAreaDynamics")
 	public List<T> queryEveryAreaDynamics(@RequestBody BasePara para) throws Exception {
-		int type = para.getType();
+		String type = para.getType();
 		System.out.println("-*********************************-" + para.getType());
-		if(type==0) {
+		if(type == null || "".equals(type)) {
 			return tbWorkDynamicsService.queryWorkDynamics();
 		}else {
 			if(Integer.valueOf(type)==1) {
