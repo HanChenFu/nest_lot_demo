@@ -48,6 +48,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.37</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -261,7 +262,7 @@
 				</executions>
 			</plugin>
 
-			<!-- 3、打包过程忽略Junit测试 -->
+			<!-- 3、打包过程忽略Junit测试 111-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
