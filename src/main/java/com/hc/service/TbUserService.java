@@ -4,7 +4,7 @@ import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.pojo.base.TbAdmin;
 
-public interface TbUserServer {
+public interface TbUserService {
 	
 	/**
 	 * 	用户登录

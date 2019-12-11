@@ -13,11 +13,11 @@ import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.result.ResultQuery;
 import com.hc.mapper.role.TbRoleMapper;
 import com.hc.pojo.role.Role;
-import com.hc.service.TbRoleServer;
+import com.hc.service.TbRoleService;
 import com.hc.utils.result.ResultUtil;
 
 @Service("tbRoleServer")
-public class TbRoleServerImpl implements TbRoleServer{
+public class TbRoleServiceImpl implements TbRoleService{
 	
 	@Autowired
 	TbRoleMapper tbRoleMapper;

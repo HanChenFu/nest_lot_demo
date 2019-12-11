@@ -6,7 +6,7 @@ import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultQuery;
 import com.hc.pojo.role.Role;
 
-public interface TbRoleServer {
+public interface TbRoleService {
 	
 	ResultQuery<Role> getRoleMess(Role role ,HttpServletRequest request) throws Exception,CustomException;
 	
