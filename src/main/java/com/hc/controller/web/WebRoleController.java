@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hc.common.result.ResultQuery;
 import com.hc.pojo.role.Role;
-import com.hc.service.TbRoleServer;
+import com.hc.service.TbRoleService;
 
 @Controller
 @RequestMapping("/web/role")
@@ -18,7 +18,7 @@ import com.hc.service.TbRoleServer;
 public class WebRoleController {
 	
 	@Autowired
-	private TbRoleServer tbRoleServer;
+	private TbRoleService tbRoleServer;
 	
 	@RequestMapping("/getRoleMess")
 	public ResultQuery<Role> getRoleMess(@RequestBody Role role, HttpServletRequest request) throws Exception {

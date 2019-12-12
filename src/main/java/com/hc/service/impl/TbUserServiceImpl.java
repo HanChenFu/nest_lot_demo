@@ -13,12 +13,12 @@ import com.hc.common.redis.RedisUtil;
 import com.hc.common.result.ResultBase;
 import com.hc.mapper.user.TbUserMapper;
 import com.hc.pojo.base.TbAdmin;
-import com.hc.service.TbUserServer;
+import com.hc.service.TbUserService;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.result.ResultUtil;
 
 @Service("tbUserServer")
-public class TbUserServerImpl implements TbUserServer{
+public class TbUserServiceImpl implements TbUserService{
 	
 	@Autowired
 	RedisUtil redis;

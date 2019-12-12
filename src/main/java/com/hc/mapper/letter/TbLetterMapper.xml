@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.letter.TbLetterMapper" >
+	  
+	<select id="getLetterMess" resultType="com.hc.pojo.usually.LetterPageData">
+		SELECT
+			tl.tb_id as tbId,
+			tl.tb_number as tbNumber,
+			tl.sending_state as sendingState,
+			tu.phone as phone,
+			tu.tb_email as tbEmail,
+			tu.nickname as nickname,
+			tl.create_time as createTime,
+			CASE WHEN tlf.tb_id IS NULL THEN 0 ELSE 1 END as follow
+		FROM
+			`tb_letter` tl
+		LEFT JOIN tb_user tu ON tu.tb_id = tl.tb_user_id
+		LEFT JOIN tb_letter_follow tlf ON tl.tb_id = tlf.tb_letter_id AND tlf.tb_admin_id = #{id}
+		<if test="page != null and size != null">
+			LIMIT #{start}, #{size}
+		</if>
+	</select>
+	
+	<select id="getLetterMessCount" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM `tb_letter`
+	</select>
+	  
+</mapper>

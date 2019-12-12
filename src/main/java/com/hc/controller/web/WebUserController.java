@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hc.common.result.ResultBase;
 import com.hc.pojo.base.TbAdmin;
-import com.hc.service.TbUserServer;
+import com.hc.service.TbUserService;
 
 @Controller
 @RequestMapping("/web/user")
@@ -18,7 +18,7 @@ import com.hc.service.TbUserServer;
 public class WebUserController {
 	
 	@Autowired
-	private TbUserServer tbUserServer;
+	private TbUserService tbUserServer;
 	
 	@RequestMapping("/login")
 	public ResultBase getList(@RequestBody TbAdmin tbAdmin) throws Exception {
