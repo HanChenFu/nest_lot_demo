@@ -42,7 +42,11 @@ CREATE TABLE `tb_admin` (
   PRIMARY KEY (`tb_id`) USING BTREE,
   KEY `tb_role_id` (`tb_role_id`),
   CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`tb_role_id`) REFERENCES `tb_role` (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '管理员表';
+
+
+alter table tb_admin modify column del_time datetime default NOW();
+alter table tb_admin modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_admin
@@ -64,7 +68,10 @@ CREATE TABLE `tb_area_dynamics` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `tb_html_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '地区动态表';
+
+alter table tb_area_dynamics modify column del_time datetime;
+alter table tb_area_dynamics modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_area_dynamics
@@ -93,7 +100,10 @@ CREATE TABLE `tb_ask_record` (
   PRIMARY KEY (`tb_id`) USING BTREE,
   KEY `tb_user_id` (`tb_user_id`),
   CONSTRAINT `tb_ask_record_ibfk_1` FOREIGN KEY (`tb_user_id`) REFERENCES `tb_user` (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '询问笔录表';
+
+alter table tb_ask_record modify column del_time datetime;
+alter table tb_ask_record modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_ask_record
@@ -119,7 +129,10 @@ CREATE TABLE `tb_call_center` (
   PRIMARY KEY (`tb_id`) USING BTREE,
   KEY `tb_user_id` (`tb_user_id`),
   CONSTRAINT `tb_call_center_ibfk_1` FOREIGN KEY (`tb_user_id`) REFERENCES `tb_user` (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '呼叫中心表';
+
+alter table tb_call_center modify column del_time datetime;
+alter table tb_call_center modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_call_center
@@ -154,7 +167,11 @@ CREATE TABLE `tb_case` (
   CONSTRAINT `tb_case_ibfk_1` FOREIGN KEY (`tb_case_type_id`) REFERENCES `tb_case_type` (`tb_id`),
   CONSTRAINT `tb_case_ibfk_2` FOREIGN KEY (`tb_filing_area_id`) REFERENCES `tb_filing_area` (`tb_id`),
   CONSTRAINT `tb_case_ibfk_3` FOREIGN KEY (`tb_user_id`) REFERENCES `tb_user` (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '案件表';
+
+
+alter table tb_case modify column del_time datetime;
+alter table tb_case modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_case
@@ -174,7 +191,11 @@ CREATE TABLE `tb_case_type` (
   `del_time` timestamp NULL DEFAULT NULL COMMENT '删除时间',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '案件类型表';
+
+
+alter table tb_case_type modify column del_time datetime;
+alter table tb_case_type modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_case_type
@@ -198,7 +219,11 @@ CREATE TABLE `tb_emergency_news` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `tb_html_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '应急要闻表';
+
+
+alter table tb_emergency_news modify column del_time datetime;
+alter table tb_emergency_news modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_emergency_news
@@ -216,7 +241,10 @@ CREATE TABLE `tb_filing_area` (
   `del_time` timestamp NULL DEFAULT NULL COMMENT '删除时间',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '归档所在地表';
+
+alter table tb_filing_area modify column del_time datetime;
+alter table tb_filing_area modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_filing_area
@@ -241,7 +269,10 @@ CREATE TABLE `tb_letter` (
   PRIMARY KEY (`tb_id`) USING BTREE,
   KEY `tb_user_id` (`tb_user_id`),
   CONSTRAINT `tb_letter_ibfk_1` FOREIGN KEY (`tb_user_id`) REFERENCES `tb_user` (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '信件表';
+
+alter table tb_letter modify column del_time datetime;
+alter table tb_letter modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_letter
@@ -251,7 +282,7 @@ INSERT INTO `tb_letter` VALUES ('2', 'DC187654321', '1', '0', null, '2019-12-11 
 
 -- ----------------------------
 -- Table structure for `tb_letter_follow`
--- Table structure for `信件关注表(表示后台管理人员有误关注该信件)`
+-- Table structure for `信件关注表(表示后台管理人员有无关注该信件)`
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_letter_follow`;
 CREATE TABLE `tb_letter_follow` (
@@ -265,7 +296,11 @@ CREATE TABLE `tb_letter_follow` (
   KEY `tb_letter_id` (`tb_letter_id`),
   CONSTRAINT `tb_letter_follow_ibfk_1` FOREIGN KEY (`tb_admin_id`) REFERENCES `tb_admin` (`tb_id`),
   CONSTRAINT `tb_letter_follow_ibfk_2` FOREIGN KEY (`tb_letter_id`) REFERENCES `tb_letter` (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '信件关注表(表示后台管理人员有无关注该信件)';
+
+
+alter table tb_letter_follow modify column del_time datetime;
+alter table tb_letter_follow modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_letter_follow
@@ -287,7 +322,10 @@ CREATE TABLE `tb_notice` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `tb_html_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '通知公告表';
+
+alter table tb_notice modify column del_time datetime;
+alter table tb_notice modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_notice
@@ -306,7 +344,10 @@ CREATE TABLE `tb_robot_response` (
   `del_time` timestamp NULL DEFAULT NULL COMMENT '删除时间',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '机器人回复表';
+
+alter table tb_robot_response modify column del_time datetime;
+alter table tb_robot_response modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_robot_response
@@ -326,7 +367,11 @@ CREATE TABLE `tb_role` (
   `del_time` timestamp NULL DEFAULT NULL COMMENT '删除时间',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '角色表';
+
+
+alter table tb_role modify column del_time datetime;
+alter table tb_role modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_role
@@ -350,7 +395,10 @@ CREATE TABLE `tb_role_action` (
   PRIMARY KEY (`tb_id`) USING BTREE,
   KEY `tb_role_id` (`tb_role_id`),
   CONSTRAINT `tb_role_action_ibfk_1` FOREIGN KEY (`tb_role_id`) REFERENCES `tb_role` (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '角色权限表';
+
+alter table tb_role_action modify column del_time datetime;
+alter table tb_role_action modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_role_action
@@ -381,7 +429,10 @@ CREATE TABLE `tb_system_set` (
   PRIMARY KEY (`tb_id`) USING BTREE,
   KEY `tb_admin_id` (`tb_admin_id`),
   CONSTRAINT `tb_system_set_ibfk_1` FOREIGN KEY (`tb_admin_id`) REFERENCES `tb_admin` (`tb_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '系统设置表';
+
+alter table tb_system_set modify column del_time datetime;
+alter table tb_system_set modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_system_set
@@ -398,7 +449,10 @@ CREATE TABLE `tb_technical_documentation` (
   `del_time` timestamp NULL DEFAULT NULL COMMENT '删除时间',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '技术文档表';
+
+alter table tb_technical_documentation modify column del_time datetime;
+alter table tb_technical_documentation modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_technical_documentation
@@ -431,11 +485,15 @@ CREATE TABLE `tb_user` (
   `detailed_address` varchar(100) DEFAULT NULL COMMENT '详细地址',
   `head_portrait` varchar(200) DEFAULT NULL COMMENT '头像',
   `login_time` timestamp NULL DEFAULT NULL COMMENT '登陆时间',
-  `deletetime` timestamp NULL DEFAULT NULL COMMENT '删除时间',
-  `createtime` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `del_time` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `tb_uuid` varchar(50) DEFAULT NULL COMMENT 'UUID',
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT = '用户表';
+
+alter table tb_user modify column login_time datetime;
+alter table tb_user modify column del_time datetime;
+alter table tb_user modify column create_time datetime;
 
 -- ----------------------------
 -- Records of tb_user
@@ -456,9 +514,13 @@ CREATE TABLE `tb_work_dynamics` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `tb_html_path` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`tb_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT = '工作动态表';
 
 -- ----------------------------
 -- Records of tb_work_dynamics
 -- ----------------------------
 INSERT INTO `tb_work_dynamics` VALUES ('1', '维护国家安全是我们共同的利益', '人们对西方的立法机构总有一种印象，就是辩论与争吵不断。在“一国两制”框架下，澳门特别行政区实行资本主义制度，特区立法会在议事时同样也有争论。但澳门立法会有一个最大的特点，即立法事项一旦涉及国家安全层面，总是能快速、顺利地取得一致。\r\n\r\n　　“在涉及国家安全的时候，我们都有一个共识，就是要维护国家安全和利益，在这样的共识下，涉及国家安全的法案都会在立法会比较快速顺利地通过。”在澳门回归祖国20周年之际，澳门特区立法会主席高开贤受访时说,“维护国家安全是我们共同的利益。', null, null, '2019-12-11 14:05:47', 'http://www.xinhuanet.com//gangao/2019-12/10/c_1125331147.htm');
+
+
+alter table tb_work_dynamics modify column create_time datetime;
+
