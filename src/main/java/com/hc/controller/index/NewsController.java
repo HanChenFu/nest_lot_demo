@@ -1,6 +1,8 @@
 package com.hc.controller.index;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hc.para.page_base.BasePara;
 import com.hc.service.TbAreaDynamicsService;
+import com.hc.service.TbCaseService;
 import com.hc.service.TbEmergencyNewsService;
 import com.hc.service.TbNoticeService;
 import com.hc.service.TbWorkDynamicsService;
@@ -28,6 +31,8 @@ public class NewsController {
 	private TbAreaDynamicsService tbAreaDynamicsService;
 	@Autowired 
 	private TbEmergencyNewsService 	tbEmergencyNewsService; 
+	@Autowired
+	private TbCaseService tbCaseService; 
 	
 	@RequestMapping("/everyAreaDynamics")
 	public List<T> queryEveryAreaDynamics(@RequestBody BasePara para) throws Exception {
@@ -47,6 +52,23 @@ public class NewsController {
 			}
 		}
 		return null;
+		
+	}
+	
+	
+	@RequestMapping("/queryNumber")
+	public Map<String, Integer> queryNumbers() throws Exception {
+		
+		int crownCase=tbCaseService.queryNumber(1);
+		int hillFire=tbCaseService.queryNumber(2);
+		int commonCase=tbCaseService.queryNumber(3);
+		int safetyProduction=tbCaseService.queryNumber(4);
+		Map<String,Integer> map=new HashMap<String,Integer>();
+		map.put("crownCase", crownCase);
+		map.put("hillFire", hillFire);
+		map.put("commonCase", commonCase);
+		map.put("safetyProduction", safetyProduction);
+		return map;
 		
 	}
 	
