@@ -47,7 +47,6 @@ CREATE TABLE `tb_admin` (
 
 alter table tb_admin modify column del_time datetime default NOW();
 alter table tb_admin modify column create_time datetime;
-
 -- ----------------------------
 -- Records of tb_admin
 -- ----------------------------

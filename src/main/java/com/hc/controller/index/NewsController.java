@@ -30,24 +30,25 @@ public class NewsController {
 	private TbEmergencyNewsService 	tbEmergencyNewsService; 
 	
 	@RequestMapping("/everyAreaDynamics")
-	public List<T> queryEveryAreaDynamics(@RequestBody BasePara para) throws Exception {
-		String type = para.getType();
-		System.out.println("-*********************************-" + para.getType());
-		if(type == null || "".equals(type)) {
-			return tbWorkDynamicsService.queryWorkDynamics();
-		}else {
-			if(Integer.valueOf(type)==1) {
+	public List<T> queryEveryAreaDynamics(@RequestBody(required=false) BasePara para) throws Exception {
+		if (para!=null) {
+			String type = para.getType();
+			System.out.println("-*********************************-" + para.getType());
+			if(type == null || "".equals(type)) {
 				return tbWorkDynamicsService.queryWorkDynamics();
-			}else if(Integer.valueOf(type)==2) {
-				return tbNoticeService.queryNotice();
-			}else if(Integer.valueOf(type)==3) {
-				return tbAreaDynamicsService.queryEveryAreaDynamics();
-			}else if(Integer.valueOf(type)==4) {
-				return tbEmergencyNewsService.queryEmergencyNews(); 
+			}else {
+				if(Integer.valueOf(type)==1) {
+					return tbWorkDynamicsService.queryWorkDynamics();
+				}else if(Integer.valueOf(type)==2) {
+					return tbNoticeService.queryNotice();
+				}else if(Integer.valueOf(type)==3) {
+					return tbAreaDynamicsService.queryEveryAreaDynamics();
+				}else if(Integer.valueOf(type)==4) {
+					return tbEmergencyNewsService.queryEmergencyNews(); 
+				}
 			}
 		}
 		return null;
-		
 	}
 	
 

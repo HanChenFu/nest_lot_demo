@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hc.mapper.tbAreaDynamics.TbAreaDynamicsMapper;
-import com.hc.pojo.entity.TbAreaDynamics;
 import com.hc.service.TbAreaDynamicsService;
 
 @Service("tbAreaDynamicsService")
