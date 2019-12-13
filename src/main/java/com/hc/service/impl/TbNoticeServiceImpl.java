@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hc.mapper.tbAreaDynamics.TbNoticeMapper;
-import com.hc.pojo.entity.TbNotice;
 import com.hc.service.TbNoticeService;
 
 @Service("tbNoticeService")
