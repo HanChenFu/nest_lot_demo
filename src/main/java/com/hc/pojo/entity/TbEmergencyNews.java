@@ -1,13 +1,12 @@
 package com.hc.pojo.entity;
 
-import java.sql.Timestamp;
 
 public class TbEmergencyNews {
 	private String tbTitle;
 	private String tbContent;
 	private String tbFigurePath;
-	private Timestamp delTime;
-	private Timestamp createTime;
+	private String delTime;
+	private String createTime;
 	private String tbHtmlPath;
 	
 	public String getTbTitle() {
@@ -28,16 +27,16 @@ public class TbEmergencyNews {
 	public void setTbFigurePath(String tbFigurePath) {
 		this.tbFigurePath = tbFigurePath;
 	}
-	public Timestamp getDelTime() {
+	public String getDelTime() {
 		return delTime;
 	}
-	public void setDelTime(Timestamp delTime) {
+	public void setDelTime(String delTime) {
 		this.delTime = delTime;
 	}
-	public Timestamp getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 	public String getTbHtmlPath() {

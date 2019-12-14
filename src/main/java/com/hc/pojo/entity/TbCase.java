@@ -1,7 +1,6 @@
 package com.hc.pojo.entity;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 public class TbCase {
 	private int  tbId;
@@ -18,8 +17,8 @@ public class TbCase {
 	private String  tbDesc;
 	private String  tbRemarks;
 	private String  tbImages;
-	private Timestamp  delTime;
-	private Timestamp  createTime;
+	private String  delTime;
+	private String  createTime;
 	
 	
 	public String getTbReportAddress() {
@@ -106,16 +105,16 @@ public class TbCase {
 	public void setTbImages(String tbImages) {
 		this.tbImages = tbImages;
 	}
-	public Timestamp getDelTime() {
+	public String getDelTime() {
 		return delTime;
 	}
-	public void setDelTime(Timestamp delTime) {
+	public void setDelTime(String delTime) {
 		this.delTime = delTime;
 	}
-	public Timestamp getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Timestamp createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 	

@@ -1,6 +1,5 @@
 package com.hc.service.impl;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,9 @@ public class TbCaseServiceImpl implements TbCaseService{
 	}
 
 	@Override
-	public List<TbCase> queryForPage(Integer tbCaseTypeId, Timestamp time, String tbNumber, String tbAddress,
+	public List<TbCase> queryForPage(Integer tbCaseTypeId, String time, String tbNumber, String tbAddress,
 			String tbSize, Integer tbStar) {
+//		List<TbCase> d = tbCaseMapper.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
 		
 		return tbCaseMapper.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
 	}

@@ -1,6 +1,5 @@
 package com.hc.controller.index;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -102,17 +101,16 @@ public class NewsController {
 	
 	//查询所有案件
 	@RequestMapping("/queryAllCase")
-	public List<TbCase> queryAllCase(@RequestBody JSONObject jsonObject, HttpServletRequest request) throws Exception {
-		Integer tbCaseTypeId=jsonObject.getInteger("tbCaseTypeId");
-		Timestamp time=jsonObject.getTimestamp("time");
-		String tbNumber=jsonObject.getString("tbNumber");
-		String tbAddress=jsonObject.getString("tbAddress");
-		String tbSize=jsonObject.getString("tbSize");
-		Integer tbStar=jsonObject.getInteger("tbStar");
+	public List<TbCase> queryAllCase(@RequestBody(required = false) JSONObject jsonObject, HttpServletRequest request) throws Exception {
+		Integer tbCaseTypeId = jsonObject ==null ? null : jsonObject.getInteger("tbCaseTypeId");
+		String  time= jsonObject==null ? null : jsonObject.getString("time");
+		String tbNumber=jsonObject==null ? null : jsonObject.getString("tbNumber");
+		String tbAddress=jsonObject==null ? null : jsonObject.getString("tbAddress");
+		String tbSize=jsonObject==null ? null : jsonObject.getString("tbSize");
+		Integer tbStar=jsonObject==null ? null : jsonObject.getInteger("tbStar");
 		return tbCaseService.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
 		
 	}
-	
 	
 	//联网备案（这个接口包含的图片上传我没写）
 	@RequestMapping("/insertCase")
@@ -120,7 +118,7 @@ public class NewsController {
 		
 		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
 		String tbNumber=jsonObject.getString("tbNumber");
-		Timestamp time=jsonObject.getTimestamp("time");
+		String time=jsonObject.getString("time");
 		int tbCaseTypeId=jsonObject.getIntValue("tbCaseTypeId");
 		int tbFilingAreaId=jsonObject.getIntValue("tbFilingAreaId");
 		String tbReportAddress=jsonObject.getString("tbReportAddress");

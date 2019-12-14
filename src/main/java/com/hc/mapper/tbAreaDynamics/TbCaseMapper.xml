@@ -21,22 +21,22 @@
 		<include refid="Base_Column_List" />
 		from tb_case
 		<where>
-			<if test="@Ognl@isNotEmpty(tbCaseTypeId)">
+			<if test="tbCaseTypeId != null">
 				and tb_case_type_id = #{tbCaseTypeId}
 			</if>
-			<if test="@Ognl@isNotEmpty(time)">
+			<if test="time != null">
 				<![CDATA[ and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(time) ]]> 
 			</if>
-			<if test="@Ognl@isNotEmpty(tbNumber)">
+			<if test="tbNumber != null">
 				and tb_number= #{tbNumber}
 			</if>
-			<if test="@Ognl@isNotEmpty(tbAddress)">
+			<if test="tbAddress != null">
 				and tb_address= #{tbAddress}
 			</if>
-			<if test="@Ognl@isNotEmpty(tbSize)">
+			<if test="tbSize != null">
 				and tb_size= #{tbSize}
 			</if>
-			<if test="@Ognl@isNotEmpty(tbStar)">
+			<if test="tbStar != null">
 				and tb_Star= #{tbStar}
 			</if>
 		</where>
