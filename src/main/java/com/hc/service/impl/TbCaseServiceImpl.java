@@ -25,6 +25,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 	@Override
 	public List<TbCase> queryForPage(Integer tbCaseTypeId, Timestamp time, String tbNumber, String tbAddress,
 			String tbSize, Integer tbStar) {
+		List<TbCase> d = tbCaseMapper.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
 		
 		return tbCaseMapper.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
 	}
