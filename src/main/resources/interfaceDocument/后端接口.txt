@@ -1,0 +1,51 @@
+注意：调接口都要加上"token": "72997d8dd5e511ac769649ae290e636e"
+
+接口不说请求方式 默认都是post
+
+1 登录接口路径： http://localhost:8080//web/admin/login
+参数：{
+ "tbAccount":"liyun",
+ "tbPassword":"123456"
+}
+
+
+
+2 首页各区动态接口路径：http://localhost:8080//index/news/everyAreaDynamics
+参数：type   1=工作动态 2=通知公告 3=各区动态  4=应急要闻    参数默认值：type=1    当用户点击导航栏首页，此时前端根据用户点击首页导航栏事件，默认type=1,展现的是 工作动态
+
+
+3 获取首页记录数接口路径：http://localhost:8080//index/news/queryNumber 
+
+
+4 首页--所有案件接口  http://localhost:8080//index/news/queryAllCase 
+
+参数（用于搜索用，没有用的参数可以不传，假如只搜索案件类型，传一个tbCaseTypeId等于几给我就好了）	
+	tbCaseTypeId	（案件类型：1=刑事案件 2=森林火灾  3=普通案件 4=安全生产）  
+      	time		（时间搜索） 
+	tbNumber 	（档案编号）
+	tbAddress  	（发生地点）
+	tbSize  	（时间大小）
+	tbStar		（关注星级）
+	
+	
+5 联网备案 http://localhost:8080//index/news/insertCase  
+参数：
+tbNumber 编号(档案号)
+time     当前时间
+tbCaseTypeId    案件类型：1=刑事案件 2=森林火灾  3=普通案件 4=安全生产
+tbFilingAreaId  报案地点
+
+tbSize			事件大小
+tbStar			关注星级
+tbAddress		案件地址（详细地址）
+tbDesc			案件经过
+tbRemarks  		案件备注
+tbImages		图片
+
+
+6 案号查验 
+
+   
+	//这个接口  和上面的 查询所有案件共用，  传一个tbNumber就好了   
+	//还是调用上面哪个接口 http://localhost:8080//index/news/queryAllCase      参数 tbNumber
+	//举例：传参：{"tbNumber":"DC09875514"}
