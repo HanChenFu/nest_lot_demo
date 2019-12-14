@@ -44,7 +44,7 @@
 	</select>
 	
 	<insert id="insertCase" parameterType="com.hc.pojo.entity.TbCase">
-		INSERT INTO `emergency_system`.`tb_case`
+		INSERT INTO `tb_case`
 		( `tb_number`, 			`tb_user_id`, 	`tb_case_type_id`,  
 		  `tb_filing_area_id`,  `tb_size`, 		`tb_star`, `tb_report_address`,
 		  `tb_address`, 		`tb_longitude`, `tb_latitude`, 
