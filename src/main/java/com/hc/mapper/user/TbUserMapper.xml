@@ -31,12 +31,87 @@
 		SELECT 
 		<include refid="Base_Column_List" />
 		FROM tb_user
-		<if test="username!= null">
-			WHERE nickname LIKE #{username}
+		<if test="nickname!= null">
+			WHERE nickname LIKE CONCAT('%',#{nickname},'%')
 		</if>
 		<if test="page != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
 	</select>
+	
+	<select id="getUserMessByNameCount" resultType="java.lang.Integer" parameterType="com.hc.pojo.user.TbUser">
+		SELECT 
+		COUNT(1)
+		FROM tb_user
+		<if test="nickname!= null">
+			WHERE nickname LIKE CONCAT('%',#{nickname},'%')
+		</if>
+	</select>
+	
+	<select id="checkUserPhone" resultType="java.lang.String" parameterType="com.hc.pojo.user.TbUser">
+		SELECT
+			nickname
+		FROM
+			tb_user
+		WHERE
+			phone = #{phone}
+	</select>
+	
+	<!-- 通过邮箱获取用户id -->
+	<select id="getUserIdByEmail" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT tb_id FROM tb_user WHERE tb_email = #{email}
+	</select>
+	
+	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
+	   INSERT INTO `tb_user` (
+		`wpopenid`,
+		`minopenid`,
+		`phone`,
+		`tb_email`,
+		`password_MD5`,
+		`nickname`,
+		`username`,
+		`sex`,
+		`birthday`,
+		`height`,
+		`tb_province_name`,
+		`tb_province_id`,
+		`tb_city_name`,
+		`tb_city_id`,
+		`tb_area_name`,
+		`tb_area_id`,
+		`detailed_address`,
+		`head_portrait`,
+		`login_time`,
+		`del_time`,
+		`create_time`,
+		`tb_uuid` 
+		)
+		VALUES
+		(
+		#{wpopenid},
+		#{minopenid},
+		#{phone},
+		#{tbEmail},
+		#{passwordMD5},
+		#{nickname},
+		#{username},
+		#{sex},
+		#{birthday},
+		NULL,
+		NULL,
+		441400,
+		NULL,
+		5965,
+		NULL,
+		5965,
+		NULL,
+		NULL,
+		NULL,
+		NULL,
+		now(),
+		NULL 
+		);
+  </insert>
   
 </mapper>

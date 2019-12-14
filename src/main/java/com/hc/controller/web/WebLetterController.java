@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hc.common.exception.CustomException;
+import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.para.page_base.BasePara;
+import com.hc.pojo.letter.TbLetter;
 import com.hc.pojo.usually.LetterPageData;
 import com.hc.service.TbLetterService;
 
@@ -25,6 +27,11 @@ public class WebLetterController {
 	@RequestMapping("/getLetterMess")
 	ResultQuery<LetterPageData> getLetterMess(@RequestBody BasePara para,HttpServletRequest request) throws CustomException, Exception {
 		return tbLetterService.getLetterMess(para, request);
+	}
+	
+	@RequestMapping("/insertSelective")
+	ResultBase insertSelective(@RequestBody TbLetter letter,HttpServletRequest request) throws Exception,CustomException{
+		return tbLetterService.insertSelective(letter, request);
 	}
 	
 }

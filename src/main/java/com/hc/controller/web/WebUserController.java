@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hc.common.result.ResultBase;
-import com.hc.pojo.base.TbAdmin;
+import com.hc.common.result.ResultQuery;
+import com.hc.pojo.user.TbUser;
 import com.hc.service.TbUserService;
 
 @Controller
@@ -20,14 +21,14 @@ public class WebUserController {
 	@Autowired
 	private TbUserService tbUserServer;
 	
-	@RequestMapping("/login")
-	public ResultBase getList(@RequestBody TbAdmin tbAdmin) throws Exception {
-		return null;
+	@RequestMapping("/getUserMessByName")
+	public ResultQuery<TbUser> getUserMessByName(@RequestBody TbUser tbUser, HttpServletRequest request) throws Exception {
+		return tbUserServer.getUserMessByName(tbUser,request);
 	}
 	
-	@RequestMapping("/testzz")
-	public ResultBase testzz(@RequestBody TbAdmin tbAdmin) throws Exception {
-		return null;
+	@RequestMapping("/insertSelective")
+	public ResultBase insertSelective(@RequestBody TbUser tbUser, HttpServletRequest request) throws Exception {
+		return tbUserServer.insertSelective(tbUser,request);
 	}
 
 }

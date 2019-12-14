@@ -132,7 +132,8 @@ CREATE TABLE `tb_case`  (
   `tb_filing_area_id` int(11) NULL DEFAULT NULL,
   `tb_size` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '事件大小',
   `tb_star` int(11) NULL DEFAULT NULL COMMENT '关注星级',
-  `tb_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '案件地址',
+  `tb_report_address` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '案件地址',
+  `tb_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '案件地址(详细)',
   `tb_longitude` decimal(10, 7) NULL DEFAULT NULL COMMENT '经度',
   `tb_latitude` decimal(10, 7) NULL DEFAULT NULL COMMENT '纬度',
   `tb_desc` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '案件经过',
@@ -220,12 +221,11 @@ INSERT INTO `tb_filing_area` VALUES (4, '南山警局', NULL, '2019-12-11 13:34:
 -- Table structure for tb_letter
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_letter`;
-CREATE TABLE `tb_letter`  (
   `tb_id` int(11) NOT NULL AUTO_INCREMENT,
   `tb_number` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编号(档案号)',
   `tb_user_id` int(11) NULL DEFAULT NULL,
   `tb_send_mess_id` int(11) NULL DEFAULT NULL COMMENT '发送内容表id',
-  `sending_state` int(11) NULL DEFAULT 0 COMMENT '0表示未发送 1表示发送中 2表示已经发送',
+  `sending_state` int(11) NULL DEFAULT 0 COMMENT '0表示未发送 1表示发送失败 2表示已经成功',
   `del_time` datetime NULL DEFAULT NULL,
   `create_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`tb_id`) USING BTREE,

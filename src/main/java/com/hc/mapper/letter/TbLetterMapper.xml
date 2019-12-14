@@ -24,5 +24,12 @@
 	<select id="getLetterMessCount" resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM `tb_letter`
 	</select>
-	  
+	
+	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO `tb_letter` 
+		(`tb_number`, `tb_user_id`, `tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
+		VALUES
+		(#{tbNumber}, #{tbUserId}, #{sendMessId}, #{sendingState}, NULL, now() );
+	</insert>
+	
 </mapper>

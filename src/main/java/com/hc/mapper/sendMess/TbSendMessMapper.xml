@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.sendMess.TbSendMessMapper" >
+	  
+	<insert id="insertSelective" keyProperty="tbId" useGeneratedKeys="true">
+		INSERT INTO `tb_send_mess` ( `tb_title`, `tb_content`, `del_time`, `create_time` )
+		VALUES
+			( #{tbTitle}, #{tbContent}, NULL, now() );
+	</insert>
+  
+</mapper>

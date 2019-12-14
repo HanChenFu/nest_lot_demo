@@ -34,7 +34,6 @@ public class FileUtil {
 				if (!newFile.exists()) {
 					newFile.mkdirs();
 				}
-
 				// 将内存中的数据写入磁盘
 				items_pic.transferTo(newFile);
 				// 返回存储路径

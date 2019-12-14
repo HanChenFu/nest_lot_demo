@@ -14,12 +14,17 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSONObject;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.result.ResultBase;
+import com.hc.mapper.letter.TbLetterMapper;
+import com.hc.mapper.sendMess.TbSendMessMapper;
+import com.hc.mapper.user.TbUserMapper;
 import com.hc.pojo.email.TbEmail;
+import com.hc.pojo.letter.TbLetter;
+import com.hc.pojo.sendMess.TbSendMess;
 import com.hc.service.TbMailService;
+import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.result.ResultUtil;
 import com.hc.utils.string.EmailCheck;
 
@@ -28,15 +33,22 @@ public class TbMailServiceImpl implements TbMailService{
 
 	@Autowired
     private JavaMailSender mailSender;
+	@Autowired
+	TbSendMessMapper tbSendMessMapper;
+	@Autowired
+	TbUserMapper tbUserMapper;
+	@Autowired
+	TbLetterMapper tbLetterMapper;
 	
 	@Value("${spring.mail.username}")
     private String from;
 	
 	@Override
-	@Transactional
 	@ParamCheck(names = {"to","title","content"})
 	public ResultBase sendMail(TbEmail tbEmail, HttpServletRequest request) throws Exception,CustomException{
 	  	SimpleMailMessage message = new SimpleMailMessage();
+	  	TbSendMess t = new TbSendMess(tbEmail.getTitle(),tbEmail.getContent());
+	  	tbSendMessMapper.insertSelective(t);
 	  	StringBuffer check_err = new StringBuffer();
 	  	String[] to = tbEmail.getTo();
 	  	List<String> list = new ArrayList<String>(Arrays.asList(to));//将数组转换为list集合
@@ -46,6 +58,9 @@ public class TbMailServiceImpl implements TbMailService{
 	  		if (!EmailCheck.isEmail(s)) {
 	  			it.remove();
 	  			check_err.append(s+",");
+	  		}else {
+	  			int tb_id = tbUserMapper.getUserIdByEmail(s);
+	  			tbLetterMapper.insertSelective(new TbLetter(CreateSequence.getTimeMillisSequence(),tb_id,t.getTbId(),"2"));
 	  		}
 	  	}
 	  	String content = tbEmail.getContent();

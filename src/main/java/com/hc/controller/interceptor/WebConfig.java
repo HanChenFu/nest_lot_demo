@@ -2,9 +2,11 @@ package com.hc.controller.interceptor;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+
 import com.hc.common.jackjson.fastJsonConfig;
 
 @Configuration

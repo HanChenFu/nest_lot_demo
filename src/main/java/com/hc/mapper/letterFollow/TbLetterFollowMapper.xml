@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.letterFollow.TbLetterFollowMapper" >
+	  
+	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
+	INSERT INTO `tb_letter_follow` ( `tb_admin_id`, `tb_letter_id`, `del_time`, `create_time` )
+	VALUES
+	( #{tbAdminId}, #{tbLetterId}, NULL, now() );
+	</insert>
+	
+	<delete id="deleteFollow">
+		DELETE 
+		FROM
+			`tb_letter_follow`
+		WHERE
+			tb_admin_id = #{tbAdminId} 
+			AND tb_letter_id = #{tbLetterId}
+	</delete>
+  
+</mapper>
