@@ -13,6 +13,7 @@ import com.hc.common.redis.RedisUtil;
 import com.hc.common.result.ResultBase;
 import com.hc.mapper.user.TbUserMapper;
 import com.hc.pojo.base.TbAdmin;
+import com.hc.pojo.user.TbUser;
 import com.hc.service.TbUserService;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.result.ResultUtil;
@@ -30,28 +31,31 @@ public class TbUserServiceImpl implements TbUserService{
 	LoginUserUtil loginUserUtil;
 	
 	
-	@Transactional
-	@ParamCheck(names = {"tbName","tbPassword"})
-	public ResultBase login(TbAdmin tbAdmin) throws Exception, CustomException {
-		TbAdmin user = tbUserMapper.checkUserLoginId(tbAdmin);
-		if (user!=null) {
-			int str = user.getTbId();
-			if(redis.checkKey("web"+str)){//如果 存在则删除，防止多点登录
-				loginUserUtil.logout(redis.get("web"+str).toString());
-				loginUserUtil.setLoginUser(user);
-			}else{
-				loginUserUtil.setLoginUser(user);
-			}
-			return ResultUtil.getResultData(user);
-		}
-		return ResultUtil.getResultData("用户名或密码错误");
-	}
+	/*
+	 * @Transactional
+	 * 
+	 * @ParamCheck(names = {"tbName","tbPassword"}) public ResultBase login(TbAdmin
+	 * tbAdmin) throws Exception, CustomException { TbAdmin user =
+	 * tbUserMapper.checkUserLoginId(tbAdmin); if (user!=null) { int str =
+	 * user.getTbId(); if(redis.checkKey("web"+str)){//如果 存在则删除，防止多点登录
+	 * loginUserUtil.logout(redis.get("web"+str).toString());
+	 * loginUserUtil.setLoginUser(user); }else{ loginUserUtil.setLoginUser(user); }
+	 * return ResultUtil.getResultData(user); } return
+	 * ResultUtil.getResultData("用户名或密码错误"); }
+	 */
 	
 	@Transactional
 	@ParamCheck(names = {"tbName","tbPassword"})
 	public ResultBase testzz(TbAdmin tbAdmin) throws Exception, CustomException {
 //		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
 		return ResultUtil.getResultData("jj");
+	}
+
+
+	@Override
+	public ResultBase getUserMessByName(TbUser user) throws Exception, CustomException {
+		
+		return null;
 	}
 
 }

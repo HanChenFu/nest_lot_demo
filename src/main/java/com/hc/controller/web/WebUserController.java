@@ -22,12 +22,12 @@ public class WebUserController {
 	
 	@RequestMapping("/login")
 	public ResultBase getList(@RequestBody TbAdmin tbAdmin) throws Exception {
-		return tbUserServer.login(tbAdmin);
+		return null;
 	}
 	
 	@RequestMapping("/testzz")
 	public ResultBase testzz(@RequestBody TbAdmin tbAdmin) throws Exception {
-		return tbUserServer.testzz(tbAdmin);
+		return null;
 	}
 
 }
