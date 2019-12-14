@@ -5,7 +5,7 @@
 	<sql id="Base_Column_List">
 		tb_id as tbId,tb_number as tbNumber,tb_user_id as tbUserId,
 		tb_case_type_id as tbCaseTypeId, tb_filing_area_id as tbFilingAreaId,tb_size as tbSize,
-		tb_star as tbStar,tb_address as tbAddress,tb_longitude as tbLongitude,
+		tb_star as tbStar,tb_report_address as tbReportAddress, tb_address as tbAddress,tb_longitude as tbLongitude,
 		tb_latitude as tbLatitude, tb_desc as tbDesc,tb_remarks as tbRemarks,
 		tb_images as tbImages, del_time as delTime, create_time as createTime
 	</sql>
@@ -14,6 +14,49 @@
   	<select id="queryNumber"   resultType="java.lang.Integer">
 		select count(1) from tb_case where tb_case_type_id=#{tbCaseTypeId}
 	</select>
+	
+	
+	<select id="queryForPage" resultType="com.hc.pojo.entity.TbCase">
+		select
+		<include refid="Base_Column_List" />
+		from tb_case
+		<where>
+			<if test="@Ognl@isNotEmpty(tbCaseTypeId)">
+				and tb_case_type_id = #{tbCaseTypeId}
+			</if>
+			<if test="@Ognl@isNotEmpty(time)">
+				<![CDATA[ and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(time) ]]> 
+			</if>
+			<if test="@Ognl@isNotEmpty(tbNumber)">
+				and tb_number= #{tbNumber}
+			</if>
+			<if test="@Ognl@isNotEmpty(tbAddress)">
+				and tb_address= #{tbAddress}
+			</if>
+			<if test="@Ognl@isNotEmpty(tbSize)">
+				and tb_size= #{tbSize}
+			</if>
+			<if test="@Ognl@isNotEmpty(tbStar)">
+				and tb_Star= #{tbStar}
+			</if>
+		</where>
+		order by create_time desc
+	</select>
+	
+	<insert id="insertCase" parameterType="com.hc.pojo.entity.TbCase">
+		INSERT INTO `emergency_system`.`tb_case`
+		( `tb_number`, 			`tb_user_id`, 	`tb_case_type_id`,  
+		  `tb_filing_area_id`,  `tb_size`, 		`tb_star`, `tb_report_address`,
+		  `tb_address`, 		`tb_longitude`, `tb_latitude`, 
+		  `tb_desc`, 			`tb_remarks`, 	`tb_images`, 
+		  `del_time`, 			`create_time`) 
+		VALUES 
+		( #{tbNumber},#{tbUserId},#{tbCaseTypeId},#{tbFilingAreaId},#{tbSize},
+		#{tbStar},#{tbReportAddress},#{tbAddress},#{tbLongitude},#{tbLatitude},#{tbDesc},#{tbRemarks},#{tbImages},
+		#{delTime},#{createTime}
+		);
+
+	</insert>
 	
 	
 	

@@ -11,6 +11,7 @@ public class TbCase {
 	private int	 tbFilingAreaId;
 	private String  tbSize;
 	private int  tbStar;
+	private String tbReportAddress;
 	private String  tbAddress;
 	private BigDecimal  tbLongitude;
 	private BigDecimal  tbLatitude;
@@ -19,6 +20,14 @@ public class TbCase {
 	private String  tbImages;
 	private Timestamp  delTime;
 	private Timestamp  createTime;
+	
+	
+	public String getTbReportAddress() {
+		return tbReportAddress;
+	}
+	public void setTbReportAddress(String tbReportAddress) {
+		this.tbReportAddress = tbReportAddress;
+	}
 	public int getTbId() {
 		return tbId;
 	}

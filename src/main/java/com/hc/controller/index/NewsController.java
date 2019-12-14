@@ -1,17 +1,26 @@
 package com.hc.controller.index;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.poi.ss.formula.functions.T;
+import org.apache.tomcat.jni.FileInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
+import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
 import com.hc.para.page_base.BasePara;
+import com.hc.pojo.entity.TbCase;
 import com.hc.service.TbAreaDynamicsService;
 import com.hc.service.TbCaseService;
 import com.hc.service.TbEmergencyNewsService;
@@ -33,12 +42,27 @@ public class NewsController {
 	private TbEmergencyNewsService 	tbEmergencyNewsService; 
 	@Autowired
 	private TbCaseService tbCaseService; 
+	@Autowired
+	private TbCaseMapper tbCaseMapper; 
 	
+	
+	//时间戳转化成 日期
+	public static String stampToDate(String s) {
+		String res;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long lt = new Long(s);
+		Date date = new Date(lt);
+		res = simpleDateFormat.format(date);
+		return res;
+	}
+	
+	//查询首页的工作动态、通知公告、各区动态、应急要闻
 	@RequestMapping("/everyAreaDynamics")
-	public List<T> queryEveryAreaDynamics(@RequestBody(required=false) BasePara para) throws Exception {
+	public List<T> queryEveryAreaDynamics(@RequestBody(required = false) BasePara para) throws Exception {
 		if (para!=null) {
 			String type = para.getType();
 			System.out.println("-*********************************-" + para.getType());
+			
 			if(type == null || "".equals(type)) {
 				return tbWorkDynamicsService.queryWorkDynamics();
 			}else {
@@ -54,9 +78,11 @@ public class NewsController {
 			}
 		}
 		return null;
+		
 	}
 	
 	
+	//查询首页的统计数字
 	@RequestMapping("/queryNumber")
 	public Map<String, Integer> queryNumbers() throws Exception {
 		
@@ -72,6 +98,69 @@ public class NewsController {
 		return map;
 		
 	}
+	
+	
+	//查询所有案件
+	@RequestMapping("/queryAllCase")
+	public List<TbCase> queryAllCase(@RequestBody JSONObject jsonObject, HttpServletRequest request) throws Exception {
+		Integer tbCaseTypeId=jsonObject.getInteger("tbCaseTypeId");
+		Timestamp time=jsonObject.getTimestamp("time");
+		String tbNumber=jsonObject.getString("tbNumber");
+		String tbAddress=jsonObject.getString("tbAddress");
+		String tbSize=jsonObject.getString("tbSize");
+		Integer tbStar=jsonObject.getInteger("tbStar");
+		return tbCaseService.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
+		
+	}
+	
+	
+	//联网备案（这个接口包含的图片上传我没写）
+	@RequestMapping("/insertCase")
+	public String insertCase(@RequestBody JSONObject jsonObject, HttpServletRequest request) throws Exception {
+		
+		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
+		String tbNumber=jsonObject.getString("tbNumber");
+		Timestamp time=jsonObject.getTimestamp("time");
+		int tbCaseTypeId=jsonObject.getIntValue("tbCaseTypeId");
+		int tbFilingAreaId=jsonObject.getIntValue("tbFilingAreaId");
+		String tbReportAddress=jsonObject.getString("tbReportAddress");
+		String tbSize=jsonObject.getString("tbSize");
+		int tbStar=jsonObject.getIntValue("tbStar");
+		String tbAddress=jsonObject.getString("tbAddress");
+		String tbDesc=jsonObject.getString("tbDesc");
+		String tbRemarks=jsonObject.getString("tbRemarks");
+		String tbImages=jsonObject.getString("tbImages");
+		
+		TbCase tbCase=new TbCase();
+		tbCase.setTbNumber(tbNumber);
+		tbCase.setCreateTime(time);
+		tbCase.setTbCaseTypeId(tbCaseTypeId);
+		tbCase.setTbFilingAreaId(tbFilingAreaId);
+		tbCase.setTbUserId(1);//把userId写死得了，不需要前端传用户id
+		tbCase.setTbReportAddress(tbReportAddress);
+		tbCase.setTbSize(tbSize);
+		tbCase.setTbStar(tbStar);
+		tbCase.setTbAddress(tbAddress);
+		tbCase.setTbDesc(tbDesc);
+		tbCase.setTbRemarks(tbRemarks);
+		tbCase.setTbImages(tbImages);
+		
+		int a=tbCaseMapper.insertCase(tbCase);
+		if(a<1) {
+			return "案件内容上传失败";
+		}
+		return "案件内容上传成功";
+	}
+	
+	
+	//案号查验     
+	//这个接口  和上面的 查询所有案件共用，  传一个tbNumber就好了   
+	//还是调用上面哪个接口 http://localhost:8080//index/news/queryAllCase    
+	//传参：
+	//{
+	//"tbNumber":"DC09875514"
+	// }
+	
 	
 
 }
