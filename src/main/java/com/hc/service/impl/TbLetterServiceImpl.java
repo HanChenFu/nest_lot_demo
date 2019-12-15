@@ -14,7 +14,6 @@ import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.mapper.letter.TbLetterMapper;
 import com.hc.para.page_base.BasePara;
-import com.hc.pojo.base.TbAdmin;
 import com.hc.pojo.letter.TbLetter;
 import com.hc.pojo.usually.LetterPageData;
 import com.hc.service.TbLetterService;

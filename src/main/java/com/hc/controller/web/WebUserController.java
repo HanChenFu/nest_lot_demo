@@ -22,12 +22,12 @@ public class WebUserController {
 	private TbUserService tbUserServer;
 	
 	@RequestMapping("/getUserMessByName")
-	public ResultQuery<TbUser> getUserMessByName(@RequestBody TbUser tbUser, HttpServletRequest request) throws Exception {
+	public ResultQuery<TbUser> getUserMessByName(@RequestBody(required = false) TbUser tbUser, HttpServletRequest request) throws Exception {
 		return tbUserServer.getUserMessByName(tbUser,request);
 	}
 	
 	@RequestMapping("/insertSelective")
-	public ResultBase insertSelective(@RequestBody TbUser tbUser, HttpServletRequest request) throws Exception {
+	public ResultBase insertSelective(@RequestBody(required = false) TbUser tbUser, HttpServletRequest request) throws Exception {
 		return tbUserServer.insertSelective(tbUser,request);
 	}
 

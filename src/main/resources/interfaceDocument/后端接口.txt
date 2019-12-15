@@ -81,55 +81,109 @@ tbImages		图片
   606: opt参数填写错误
 	
 	
-10 查询通讯率(查询收件人) http://localhost:8080/web/user/getUserMessByName
-参数：
-nickname 用户昵称(可传可不传),不传就是查询所有,传了就是模糊查询
+10 查询通讯率(查询收件人) 
+请求路径：http://localhost:8080/web/user/getUserMessByName
+需要传的参数： nickname  用户昵称
+
+返回参数：
+	"nickname": 用户昵称
+	"tbEmail": 邮箱
 
 
-11 发送邮件 http://localhost:8080//web/email/sendEmail
-{
-	"to":["3511750231","280888608@qq.com"],
-	"title":"标题是",
-	"content":"你好啊，我是测试的带你们飞777"
-}
-to:邮箱 数组格式
-title:标题,
-content:内容
+11 发送邮件 
+请求路径：http://localhost:8080/web/email/sendEmail
+需要传的参数：
+	to:发送给用户的邮箱()
+	title:主题
+	content:内容
+例如：
+			{
+				"to":["3511750231","280888608@qq.com"],
+				"title":"标题是",
+				"content":"你好啊，我是测试的带你们飞777"
+			}
+返回参数：
+	code:状态码
+	message:返回的发送信息
+	success:状态码
 
-12 查询发送的信件 http://localhost:8080/web/letter/getLetterMess
-{
-	"id":1
-}
-id:这边是登陆用户的id
 
-13 点击关注信件 http://localhost:8080/web/letterFollow/insertSelective
+12 查询发送的信件 
+请求路径：http://localhost:8080/web/letter/getLetterMess
+需要传的参数：
+	id : 登陆用户的id
+例如：
+	{
+		"id":1
+	}
+返回参数：
+	"tbNumber": 编号
+	"phone": 手机号
+	"sendingState": 发送状态 0表示未发送 1表示发送中 2表示已经发送
+	"tbEmail": 邮箱
+	"nickname": 昵称
+	"createTime": 发送时间
+	"follow": 是否关注 0 表示未关注 1表示已经关注
+
+13 点击关注信件 
+请求路径：http://localhost:8080/web/letterFollow/insertSelective
+需要传的参数：
+	tbLetterId：信件的id
+	tbAdminId：登陆用户的id
+例如：
 {
 	"tbLetterId":2,
 	"tbAdminId":1
 }
-tbAdminId:登陆用户id
-tbLetterId：信件id
+返回参数：
+    "code": 状态码
+    "message": 返回信息
+    "success": 状态码
 
-14 取消关注信件 http://localhost:8080/web/letterFollow/deleteFollow
+14 取消关注信件 
+请求路径：http://localhost:8080/web/letterFollow/deleteFollow
+需要传的参数：
+	tbLetterId：信件的id
+	tbAdminId：登陆用户的id
+例如：
 {
 	"tbLetterId":2,
 	"tbAdminId":1
 }
-tbAdminId:登陆用户id
-tbLetterId：信件id
+返回参数：
+    "code": 状态码
+    "message": 返回信息
+    "success": 状态码
 
 
-15 添加询问笔录 http://localhost:8080//web/askRecord/insertSelective
+15 添加询问笔录 
+请求路径：http://localhost:8080/web/askRecord/insertSelective
+需要传的参数：
+	tbUserId:询问对象id
+	tbName:询问的名字
+	tbDraft:添加的草稿箱内容
+	
+例如：
 {
 	"tbUserId":1,
-	"tbName":"教育文档xx"
+	"tbName":"教育文档xx",
+	"tbDraft":"京津冀啦啦啦"
 }
+返回参数：
+    "code": 状态码
+    "message": 返回信息
+    "success": 状态码
 
-tbUserId:询问对象id
-tbName:询问的名字
-tbDraft:添加的草稿箱内容
 
-16  查询询问笔录 http://localhost:8080//web/askRecord/getAskRecord
+16  查询询问笔录 
+请求路径：http://localhost:8080/web/askRecord/getAskRecord
+需要传的参数：可不传参数
+返回参数：
+tbName:笔录名称
+tbNumber：记录编号
+tbDraft:询问的草稿箱
+createTime:记录的创建时间
+例如：
 {
     "code": 1000,
     "data": {
@@ -155,9 +209,6 @@ tbDraft:添加的草稿箱内容
     "message": "操作成功！",
     "success": true
 }
-tbNumber:编号
-tbName：笔录名称
-tbDraft:询问的草稿箱
 
 17 
 
