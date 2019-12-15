@@ -27,6 +27,10 @@ public class TbUser extends PageParam{
 	private String createTime;
 	private String tbUuid;
 	
+	public TbUser(String tbEmail) {
+		super();
+		this.tbEmail = tbEmail;
+	}
 	public String getTbId() {
 		return tbId;
 	}

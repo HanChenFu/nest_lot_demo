@@ -16,7 +16,7 @@
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
 	INSERT INTO `tb_ask_record` ( `tb_user_id`, `tb_number`, `tb_name`, `tb_enclosure`, `tb_history`, `tb_draft`, `del_time`, `create_time`, `tb_desc` )
 	VALUES
-		( #{tbUserId}, #{tbNumber}, #{tbName}, NULL, NULL, NULL, NULL, now(), NULL );
+		( #{tbUserId}, #{tbNumber}, #{tbName}, NULL, NULL, #{tbDraft}, NULL, now(), NULL );
 	</insert>
 	
 </mapper>

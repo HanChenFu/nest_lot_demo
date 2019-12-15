@@ -17,6 +17,5 @@ public interface TbUserMapper {
 	
 	String checkUserPhone(TbUser user);
 	
-	
-	int getUserIdByEmail(String email);
+	String getUserIdByEmail(String email);
 }

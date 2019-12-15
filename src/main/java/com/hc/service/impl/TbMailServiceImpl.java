@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
@@ -23,6 +22,7 @@ import com.hc.mapper.user.TbUserMapper;
 import com.hc.pojo.email.TbEmail;
 import com.hc.pojo.letter.TbLetter;
 import com.hc.pojo.sendMess.TbSendMess;
+import com.hc.pojo.user.TbUser;
 import com.hc.service.TbMailService;
 import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.result.ResultUtil;
@@ -59,8 +59,14 @@ public class TbMailServiceImpl implements TbMailService{
 	  			it.remove();
 	  			check_err.append(s+",");
 	  		}else {
-	  			int tb_id = tbUserMapper.getUserIdByEmail(s);
-	  			tbLetterMapper.insertSelective(new TbLetter(CreateSequence.getTimeMillisSequence(),tb_id,t.getTbId(),"2"));
+	  			String str = tbUserMapper.getUserIdByEmail(s);
+	  			if(str==null) {
+	  				TbUser tb = new TbUser(s);
+	  				tbUserMapper.insertSelective(tb);
+	  				str = tb.getTbId();
+	  			}
+	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
+	  			tbLetterMapper.insertSelective(new TbLetter(CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,"2"));
 	  		}
 	  	}
 	  	String content = tbEmail.getContent();

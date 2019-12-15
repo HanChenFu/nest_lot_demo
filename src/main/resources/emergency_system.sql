@@ -153,9 +153,9 @@ CREATE TABLE `tb_case`  (
 -- ----------------------------
 -- Records of tb_case
 -- ----------------------------
-INSERT INTO `tb_case` VALUES (1, 'DC12345678', 1, 1, 1, '1', 1, '深圳市罗湖区彩田北路星河丹堤小区', 114.0933880, 22.5304689, '中彩票了但是过期了，老板不认', NULL, NULL, NULL, '2019-12-11 13:45:13');
-INSERT INTO `tb_case` VALUES (2, 'DC23456789', 1, 1, 2, '1', 2, '致远中路深圳北站(致远中路)附近', 114.0788920, 22.5335037, '卡里无辜多了1000万', NULL, NULL, NULL, '2019-12-11 13:46:41');
-INSERT INTO `tb_case` VALUES (3, 'DC09876655', 1, 2, 3, '1', 1, '广东省深圳市龙华区S359(布龙公路)', 114.0933880, 22.5304689, '深圳市羊台山发生大火', NULL, NULL, NULL, '2019-12-11 13:51:20');
+INSERT INTO `tb_case` VALUES (1, 'DC12345678', 1, 1, 1, '1', 1, "深圳",'深圳市罗湖区彩田北路星河丹堤小区', 114.0933880, 22.5304689, '中彩票了但是过期了，老板不认', NULL, NULL, NULL, '2019-12-11 13:45:13');
+INSERT INTO `tb_case` VALUES (2, 'DC23456789', 1, 1, 2, '1', 2, "南山",'致远中路深圳北站(致远中路)附近', 114.0788920, 22.5335037, '卡里无辜多了1000万', NULL, NULL, NULL, '2019-12-11 13:46:41');
+INSERT INTO `tb_case` VALUES (3, 'DC09876655', 1, 2, 3, '1', 1, "罗湖",'广东省深圳市龙华区S359(布龙公路)', 114.0933880, 22.5304689, '深圳市羊台山发生大火', NULL, NULL, NULL, '2019-12-11 13:51:20');
 
 -- ----------------------------
 -- Table structure for tb_case_type
@@ -221,6 +221,7 @@ INSERT INTO `tb_filing_area` VALUES (4, '南山警局', NULL, '2019-12-11 13:34:
 -- Table structure for tb_letter
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_letter`;
+CREATE TABLE `tb_letter`  (
   `tb_id` int(11) NOT NULL AUTO_INCREMENT,
   `tb_number` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编号(档案号)',
   `tb_user_id` int(11) NULL DEFAULT NULL,

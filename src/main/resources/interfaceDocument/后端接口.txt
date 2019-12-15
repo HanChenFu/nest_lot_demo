@@ -96,15 +96,50 @@ to:邮箱 数组格式
 title:标题,
 content:内容
 
-11 查询发送的信件 http://localhost:8080/web/letter/getLetterMess
+12 查询发送的信件 http://localhost:8080/web/letter/getLetterMess
 {
 	"id":1
 }
 id:这边是登陆用户的id
 
+13 添加询问笔录 http://localhost:8080//web/askRecord/insertSelective
+{
+	"tbUserId":1,
+	"tbName":"教育文档xx"
+}
+tbUserId:询问对象id
+tbName:询问的名字
+tbDraft:添加的草稿箱内容
 
-
-
+14  查询询问笔录 http://localhost:8080//web/askRecord/getAskRecord
+{
+    "code": 1000,
+    "data": {
+        "list": [
+            {
+                "createTime": "2019-12-11 14:06:36.0",
+                "delTime": "",
+                "page": 0,
+                "size": 0,
+                "start": 0,
+                "tbDesc": "",
+                "tbDraft": "",
+                "tbEnclosure": "",
+                "tbHistory": "",
+                "tbId": "1",
+                "tbName": "xx通话记录",
+                "tbNumber": "DC987654345",
+                "tbUserId": "1"
+            }
+        ],
+        "totalItems": 1
+    },
+    "message": "操作成功！",
+    "success": true
+}
+tbNumber:编号
+tbName：笔录名称
+tbDraft:询问的草稿箱
 
 
 

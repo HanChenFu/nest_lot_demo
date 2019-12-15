@@ -58,11 +58,11 @@
 	</select>
 	
 	<!-- 通过邮箱获取用户id -->
-	<select id="getUserIdByEmail" resultType="java.lang.Integer" parameterType="java.lang.String">
+	<select id="getUserIdByEmail" resultType="java.lang.String" parameterType="java.lang.String">
 		SELECT tb_id FROM tb_user WHERE tb_email = #{email}
 	</select>
 	
-	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
+	<insert id="insertSelective" keyProperty="tbId" useGeneratedKeys="true">
 	   INSERT INTO `tb_user` (
 		`wpopenid`,
 		`minopenid`,
