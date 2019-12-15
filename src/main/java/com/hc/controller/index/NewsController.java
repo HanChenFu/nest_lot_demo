@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hc.common.tools.tools;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.entity.TbCase;
@@ -118,7 +119,8 @@ public class NewsController {
 		
 		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
 		String tbNumber=jsonObject.getString("tbNumber");
-		String time=jsonObject.getString("time");
+//		String time= jsonObject == null ? tools.getAPIresponseDateTime() : jsonObject.getString("time");
+		String time= tools.getAPIresponseDateTime();
 		int tbCaseTypeId=jsonObject.getIntValue("tbCaseTypeId");
 		int tbFilingAreaId=jsonObject.getIntValue("tbFilingAreaId");
 		String tbReportAddress=jsonObject.getString("tbReportAddress");
@@ -133,7 +135,7 @@ public class NewsController {
 		tbCase.setTbNumber(tbNumber);
 		tbCase.setCreateTime(time);
 		tbCase.setTbCaseTypeId(tbCaseTypeId);
-		tbCase.setTbFilingAreaId(tbFilingAreaId);
+		tbCase.setTbFilingAreaId(1);
 		tbCase.setTbUserId(1);//把userId写死得了，不需要前端传用户id
 		tbCase.setTbReportAddress(tbReportAddress);
 		tbCase.setTbSize(tbSize);

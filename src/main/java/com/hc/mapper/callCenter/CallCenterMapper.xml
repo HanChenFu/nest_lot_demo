@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.callCenter.CallCenterMapper" >
+	 
+	 <sql id="CallCenter_Column_List">
+		tb_user_id as tbUserId,tb_number as tbNumber,tb_type as tbType,tb_handle_type as tbHandleType,
+		tb_state as tbState,tb_duration as tbDuration, tb_call_center.create_time as createTime
+			,tb_user.username as username
+	</sql>
+	 
+	<!-- 拨打电话时添加通话记录 -->
+	<insert id="insertCallCenter" keyProperty="tbId" useGeneratedKeys="true">
+		INSERT INTO `tb_call_center` (
+				tb_user_id,
+				tb_number,
+				tb_type,
+				tb_handle_type,
+				tb_state,
+				tb_duration,
+				sound_record_file,
+				del_time,
+				create_time
+				)
+				 VALUES (#{tbUserId}, #{tbNumber}, #{tbType}, #{tbHandleType}, #{tbState}, #{tbDuration}, #{soundRecordFile}, NULL, #{createTime});
+	</insert>
+	
+	<!-- 查询通话记录 -->
+	<select id="getCallCenterRecord" resultType="com.hc.pojo.callCenter.CallCenter">
+		select 
+			<include refid="CallCenter_Column_List" />
+			from tb_call_center
+			left join tb_user on tb_call_center.tb_user_id = tb_user.tb_id
+	</select>
+	
+	<select id="getCallCenterRecordCount" resultType="java.lang.Integer">
+		select 
+			COUNT(1)
+			from tb_call_center
+			left join tb_user on tb_call_center.tb_user_id = tb_user.tb_id 
+	</select>
+	
+  
+</mapper>

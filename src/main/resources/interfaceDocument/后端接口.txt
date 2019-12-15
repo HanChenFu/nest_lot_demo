@@ -52,16 +52,14 @@ tbImages		图片
 需要传的参数： callee  (拨打号码)
 
 返回参数：
-
-200: 转话成功
-400: 参数错误，或opt参数缺失
-  405: 号码不能为空/号码有误
-402: 授权限制
-486: 目标分机忙或网关线路忙
-403: 黑名单号码，禁止拨打
-502: 指定的网关账号类型错误，不是出群网关，网关账号离线
-500：系统错误
-  606: opt参数填写错误
+{
+    "code": 1000,
+    "data": {
+        "tbId": 1
+    },
+    "message": "拨打中...",
+    "success": true
+   }
 
 
 8.挂断电话
@@ -80,6 +78,47 @@ tbImages		图片
 500：系统错误
   606: opt参数填写错误
 	
+9.通话记录
+请求路径：http://127.0.0.1:8080/voice/getCallCenterRecord
+需要传的参数：暂时全查
+
+返回参数：
+{
+    "code": 1000,
+    "data": {
+        "list": [
+            {
+                "createTime": "2019-12-15 15:13:07.0",      --呼叫时间
+                "delTime": "",								--删除时间
+                "soundRecordFile": "",						--录音文件路劲	
+                "tbDuration": "2分10秒",						--通话时间
+                "tbHandleType": 1,							--分类(处理结果即分类 （0 表示未分类 1表示维修）)	
+                "tbId": 0,									--index
+                "tbNumber": "13659759194",					--号码
+                "tbState": 1,								--接听状态(0 表示无法接通 1表示接通)
+                "tbType": 1,								--呼叫类型(1 表示呼入 2表示呼出)
+                "tbUserId": 1,								--用户ID
+                "username": ""								--用户名
+            },
+            {
+                "createTime": "2019-12-15 15:13:29.0",
+                "delTime": "",
+                "soundRecordFile": "",
+                "tbDuration": "2分10秒",
+                "tbHandleType": 1,
+                "tbId": 0,
+                "tbNumber": "13659759194",
+                "tbState": 1,
+                "tbType": 1,
+                "tbUserId": 1,
+                "username": ""
+            }
+        ],
+        "totalItems": 2     --总条数
+    },
+    "message": "操作成功！",
+    "success": true
+}
 	
 10 查询通讯率(查询收件人) 
 请求路径：http://localhost:8080/web/user/getUserMessByName
@@ -211,6 +250,8 @@ createTime:记录的创建时间
 }
 
 17 
+
+
 
 
 
