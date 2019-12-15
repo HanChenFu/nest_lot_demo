@@ -102,19 +102,19 @@ public class NewsController {
 	//查询所有案件
 	@RequestMapping("/queryAllCase")
 	public List<TbCase> queryAllCase(@RequestBody(required = false) JSONObject jsonObject, HttpServletRequest request) throws Exception {
-		Integer tbCaseTypeId = jsonObject ==null ? null : jsonObject.getInteger("tbCaseTypeId");
-		String  time= jsonObject==null ? null : jsonObject.getString("time");
-		String tbNumber=jsonObject==null ? null : jsonObject.getString("tbNumber");
-		String tbAddress=jsonObject==null ? null : jsonObject.getString("tbAddress");
-		String tbSize=jsonObject==null ? null : jsonObject.getString("tbSize");
-		Integer tbStar=jsonObject==null ? null : jsonObject.getInteger("tbStar");
+		Integer tbCaseTypeId = jsonObject == null ? null : jsonObject.getInteger("tbCaseTypeId");
+		String  time= jsonObject == null ? null : jsonObject.getString("time");
+		String tbNumber=jsonObject == null ? null : jsonObject.getString("tbNumber");
+		String tbAddress=jsonObject == null ? null : jsonObject.getString("tbAddress");
+		String tbSize=jsonObject == null ? null : jsonObject.getString("tbSize");
+		Integer tbStar=jsonObject == null ? null : jsonObject.getInteger("tbStar");
 		return tbCaseService.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
 		
 	}
 	
 	//联网备案（这个接口包含的图片上传我没写）
 	@RequestMapping("/insertCase")
-	public String insertCase(@RequestBody JSONObject jsonObject, HttpServletRequest request) throws Exception {
+	public String insertCase(@RequestBody(required = false) JSONObject jsonObject, HttpServletRequest request) throws Exception {
 		
 		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
 		String tbNumber=jsonObject.getString("tbNumber");

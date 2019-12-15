@@ -23,12 +23,13 @@ public class VoiceCallCenterController {
 
 	Logger log=Logger.getLogger(getClass());
 	private final String CALL_SERVER_URL = "http://114.116.87.75:12121/bridge/callctrl";
+	private final String caller = "805";
 	
 	@RequestMapping("/dial")
-	public String dial(String caller,String callee) throws Exception {
+	public String dial(String callee) throws Exception {
 		
-		if(caller==null || callee==null || "".equals(caller) || callee.equals("")) {
-			return "";
+		if(callee==null || callee.equals("")) {
+			return "405";
 		}else {
 //			System.out.println("caller:"+caller+" callee:"+callee);
 			String url = CALL_SERVER_URL + "?caller="+caller+"&callee="+callee+"&authtype=no&opt=CLICK_TO_DIAL";
@@ -40,9 +41,9 @@ public class VoiceCallCenterController {
 	}
 	
 	@RequestMapping("/hungup")
-	public String hungup(String caller,String callee) throws Exception {
-		if(caller==null || callee==null || "".equals(caller) || callee.equals("")) {
-			return "";
+	public String hungup(String callee) throws Exception {
+		if( callee==null || callee.equals("")) {
+			return "405";
 		}else {
 //			System.out.println("caller:"+caller+" callee:"+callee);
 			String url = CALL_SERVER_URL + "?caller="+caller+"&callee="+callee+"&opt=CLICK_TO_HUNGUP";
