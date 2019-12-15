@@ -102,16 +102,34 @@ content:内容
 }
 id:这边是登陆用户的id
 
-13 添加询问笔录 http://localhost:8080//web/askRecord/insertSelective
+13 点击关注信件 http://localhost:8080/web/letterFollow/insertSelective
+{
+	"tbLetterId":2,
+	"tbAdminId":1
+}
+tbAdminId:登陆用户id
+tbLetterId：信件id
+
+14 取消关注信件 http://localhost:8080/web/letterFollow/deleteFollow
+{
+	"tbLetterId":2,
+	"tbAdminId":1
+}
+tbAdminId:登陆用户id
+tbLetterId：信件id
+
+
+15 添加询问笔录 http://localhost:8080//web/askRecord/insertSelective
 {
 	"tbUserId":1,
 	"tbName":"教育文档xx"
 }
+
 tbUserId:询问对象id
 tbName:询问的名字
 tbDraft:添加的草稿箱内容
 
-14  查询询问笔录 http://localhost:8080//web/askRecord/getAskRecord
+16  查询询问笔录 http://localhost:8080//web/askRecord/getAskRecord
 {
     "code": 1000,
     "data": {
@@ -141,7 +159,7 @@ tbNumber:编号
 tbName：笔录名称
 tbDraft:询问的草稿箱
 
-
+17 
 
 
 

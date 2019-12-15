@@ -31,9 +31,12 @@ public class TbLetterFollowServiceImpl implements TbLetterFollowService{
 	@ParamCheck(names = {"tbLetterId","tbAdminId"})
 	public ResultBase insertSelective(TbLetterFollow follow, HttpServletRequest request)
 			throws Exception, CustomException {
-		int size = tbLetterFollowMapper.insertSelective(follow);
-		if (size>0) {
-			return ResultUtil.getResultBase("操作成功！");
+		String s = tbLetterFollowMapper.isFollow(follow);
+		if (s==null) {
+			int size = tbLetterFollowMapper.insertSelective(follow);
+			if (size>0) {
+				return ResultUtil.getResultBase("操作成功！");
+			}
 		}
 		return ResultUtil.getResultBase("操作失败！");
 	}

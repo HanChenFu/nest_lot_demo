@@ -16,5 +16,15 @@
 			tb_admin_id = #{tbAdminId} 
 			AND tb_letter_id = #{tbLetterId}
 	</delete>
+	
+	<select id="isFollow" resultType="java.lang.String">
+	SELECT
+		tb_id 
+	FROM
+		tb_letter_follow 
+	WHERE
+		tb_admin_id = #{tbAdminId} 
+		AND tb_letter_id = #{tbLetterId}
+	</select>
   
 </mapper>

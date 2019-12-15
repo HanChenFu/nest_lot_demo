@@ -8,4 +8,6 @@ public interface TbLetterFollowMapper {
 	
 	int deleteFollow(TbLetterFollow follow);
 	
+	String isFollow(TbLetterFollow follow);
+	
 }
