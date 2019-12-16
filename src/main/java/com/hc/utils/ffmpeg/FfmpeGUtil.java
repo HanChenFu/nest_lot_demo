@@ -6,6 +6,13 @@ import com.hc.utils.conig.SystemConfigUtil;
 
 public class FfmpeGUtil {
 	
+	/**
+	 * 	如果是这边运行出现异常，那就需要在配置文件中把配置文件的 ffmpeg_bin_path 的路径改成 ffmpeg.exe的路径
+	 * @param sourcePath
+	 * @param targetPath
+	 * @return
+	 * @throws Exception
+	 */
     public static String changeAudioToPcm(String sourcePath, String targetPath) throws Exception {
         String webroot = SystemConfigUtil.getValue("ffmpeg_bin_path");
         Runtime run = null;
