@@ -7,7 +7,7 @@
 		minopenid as minopenid,
 		phone as phone,
 		tb_email as tbEmail,
-		password_MD5 as passwordMD5,
+<!-- 		password_MD5 as passwordMD5, -->
 		nickname as nickname,
 		username as username,
 		sex as sex,
@@ -21,8 +21,8 @@
 		tb_area_id as tbAreaId,
 		detailed_address as detailedAddress,
 		head_portrait as headPortrait,
-		login_time as loginTime,
-		del_time as delTime,
+<!-- 		login_time as loginTime,
+		del_time as delTime, -->
 		create_time as createTime,
 		tb_uuid as tbUuid
 	</sql>

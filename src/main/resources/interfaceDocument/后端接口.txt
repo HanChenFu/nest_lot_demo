@@ -122,11 +122,45 @@ tbImages		图片
 	
 10 查询通讯率(查询收件人) 
 请求路径：http://localhost:8080/web/user/getUserMessByName
-需要传的参数： nickname  用户昵称
+需要传的参数： nickname  用户昵称(用于模糊查询用户)
+{
+	"nickname":""
+}
 
 返回参数：
-	"nickname": 用户昵称
-	"tbEmail": 邮箱
+{
+    "code": 1000,
+    "data": {
+        "list": [
+            {
+                "birthday": "1993-02-28 13:36:33.0",				--生日
+                "createTime": "2019-12-11 13:39:21.0",				--创建时间
+                "detailedAddress": "",								--详细地址
+                "headPortrait": "",									--头像
+                "height": "",										--身高
+                "loginTime": "",									--登陆时间
+                "minopenid": "",									--小程序openid
+                "nickname": "令华",									--昵称
+                "passwordMD5": "",									--密码(后台不会把数据传到界面)
+                "phone": "18122711575",								--手机号
+                "sex": "1",											--性别（1男2女）
+                "tbAreaId": "5965",									--区id
+                "tbAreaName": "",									--区名称
+                "tbCityId": "5965",									--市id
+                "tbCityName": "",									--市名称
+                "tbEmail": "280888608@qq.com",						--邮箱
+                "tbProvinceId": "441400",							--省id
+                "tbProvinceName": "",								--省名称
+                "tbUuid": "",										--uuid(后续可能用于通信用)
+                "username": "",										--姓名（真实姓名）
+                "wpopenid": ""										--微信公众号id
+            }
+        ],
+        "totalItems": 1
+    },
+    "message": "操作成功！",
+    "success": true
+}
 
 
 11 发送邮件 
@@ -150,10 +184,14 @@ tbImages		图片
 12 查询发送的信件 
 请求路径：http://localhost:8080/web/letter/getLetterMess
 需要传的参数：
-	id : 登陆用户的id
+	id : 登陆用户的id,
+	page(非必填):当前页
+	size(非必填):每页的大小
 例如：
 	{
-		"id":1
+		"id":1,
+		"page":,
+		"size":,
 	}
 返回参数：
 	"tbNumber": 编号
@@ -214,9 +252,13 @@ tbImages		图片
     "success": 状态码
 
 
-16  查询询问笔录 
+16  查询 笔录 
 请求路径：http://localhost:8080/web/askRecord/getAskRecord
-需要传的参数：可不传参数
+需要传的参数：
+	page(非必填):当前页
+	size(非必填):每页的大小
+例如：
+	
 返回参数：
 tbName:笔录名称
 tbNumber：记录编号
@@ -228,19 +270,14 @@ createTime:记录的创建时间
     "data": {
         "list": [
             {
-                "createTime": "2019-12-11 14:06:36.0",
-                "delTime": "",
-                "page": 0,
-                "size": 0,
-                "start": 0,
-                "tbDesc": "",
-                "tbDraft": "",
-                "tbEnclosure": "",
-                "tbHistory": "",
-                "tbId": "1",
-                "tbName": "xx通话记录",
-                "tbNumber": "DC987654345",
-                "tbUserId": "1"
+                "createTime": "2019-12-11 14:06:36.0",		--创建时间
+                "tbDesc": "",								--描述
+                "tbDraft": "",								--草稿箱
+                "tbEnclosure": "",							--附件
+                "tbHistory": "",							--历史文件
+                "tbName": "xx通话记录",							--文件名称
+                "tbNumber": "DC987654345",					--文件编号
+                "tbUserId": "1"								--询问的用户id
             }
         ],
         "totalItems": 1
@@ -249,7 +286,18 @@ createTime:记录的创建时间
     "success": true
 }
 
-17 
+17 把音频转成文本
+请求路径：http://localhost:8080//web/audio/audioToText
+需要传的参数：
+	file:上传音频的文件
+返回参数：
+	{
+	    "code": 1000,				--状态码
+	    "data": null,				--
+	    "message": "北京科技馆。",		--语音转成的文本
+	    "success": true				--状态码
+	}
+	
 
 
 

@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultData;
-import com.hc.pojo.base.TbAdmin;
 import com.hc.utils.conig.SystemConfigUtil;
 import com.hc.utils.ffmpeg.FfmpeGUtil;
 import com.hc.utils.file.FileUtil;
@@ -33,7 +32,7 @@ public class WebAudioConversionController {
      */
     @RequestMapping("audioToText")
     public ResultData<String> audioToText(MultipartFile file, Integer type, HttpServletRequest request) throws CustomException, Exception {
-    	TbAdmin tbUser = loginUserUtil.getLoginUser(request.getHeader("token"));// 获取请求头，得到token
+//    	TbAdmin tbUser = loginUserUtil.getLoginUser(request.getHeader("token"));// 获取请求头，得到token
         if (null == file) {
             throw new CustomException(StatusCode.PARAM_NULL, "未选择音频！");
         }
