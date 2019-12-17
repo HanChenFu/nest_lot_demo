@@ -166,15 +166,17 @@ tbImages		图片
 11 发送邮件 
 请求路径：http://localhost:8080/web/email/sendEmail
 需要传的参数：
+	tbAdminId:登陆用户id
 	to:发送给用户的邮箱()
 	title:主题
 	content:内容
 例如：
-			{
-				"to":["3511750231","280888608@qq.com"],
-				"title":"标题是",
-				"content":"你好啊，我是测试的带你们飞777"
-			}
+		{
+			"tbAdminId":1,
+			"to":["280888608@qq.com","642462188@qq.com"],
+			"title":"标题是444",
+			"content":"你好啊，我是测试的带你们飞888"
+		}
 返回参数：
 	code:状态码
 	message:返回的发送信息
@@ -184,7 +186,7 @@ tbImages		图片
 12 查询发送的信件 
 请求路径：http://localhost:8080/web/letter/getLetterMess
 需要传的参数：
-	id : 登陆用户的id,
+	id : 登陆用户的id
 	page(非必填):当前页
 	size(非必填):每页的大小
 例如：

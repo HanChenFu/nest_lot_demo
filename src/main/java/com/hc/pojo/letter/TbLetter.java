@@ -3,14 +3,19 @@ package com.hc.pojo.letter;
 public class TbLetter {
 	private int tbId;
 	private String tbNumber;
+	private String tbAdminId;
 	private int tbUserId;
 	private int sendMessId;
 	private String sendingState;
 	private String delTime;
 	private String createTime;
 	
-	public TbLetter(String tbNumber, int tbUserId, int sendMessId, String sendingState) {
+	public TbLetter() {
 		super();
+	}
+	public TbLetter(String tbAdminId,String tbNumber, int tbUserId, int sendMessId, String sendingState) {
+		super();
+		this.tbAdminId = tbAdminId;
 		this.tbNumber = tbNumber;
 		this.tbUserId = tbUserId;
 		this.sendMessId = sendMessId;
@@ -58,5 +63,11 @@ public class TbLetter {
 	public void setSendMessId(int sendMessId) {
 		this.sendMessId = sendMessId;
 	}
-
+	public String getTbAdminId() {
+		return tbAdminId;
+	}
+	public void setTbAdminId(String tbAdminId) {
+		this.tbAdminId = tbAdminId;
+	}
+	
 }

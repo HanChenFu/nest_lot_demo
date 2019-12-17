@@ -44,7 +44,7 @@ public class TbMailServiceImpl implements TbMailService{
     private String from;
 	
 	@Override
-	@ParamCheck(names = {"to","title","content"})
+	@ParamCheck(names = {"to","title","content","tbAdminId"})
 	public ResultBase sendMail(TbEmail tbEmail, HttpServletRequest request) throws Exception,CustomException{
 	  	SimpleMailMessage message = new SimpleMailMessage();
 	  	TbSendMess t = new TbSendMess(tbEmail.getTitle(),tbEmail.getContent());
@@ -66,7 +66,7 @@ public class TbMailServiceImpl implements TbMailService{
 	  				str = tb.getTbId();
 	  			}
 	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			tbLetterMapper.insertSelective(new TbLetter(CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,"2"));
+	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,"2"));
 	  		}
 	  	}
 	  	String content = tbEmail.getContent();

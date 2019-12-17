@@ -2,6 +2,7 @@ package com.hc.pojo.email;
 
 public class TbEmail {
 	private String from;
+	private String tbAdminId;
 	private String[] to; //发送给的用户
 	private String title;
 	private String content;
@@ -29,6 +30,11 @@ public class TbEmail {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+	public String getTbAdminId() {
+		return tbAdminId;
+	}
+	public void setTbAdminId(String tbAdminId) {
+		this.tbAdminId = tbAdminId;
+	}
 	
 }
