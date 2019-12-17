@@ -1,7 +1,5 @@
 package com.hc.controller.callCenter;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -15,7 +13,6 @@ import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultData;
 import com.hc.common.result.ResultQuery;
-import com.hc.pojo.askRecord.TbAskRecord;
 import com.hc.pojo.callCenter.CallCenter;
 import com.hc.service.CallCenterService;
 import com.hc.utils.result.ResultUtil;

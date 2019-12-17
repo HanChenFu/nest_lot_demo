@@ -1,5 +1,7 @@
 package com.hc.para.page_base;
 
+import java.util.List;
+
 /**
  * 这个对象主要是用于传参的时候用
  * @author Administrator
@@ -8,7 +10,8 @@ package com.hc.para.page_base;
 public class BasePara extends PageParam{
 	private String type;
 	private int id;
-
+	private List<Integer> listid;//这边是作为前台页面传过来的参数定义的
+	
 	public String getType() {
 		return type;
 	}
@@ -24,6 +27,13 @@ public class BasePara extends PageParam{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+	public List<Integer> getListid() {
+		return listid;
+	}
+
+	public void setListid(List<Integer> listid) {
+		this.listid = listid;
+	}
 
 }

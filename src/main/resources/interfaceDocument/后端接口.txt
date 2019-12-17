@@ -202,7 +202,23 @@ tbImages		图片
 	"createTime": 发送时间
 	"follow": 是否关注 0 表示未关注 1表示已经关注
 
-13 点击关注信件 
+
+13 删除信件
+请求路径：http://localhost:8080//web/letter/deleLetter
+需要传的参数：
+listid：信件的id
+例如：
+	{
+		"listid":[10,11,12]
+	}
+返回参数：
+	code:状态码
+	message:返回的发送信息
+	success:状态码
+
+
+
+14 点击关注信件 
 请求路径：http://localhost:8080/web/letterFollow/insertSelective
 需要传的参数：
 	tbLetterId：信件的id
@@ -217,7 +233,7 @@ tbImages		图片
     "message": 返回信息
     "success": 状态码
 
-14 取消关注信件 
+15 取消关注信件 
 请求路径：http://localhost:8080/web/letterFollow/deleteFollow
 需要传的参数：
 	tbLetterId：信件的id
@@ -233,7 +249,7 @@ tbImages		图片
     "success": 状态码
 
 
-15 添加询问笔录 
+16 添加询问笔录 
 请求路径：http://localhost:8080/web/askRecord/insertSelective
 需要传的参数：
 	tbUserId:询问对象id
@@ -252,7 +268,7 @@ tbImages		图片
     "success": 状态码
 
 
-16  查询 笔录 
+17  查询 笔录 
 请求路径：http://localhost:8080/web/askRecord/getAskRecord
 需要传的参数：
 	page(非必填):当前页
@@ -286,7 +302,7 @@ createTime:记录的创建时间
     "success": true
 }
 
-17 把音频转成文本
+18 把音频转成文本
 请求路径：http://localhost:8080//web/audio/audioToText
 需要传的参数：
 	file:上传音频的文件

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.redis.RedisUtil;
@@ -54,6 +55,17 @@ public class TbLetterServiceImpl implements TbLetterService{
 			return ResultUtil.getResultBase("添加成功！");
 		}
 		return ResultUtil.getResultBase("添加失败！");
+	}
+
+	@Override
+	@ParamCheck(names = {"listid"})
+	public ResultBase deleLetter(BasePara para,HttpServletRequest request) throws Exception, CustomException {
+		List<Integer> li = para.getListid();
+		int size = tbLetterMapper.deleLetter(li);
+		if (size>0) {
+			return ResultUtil.getResultBase("删除成功！");
+		}
+		return ResultUtil.getResultBase("删除失败！");
 	}
 
 }

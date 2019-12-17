@@ -34,4 +34,9 @@ public class WebLetterController {
 		return tbLetterService.insertSelective(letter, request);
 	}
 	
+	@RequestMapping("/deleLetter")
+	ResultBase deleLetter(@RequestBody(required = false) BasePara para,HttpServletRequest request) throws Exception,CustomException{
+		return tbLetterService.deleLetter(para, request);
+	}
+	
 }
