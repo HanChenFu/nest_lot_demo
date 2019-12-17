@@ -11,5 +11,5 @@ public interface CallCenterMapper {
 	
 	List<CallCenter> getCallCenterRecord(CallCenter callCenter);
 	
-	int getCallCenterRecordCount();
+	int getCallCenterRecordCount(CallCenter callCenter);
 }

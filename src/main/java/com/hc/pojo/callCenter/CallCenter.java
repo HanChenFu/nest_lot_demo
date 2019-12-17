@@ -2,29 +2,27 @@ package com.hc.pojo.callCenter;
 
 public class CallCenter {
 
-	private int tbId;
-	private int tbUserId;
+	private Integer tbId;
+	private Integer tbUserId;
 	private String tbNumber;
-	private int tbType;
-	private int tbHandleType;
-	private int tbState;
+	private Integer tbType;
+	private Integer tbHandleType;
+	private Integer tbState;
 	private String tbDuration;
 	private String soundRecordFile;
 	private String delTime;
 	private String createTime;
-	private String username;
-	
-	
-	public int getTbId() {
+	private String callName;
+	public Integer getTbId() {
 		return tbId;
 	}
-	public void setTbId(int tbId) {
+	public void setTbId(Integer tbId) {
 		this.tbId = tbId;
 	}
-	public int getTbUserId() {
+	public Integer getTbUserId() {
 		return tbUserId;
 	}
-	public void setTbUserId(int tbUserId) {
+	public void setTbUserId(Integer tbUserId) {
 		this.tbUserId = tbUserId;
 	}
 	public String getTbNumber() {
@@ -33,22 +31,22 @@ public class CallCenter {
 	public void setTbNumber(String tbNumber) {
 		this.tbNumber = tbNumber;
 	}
-	public int getTbType() {
+	public Integer getTbType() {
 		return tbType;
 	}
-	public void setTbType(int tbType) {
+	public void setTbType(Integer tbType) {
 		this.tbType = tbType;
 	}
-	public int getTbHandleType() {
+	public Integer getTbHandleType() {
 		return tbHandleType;
 	}
-	public void setTbHandleType(int tbHandleType) {
+	public void setTbHandleType(Integer tbHandleType) {
 		this.tbHandleType = tbHandleType;
 	}
-	public int getTbState() {
+	public Integer getTbState() {
 		return tbState;
 	}
-	public void setTbState(int tbState) {
+	public void setTbState(Integer tbState) {
 		this.tbState = tbState;
 	}
 	public String getTbDuration() {
@@ -75,11 +73,13 @@ public class CallCenter {
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public String getUsername() {
-		return username;
+	public String getCallName() {
+		return callName;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCallName(String callName) {
+		this.callName = callName;
 	}
+	
+	 
 	
 }

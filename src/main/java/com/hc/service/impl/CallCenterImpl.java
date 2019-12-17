@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultQuery;
-import com.hc.common.tools.tools;
+import com.hc.common.tools.Tools;
 import com.hc.mapper.callCenter.CallCenterMapper;
 import com.hc.pojo.askRecord.TbAskRecord;
 import com.hc.pojo.callCenter.CallCenter;
@@ -30,7 +30,8 @@ public class CallCenterImpl implements CallCenterService {
 		callCenter.setTbDuration("2分10秒");
 		callCenter.setSoundRecordFile("./file/hh.mp3");
 		callCenter.setDelTime(null);
-		callCenter.setCreateTime(tools.getAPIresponseDateTime());//当前时间
+		callCenter.setCreateTime(Tools.getAPIresponseDateTime());//当前时间
+		callCenter.setCallName("末知");
 		Integer index = callCenterMapper.insertCallCenter(callCenter);
         return index;
 	}
@@ -46,7 +47,7 @@ public class CallCenterImpl implements CallCenterService {
 		if(callCenters==null) {
 			return ResultUtil.getResultQuery("没有数据！");
 		}
-		return  ResultUtil.getResultQuery(callCenters, callCenterMapper.getCallCenterRecordCount());
+		return  ResultUtil.getResultQuery(callCenters, callCenterMapper.getCallCenterRecordCount(callCenter));
 	}
 	
 	

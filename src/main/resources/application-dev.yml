@@ -14,7 +14,7 @@ spring:
     name: dev
     url: jdbc:mysql://localhost:3306/emergency_system?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&allowMultiQueries=true
     username: root
-    password: root
+    password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
     # driver-class-name: com.mysql.jdbc.Driver
     druid:

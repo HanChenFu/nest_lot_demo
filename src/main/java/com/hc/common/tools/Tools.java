@@ -3,7 +3,7 @@ package com.hc.common.tools;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class tools {
+public class Tools {
 
 	
 	public static String getAPIresponseDateTime()

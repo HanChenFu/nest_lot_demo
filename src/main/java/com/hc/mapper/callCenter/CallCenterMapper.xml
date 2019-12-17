@@ -4,8 +4,7 @@
 	 
 	 <sql id="CallCenter_Column_List">
 		tb_user_id as tbUserId,tb_number as tbNumber,tb_type as tbType,tb_handle_type as tbHandleType,
-		tb_state as tbState,tb_duration as tbDuration, tb_call_center.create_time as createTime
-			,tb_user.username as username
+		tb_state as tbState,tb_duration as tbDuration, create_time as createTime,call_name as callName
 	</sql>
 	 
 	<!-- 拨打电话时添加通话记录 -->
@@ -19,24 +18,63 @@
 				tb_duration,
 				sound_record_file,
 				del_time,
-				create_time
+				create_time,
+				call_name
 				)
-				 VALUES (#{tbUserId}, #{tbNumber}, #{tbType}, #{tbHandleType}, #{tbState}, #{tbDuration}, #{soundRecordFile}, NULL, #{createTime});
+				 VALUES (#{tbUserId}, #{tbNumber}, #{tbType}, #{tbHandleType}, #{tbState}, #{tbDuration}, #{soundRecordFile}, NULL, #{createTime},#{callName});
 	</insert>
 	
 	<!-- 查询通话记录 -->
 	<select id="getCallCenterRecord" resultType="com.hc.pojo.callCenter.CallCenter">
 		select 
-			<include refid="CallCenter_Column_List" />
+				<include refid="CallCenter_Column_List" /> 
 			from tb_call_center
-			left join tb_user on tb_call_center.tb_user_id = tb_user.tb_id
+			<where>
+				<if test="createTime != null"> 
+					left(create_time,10) >= DATE_SUB(CURDATE(), INTERVAL #{createTime} DAY)
+				</if>
+				<if test="tbType != null"> 
+					and tb_type = #{tbType}
+				</if>
+				<if test="tbHandleType != null"> 
+					and tb_handle_type = #{tbHandleType}
+				</if>
+				<if test="tbState != null"> 
+					and tb_state = #{tbState}
+				</if>
+				<if test="tbDuration != null"> 
+					and tb_duration like LIKE concat('%',#{tbDuration},'%')  
+				</if>
+				<if test="callName != null"> 
+					and call_name like concat('%',#{callName},'%')
+				</if> 
+			</where>
 	</select>
 	
 	<select id="getCallCenterRecordCount" resultType="java.lang.Integer">
 		select 
 			COUNT(1)
 			from tb_call_center
-			left join tb_user on tb_call_center.tb_user_id = tb_user.tb_id 
+			<where>
+				<if test="createTime != null"> 
+					left(create_time,10) >= DATE_SUB(CURDATE(), INTERVAL #{createTime} DAY)
+				</if>
+				<if test="tbType != null"> 
+					and tb_type = #{tbType}
+				</if>
+				<if test="tbHandleType != null"> 
+					and tb_handle_type = #{tbHandleType}
+				</if>
+				<if test="tbState != null"> 
+					and tb_state = #{tbState}
+				</if>
+				<if test="tbDuration != null"> 
+					and tb_duration like concat('%',#{tbDuration},'%')
+				</if>
+				<if test="callName != null"> 
+					and call_name like concat('%',#{callName},'%')
+				</if> 
+			</where>
 	</select>
 	
   

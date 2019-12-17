@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.hc.common.tools.tools;
+import com.hc.common.tools.Tools;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.entity.TbCase;
@@ -119,7 +119,7 @@ public class NewsController {
 		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
 		String tbNumber=jsonObject.getString("tbNumber");
 //		String time= jsonObject == null ? tools.getAPIresponseDateTime() : jsonObject.getString("time");
-		String time= tools.getAPIresponseDateTime();
+		String time= Tools.getAPIresponseDateTime();
 		int tbCaseTypeId=jsonObject.getIntValue("tbCaseTypeId");
 		int tbFilingAreaId=jsonObject.getIntValue("tbFilingAreaId");
 		String tbReportAddress=jsonObject.getString("tbReportAddress");
