@@ -229,7 +229,7 @@ CREATE TABLE `tb_letter`  (
   `sending_state` int(11) NULL DEFAULT 0 COMMENT '0表示未发送 1表示发送失败 2表示已经成功',
   `del_time` datetime NULL DEFAULT NULL,
   `create_time` datetime NULL DEFAULT NULL,
-  PRIMARY KEY (`tb_id`) USING BTREE,
+  PRIMARY KEY (`tb_id`) USING BTREE, 
   INDEX `tb_user_id`(`tb_user_id`) USING BTREE,
   INDEX `tb_letter_ibfk_3`(`tb_send_mess_id`) USING BTREE,
   CONSTRAINT `tb_letter_ibfk_1` FOREIGN KEY (`tb_user_id`) REFERENCES `tb_user` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
