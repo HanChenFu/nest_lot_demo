@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultData;
 import com.hc.common.result.ResultQuery;
+import com.hc.para.page_base.BasePara;
 import com.hc.pojo.callCenter.CallCenter;
 import com.hc.service.CallCenterService;
 import com.hc.utils.result.ResultUtil;
@@ -40,13 +43,13 @@ public class CallCenterController {
 	private final String caller = "805";
 	
 	/**
-	   *   拨打电话
+	 * 拨打电话
 	 * callee 拨打号码
 	 * str 返回参数
 	 */
-	@RequestMapping("/dial")
-	public ResultData<CallCenter> dial(String callee) throws Exception {
-		
+	@RequestMapping("/dial") 
+	public ResultData<CallCenter> dial(@RequestBody(required = false) JSONObject jsonObject) throws Exception {
+		String callee = jsonObject == null ? null : jsonObject.getString("callee");
 		if(callee==null || callee.equals("")) {
 			ResultUtil.getResultData(false,StatusCode.NULL,"号码为空",null);
 		}else {
@@ -69,7 +72,8 @@ public class CallCenterController {
 	 * str 返回参数
 	 */
 	@RequestMapping("/hungup")
-	public String hungup(String callee) throws Exception {
+	public String hungup(@RequestBody(required = false) JSONObject jsonObject) throws Exception {
+		String callee = jsonObject == null ? null : jsonObject.getString("callee");
 		if( callee==null || callee.equals("")) {
 			return "405";
 		}else {
@@ -86,7 +90,7 @@ public class CallCenterController {
 	 * 查询通话记录
 	 */
 	@RequestMapping("getCallCenterRecord")
-	ResultQuery<CallCenter> getCallCenterRecord(@RequestBody(required = false) CallCenter callCenter,HttpServletRequest request) throws Exception,CustomException{
+	ResultQuery<CallCenter> getCallCenterRecord(@RequestBody(required = false) CallCenter callCenter) throws Exception,CustomException{
 		return callCenterService.getCallCenterRecord(callCenter);
 	}
 	

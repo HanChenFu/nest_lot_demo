@@ -28,10 +28,11 @@
 				<![CDATA[ and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(time) ]]> 
 			</if>
 			<if test="tbNumber != null">
-				and tb_number= #{tbNumber}
+				and tb_number = #{tbNumber}
+				
 			</if>
 			<if test="tbAddress != null">
-				and tb_address= #{tbAddress}
+				and tb_address like concat('%',#{tbAddress},'%') 
 			</if>
 			<if test="tbSize != null">
 				and tb_size= #{tbSize}

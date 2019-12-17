@@ -315,7 +315,19 @@ createTime:记录的创建时间
 	}
 	
 	
-	
+19.在线客服接口
+请求路径:	http://127.0.0.1:8080/onlineService/chat
+需要传的参数:
+{
+	"chatContent":""
+}
+返回参数:
+{
+    "code": 1000,
+    "data": null,
+    "message": "您好，请问有什么可以帮到您",			--返回的聊天信息
+    "success": true
+}
 
 
 

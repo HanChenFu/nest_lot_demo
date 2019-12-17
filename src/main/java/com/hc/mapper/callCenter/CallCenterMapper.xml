@@ -31,7 +31,8 @@
 			from tb_call_center
 			<where>
 				<if test="createTime != null"> 
-					left(create_time,10) >= DATE_SUB(CURDATE(), INTERVAL #{createTime} DAY)
+					<!-- left(create_time,10) >= DATE_SUB(CURDATE(), INTERVAL #{createTime} DAY) -->
+					 <![CDATA[ create_time <= #{createTime} ]]> 
 				</if>
 				<if test="tbType != null"> 
 					and tb_type = #{tbType}
@@ -47,8 +48,9 @@
 				</if>
 				<if test="callName != null"> 
 					and call_name like concat('%',#{callName},'%')
-				</if> 
+				</if>  
 			</where>
+			order by create_time desc
 	</select>
 	
 	<select id="getCallCenterRecordCount" resultType="java.lang.Integer">
@@ -57,7 +59,8 @@
 			from tb_call_center
 			<where>
 				<if test="createTime != null"> 
-					left(create_time,10) >= DATE_SUB(CURDATE(), INTERVAL #{createTime} DAY)
+					<!-- left(create_time,10) >= DATE_SUB(CURDATE(), INTERVAL #{createTime} DAY) -->
+					 <![CDATA[ create_time <= #{createTime} ]]> 
 				</if>
 				<if test="tbType != null"> 
 					and tb_type = #{tbType}
