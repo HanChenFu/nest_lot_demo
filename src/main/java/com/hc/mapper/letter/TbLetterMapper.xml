@@ -16,20 +16,22 @@
 			`tb_letter` tl
 		LEFT JOIN tb_user tu ON tu.tb_id = tl.tb_user_id
 		LEFT JOIN tb_letter_follow tlf ON tl.tb_id = tlf.tb_letter_id AND tlf.tb_admin_id = #{id}
+		WHERE tl.tb_admin_id = #{id}
+		ORDER BY tl.create_time DESC
 		<if test="page != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
 	</select>
 	
 	<select id="getLetterMessCount" resultType="java.lang.Integer">
-		SELECT COUNT(1) FROM `tb_letter`
+		SELECT COUNT(1) FROM `tb_letter` WHERE tb_admin_id = #{id}
 	</select>
 	
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO `tb_letter` 
-		(`tb_number`, `tb_user_id`, `tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
+		(`tb_admin_id`,`tb_number`, `tb_user_id`, `tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
 		VALUES
-		(#{tbNumber}, #{tbUserId}, #{sendMessId}, #{sendingState}, NULL, now() );
+		(#{tbAdminId},#{tbNumber}, #{tbUserId}, #{sendMessId}, #{sendingState}, NULL, now() );
 	</insert>
 	
 	
