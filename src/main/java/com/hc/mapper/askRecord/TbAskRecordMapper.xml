@@ -8,7 +8,8 @@
 			tb_user_id AS tbUserId,
 			tb_number AS tbNumber,
 			tb_name AS tbName,
-			update_time as updateTime,
+			tb_name AS tbName,
+			tb_draft as tbDraft,
 			create_time AS createTime
 		FROM
 			tb_ask_record 
