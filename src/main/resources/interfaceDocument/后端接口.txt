@@ -271,6 +271,7 @@ listid：信件的id
     "success": 状态码
 
 
+
 17  查询 笔录 
 请求路径：http://localhost:8080/web/askRecord/getAskRecord
 需要传的参数：
