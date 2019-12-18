@@ -58,7 +58,11 @@ public class CallCenterController {
 			HttpClientRequest httpClientRequest = new HttpClientRequest();
 			String str = httpClientRequest.requestVoiceServer(url);
 			log.error("-*********************************-str:"+str);
-			Integer index = callCenterService.insertCallCenter(callee);
+			int tbState = 0;
+			if(str.trim().equals("200")) {
+				tbState = 1;
+			}
+			Integer index = callCenterService.insertCallCenter(callee,tbState);
 			CallCenter callCenter = new CallCenter();
 			callCenter.setTbId(index);
 			return ResultUtil.getResultData(true,StatusCode.SUCCESS,"拨打中...",callCenter);

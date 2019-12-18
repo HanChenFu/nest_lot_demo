@@ -20,13 +20,13 @@ public class CallCenterImpl implements CallCenterService {
 	private CallCenterMapper callCenterMapper;
 	
 	@Override 
-	public int insertCallCenter(String tbNumber) throws Exception,CustomException{
+	public int insertCallCenter(String tbNumber,int tbState) throws Exception,CustomException{
 		CallCenter callCenter = new CallCenter();
 		callCenter.setTbUserId(1);
 		callCenter.setTbNumber(tbNumber);
 		callCenter.setTbType(1);
 		callCenter.setTbHandleType(1);
-		callCenter.setTbState(1);
+		callCenter.setTbState(tbState);
 		callCenter.setTbDuration("2分10秒");
 		callCenter.setSoundRecordFile("./file/hh.mp3");
 		callCenter.setDelTime(null);

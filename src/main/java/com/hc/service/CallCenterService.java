@@ -8,7 +8,7 @@ import com.hc.pojo.callCenter.CallCenter;
 
 public interface CallCenterService {
 
-	int insertCallCenter(String tbNumber) throws Exception, CustomException;
+	int insertCallCenter(String tbNumber,int tbState) throws Exception, CustomException;
 
 	ResultQuery<CallCenter> getCallCenterRecord(CallCenter callCenter);
 	
