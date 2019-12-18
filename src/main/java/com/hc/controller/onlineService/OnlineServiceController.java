@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.hc.common.code.StatusCode;
 import com.hc.common.result.ResultData;
-import com.hc.pojo.callCenter.CallCenter;
 import com.hc.service.TbOnlineServiceService;
 import com.hc.utils.result.ResultUtil;
-
 
 @Controller
 @RequestMapping("/onlineService")

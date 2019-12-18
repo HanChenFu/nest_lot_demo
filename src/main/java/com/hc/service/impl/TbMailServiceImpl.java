@@ -84,7 +84,6 @@ public class TbMailServiceImpl implements TbMailService{
             mailSender.send(message);
         }
         return ResultUtil.getResultBase("发送邮件成功!");
-//        return ResultUtil.getResultBase("以下邮箱格式不正确:" + check_err);
 	}
 	
 }
