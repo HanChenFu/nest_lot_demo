@@ -254,15 +254,17 @@ listid：信件的id
 16 添加询问笔录 
 请求路径：http://localhost:8080/web/askRecord/insertSelective
 需要传的参数：
+	tbAdminId:登陆用户的id
 	tbUserId:询问对象id
 	tbName:询问的名字
 	tbDraft:添加的草稿箱内容
 	
 例如：
 {
+	"tbAdminId":1,
 	"tbUserId":1,
-	"tbName":"教育文档xx",
-	"tbDraft":"京津冀啦啦啦"
+	"tbName":"看看看",
+	"tbDraft":"胡霍党好滴好滴打的电话"
 }
 返回参数：
     "code": 状态码
@@ -273,10 +275,15 @@ listid：信件的id
 17  查询 笔录 
 请求路径：http://localhost:8080/web/askRecord/getAskRecord
 需要传的参数：
+	tbAdminId:登陆用户的id
 	page(非必填):当前页
 	size(非必填):每页的大小
 例如：
-	
+	{
+		"tbAdminId":1,
+		"page":1,
+		"size":2
+	}
 返回参数：
 tbName:笔录名称
 tbNumber：记录编号

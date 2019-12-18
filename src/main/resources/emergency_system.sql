@@ -76,6 +76,7 @@ INSERT INTO `tb_area_dynamics` VALUES (4, '香港教育局要对纵暴教师出�
 DROP TABLE IF EXISTS `tb_ask_record`;
 CREATE TABLE `tb_ask_record`  (
   `tb_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tb_admin_id` int(11) NULL DEFAULT NULL,
   `tb_user_id` int(11) NULL DEFAULT NULL,
   `tb_number` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件编号',
   `tb_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件名称',
@@ -84,16 +85,18 @@ CREATE TABLE `tb_ask_record`  (
   `tb_draft` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '草稿箱',
   `del_time` datetime NULL DEFAULT NULL,
   `create_time` datetime NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   `tb_desc` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`tb_id`) USING BTREE,
   INDEX `tb_user_id`(`tb_user_id`) USING BTREE,
-  CONSTRAINT `tb_ask_record_ibfk_1` FOREIGN KEY (`tb_user_id`) REFERENCES `tb_user` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `tb_ask_record_ibfk_1` FOREIGN KEY (`tb_user_id`) REFERENCES `tb_user` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `tb_ask_record_ibfk_2` FOREIGN KEY (`tb_admin_id`) REFERENCES `tb_admin` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '询问笔录表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of tb_ask_record
 -- ----------------------------
-INSERT INTO `tb_ask_record` VALUES (1, 1, 'DC987654345', 'xx通话记录', NULL, NULL, NULL, NULL, '2019-12-11 14:06:36', NULL);
+INSERT INTO `tb_ask_record` VALUES (1, 1,1, 'DC987654345', 'xx通话记录', NULL, NULL, NULL, NULL, NULL,'2019-12-11 14:06:36', NULL);
 
 -- ----------------------------
 -- Table structure for tb_call_center
