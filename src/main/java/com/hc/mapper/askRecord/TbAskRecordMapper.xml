@@ -3,7 +3,7 @@
 <mapper namespace="com.hc.mapper.askRecord.TbAskRecordMapper" >
 	  
 	<select id="getAskRecord" resultType="com.hc.pojo.askRecord.TbAskRecord">
-	SELECT
+		SELECT
 			tb_id AS tbId,
 			tb_user_id AS tbUserId,
 			tb_number AS tbNumber,
@@ -15,6 +15,7 @@
 			tb_ask_record 
 		WHERE
 			tb_admin_id = #{tbAdminId}
+			ORDER BY create_time DESC
 		<if test="page != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
