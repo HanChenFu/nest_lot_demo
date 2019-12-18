@@ -10,6 +10,10 @@ public interface TbAskRecordMapper {
 	
 	List<TbAskRecord> getAskRecord(TbAskRecord ask);
 	
-	int getAskRecordCount();
+	int getAskRecordCount(TbAskRecord ask);
+	
+	int deleAskRecord(List<Integer> list);
+	
+	int updateAskRecord(TbAskRecord ask);
 	
 }

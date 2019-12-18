@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
+import com.hc.para.page_base.BasePara;
 import com.hc.pojo.askRecord.TbAskRecord;
 import com.hc.service.TbAskRecordService;
 
@@ -30,5 +31,15 @@ public class WebAskRecordController {
 	ResultBase insertSelective(@RequestBody TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
 		return tbAskRecordService.insertSelective(ask, request);
 	}
+    
+    @RequestMapping("deleAskRecord")
+    ResultBase deleAskRecord(@RequestBody BasePara base,HttpServletRequest request) throws Exception,CustomException{
+   		return tbAskRecordService.deleAskRecord(base,request);
+   	}
+   	
+    @RequestMapping("updateAskRecord")
+    ResultBase updateAskRecord(@RequestBody TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
+   		return tbAskRecordService.updateAskRecord(ask, request);
+   	}
 	
 }

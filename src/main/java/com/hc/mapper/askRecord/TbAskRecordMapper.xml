@@ -3,14 +3,24 @@
 <mapper namespace="com.hc.mapper.askRecord.TbAskRecordMapper" >
 	  
 	<select id="getAskRecord" resultType="com.hc.pojo.askRecord.TbAskRecord">
-		SELECT tb_id as tbId,tb_user_id as tbUserId,tb_number as tbNumber,tb_name as tbName,create_time as createTime FROM tb_ask_record
+	SELECT
+			tb_id AS tbId,
+			tb_user_id AS tbUserId,
+			tb_number AS tbNumber,
+			tb_name AS tbName,
+			update_time as updateTime,
+			create_time AS createTime
+		FROM
+			tb_ask_record 
+		WHERE
+			tb_admin_id = #{tbAdminId}
 		<if test="page != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
 	</select>
 	
 	<select id="getAskRecordCount" resultType="java.lang.Integer">
-		SELECT COUNT(1) FROM `tb_ask_record`
+		SELECT COUNT(1) FROM `tb_ask_record` WHERE tb_admin_id = #{tbAdminId}
 	</select>
 	
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
@@ -18,5 +28,25 @@
 	VALUES
 		( #{tbUserId}, #{tbNumber}, #{tbName}, NULL, NULL, #{tbDraft}, NULL, now(), NULL );
 	</insert>
+	
+	<delete id="deleAskRecord" parameterType="java.util.List">
+		DELETE 
+		FROM
+			tb_ask_record 
+		WHERE
+			tb_id IN
+			<foreach item="item" collection="list" open="(" separator="," close=")">
+		      #{item}
+	        </foreach>
+	</delete>
+	
+	<update id="updateAskRecord" parameterType="com.hc.pojo.askRecord.TbAskRecord">
+		UPDATE tb_ask_record 
+		SET tb_name = #{tbName},
+		tb_draft = #{tbDraft},
+		update_time = now()
+		WHERE
+			tb_id = #{tbId}
+	</update>
 	
 </mapper>

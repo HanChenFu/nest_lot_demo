@@ -5,12 +5,14 @@ import com.hc.para.page_base.PageParam;
 public class TbAskRecord extends PageParam{
 	private String tbId;
 	private String tbUserId;
+	private String tbAdminId;
 	private String tbNumber;
 	private String tbName;
 	private String tbEnclosure;
 	private String tbHistory;
 	private String tbDraft;
 	private String delTime;
+	private String updateTime;//修改时间
 	private String createTime;
 	private String tbDesc;
 	
@@ -74,5 +76,16 @@ public class TbAskRecord extends PageParam{
 	public void setTbDesc(String tbDesc) {
 		this.tbDesc = tbDesc;
 	}
-	
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public String getTbAdminId() {
+		return tbAdminId;
+	}
+	public void setTbAdminId(String tbAdminId) {
+		this.tbAdminId = tbAdminId;
+	}
 }
