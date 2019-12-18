@@ -80,8 +80,16 @@ tbImages		图片
 	
 9.通话记录
 请求路径：http://127.0.0.1:8080/voice/getCallCenterRecord
-需要传的参数：暂时全查
-
+需要传的参数 JSON格式： 
+{
+	"createTime": "7", 					-- 创建时间
+	"tbType": "1",						-- 呼叫类型(1 表示呼入 2表示呼出)
+	"tbHandleType": "1",				-- 所有分类 （0 表示未分类 1表示维修）
+	"tbState": "1",						-- 接听状态(0 表示无法接通 1表示接通)	
+	"tb_duratio": "2分10秒%'",				-- 通话时长
+	"callName": "曼"						-- 所有用户
+ 
+}
 返回参数：
 {
     "code": 1000,
@@ -98,7 +106,7 @@ tbImages		图片
                 "tbState": 1,								--接听状态(0 表示无法接通 1表示接通)
                 "tbType": 1,								--呼叫类型(1 表示呼入 2表示呼出)
                 "tbUserId": 1,								--用户ID
-                "username": ""								--用户名
+                "callName": ""								--用户名
             },
             {
                 "createTime": "2019-12-15 15:13:29.0",
@@ -111,7 +119,7 @@ tbImages		图片
                 "tbState": 1,
                 "tbType": 1,
                 "tbUserId": 1,
-                "username": ""
+               	"callName":  ""
             }
         ],
         "totalItems": 2     --总条数

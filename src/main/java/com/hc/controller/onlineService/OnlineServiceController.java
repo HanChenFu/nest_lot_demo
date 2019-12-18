@@ -34,6 +34,9 @@ public class OnlineServiceController {
 			return ResultUtil.getResultData(true,StatusCode.SUCCESS,"您好，请问有什么可以帮到您", null);
 		}
 		String chatContents =  tbOnlineServiceService.getOnlineServiceChatContent(chatContent);
+		if(chatContents==null || "".equals(chatContents)) {
+			chatContents = "你问的问题太深奥了，可以重新再问一次吗^_^";
+		}
 		return ResultUtil.getResultData(true,StatusCode.SUCCESS,chatContents, null);
 	}
 	

@@ -32,7 +32,8 @@
 			<where>
 				<if test="createTime != null"> 
 					<!-- left(create_time,10) >= DATE_SUB(CURDATE(), INTERVAL #{createTime} DAY) -->
-					 <![CDATA[ create_time <= #{createTime} ]]> 
+					 <![CDATA[ 	create_time >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) ]]> 
+					 
 				</if>
 				<if test="tbType != null"> 
 					and tb_type = #{tbType}
