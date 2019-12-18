@@ -219,7 +219,6 @@ listid：信件的id
 	success:状态码
 
 
-
 14 点击关注信件 
 请求路径：http://localhost:8080/web/letterFollow/insertSelective
 需要传的参数：
@@ -300,7 +299,7 @@ createTime:记录的创建时间
                 "tbDraft": "",								--草稿箱
                 "tbEnclosure": "",							--附件
                 "tbHistory": "",							--历史文件
-                "tbName": "xx通话记录",							--文件名称
+                "tbName": "xx通话记录",						--文件名称
                 "tbNumber": "DC987654345",					--文件编号
                 "tbUserId": "1"								--询问的用户id
             }
@@ -310,6 +309,38 @@ createTime:记录的创建时间
     "message": "操作成功！",
     "success": true
 }
+
+18 修改询问笔录
+请求路径：http://localhost:8080//web/askRecord/updateAskRecord
+需要传的参数：
+	tbId:询问笔录的id
+	tbName:笔录名称
+	tbDraft:询问的草稿箱
+例如：
+	{
+		"tbId":1,
+		"tbName":"还是上海市",
+		"tbDraft":"时空简简单单"
+	}
+返回参数：
+    "code": 状态码
+    "message": 返回信息
+    "success": 状态码
+  
+
+19 删除询问笔录
+请求路径：http://localhost:8080//web/askRecord/deleAskRecord
+需要传的参数：
+	listid:删除笔录的id(是一个list集合)
+例如：
+	{
+		"listid":[1,2]
+	}
+返回参数：
+    "code": 状态码
+    "message": 返回信息
+    "success": 状态码
+    
 
 18 把音频转成文本
 请求路径：http://localhost:8080//web/audio/audioToText

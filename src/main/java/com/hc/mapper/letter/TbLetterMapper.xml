@@ -38,7 +38,7 @@
 	<delete id="deleLetter" parameterType="java.util.List">
 		DELETE FROM tb_letter_follow WHERE tb_letter_id IN
 		<foreach item="item" collection="list" open="(" separator="," close=")">
-	      #{list}
+	      #{item}
         </foreach>
         ;
 		DELETE 
@@ -46,9 +46,9 @@
 			tb_letter 
 		WHERE tb_id in
   		<foreach item="item" collection="list" open="(" separator="," close=")">
-	      #{list}
+	      #{item}
         </foreach>
         ;
-	</delete>	
+	</delete>
 	
 </mapper>
