@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hc.common.code.StatusCode;
+import com.hc.common.result.ResultData;
 import com.hc.common.tools.Tools;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
 import com.hc.para.page_base.BasePara;
@@ -25,6 +27,7 @@ import com.hc.service.TbCaseService;
 import com.hc.service.TbEmergencyNewsService;
 import com.hc.service.TbNoticeService;
 import com.hc.service.TbWorkDynamicsService;
+import com.hc.utils.result.ResultUtil;
 
 @Controller
 @RequestMapping("/index/news")
@@ -111,6 +114,24 @@ public class NewsController {
 		return tbCaseService.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
 		
 	}
+	
+	//查询所有案件
+		@RequestMapping("/queryAllCase2")
+		public ResultData<Object> queryAllCase2(@RequestBody(required = false) JSONObject jsonObject, HttpServletRequest request) throws Exception {
+			Integer tbCaseTypeId = jsonObject == null ? null : jsonObject.getInteger("tbCaseTypeId");
+			String  time= jsonObject == null ? null : jsonObject.getString("time");
+			String tbNumber=jsonObject == null ? null : jsonObject.getString("tbNumber");
+			String tbAddress=jsonObject == null ? null : jsonObject.getString("tbAddress");
+			String tbSize=jsonObject == null ? null : jsonObject.getString("tbSize");
+			Integer tbStar=jsonObject == null ? null : jsonObject.getInteger("tbStar");
+			List<TbCase> tbCase=tbCaseService.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
+			if(tbCase.size()==0) {
+				return ResultUtil.getResultData(false,StatusCode.ERROR,"没数据",null);
+			}
+			return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",tbCase);
+//			return tbCaseService.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
+			
+		}
 	
 	//联网备案（这个接口包含的图片上传我没写）
 	@RequestMapping("/insertCase")
