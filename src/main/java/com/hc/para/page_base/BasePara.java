@@ -11,6 +11,7 @@ public class BasePara extends PageParam{
 	private String type;
 	private int id;
 	private List<Integer> listid;//这边是作为前台页面传过来的参数定义的
+	private String message;
 	
 	public String getType() {
 		return type;
@@ -34,6 +35,14 @@ public class BasePara extends PageParam{
 
 	public void setListid(List<Integer> listid) {
 		this.listid = listid;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

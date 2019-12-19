@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.hc.common.code.StatusCode;
 import com.hc.common.result.ResultData;
+import com.hc.para.page_base.BasePara;
 import com.hc.service.TbOnlineServiceService;
 import com.hc.utils.result.ResultUtil;
 
@@ -19,13 +20,12 @@ public class OnlineServiceController {
 	
 	@Autowired
 	private TbOnlineServiceService tbOnlineServiceService;
+	
 	/**
-	 *   拨打电话
-	 * callee 拨打号码
-	 * str 返回参数
+	 *   
 	 */
 	@RequestMapping("/chat")
-	public  ResultData<String> chat(@RequestBody(required = false) JSONObject jsonObject) throws Exception {
+	public  ResultData<BasePara> chat(@RequestBody(required = false) JSONObject jsonObject) throws Exception {
 		
 		String chatContent = jsonObject == null ? null : jsonObject.getString("chatContent");
 		if(chatContent==null || "".equals(chatContent)) {
@@ -35,7 +35,10 @@ public class OnlineServiceController {
 		if(chatContents==null || "".equals(chatContents)) {
 			chatContents = "你问的问题太深奥了，可以重新再问一次吗^_^";
 		}
-		return ResultUtil.getResultData(true,StatusCode.SUCCESS,chatContents, null);
+		BasePara para = new BasePara();
+		para.setMessage(chatContents);
+		para.setId(1);
+		return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功", para);
 	}
 	
 
