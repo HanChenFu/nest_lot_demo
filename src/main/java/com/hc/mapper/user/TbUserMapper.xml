@@ -114,18 +114,15 @@
 		);
   </insert>
   
-  <!-- 根据邮箱修改手机号和姓名
-    	UPDATE tb_user
-		SET phone = "110",
-		nickname = "小黄"
-		WHERE
-			tb_email = "280888@qq.com"
-  -->
+  <!-- 根据邮箱修改手机号和姓名-->
   <update id="updatePhoneName" parameterType="com.hc.pojo.user.TbUser">
   		UPDATE tb_user
-		SET phone = #{phone},
-		nickname = #{nickname}
-		WHERE
-			tb_email = #{tbEmail}
+  		<trim prefix="set" suffixOverrides=",">
+		<if test="nickname!= null">nickname=#{nickname},</if>
+		<if test="phone!= null">phone=#{phone},</if>
+		</trim>
+		WHERE tb_email = #{tbEmail}
+			
   </update>
+  
 </mapper>

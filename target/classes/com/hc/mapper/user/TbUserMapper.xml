@@ -114,4 +114,15 @@
 		);
   </insert>
   
+  <!-- 根据邮箱修改手机号和姓名-->
+  <update id="updatePhoneName" parameterType="com.hc.pojo.user.TbUser">
+  		UPDATE tb_user
+  		<trim prefix="set" suffixOverrides=",">
+		<if test="nickname!= null">nickname=#{nickname},</if>
+		<if test="phone!= null">phone=#{phone},</if>
+		</trim>
+		WHERE tb_email = #{tbEmail}
+			
+  </update>
+  
 </mapper>

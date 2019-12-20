@@ -12,7 +12,16 @@ public class BasePara extends PageParam{
 	private int id;
 	private List<Integer> listid;//这边是作为前台页面传过来的参数定义的
 	private String message;
+	private String nickname;
 	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	public String getType() {
 		return type;
 	}

@@ -25,7 +25,7 @@ public class WebLetterController {
 	private TbLetterService tbLetterService;
 	
 	@RequestMapping("/getLetterMess")
-	ResultQuery<LetterPageData> getLetterMess(@RequestBody BasePara para,HttpServletRequest request) throws CustomException, Exception {
+	ResultQuery<LetterPageData> getLetterMess(@RequestBody(required = false) BasePara para,HttpServletRequest request) throws CustomException, Exception {
 		return tbLetterService.getLetterMess(para, request);
 	}
 	
