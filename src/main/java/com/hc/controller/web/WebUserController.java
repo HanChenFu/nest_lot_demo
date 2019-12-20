@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.pojo.user.TbUser;
@@ -30,5 +31,12 @@ public class WebUserController {
 	public ResultBase insertSelective(@RequestBody(required = false) TbUser tbUser, HttpServletRequest request) throws Exception {
 		return tbUserServer.insertSelective(tbUser,request);
 	}
+	
+	
+	@RequestMapping("/updatePhoneName")
+	public ResultBase updatePhoneName(@RequestBody(required = false) TbUser tbUser,HttpServletRequest request) throws Exception,CustomException{
+   		return tbUserServer.updatePhoneName(tbUser, request);
+   	}
+	
 
 }
