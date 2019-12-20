@@ -388,6 +388,47 @@ createTime:记录的创建时间
     "success": true
 }
 
+20.信件群发修改
+请求路径：http://localhost:8080/web/user/updatePhoneName
+需要传的参数：
+	phone:手机号
+	nickname:姓名
+	tbEmail:邮箱
+例如：
+	{
+	"phone":"15824626231",
+
+		"nickname":"闫思曼",
+
+		"tbEmail":"wkr9606@sina.com"
+	
+}
+返回参数：
+    "code": 状态码
+    "message": 返回信息
+    "success": 状态码
+
+
+21.群发助手模糊查询
+请求路径：localhost:8080/web/letter/getLetterMess
+需要传的参数：
+	id : 登陆用户的id
+	nickname：模糊字眼
+例如：
+	{
+		"id":1,
+		"nickname":"周"
+	}
+返回参数：
+	"createTime": 创建时间
+                "follow": 是否关注 0 表示未关注 1表示已经关注
+                "nickname":姓名
+                "phone":手机号
+                "sendingState": 发送状态 0表示未发送 1表示发送中 2表示已经发送
+                "tbEmail": 邮箱
+                "tbId": 用户ID
+                "tbNumber": 编号(档案号)
+
 
 
 
