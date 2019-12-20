@@ -23,7 +23,7 @@ public class WebAskRecordController {
 	private TbAskRecordService tbAskRecordService;
 	
     @RequestMapping("getAskRecord")
-	ResultQuery<TbAskRecord> getAskRecord(@RequestBody TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
+	ResultQuery<TbAskRecord> getAskRecord(@RequestBody(required = false) TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
 		return tbAskRecordService.getAskRecord(ask, request);
 	}
 	

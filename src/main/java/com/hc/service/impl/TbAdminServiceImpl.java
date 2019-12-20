@@ -1,5 +1,7 @@
 package com.hc.service.impl;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,4 +54,17 @@ public class TbAdminServiceImpl implements TbAdminService{
 	}
 
 
+	@Override
+	public ResultBase adminLogout(HttpServletRequest request) throws Exception, CustomException {
+		TbAdmin admin = loginUserUtil.getLoginUser(request.getHeader("token"));
+		if(admin!=null) {
+			int tbId = admin.getTbId();
+			loginUserUtil.logout(redis.get("web"+tbId).toString());
+			return ResultUtil.getResultData("退出登录成功");
+		}
+		return ResultUtil.getResultData("退出登录失败");
+	}
+
+	
+	
 }

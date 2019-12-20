@@ -8,6 +8,16 @@
  "tbPassword":"123456"
 }
 
+1.1 退出登录 http://localhost:8080//web/admin/adminLogout
+参数：
+	token:登陆成功的token
+返回参数：
+返回参数：
+	code:状态码
+	message:返回的发送信息
+	success:状态码
+
+
 2 首页各区动态接口路径：http://localhost:8080//index/news/everyAreaDynamics
 参数：type   1=工作动态 2=通知公告 3=各区动态  4=应急要闻    参数默认值：type=1    当用户点击导航栏首页，此时前端根据用户点击首页导航栏事件，默认type=1,展现的是 工作动态
 
@@ -377,14 +387,6 @@ createTime:记录的创建时间
     "message": "您好，请问有什么可以帮到您",			--返回的聊天信息
     "success": true
 }
-
-
-
-
-
-
-
-
 
 
 

@@ -1,5 +1,7 @@
 package com.hc.controller.web;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +23,11 @@ public class WebAdminController {
 	@RequestMapping("/login")
 	public ResultBase getList(@RequestBody TbAdmin tbAdmin) throws Exception {
 		return tbAdminService.adminLogin(tbAdmin);
+	}
+	
+	@RequestMapping("/adminLogout")
+	public ResultBase adminLogout(HttpServletRequest request) throws Exception {
+		return tbAdminService.adminLogout(request);
 	}
 	
 }

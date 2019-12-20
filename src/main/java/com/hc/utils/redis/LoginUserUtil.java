@@ -62,10 +62,11 @@ public class LoginUserUtil {
 	 * @author DDM 2018年6月1日
 	 */
 	public boolean logout(String token) throws CustomException {
+		System.out.println("==="  +token);
 		if ("".equals(token) || token.equals(null)) {
 			throw new CustomException(StatusCode.PARAM_NULL, "token 不能为空");
 		}
-		getRedis().del(KEY_LOGIN_USER + token);
+		getRedis().del(token);
 		return true;
 	}
 	

@@ -16,6 +16,10 @@ public class TbAskRecord extends PageParam{
 	private String createTime;
 	private String tbDesc;
 	
+	public TbAskRecord() {
+		super();
+	}
+	
 	public String getTbId() {
 		return tbId;
 	}
@@ -88,4 +92,5 @@ public class TbAskRecord extends PageParam{
 	public void setTbAdminId(String tbAdminId) {
 		this.tbAdminId = tbAdminId;
 	}
+	
 }

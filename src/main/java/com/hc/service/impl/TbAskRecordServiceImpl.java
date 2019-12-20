@@ -15,6 +15,7 @@ import com.hc.common.result.ResultQuery;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.askRecord.TbAskRecord;
+import com.hc.pojo.base.TbAdmin;
 import com.hc.service.TbAskRecordService;
 import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.redis.LoginUserUtil;
@@ -33,9 +34,14 @@ public class TbAskRecordServiceImpl implements TbAskRecordService{
 	LoginUserUtil loginUserUtil;
 	
 	@Override
-	@ParamCheck(names = {"tbAdminId"})
+//	@ParamCheck(names = {"tbAdminId"})
 	public ResultQuery<TbAskRecord> getAskRecord(TbAskRecord ask, HttpServletRequest request)
 			throws Exception, CustomException {
+		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
+		if (ask==null) {
+			ask = new TbAskRecord();
+		}
+		ask.setTbAdminId(String.valueOf(t.getTbId()));
 		List<TbAskRecord> li = tbAskRecordMapper.getAskRecord(ask);
 		if(li==null) {
 			return ResultUtil.getResultQuery("没有数据！");
