@@ -18,4 +18,6 @@ public interface TbUserService {
 	ResultQuery<TbUser> getUserMessByName(TbUser tbUser, HttpServletRequest request)throws Exception,CustomException;
 	
 	ResultBase insertSelective(TbUser tbUser, HttpServletRequest request)throws Exception,CustomException;
+	
+	ResultBase updatePhoneName(TbUser tbUser,HttpServletRequest request) throws Exception,CustomException;
 }

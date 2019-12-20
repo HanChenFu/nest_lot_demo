@@ -51,6 +51,16 @@ public class TbUserServiceImpl implements TbUserService{
 		}
 		return ResultUtil.getResultBase("该手机号已经存在！");
 	}
+
+	@Override
+	@ParamCheck(names = {"tbEmail","phone","nickname"})
+	public ResultBase updatePhoneName(TbUser tbUser, HttpServletRequest request) throws Exception, CustomException {
+		int s = tbUserMapper.updatePhoneName(tbUser);
+		if (s > 0) {
+			return ResultUtil.getResultBase("更新成功");
+		}
+		return ResultUtil.getResultBase("更新失败");
+	}
 	
 	
 }
