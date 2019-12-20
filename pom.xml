@@ -248,7 +248,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.sy.MainApplication</mainClass>
+							<mainClass>com.hc.MainApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
