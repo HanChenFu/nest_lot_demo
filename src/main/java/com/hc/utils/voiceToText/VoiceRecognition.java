@@ -17,12 +17,6 @@ public final class VoiceRecognition {
     }
     
     public static void main(String[] args){
-//        VoiceRecognition voiceRecognition = new VoiceRecognition();
-//        if(voiceRecognition.recognizeVoice("")){
-//            System.out.println("结果为：" + voiceRecognition.getResultText());
-//        }else{
-//            System.out.println("识别错误");
-//        }
     	System.out.println();
     }
     

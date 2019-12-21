@@ -23,6 +23,7 @@ import com.hc.pojo.sendMess.TbSendMess;
 import com.hc.pojo.user.TbUser;
 import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.redis.LoginUserUtil;
+import com.hc.utils.sendCode.AliyunSMSUtil;
 import com.hc.utils.sm.SmsSDKDemo;
 import com.hc.utils.string.EmailCheck;
 
@@ -119,7 +120,7 @@ public class TbAsyncTaskImpl {
 	  	}
 	  	String content = tbEmail.getContent();
 	  	for (int i = 0; i < list.size(); i++) {
-	  		SmsSDKDemo.sendSM(list.get(i), tbEmail.getTitle(), content);
+	  		AliyunSMSUtil.sendSMS(list.get(i), content);
 		}
     }
 	
