@@ -16,15 +16,16 @@ import com.hc.common.redis.RedisUtil;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
 import com.hc.mapper.letter.TbLetterMapper;
 import com.hc.mapper.sendMess.TbSendMessMapper;
+import com.hc.mapper.shortMess.TbShortMessMapper;
 import com.hc.mapper.user.TbUserMapper;
 import com.hc.pojo.email.TbEmail;
 import com.hc.pojo.letter.TbLetter;
 import com.hc.pojo.sendMess.TbSendMess;
+import com.hc.pojo.shortMess.TbShortMess;
 import com.hc.pojo.user.TbUser;
 import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.sendCode.AliyunSMSUtil;
-import com.hc.utils.sm.SmsSDKDemo;
 import com.hc.utils.string.EmailCheck;
 
 @Service("tbAsyncTaskImpl")
@@ -51,6 +52,9 @@ public class TbAsyncTaskImpl {
 	@Autowired
 	TbSendMessMapper tbSendMessMapper;
 	
+	@Autowired
+	TbShortMessMapper tbShortMessMapper;
+	
 	@Value("${spring.mail.username}")
     private String from;
 	
@@ -76,7 +80,7 @@ public class TbAsyncTaskImpl {
 	  				str = tb.getTbId();
 	  			}
 	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,1,"2"));
+	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,"2"));
 	  		}
 	  	}
 	  	String content = tbEmail.getContent();
@@ -115,7 +119,7 @@ public class TbAsyncTaskImpl {
 	  				str = tb.getTbId();
 	  			}
 	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,2,"2"));
+	  			tbShortMessMapper.insertSelective(new TbShortMess(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,"2"));
 	  		}
 	  	}
 	  	String content = tbEmail.getContent();

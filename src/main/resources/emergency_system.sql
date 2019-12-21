@@ -247,6 +247,31 @@ CREATE TABLE `tb_letter`  (
 INSERT INTO `tb_letter` VALUES (1, 1,'DC987654321', 1, 1, 0, NULL, '2019-12-11 13:53:11');
 INSERT INTO `tb_letter` VALUES (2, 1,'DC187654321', 1, 1, 0, NULL, '2019-12-11 13:53:25');
 
+
+
+-- ----------------------------
+-- Table structure for tb_letter
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_short_mess`;
+
+CREATE TABLE `tb_short_mess`  (
+  `tb_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tb_admin_id` int(11) NULL DEFAULT NULL,
+  `tb_number` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编号(档案号)',
+  `tb_user_id` int(11) NULL DEFAULT NULL,
+  `tb_send_mess_id` int(11) NULL DEFAULT NULL COMMENT '发送内容表id',
+  `sending_state` int(11) NULL DEFAULT 0 COMMENT '0表示未发送 1表示发送失败 2表示已经成功',
+  `del_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`tb_id`) USING BTREE, 
+  INDEX `tb_user_id`(`tb_user_id`) USING BTREE,
+  INDEX `tb_letter_ibfk_3`(`tb_send_mess_id`) USING BTREE,
+  CONSTRAINT `tb_short_mess_ibfk_1` FOREIGN KEY (`tb_user_id`) REFERENCES `tb_user` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `tb_short_mess_ibfk_3` FOREIGN KEY (`tb_send_mess_id`) REFERENCES `tb_send_mess` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `tb_short_mess_ibfk_4` FOREIGN KEY (`tb_admin_id`) REFERENCES `tb_admin` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '发送短信内容表' ROW_FORMAT = Compact;
+
+
 -- ----------------------------
 -- Table structure for tb_letter_follow
 -- ----------------------------
