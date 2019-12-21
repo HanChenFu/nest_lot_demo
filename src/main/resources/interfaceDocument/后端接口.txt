@@ -199,6 +199,25 @@ tbImages		图片
 	code:状态码
 	message:返回的发送信息
 	success:状态码
+	
+11.1 发送信件 
+请求路径：http://localhost:8080/web/sm/sendSM
+需要传的参数：
+	tbAdminId:登陆用户id
+	to:发送给用户的邮箱()
+	title:主题
+	content:内容
+例如：
+		{
+			"to":["18122711575"],
+			"title":"111",
+			"content":"222",
+			"tbAdminId":1
+		}
+返回参数：
+	code:状态码
+	message:返回的发送信息
+	success:状态码
 
 
 12 查询发送的信件 

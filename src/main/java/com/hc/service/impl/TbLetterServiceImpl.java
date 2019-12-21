@@ -39,13 +39,11 @@ public class TbLetterServiceImpl implements TbLetterService{
 	public ResultQuery<LetterPageData> getLetterMess(BasePara para,HttpServletRequest request) throws Exception, CustomException {
 //		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
 //		para.setId(t.getTbId());//这边是把登陆用户添加进去
-		System.out.println("~~" + JSONArray.toJSONString(para));
 		List<LetterPageData> l = tbLetterMapper.getLetterMess(para);
-		System.out.println("~~" + JSONArray.toJSONString(l));
 		if(l==null) {
 			return ResultUtil.getResultQuery("没有数据！");
 		}
-		return ResultUtil.getResultQuery(l, tbLetterMapper.getLetterMessCount());
+		return ResultUtil.getResultQuery(l, tbLetterMapper.getLetterMessCount(para));
 	}
 
 	@Override

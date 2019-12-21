@@ -18,7 +18,10 @@
 		LEFT JOIN tb_user tu ON tu.tb_id = tl.tb_user_id
 		LEFT JOIN tb_letter_follow tlf ON tl.tb_id = tlf.tb_letter_id AND tlf.tb_admin_id = #{id}
 		WHERE tl.tb_admin_id = #{id}
-		<if test="nickname!=null">
+		<if test="type!=null and type!=''">
+			AND tl.tb_type = #{type}
+		</if>
+		<if test="nickname!=null and nickname!=''">
 			AND tu.nickname like concat('%',#{nickname},'%')
 		</if>
 		ORDER BY tl.create_time DESC
@@ -29,6 +32,12 @@
 	
 	<select id="getLetterMessCount" resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM `tb_letter` WHERE tb_admin_id = #{id}
+		<if test="type!=null and type!=''">
+			AND tb_type = #{type}
+		</if>
+		<if test="nickname!=null and nickname!=''">
+			AND nickname like concat('%',#{nickname},'%')
+		</if>
 	</select>
 	
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
