@@ -19,5 +19,7 @@ public interface TbUserMapper {
 	
 	String getUserIdByEmail(String email);
 	
+	String getUserIdByPhone(String phone);
+	
 	int updatePhoneName(TbUser tbUser);
 }

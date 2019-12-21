@@ -8,17 +8,21 @@ public class TbLetter {
 	private int sendMessId;
 	private String sendingState;
 	private String delTime;
+	private int tbType;//信件类型(1 表示是邮件 2表示是短信)
 	private String createTime;
 	
 	public TbLetter() {
 		super();
 	}
-	public TbLetter(String tbAdminId,String tbNumber, int tbUserId, int sendMessId, String sendingState) {
+	
+	
+	public TbLetter(String tbAdminId,String tbNumber, int tbUserId, int sendMessId, int tbType,String sendingState) {
 		super();
 		this.tbAdminId = tbAdminId;
 		this.tbNumber = tbNumber;
 		this.tbUserId = tbUserId;
 		this.sendMessId = sendMessId;
+		this.tbType = tbType;
 		this.sendingState = sendingState;
 	}
 	public int getTbId() {
@@ -68,6 +72,16 @@ public class TbLetter {
 	}
 	public void setTbAdminId(String tbAdminId) {
 		this.tbAdminId = tbAdminId;
+	}
+
+
+	public int getTbType() {
+		return tbType;
+	}
+
+
+	public void setTbType(int tbType) {
+		this.tbType = tbType;
 	}
 	
 }

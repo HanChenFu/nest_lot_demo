@@ -13,7 +13,6 @@ public interface TbLetterService {
 
 	ResultQuery<LetterPageData> getLetterMess(BasePara para,HttpServletRequest request) throws Exception,CustomException;
 	
-	
 	ResultBase insertSelective(TbLetter letter,HttpServletRequest request) throws Exception,CustomException;
 	
 	ResultBase deleLetter(BasePara para,HttpServletRequest request) throws Exception,CustomException;

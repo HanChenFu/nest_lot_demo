@@ -221,6 +221,7 @@ tbImages		图片
 	"nickname": 昵称
 	"createTime": 发送时间
 	"follow": 是否关注 0 表示未关注 1表示已经关注
+	"tbType":信件类型(1 表示是邮件 2表示是短信)
 
 
 13 删除信件

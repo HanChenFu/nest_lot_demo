@@ -62,6 +62,11 @@
 		SELECT tb_id FROM tb_user WHERE tb_email = #{email}
 	</select>
 	
+	<!-- 通过邮箱获取用户id -->
+	<select id="getUserIdByPhone" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT tb_id FROM tb_user WHERE phone = #{phone}
+	</select>
+	
 	<insert id="insertSelective" keyProperty="tbId" useGeneratedKeys="true">
 	   INSERT INTO `tb_user` (
 		`wpopenid`,

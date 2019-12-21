@@ -178,7 +178,7 @@ public class AliyunSMSUtil {
 				System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
 				System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 				// 初始化ascClient,暂时不支持多region（请勿修改）
-				IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
+				IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4FwXJdP3xiRZyGNgPg8h", "KLEABacWXBHkSinljXia8BS5coDuz6");
 				DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
 				IAcsClient acsClient = new DefaultAcsClient(profile);
 				// 组装请求对象
@@ -188,9 +188,9 @@ public class AliyunSMSUtil {
 				// 必填:待发送手机号。支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码,批量调用相对于单条调用及时性稍有延迟,验证码类型的短信推荐使用单条调用的方式
 				request.setPhoneNumbers(phone);
 				// 必填:短信签名-可在短信控制台中找到
-				request.setSignName(new String(signName.getBytes("ISO-8859-1"),"UTF-8"));
+				request.setSignName(new String("云端速递".getBytes("ISO-8859-1"),"UTF-8"));
 				// 必填:短信模板-可在短信控制台中找到
-				request.setTemplateCode(templateNotice);
+				request.setTemplateCode("SMS_179605321");
 				// 可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
 				// 友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,比如短信内容中包含\r\n的情况在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
 	            request.setTemplateParam("{\"code\":\"" + code + "\"}");
@@ -200,7 +200,6 @@ public class AliyunSMSUtil {
 				request.setOutId("yourOutId");
 				// 请求失败这里会抛ClientException异常
 				SendSmsResponse sendSmsResponse;
-
 				sendSmsResponse = acsClient.getAcsResponse(request);
 				if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
 					// 请求成功
