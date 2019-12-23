@@ -114,7 +114,7 @@ public class TbAsyncTaskImpl {
 	  		}else {
 	  			String str = tbUserMapper.getUserIdByPhone(s);
 	  			if(str==null) {
-	  				TbUser tb = new TbUser(s);
+	  				TbUser tb = new TbUser(s,1);
 	  				tbUserMapper.insertSelective(tb);
 	  				str = tb.getTbId();
 	  			}

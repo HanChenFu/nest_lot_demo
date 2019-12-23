@@ -30,9 +30,15 @@
 	</select>
 	
 	<select id="getLetterMessCount" resultType="java.lang.Integer">
-		SELECT COUNT(1) FROM `tb_letter` WHERE tb_admin_id = #{id}
+		SELECT
+			COUNT( 1 ) 
+		FROM
+			`tb_letter` tl
+			LEFT JOIN tb_user tu ON tu.tb_id = tl.tb_user_id 
+		WHERE
+			tl.tb_admin_id = #{id}
 		<if test="nickname!=null and nickname!=''">
-			AND nickname like concat('%',#{nickname},'%')
+			AND tu.nickname like concat('%',#{nickname},'%')
 		</if>
 	</select>
 	

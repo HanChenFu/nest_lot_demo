@@ -42,4 +42,9 @@ public class WebShortMessController {
 		return tbSMService.getShortMess(para, request);
 	}
 	
+	@RequestMapping("/deleShortMess")
+	ResultBase deleShortMess(@RequestBody(required = false) BasePara para,HttpServletRequest request) throws Exception,CustomException{
+		return tbSMService.deleShort(para, request);
+	}
+	
 }

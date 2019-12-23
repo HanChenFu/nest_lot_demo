@@ -43,4 +43,15 @@ public class TbSMServiceImpl implements TbSMService{
 		return ResultUtil.getResultQuery(l, tbShortMessMapper.getShortMessCount(para));
 	}
 
+
+	@Override
+	public ResultBase deleShort(BasePara para, HttpServletRequest request) throws Exception, CustomException {
+		List<Integer> li = para.getListid();
+		int size = tbShortMessMapper.deleShort(li);
+		if (size>0) {
+			return ResultUtil.getResultBase("删除成功！");
+		}
+		return ResultUtil.getResultBase("删除失败！");
+	}
+
 }

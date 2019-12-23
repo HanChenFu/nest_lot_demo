@@ -275,6 +275,24 @@ CREATE TABLE `tb_short_mess`  (
 -- ----------------------------
 -- Table structure for tb_letter_follow
 -- ----------------------------
+DROP TABLE IF EXISTS `tb_short_mess_follow`;
+
+CREATE TABLE `tb_short_mess_follow`  (
+  `tb_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tb_admin_id` int(11) NULL DEFAULT NULL,
+  `tb_short_mess_id` int(11) NULL DEFAULT NULL,
+  `del_time` datetime NULL DEFAULT NULL,
+  `create_time` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`tb_id`) USING BTREE,
+  INDEX `tb_admin_id`(`tb_admin_id`) USING BTREE,
+  INDEX `tb_short_mess_id`(`tb_short_mess_id`) USING BTREE,
+  CONSTRAINT `tb_short_mess_follow_ibfk_1` FOREIGN KEY (`tb_admin_id`) REFERENCES `tb_admin` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `tb_short_mess_follow_ibfk_2` FOREIGN KEY (`tb_short_mess_id`) REFERENCES `tb_short_mess` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '发送短信关注表' ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for tb_letter_follow
+-- ----------------------------
 DROP TABLE IF EXISTS `tb_letter_follow`;
 CREATE TABLE `tb_letter_follow`  (
   `tb_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -287,7 +305,7 @@ CREATE TABLE `tb_letter_follow`  (
   INDEX `tb_letter_id`(`tb_letter_id`) USING BTREE,
   CONSTRAINT `tb_letter_follow_ibfk_1` FOREIGN KEY (`tb_admin_id`) REFERENCES `tb_admin` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `tb_letter_follow_ibfk_2` FOREIGN KEY (`tb_letter_id`) REFERENCES `tb_letter` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '信件关注表(表示后台管理人员有无关注该信件)' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '邮件关注表(表示后台管理人员有无关注该信件)' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of tb_letter_follow

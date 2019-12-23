@@ -17,7 +17,7 @@
 		FROM
 			`tb_short_mess` tl
 		LEFT JOIN tb_user tu ON tu.tb_id = tl.tb_user_id
-		LEFT JOIN tb_letter_follow tlf ON tl.tb_id = tlf.tb_letter_id AND tlf.tb_admin_id = #{id}
+		LEFT JOIN tb_short_mess_follow tlf ON tl.tb_id = tlf.tb_short_mess_id AND tlf.tb_admin_id = #{id}
 		LEFT JOIN tb_send_mess ts ON ts.tb_id = tl.tb_send_mess_id
 		WHERE tl.tb_admin_id = #{id}
 		<if test="nickname!=null and nickname!=''">
@@ -30,9 +30,15 @@
 	</select>
 	
 	<select id="getShortMessCount" resultType="java.lang.Integer">
-		SELECT COUNT(1) FROM `tb_short_mess` WHERE tb_admin_id = #{id}
+		SELECT
+			COUNT( 1 ) 
+		FROM
+			`tb_short_mess` ts
+			LEFT JOIN tb_user tu ON tu.tb_id = ts.tb_user_id 
+		WHERE
+			ts.tb_admin_id = #{id}
 		<if test="nickname!=null and nickname!=''">
-			AND nickname like concat('%',#{nickname},'%')
+			AND tu.nickname like concat('%',#{nickname},'%')
 		</if>
 	</select>
 	
@@ -44,12 +50,12 @@
 	</insert>
 	
 	<delete id="deleShort" parameterType="java.util.List">
-		DELETE FROM tb_letter_follow WHERE tb_letter_id IN
+		DELETE FROM tb_short_mess_follow WHERE tb_short_mess_id IN
 		<foreach item="item" collection="list" open="(" separator="," close=")">
 	      #{item}
         </foreach>
         ;
-		DELETE 
+		DELETE
 		FROM
 			tb_short_mess 
 		WHERE tb_id in

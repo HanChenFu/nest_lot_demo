@@ -15,4 +15,5 @@ public interface TbSMService {
 	
 	ResultQuery<LetterPageData> getShortMess(BasePara para,HttpServletRequest request) throws Exception,CustomException;
 	
+	ResultBase deleShort(BasePara para,HttpServletRequest request) throws Exception,CustomException;
 }
