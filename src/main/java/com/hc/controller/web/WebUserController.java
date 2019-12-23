@@ -32,10 +32,22 @@ public class WebUserController {
 		return tbUserServer.insertSelective(tbUser,request);
 	}
 	
+	@RequestMapping("/updateNickNameByPhoneOrEmail")
+	public ResultBase updateNickNameByPhoneOrEmail(@RequestBody(required = false) TbUser tbUser,HttpServletRequest request) throws Exception,CustomException{
+   		return tbUserServer.updateNickNameByPhoneOrEmail(tbUser, request);
+   	}
 	
-	@RequestMapping("/updatePhoneName")
-	public ResultBase updatePhoneName(@RequestBody(required = false) TbUser tbUser,HttpServletRequest request) throws Exception,CustomException{
-   		return tbUserServer.updatePhoneName(tbUser, request);
+	/**
+	 * 	这边是通过用户id修改用户信息
+	 * @param tbUser
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 * @throws CustomException
+	 */
+	@RequestMapping("/updateUserById")
+	public ResultBase updateUserById(@RequestBody(required = false) TbUser tbUser,HttpServletRequest request) throws Exception,CustomException{
+   		return tbUserServer.updateUserById(tbUser, request);
    	}
 	
 

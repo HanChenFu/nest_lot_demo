@@ -12,7 +12,7 @@ import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.para.page_base.BasePara;
-import com.hc.pojo.email.TbEmail;
+import com.hc.pojo.shortMess.TbShortPara;
 import com.hc.pojo.usually.LetterPageData;
 import com.hc.service.TbSMService;
 
@@ -32,8 +32,8 @@ public class WebShortMessController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/sendSM")
-	public ResultBase sendSM(@RequestBody TbEmail tbEmail, HttpServletRequest request) throws Exception {
-		return tbSMService.sendSM(tbEmail, request);
+	public ResultBase sendSM(@RequestBody TbShortPara shortPara, HttpServletRequest request) throws Exception {
+		return tbSMService.sendSM(shortPara, request);
 	}
 	
 	

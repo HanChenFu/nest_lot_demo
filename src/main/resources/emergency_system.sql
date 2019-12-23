@@ -224,11 +224,13 @@ INSERT INTO `tb_filing_area` VALUES (4, '南山警局', NULL, '2019-12-11 13:34:
 -- Table structure for tb_letter
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_letter`;
+
 CREATE TABLE `tb_letter`  (
   `tb_id` int(11) NOT NULL AUTO_INCREMENT,
   `tb_admin_id` int(11) NULL DEFAULT NULL,
   `tb_number` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编号(档案号)',
   `tb_user_id` int(11) NULL DEFAULT NULL,
+  `target` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '目标用户邮箱',
   `tb_send_mess_id` int(11) NULL DEFAULT NULL COMMENT '发送内容表id',
   `sending_state` int(11) NULL DEFAULT 0 COMMENT '0表示未发送 1表示发送失败 2表示已经成功',
   `del_time` datetime NULL DEFAULT NULL,
@@ -259,6 +261,7 @@ CREATE TABLE `tb_short_mess`  (
   `tb_admin_id` int(11) NULL DEFAULT NULL,
   `tb_number` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编号(档案号)',
   `tb_user_id` int(11) NULL DEFAULT NULL,
+  `target` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '目标用户手机',
   `tb_send_mess_id` int(11) NULL DEFAULT NULL COMMENT '发送内容表id',
   `sending_state` int(11) NULL DEFAULT 0 COMMENT '0表示未发送 1表示发送失败 2表示已经成功',
   `del_time` datetime NULL DEFAULT NULL,

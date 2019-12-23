@@ -21,5 +21,7 @@ public interface TbUserMapper {
 	
 	String getUserIdByPhone(String phone);
 	
-	int updatePhoneName(TbUser tbUser);
+	int updateNickNameByPhoneOrEmail(TbUser tbUser);
+	
+	int updateUserById(TbUser tbUser);
 }

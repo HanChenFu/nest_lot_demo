@@ -11,6 +11,7 @@ public class TbShortMess {
 	private String tbNumber;
 	private String tbAdminId;
 	private int tbUserId;
+	private String target;
 	private int sendMessId;
 	private String sendingState;
 	private String delTime;
@@ -20,11 +21,12 @@ public class TbShortMess {
 		super();
 	}
 	
-	public TbShortMess(String tbAdminId,String tbNumber, int tbUserId, int sendMessId,String sendingState) {
+	public TbShortMess(String tbAdminId,String tbNumber, int tbUserId, String target,int sendMessId,String sendingState) {
 		super();
 		this.tbAdminId = tbAdminId;
 		this.tbNumber = tbNumber;
 		this.tbUserId = tbUserId;
+		this.target = target;
 		this.sendMessId = sendMessId;
 		this.sendingState = sendingState;
 	}
@@ -78,5 +80,12 @@ public class TbShortMess {
 		this.tbAdminId = tbAdminId;
 	}
 
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
+	}
 
 }

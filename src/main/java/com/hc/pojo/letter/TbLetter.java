@@ -10,6 +10,7 @@ public class TbLetter {
 	private String tbNumber;
 	private String tbAdminId;
 	private int tbUserId;
+	private String target;//目标用户邮箱
 	private int sendMessId;
 	private String sendingState;
 	private String delTime;
@@ -19,11 +20,12 @@ public class TbLetter {
 		super();
 	}
 	
-	public TbLetter(String tbAdminId,String tbNumber, int tbUserId, int sendMessId,String sendingState) {
+	public TbLetter(String tbAdminId,String tbNumber, int tbUserId, String target,int sendMessId,String sendingState) {
 		super();
 		this.tbAdminId = tbAdminId;
 		this.tbNumber = tbNumber;
 		this.tbUserId = tbUserId;
+		this.target = target;
 		this.sendMessId = sendMessId;
 		this.sendingState = sendingState;
 	}
@@ -75,6 +77,14 @@ public class TbLetter {
 	}
 	public void setTbAdminId(String tbAdminId) {
 		this.tbAdminId = tbAdminId;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
 	}
 
 }

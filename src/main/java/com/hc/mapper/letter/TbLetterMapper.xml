@@ -8,7 +8,7 @@
 			tl.tb_number as tbNumber,
 			tl.sending_state as sendingState,
 			tu.phone as phone,
-			tu.tb_email as tbEmail,
+			tl.target as tbEmail,
 			tu.nickname as nickname,
 			tl.create_time as createTime,
 			ts.tb_title as title,
@@ -44,9 +44,9 @@
 	
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO `tb_letter` 
-		(`tb_admin_id`,`tb_number`, `tb_user_id`, `tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
+		(`tb_admin_id`,`tb_number`, `tb_user_id`, `target`, `tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
 		VALUES
-		(#{tbAdminId},#{tbNumber}, #{tbUserId}, #{sendMessId},#{sendingState}, NULL, now() );
+		(#{tbAdminId},#{tbNumber}, #{tbUserId}, #{target},#{sendMessId},#{sendingState}, NULL, now() );
 	</insert>
 	
 	<delete id="deleLetter" parameterType="java.util.List">

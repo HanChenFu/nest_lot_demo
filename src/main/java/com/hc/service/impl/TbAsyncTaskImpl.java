@@ -22,6 +22,7 @@ import com.hc.pojo.email.TbEmail;
 import com.hc.pojo.letter.TbLetter;
 import com.hc.pojo.sendMess.TbSendMess;
 import com.hc.pojo.shortMess.TbShortMess;
+import com.hc.pojo.shortMess.TbShortPara;
 import com.hc.pojo.user.TbUser;
 import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.redis.LoginUserUtil;
@@ -80,7 +81,7 @@ public class TbAsyncTaskImpl {
 	  				str = tb.getTbId();
 	  			}
 	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,"2"));
+	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2"));
 	  		}
 	  	}
 	  	String content = tbEmail.getContent();
@@ -101,10 +102,10 @@ public class TbAsyncTaskImpl {
 	
 	//发送短信
 	@Async
-    public void sendSM(TbEmail tbEmail) throws Exception {
-	  	TbSendMess t = new TbSendMess(tbEmail.getTitle(),tbEmail.getContent());
+    public void sendSM(TbShortPara shortPara) throws Exception {
+	  	TbSendMess t = new TbSendMess(shortPara.getTitle(),shortPara.getContent());
 	  	tbSendMessMapper.insertSelective(t);
-	  	String[] to = tbEmail.getTo();
+	  	String[] to = shortPara.getTo();
 	  	List<String> list = new ArrayList<String>(Arrays.asList(to));//将数组转换为list集合
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
@@ -119,10 +120,10 @@ public class TbAsyncTaskImpl {
 	  				str = tb.getTbId();
 	  			}
 	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			tbShortMessMapper.insertSelective(new TbShortMess(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,"2"));
+	  			tbShortMessMapper.insertSelective(new TbShortMess(shortPara.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2"));
 	  		}
 	  	}
-	  	String content = tbEmail.getContent();
+	  	String content = shortPara.getContent();
 	  	for (int i = 0; i < list.size(); i++) {
 	  		AliyunSMSUtil.sendSMS(list.get(i), content);
 		}

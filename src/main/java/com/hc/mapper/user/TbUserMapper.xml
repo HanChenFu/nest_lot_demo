@@ -119,15 +119,28 @@
 		);
   </insert>
   
-  <!-- 根据邮箱修改手机号和姓名-->
-  <update id="updatePhoneName" parameterType="com.hc.pojo.user.TbUser">
-  		UPDATE tb_user
+  <!-- 根据邮箱修改手机号和姓名
+    	UPDATE tb_user
   		<trim prefix="set" suffixOverrides=",">
 		<if test="nickname!= null">nickname=#{nickname},</if>
 		<if test="phone!= null">phone=#{phone},</if>
 		</trim>
 		WHERE tb_email = #{tbEmail}
-			
+  -->
+  <update id="updateNickNameByPhoneOrEmail" parameterType="com.hc.pojo.user.TbUser">
+		UPDATE tb_user 
+		SET nickname = #{nickname}
+		WHERE
+			phone = #{phone}
+			OR tb_email = #{tbEmail}
+  </update>
+  
+  <!-- 根据用户id修改用户信息-->
+  <update id="updateUserById" parameterType="com.hc.pojo.user.TbUser">
+		UPDATE tb_user 
+		SET nickname = #{nickname}
+		WHERE
+			tb_id = #{tbId}
   </update>
   
 </mapper>

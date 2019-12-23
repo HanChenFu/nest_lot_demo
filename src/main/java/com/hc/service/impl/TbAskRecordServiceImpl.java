@@ -38,7 +38,6 @@ public class TbAskRecordServiceImpl implements TbAskRecordService{
 //	@ParamCheck(names = {"tbAdminId"})
 	public ResultQuery<TbAskRecord> getAskRecord(TbAskRecord ask, HttpServletRequest request)
 			throws Exception, CustomException {
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + request.getHeader("token") +"," + JSONObject.toJSONString(ask));
 		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
 		if (ask==null) {
 			ask = new TbAskRecord();

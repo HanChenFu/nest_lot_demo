@@ -14,6 +14,7 @@ import com.hc.common.result.ResultQuery;
 import com.hc.mapper.shortMess.TbShortMessMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.email.TbEmail;
+import com.hc.pojo.shortMess.TbShortPara;
 import com.hc.pojo.usually.LetterPageData;
 import com.hc.service.TbSMService;
 import com.hc.utils.result.ResultUtil;
@@ -28,8 +29,8 @@ public class TbSMServiceImpl implements TbSMService{
 	private TbShortMessMapper tbShortMessMapper;
 	
 	@Override
-	public ResultBase sendSM(TbEmail tbEmail, HttpServletRequest request) throws Exception, CustomException {
-		tbAsyncTaskImpl.sendSM(tbEmail);
+	public ResultBase sendSM(TbShortPara shortPara, HttpServletRequest request) throws Exception, CustomException {
+		tbAsyncTaskImpl.sendSM(shortPara);
 	   return ResultUtil.getResultBase("短信已经发送!");
 	}
 	

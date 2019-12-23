@@ -225,11 +225,13 @@ tbImages		图片
 请求路径：http://localhost:8080//web/sm/getShortMess
 需要传的参数：
 	id : 登陆用户的id
+	nickname:用户的昵称(用于模糊匹配)-----非必填
 	page(非必填):当前页
 	size(非必填):每页的大小
 例如：
 	{
 		"id":1,
+		"nickname":"令"
 		"page":,
 		"size":,
 	}
@@ -294,11 +296,13 @@ listid：信件的id
 请求路径：http://localhost:8080/web/letter/getLetterMess
 需要传的参数：
 	id : 登陆用户的id
+	nickname:用户的昵称(用于模糊匹配)-----非必填
 	page(非必填):当前页
 	size(非必填):每页的大小
 例如：
 	{
 		"id":1,
+		"nickname":"哥",
 		"page":,
 		"size":,
 	}
@@ -383,11 +387,13 @@ listid：信件的id
 请求路径：http://localhost:8080/web/askRecord/getAskRecord
 需要传的参数：
 	tbAdminId:登陆用户的id
+	tbName:题目查询(模糊查询非必填)
 	page(非必填):当前页
 	size(非必填):每页的大小
 例如：
 	{
 		"tbAdminId":1,
+		"tbName":"11",
 		"page":1,
 		"size":2
 	}
@@ -407,7 +413,7 @@ createTime:记录的创建时间
                 "tbDraft": "",								--草稿箱
                 "tbEnclosure": "",							--附件
                 "tbHistory": "",							--历史文件
-                "tbName": "xx通话记录",						--文件名称
+                "tbName": "xx通话记录",							--文件名称
                 "tbNumber": "DC987654345",					--文件编号
                 "tbUserId": "1"								--询问的用户id
             }
@@ -477,8 +483,8 @@ createTime:记录的创建时间
     "success": true
 }
 
-20.信件群发修改
-请求路径：http://localhost:8080/web/user/updatePhoneName
+20.信件群发修改,短信群发昵称修改
+请求路径：http://localhost:8080/web/user/updateNickNameByPhoneOrEmail
 需要传的参数：
 	phone:手机号
 	nickname:姓名
@@ -488,8 +494,7 @@ createTime:记录的创建时间
 		"phone":"15824626231",
 		"nickname":"闫思曼",
 		"tbEmail":"wkr9606@sina.com"
-	
-}
+	}
 返回参数：
     "code": 状态码
     "message": 返回信息
