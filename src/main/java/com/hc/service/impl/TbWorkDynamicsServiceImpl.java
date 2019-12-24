@@ -1,11 +1,8 @@
 package com.hc.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,7 +18,6 @@ import com.hc.mapper.tbAreaDynamics.TbAreaDynamicsMapper;
 import com.hc.mapper.tbAreaDynamics.TbEmergencyNewsMapper;
 import com.hc.mapper.tbAreaDynamics.TbNoticeMapper;
 import com.hc.mapper.tbAreaDynamics.TbWorkDynamicsMapper;
-import com.hc.pojo.callCenter.CallCenter;
 import com.hc.pojo.entity.TbWorkDynamics;
 import com.hc.service.TbWorkDynamicsService;
 import com.hc.test.GetJson;
@@ -46,11 +42,9 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 	
 	
 	@Override
-	public List<T> queryWorkDynamics() {
+	public List<TbWorkDynamics> queryWorkDynamics() {
 		return tbWorkDynamicsMapper.queryWorkDynamics();
 	}
-	
-	
 	
 	/**
 	 * 爬虫 (工作动态、通知公告、各区动态、应急要闻) 的数据

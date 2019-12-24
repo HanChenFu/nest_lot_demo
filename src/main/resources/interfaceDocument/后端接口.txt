@@ -521,6 +521,32 @@ createTime:记录的创建时间
                 "tbId": 用户ID
                 "tbNumber": 编号(档案号)
 
+22. token测试接口
+请求路径：http://localhost:8080//web/user/tokenCheck
+需要传的参数：
+	token：登陆时返回的凭证，会超时，超时之后需要跳转到登陆页面重新登陆
+返回参数：
+{
+    "success": true,
+    "code": 1000,
+    "message": "操作成功！",
+    "data": {
+        "tbId": 1,
+        "tbRoleId": 1,
+        "tbAccount": "siman",
+        "tbPhone": "18122711575",
+        "tbPassword": "E10ADC3949BA59ABBE56E057F20F883E",
+        "tbName": "思曼",
+        "tbHeadPath": "./head/sm.jpg",
+        "tbEmail": null,
+        "delTime": null,
+        "createTime": "2019-12-11 11:58:08.0",
+        "tbUuid": null,
+        "token": null
+    }
+}
+
+
 
 
 

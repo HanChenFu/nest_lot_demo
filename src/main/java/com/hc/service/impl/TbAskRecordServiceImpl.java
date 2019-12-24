@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.redis.RedisUtil;
@@ -16,7 +15,6 @@ import com.hc.common.result.ResultQuery;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.askRecord.TbAskRecord;
-import com.hc.pojo.base.TbAdmin;
 import com.hc.service.TbAskRecordService;
 import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.redis.LoginUserUtil;
@@ -35,14 +33,14 @@ public class TbAskRecordServiceImpl implements TbAskRecordService{
 	LoginUserUtil loginUserUtil;
 	
 	@Override
-//	@ParamCheck(names = {"tbAdminId"})
+	@ParamCheck(names = {"tbAdminId"})
 	public ResultQuery<TbAskRecord> getAskRecord(TbAskRecord ask, HttpServletRequest request)
 			throws Exception, CustomException {
-		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
+//		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
 		if (ask==null) {
 			ask = new TbAskRecord();
 		}
-		ask.setTbAdminId(String.valueOf(t.getTbId()));
+		ask.setTbAdminId(String.valueOf(ask.getTbAdminId()));
 		List<TbAskRecord> li = tbAskRecordMapper.getAskRecord(ask);
 		if(li==null) {
 			return ResultUtil.getResultQuery("没有数据！");

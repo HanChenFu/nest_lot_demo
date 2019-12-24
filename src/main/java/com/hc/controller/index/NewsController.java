@@ -42,7 +42,7 @@ public class NewsController {
 	@Autowired 
 	private TbAreaDynamicsService tbAreaDynamicsService;
 	@Autowired 
-	private TbEmergencyNewsService 	tbEmergencyNewsService; 
+	private TbEmergencyNewsService tbEmergencyNewsService; 
 	@Autowired
 	private TbCaseService tbCaseService; 
 	@Autowired
@@ -61,11 +61,9 @@ public class NewsController {
 	
 	//查询首页的工作动态、通知公告、各区动态、应急要闻
 	@RequestMapping("/everyAreaDynamics")
-	public List<T> queryEveryAreaDynamics(@RequestBody(required = false) BasePara para) throws Exception {
+	public List<?> queryEveryAreaDynamics(@RequestBody(required = false) BasePara para) throws Exception {
 		if (para!=null) {
 			String type = para.getType();
-			System.out.println("-*********************************-" + para.getType());
-			
 			if(type == null || "".equals(type)) {
 				return tbWorkDynamicsService.queryWorkDynamics();
 			}else {
@@ -81,7 +79,6 @@ public class NewsController {
 			}
 		}
 		return null;
-		
 	}
 	
 	

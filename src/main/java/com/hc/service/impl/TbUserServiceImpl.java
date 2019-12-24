@@ -13,6 +13,7 @@ import com.hc.common.redis.RedisUtil;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.mapper.user.TbUserMapper;
+import com.hc.pojo.base.TbAdmin;
 import com.hc.pojo.user.TbUser;
 import com.hc.service.TbUserService;
 import com.hc.utils.redis.LoginUserUtil;
@@ -71,6 +72,12 @@ public class TbUserServiceImpl implements TbUserService{
 			return ResultUtil.getResultBase("更新成功");
 		}
 		return ResultUtil.getResultBase("更新失败");
+	}
+
+	@Override
+	public ResultBase tokenCheck(HttpServletRequest request) throws Exception, CustomException {
+		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
+		return ResultUtil.getResultData(t);
 	}
 	
 	

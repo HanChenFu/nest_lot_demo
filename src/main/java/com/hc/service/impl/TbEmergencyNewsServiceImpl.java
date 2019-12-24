@@ -17,7 +17,7 @@ public class TbEmergencyNewsServiceImpl implements TbEmergencyNewsService{
 	private TbEmergencyNewsMapper tbEmergencyNewsMapper;
 	
 	@Override
-	public List<T> queryEmergencyNews() {
+	public List<TbEmergencyNews> queryEmergencyNews() {
 		return tbEmergencyNewsMapper.queryEmergencyNews();
 	}
 	

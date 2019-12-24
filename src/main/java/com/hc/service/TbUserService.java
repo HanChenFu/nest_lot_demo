@@ -22,4 +22,6 @@ public interface TbUserService {
 	ResultBase updateNickNameByPhoneOrEmail(TbUser tbUser,HttpServletRequest request) throws Exception,CustomException;
 	
 	ResultBase updateUserById(TbUser tbUser,HttpServletRequest request) throws Exception,CustomException;
+	
+	ResultBase tokenCheck(HttpServletRequest request) throws Exception,CustomException;
 }

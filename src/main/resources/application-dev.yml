@@ -12,7 +12,7 @@ myProps:
 spring:
   datasource:
     name: dev
-    url: jdbc:mysql://192.168.1.11:3306/emergency_system?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&allowMultiQueries=true
+    url: jdbc:mysql://192.168.1.16:3306/emergency_system?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&allowMultiQueries=true
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource

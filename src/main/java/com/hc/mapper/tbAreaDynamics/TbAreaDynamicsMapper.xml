@@ -8,8 +8,7 @@
 		tb_html_path as tbHtmlPath
 	</sql>
 	
-	
-  	<select id="queryEveryAreaDynamics" resultType="com.hc.pojo.entity.TbAreaDynamics">
+   	<select id="queryEveryAreaDynamics" resultType="com.hc.pojo.entity.TbAreaDynamics">
 		select
 		<include refid="Base_Column_List" />
 		from tb_area_dynamics
@@ -17,7 +16,6 @@
 	
     <!-- 添加 各区动态 -->
 	<insert id="insertAreaDynamics" keyProperty="tbId" useGeneratedKeys="true" parameterType="com.hc.pojo.entity.TbWorkDynamics">
-	
 		INSERT INTO `tb_area_dynamics`
 			(
 				tb_title,

@@ -50,5 +50,18 @@ public class WebUserController {
    		return tbUserServer.updateUserById(tbUser, request);
    	}
 	
+	
+	/**
+	 * 	check 用户是否拿到token
+	 * @param tbUser
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 * @throws CustomException
+	 */
+	@RequestMapping("/tokenCheck")
+	public ResultBase tokenCheck(HttpServletRequest request) throws Exception,CustomException{
+   		return tbUserServer.tokenCheck(request);
+   	}
 
 }

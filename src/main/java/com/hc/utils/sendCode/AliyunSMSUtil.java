@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
@@ -160,6 +161,7 @@ public final class AliyunSMSUtil {
 			request.setOutId("yourOutId");
 			// 请求失败这里会抛ClientException异常
 			SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+			System.out.println("~~~~~~~~~" + JSONObject.toJSONString(sendSmsResponse));
 			if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
 				// 请求成功
 				return true;
