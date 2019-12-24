@@ -21,6 +21,18 @@
 2 首页各区动态接口路径：http://localhost:8080//index/news/everyAreaDynamics
 参数：type   1=工作动态 2=通知公告 3=各区动态  4=应急要闻    参数默认值：type=1    当用户点击导航栏首页，此时前端根据用户点击首页导航栏事件，默认type=1,展现的是 工作动态
 
+返回参数：
+{
+        "tbId": 269,
+        "tbTitle": "市应急管理局杨金山副局长带队到南山区督查森林防灭火工作",
+        "tbContent": "@img W020191217520095740604.png@imgText@img W020191217520095910778.png@imgText,　
+        "tbFigurePath": null,
+        "delTime": null,
+        "createTime": "2019-12-23 15:14:45.0",
+        "tbHtmlPath": "http://www.xinhuanet.com//gangao/2019-12/10/c_1125331147.htm",
+        "dataTime": "2019-12-17",
+        "tempImgUrl": null
+ },
 
 3 获取首页记录数接口路径：http://localhost:8080//index/news/queryNumber 
 

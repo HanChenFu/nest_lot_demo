@@ -8,6 +8,7 @@ public class TbEmergencyNews {
 	private String delTime;
 	private String createTime;
 	private String tbHtmlPath;
+	private String dataTime;
 	
 	public String getTbTitle() {
 		return tbTitle;
@@ -45,7 +46,12 @@ public class TbEmergencyNews {
 	public void setTbHtmlPath(String tbHtmlPath) {
 		this.tbHtmlPath = tbHtmlPath;
 	}
-	
+	public String getDataTime() {
+		return dataTime;
+	}
+	public void setDataTime(String dataTime) {
+		this.dataTime = dataTime;
+	}
 	
 	
 
