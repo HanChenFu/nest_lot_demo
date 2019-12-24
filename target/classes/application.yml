@@ -2,7 +2,7 @@
 spring:
   profiles:
     active: dev
-
+ 
 # 相当于 mybatis-config 配置
 mybatis:
   mapper-locations: classpath:com/hc/mapper/**/*.xml

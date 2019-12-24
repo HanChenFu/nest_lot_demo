@@ -22,9 +22,7 @@ public final class SmsSDKDemo {
     	} catch (Exception e) {
 			e.printStackTrace();
 		}
-    
 	}
-	
 	
 	public static void main(String[] args) {
 		SmsSDKDemo.sendSM("18122711575", "asdsadasd", "asjdhsad");

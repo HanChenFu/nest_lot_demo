@@ -10,7 +10,7 @@ public interface TbLetterMapper {
 	
 	List<LetterPageData> getLetterMess(BasePara para);
 	
-	int getLetterMessCount();
+	int getLetterMessCount(BasePara para);
 	
 	int insertSelective(TbLetter letter);
 	

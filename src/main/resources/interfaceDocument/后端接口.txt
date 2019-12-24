@@ -199,17 +199,39 @@ tbImages		图片
 	code:状态码
 	message:返回的发送信息
 	success:状态码
+	
+11.1 发送信件 
+请求路径：http://localhost:8080/web/sm/sendSM
+需要传的参数：
+	tbAdminId:登陆用户id
+	to:发送给用户的邮箱()
+	title:主题
+	content:内容
+例如：
+		{
+			"to":["18122711575"],
+			"title":"111",
+			"content":"222",
+			"tbAdminId":1
+		}
+返回参数：
+	code:状态码
+	message:返回的发送信息
+	success:状态码
+	
+	
 
-
-12 查询发送的信件 
-请求路径：http://localhost:8080/web/letter/getLetterMess
+11.2 查询发送的短信
+请求路径：http://localhost:8080//web/sm/getShortMess
 需要传的参数：
 	id : 登陆用户的id
+	nickname:用户的昵称(用于模糊匹配)-----非必填
 	page(非必填):当前页
 	size(非必填):每页的大小
 例如：
 	{
 		"id":1,
+		"nickname":"令"
 		"page":,
 		"size":,
 	}
@@ -221,10 +243,81 @@ tbImages		图片
 	"nickname": 昵称
 	"createTime": 发送时间
 	"follow": 是否关注 0 表示未关注 1表示已经关注
-	"tbType":信件类型(1 表示是邮件 2表示是短信)
+	"title":发送的标题
+	"content":发送的内容
 
 
-13 删除信件
+11.3 删除短信
+请求路径：http://localhost:8080//web/sm/deleShortMess
+需要传的参数：
+listid：信件的id
+例如：
+	{
+		"listid":[10,11,12]
+	}
+返回参数：
+	code:状态码
+	message:返回的发送信息
+	success:状态码
+	
+
+11.4 点击关注短信 
+请求路径：http://localhost:8080/web/shortMessFollow/insertSelective
+需要传的参数：
+	tbAdminId : 登陆用户的id
+	tbShortMessId:发送信件的id
+例如：
+	{
+		"tbAdminId":1,
+		"tbShortMessId":6
+	}
+返回参数：
+	code:状态码
+	message:返回的发送信息
+	success:状态码
+
+11.5 取消关注短信
+请求路径：http://localhost:8080/web/shortMessFollow/deleteFollow
+需要传的参数：
+	tbAdminId : 登陆用户的id
+	tbShortMessId:发送信件的id
+例如：
+	{
+		"tbAdminId":1,
+		"tbShortMessId":6
+	}
+返回参数：
+	code:状态码
+	message:返回的发送信息
+	success:状态码
+
+
+12 查询发送的邮件
+请求路径：http://localhost:8080/web/letter/getLetterMess
+需要传的参数：
+	id : 登陆用户的id
+	nickname:用户的昵称(用于模糊匹配)-----非必填
+	page(非必填):当前页
+	size(非必填):每页的大小
+例如：
+	{
+		"id":1,
+		"nickname":"哥",
+		"page":,
+		"size":,
+	}
+返回参数：
+	"tbNumber": 编号
+	"phone": 手机号
+	"sendingState": 发送状态 0表示未发送 1表示发送中 2表示已经发送
+	"tbEmail": 邮箱
+	"nickname": 昵称
+	"createTime": 发送时间
+	"follow": 是否关注 0 表示未关注 1表示已经关注
+	"title":发送的标题
+	"content":发送的内容
+
+13 删除邮件
 请求路径：http://localhost:8080//web/letter/deleLetter
 需要传的参数：
 listid：信件的id
@@ -238,7 +331,7 @@ listid：信件的id
 	success:状态码
 
 
-14 点击关注信件 
+14 点击关注信件(邮件) 
 请求路径：http://localhost:8080/web/letterFollow/insertSelective
 需要传的参数：
 	tbLetterId：信件的id
@@ -253,7 +346,7 @@ listid：信件的id
     "message": 返回信息
     "success": 状态码
 
-15 取消关注信件 
+15 取消关注信件 (邮件)
 请求路径：http://localhost:8080/web/letterFollow/deleteFollow
 需要传的参数：
 	tbLetterId：信件的id
@@ -290,16 +383,17 @@ listid：信件的id
     "success": 状态码
 
 
-
 17  查询 笔录 
 请求路径：http://localhost:8080/web/askRecord/getAskRecord
 需要传的参数：
 	tbAdminId:登陆用户的id
+	tbName:题目查询(模糊查询非必填)
 	page(非必填):当前页
 	size(非必填):每页的大小
 例如：
 	{
 		"tbAdminId":1,
+		"tbName":"11",
 		"page":1,
 		"size":2
 	}
@@ -319,7 +413,7 @@ createTime:记录的创建时间
                 "tbDraft": "",								--草稿箱
                 "tbEnclosure": "",							--附件
                 "tbHistory": "",							--历史文件
-                "tbName": "xx通话记录",						--文件名称
+                "tbName": "xx通话记录",							--文件名称
                 "tbNumber": "DC987654345",					--文件编号
                 "tbUserId": "1"								--询问的用户id
             }
@@ -389,21 +483,18 @@ createTime:记录的创建时间
     "success": true
 }
 
-20.信件群发修改
-请求路径：http://localhost:8080/web/user/updatePhoneName
+20.信件群发修改,短信群发昵称修改
+请求路径：http://localhost:8080/web/user/updateNickNameByPhoneOrEmail
 需要传的参数：
 	phone:手机号
 	nickname:姓名
 	tbEmail:邮箱
 例如：
 	{
-	"phone":"15824626231",
-
+		"phone":"15824626231",
 		"nickname":"闫思曼",
-
 		"tbEmail":"wkr9606@sina.com"
-	
-}
+	}
 返回参数：
     "code": 状态码
     "message": 返回信息

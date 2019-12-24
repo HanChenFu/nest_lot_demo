@@ -10,7 +10,8 @@ public class LetterPageData {
 	private String nickname;//昵称
 	private String createTime;//发送时间
 	private int follow;//是否关注 0 表示未关注 1表示已经关注
-	private int tbType;//信件类型(1 表示是邮件 2表示是短信)
+	private String title;//标题
+	private String content;//内容
 	
 	public int getTbId() {
 		return tbId;
@@ -60,10 +61,17 @@ public class LetterPageData {
 	public void setFollow(int follow) {
 		this.follow = follow;
 	}
-	public int getTbType() {
-		return tbType;
+	public String getTitle() {
+		return title;
 	}
-	public void setTbType(int tbType) {
-		this.tbType = tbType;
+	public void setTitle(String title) {
+		this.title = title;
 	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 }

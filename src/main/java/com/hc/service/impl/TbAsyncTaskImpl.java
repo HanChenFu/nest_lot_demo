@@ -16,14 +16,17 @@ import com.hc.common.redis.RedisUtil;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
 import com.hc.mapper.letter.TbLetterMapper;
 import com.hc.mapper.sendMess.TbSendMessMapper;
+import com.hc.mapper.shortMess.TbShortMessMapper;
 import com.hc.mapper.user.TbUserMapper;
 import com.hc.pojo.email.TbEmail;
 import com.hc.pojo.letter.TbLetter;
 import com.hc.pojo.sendMess.TbSendMess;
+import com.hc.pojo.shortMess.TbShortMess;
+import com.hc.pojo.shortMess.TbShortPara;
 import com.hc.pojo.user.TbUser;
 import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.redis.LoginUserUtil;
-import com.hc.utils.sm.SmsSDKDemo;
+import com.hc.utils.sendCode.AliyunSMSUtil;
 import com.hc.utils.string.EmailCheck;
 
 @Service("tbAsyncTaskImpl")
@@ -50,6 +53,9 @@ public class TbAsyncTaskImpl {
 	@Autowired
 	TbSendMessMapper tbSendMessMapper;
 	
+	@Autowired
+	TbShortMessMapper tbShortMessMapper;
+	
 	@Value("${spring.mail.username}")
     private String from;
 	
@@ -75,7 +81,7 @@ public class TbAsyncTaskImpl {
 	  				str = tb.getTbId();
 	  			}
 	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,1,"2"));
+	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2"));
 	  		}
 	  	}
 	  	String content = tbEmail.getContent();
@@ -96,10 +102,10 @@ public class TbAsyncTaskImpl {
 	
 	//发送短信
 	@Async
-    public void sendSM(TbEmail tbEmail) throws Exception {
-	  	TbSendMess t = new TbSendMess(tbEmail.getTitle(),tbEmail.getContent());
+    public void sendSM(TbShortPara shortPara) throws Exception {
+	  	TbSendMess t = new TbSendMess(shortPara.getTitle(),shortPara.getContent());
 	  	tbSendMessMapper.insertSelective(t);
-	  	String[] to = tbEmail.getTo();
+	  	String[] to = shortPara.getTo();
 	  	List<String> list = new ArrayList<String>(Arrays.asList(to));//将数组转换为list集合
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
@@ -109,17 +115,17 @@ public class TbAsyncTaskImpl {
 	  		}else {
 	  			String str = tbUserMapper.getUserIdByPhone(s);
 	  			if(str==null) {
-	  				TbUser tb = new TbUser(s);
+	  				TbUser tb = new TbUser(s,1);
 	  				tbUserMapper.insertSelective(tb);
 	  				str = tb.getTbId();
 	  			}
 	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),auto_id,2,"2"));
+	  			tbShortMessMapper.insertSelective(new TbShortMess(shortPara.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2"));
 	  		}
 	  	}
-	  	String content = tbEmail.getContent();
+	  	String content = shortPara.getContent();
 	  	for (int i = 0; i < list.size(); i++) {
-	  		SmsSDKDemo.sendSM(list.get(i), tbEmail.getTitle(), content);
+	  		AliyunSMSUtil.sendSMS(list.get(i), content);
 		}
     }
 	

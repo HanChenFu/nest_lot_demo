@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.redis.RedisUtil;
@@ -53,9 +54,19 @@ public class TbUserServiceImpl implements TbUserService{
 	}
 
 	@Override
-	@ParamCheck(names = {"tbEmail","phone","nickname"})
-	public ResultBase updatePhoneName(TbUser tbUser, HttpServletRequest request) throws Exception, CustomException {
-		int s = tbUserMapper.updatePhoneName(tbUser);
+	@ParamCheck(names = {"nickname"})
+	public ResultBase updateNickNameByPhoneOrEmail(TbUser tbUser, HttpServletRequest request) throws Exception, CustomException {
+		int s = tbUserMapper.updateNickNameByPhoneOrEmail(tbUser);
+		if (s > 0) {
+			return ResultUtil.getResultBase("更新成功");
+		}
+		return ResultUtil.getResultBase("更新失败");
+	}
+
+	@Override
+	@ParamCheck(names = {"tbId","nickname"})
+	public ResultBase updateUserById(TbUser tbUser, HttpServletRequest request) throws Exception, CustomException {
+		int s = tbUserMapper.updateUserById(tbUser);
 		if (s > 0) {
 			return ResultUtil.getResultBase("更新成功");
 		}

@@ -1,26 +1,27 @@
-package com.hc.pojo.letter;
+package com.hc.pojo.shortMess;
 
 /**
- * 	这边是邮件发送的表
+ * 	这边是短信发送的表
  * @author Administrator
  *
  */
-public class TbLetter {
+public class TbShortMess {
+
 	private int tbId;
 	private String tbNumber;
 	private String tbAdminId;
 	private int tbUserId;
-	private String target;//目标用户邮箱
+	private String target;
 	private int sendMessId;
 	private String sendingState;
 	private String delTime;
 	private String createTime;
 	
-	public TbLetter() {
+	public TbShortMess() {
 		super();
 	}
 	
-	public TbLetter(String tbAdminId,String tbNumber, int tbUserId, String target,int sendMessId,String sendingState) {
+	public TbShortMess(String tbAdminId,String tbNumber, int tbUserId, String target,int sendMessId,String sendingState) {
 		super();
 		this.tbAdminId = tbAdminId;
 		this.tbNumber = tbNumber;

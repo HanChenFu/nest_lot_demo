@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hc.mapper.letter.TbLetterMapper" >
+<mapper namespace="com.hc.mapper.shortMess.TbShortMessMapper" >
 	  
-	<select id="getLetterMess" resultType="com.hc.pojo.usually.LetterPageData">
+	<select id="getShortMess" resultType="com.hc.pojo.usually.LetterPageData">
 		SELECT
 			tl.tb_id as tbId,
 			tl.tb_number as tbNumber,
 			tl.sending_state as sendingState,
-			tu.phone as phone,
-			tl.target as tbEmail,
+			tl.target as phone,
+			tu.tb_email as tbEmail,
 			tu.nickname as nickname,
 			tl.create_time as createTime,
 			ts.tb_title as title,
 			ts.tb_content as content,
 			CASE WHEN tlf.tb_id IS NULL THEN 0 ELSE 1 END as follow
 		FROM
-			`tb_letter` tl
+			`tb_short_mess` tl
 		LEFT JOIN tb_user tu ON tu.tb_id = tl.tb_user_id
-		LEFT JOIN tb_letter_follow tlf ON tl.tb_id = tlf.tb_letter_id AND tlf.tb_admin_id = #{id}
+		LEFT JOIN tb_short_mess_follow tlf ON tl.tb_id = tlf.tb_short_mess_id AND tlf.tb_admin_id = #{id}
 		LEFT JOIN tb_send_mess ts ON ts.tb_id = tl.tb_send_mess_id
 		WHERE tl.tb_admin_id = #{id}
 		<if test="nickname!=null and nickname!=''">
@@ -29,35 +29,35 @@
 		</if>
 	</select>
 	
-	<select id="getLetterMessCount" resultType="java.lang.Integer">
+	<select id="getShortMessCount" resultType="java.lang.Integer">
 		SELECT
 			COUNT( 1 ) 
 		FROM
-			`tb_letter` tl
-			LEFT JOIN tb_user tu ON tu.tb_id = tl.tb_user_id 
+			`tb_short_mess` ts
+			LEFT JOIN tb_user tu ON tu.tb_id = ts.tb_user_id 
 		WHERE
-			tl.tb_admin_id = #{id}
+			ts.tb_admin_id = #{id}
 		<if test="nickname!=null and nickname!=''">
 			AND tu.nickname like concat('%',#{nickname},'%')
 		</if>
 	</select>
 	
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
-		INSERT INTO `tb_letter` 
-		(`tb_admin_id`,`tb_number`, `tb_user_id`, `target`, `tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
+		INSERT INTO `tb_short_mess` 
+		(`tb_admin_id`,`tb_number`, `tb_user_id`, `target`,`tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
 		VALUES
 		(#{tbAdminId},#{tbNumber}, #{tbUserId}, #{target},#{sendMessId},#{sendingState}, NULL, now() );
 	</insert>
 	
-	<delete id="deleLetter" parameterType="java.util.List">
-		DELETE FROM tb_letter_follow WHERE tb_letter_id IN
+	<delete id="deleShort" parameterType="java.util.List">
+		DELETE FROM tb_short_mess_follow WHERE tb_short_mess_id IN
 		<foreach item="item" collection="list" open="(" separator="," close=")">
 	      #{item}
         </foreach>
         ;
-		DELETE 
+		DELETE
 		FROM
-			tb_letter 
+			tb_short_mess 
 		WHERE tb_id in
   		<foreach item="item" collection="list" open="(" separator="," close=")">
 	      #{item}

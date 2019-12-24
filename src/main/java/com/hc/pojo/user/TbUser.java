@@ -34,6 +34,10 @@ public class TbUser extends PageParam{
 		super();
 		this.tbEmail = tbEmail;
 	}
+	public TbUser(String phone,int i) {
+		super();
+		this.phone = phone;
+	}
 	public String getTbId() {
 		return tbId;
 	}

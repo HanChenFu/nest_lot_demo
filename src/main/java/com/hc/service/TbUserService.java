@@ -19,5 +19,7 @@ public interface TbUserService {
 	
 	ResultBase insertSelective(TbUser tbUser, HttpServletRequest request)throws Exception,CustomException;
 	
-	ResultBase updatePhoneName(TbUser tbUser,HttpServletRequest request) throws Exception,CustomException;
+	ResultBase updateNickNameByPhoneOrEmail(TbUser tbUser,HttpServletRequest request) throws Exception,CustomException;
+	
+	ResultBase updateUserById(TbUser tbUser,HttpServletRequest request) throws Exception,CustomException;
 }

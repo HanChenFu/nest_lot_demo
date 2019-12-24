@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hc.mapper.askRecord.TbAskRecordMapper" >
-	  
+	
+	
 	<select id="getAskRecord" resultType="com.hc.pojo.askRecord.TbAskRecord">
 		SELECT
 			tb_id AS tbId,
 			tb_user_id AS tbUserId,
 			tb_number AS tbNumber,
 			tb_name AS tbName,
-			tb_name AS tbName,
 			tb_draft as tbDraft,
 			create_time AS createTime
 		FROM
 			tb_ask_record 
 		WHERE
-			tb_admin_id = #{tbAdminId}
-			ORDER BY create_time DESC
+			tb_admin_id = #{tbAdminId} 
+		<if test="tbName!=null and tbName!=''">
+			AND tb_name like concat('%',#{tbName},'%')
+		</if>
 		<if test="page != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
@@ -23,6 +25,9 @@
 	
 	<select id="getAskRecordCount" resultType="java.lang.Integer">
 		SELECT COUNT(1) FROM `tb_ask_record` WHERE tb_admin_id = #{tbAdminId}
+		<if test="tbName!=null and tbName!=''">
+			AND tb_name like concat('%',#{tbName},'%')
+		</if>
 	</select>
 	
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
