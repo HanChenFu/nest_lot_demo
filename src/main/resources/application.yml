@@ -1,8 +1,12 @@
 # 配置运行环境：dev 开发环境，test 测试环境，pro 生产环境
 spring:
+  mvc:
+    static-path-pattern: /image/**
+  resources:
+    static-locations: file:D://image/
   profiles:
     active: dev
-
+ 
 # 相当于 mybatis-config 配置
 mybatis:
   mapper-locations: classpath:com/hc/mapper/**/*.xml

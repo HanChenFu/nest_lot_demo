@@ -14,5 +14,30 @@
 		<include refid="Base_Column_List" />
 		from tb_area_dynamics
 	</select>
+	
+    <!-- 添加 各区动态 -->
+	<insert id="insertAreaDynamics" keyProperty="tbId" useGeneratedKeys="true" parameterType="com.hc.pojo.entity.TbWorkDynamics">
+	
+		INSERT INTO `tb_area_dynamics`
+			(
+				tb_title,
+				tb_content,
+				tb_figure_path,
+				del_time,
+				create_time,
+				tb_html_path,
+				data_time
+			)
+			VALUES ( 
+				#{tbTitle}, 
+				#{tbContent}, 
+				NULL, 
+				NULL, 
+				#{createTime}, 
+				'http://www.xinhuanet.com//gangao/2019-12/10/c_1125331147.htm',
+				#{dataTime}
+			);
+			
+  	</insert>
   
 </mapper>

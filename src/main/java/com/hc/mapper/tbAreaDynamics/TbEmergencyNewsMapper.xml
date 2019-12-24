@@ -14,5 +14,30 @@
 		<include refid="Base_Column_List" />
 		from tb_emergency_news
 	</select>
+	
+	 <!-- 添加 应急要闻 -->
+	<insert id="insertEmergencyNews" keyProperty="tbId" useGeneratedKeys="true" parameterType="com.hc.pojo.entity.TbWorkDynamics">
+	
+		INSERT INTO `tb_emergency_news`
+			(
+				tb_title,
+				tb_content,
+				tb_figure_path,
+				del_time,
+				create_time,
+				tb_html_path,
+				data_time
+			)
+			VALUES (
+				#{tbTitle}, 
+				#{tbContent}, 
+				NULL, 
+				NULL, 
+				#{createTime}, 
+				'http://www.xinhuanet.com//gangao/2019-12/10/c_1125331147.htm',
+				#{dataTime}
+			);
+			
+  	</insert>
   
 </mapper>

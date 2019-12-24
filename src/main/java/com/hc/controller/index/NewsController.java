@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -182,5 +183,32 @@ public class NewsController {
 	// }
 	
 	
-
+	/**
+	 * 爬虫 (工作动态、通知公告、各区动态、应急要闻) 的数据
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/insertReptileData")
+	public ResultData<Object> insertReptileData() throws Exception {
+		 
+		int index = tbWorkDynamicsService.insertReptileData(null);
+		if(index == 0) {
+			
+			return ResultUtil.getResultData(false,StatusCode.ERROR,"没数据",null);
+		}
+			return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",index);
+	}
+		
+	@RequestMapping("/testImg")
+	public String testImg() throws Exception {
+		  
+//		 String url = StaticResourceController.class.getResource("/").getPath(); 
+		 String url = StaticResourceLocation.class.getResource("/").getPath();
+		 System.out.println(url+"=====");
+		 
+		 
+		return url;
+		 
+	}
+	
 }

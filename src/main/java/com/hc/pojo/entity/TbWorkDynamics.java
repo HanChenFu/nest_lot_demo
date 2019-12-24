@@ -9,6 +9,8 @@ public class TbWorkDynamics {
 	private String delTime;
 	private String createTime;
 	private String tbHtmlPath;
+	private String dataTime;
+	private String tempImgUrl;
 	
 	public int getTbId() {
 		return tbId;
@@ -52,7 +54,17 @@ public class TbWorkDynamics {
 	public void setTbHtmlPath(String tbHtmlPath) {
 		this.tbHtmlPath = tbHtmlPath;
 	}
-	
-	
+	public String getDataTime() {
+		return dataTime;
+	}
+	public void setDataTime(String dataTime) {
+		this.dataTime = dataTime;
+	}
+	public String getTempImgUrl() {
+		return tempImgUrl;
+	}
+	public void setTempImgUrl(String tempImgUrl) {
+		this.tempImgUrl = tempImgUrl;
+	}
 	
 }
