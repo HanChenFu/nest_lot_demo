@@ -1,5 +1,6 @@
 package com.hc.utils.voiceToText;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.baidu.aip.speech.AipSpeech;
@@ -37,8 +38,9 @@ public final class VoiceRecognition {
      * 
      * @param path
      * @return
+     * @throws JSONException 
      */
-    public final static String recognizeVoice(String path)
+    public final static String recognizeVoice(String path) throws JSONException
     {
         JSONObject asrRes = aipSpeech.asr(path, "pcm", 16000, null);
         if(asrRes.getString("err_msg").equals("success.")){
