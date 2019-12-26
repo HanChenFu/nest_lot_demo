@@ -191,14 +191,5 @@ public class NewsController {
 		}
 		return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",index);
 	}
-		
-	@RequestMapping("/testImg")
-	public String testImg() throws Exception {
-//		 String url = StaticResourceController.class.getResource("/").getPath();
-		 String url = StaticResourceLocation.class.getResource("/").getPath();
-		 System.out.println(url+"=====");
-		 return url;
-		 
-	}
 	
 }
