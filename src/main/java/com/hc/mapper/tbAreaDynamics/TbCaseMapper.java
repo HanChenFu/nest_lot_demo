@@ -16,4 +16,6 @@ public interface TbCaseMapper {
 	
 	
 	int insertCase(TbCase tbCase);
+	
+	int updateCaseById(TbCase tbCase);
 }

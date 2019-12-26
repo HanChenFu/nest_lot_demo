@@ -26,7 +26,6 @@ public class OnlineServiceController {
 	 */
 	@RequestMapping("/chat")
 	public  ResultData<BasePara> chat(@RequestBody(required = false) JSONObject jsonObject) throws Exception {
-		
 		String chatContent = jsonObject == null ? null : jsonObject.getString("chatContent");
 		if(chatContent==null || "".equals(chatContent)) {
 			return ResultUtil.getResultData(true,StatusCode.SUCCESS,"您好，请问有什么可以帮到您", null);

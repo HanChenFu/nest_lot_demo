@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hc.common.code.StatusCode;
+import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
 import com.hc.common.tools.Tools;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
@@ -85,7 +85,6 @@ public class NewsController {
 	//查询首页的统计数字
 	@RequestMapping("/queryNumber")
 	public Map<String, Integer> queryNumbers() throws Exception {
-		
 		int crownCase=tbCaseService.queryNumber(1);
 		int hillFire=tbCaseService.queryNumber(2);
 		int commonCase=tbCaseService.queryNumber(3);
@@ -96,7 +95,6 @@ public class NewsController {
 		map.put("commonCase", commonCase);
 		map.put("safetyProduction", safetyProduction);
 		return map;
-		
 	}
 	
 	
@@ -110,7 +108,6 @@ public class NewsController {
 		String tbSize=jsonObject == null ? null : jsonObject.getString("tbSize");
 		Integer tbStar=jsonObject == null ? null : jsonObject.getInteger("tbStar");
 		return tbCaseService.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
-		
 	}
 	
 	//查询所有案件
@@ -134,7 +131,6 @@ public class NewsController {
 	//联网备案（这个接口包含的图片上传我没写）
 	@RequestMapping("/insertCase")
 	public String insertCase(@RequestBody(required = false) JSONObject jsonObject, HttpServletRequest request) throws Exception {
-		
 		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
 		String tbNumber=jsonObject.getString("tbNumber");
 //		String time= jsonObject == null ? tools.getAPIresponseDateTime() : jsonObject.getString("time");
@@ -148,7 +144,6 @@ public class NewsController {
 		String tbDesc=jsonObject.getString("tbDesc");
 		String tbRemarks=jsonObject.getString("tbRemarks");
 		String tbImages=jsonObject.getString("tbImages");
-		
 		TbCase tbCase=new TbCase();
 		tbCase.setTbNumber(tbNumber);
 		tbCase.setCreateTime(time);
@@ -162,7 +157,6 @@ public class NewsController {
 		tbCase.setTbDesc(tbDesc);
 		tbCase.setTbRemarks(tbRemarks);
 		tbCase.setTbImages(tbImages);
-		
 		int a=tbCaseMapper.insertCase(tbCase);
 		if(a<1) {
 			return "案件内容上传失败";
@@ -170,15 +164,19 @@ public class NewsController {
 		return "案件内容上传成功";
 	}
 	
+	//这边是更新案件
+	@RequestMapping("/updateCaseById")
+	public ResultBase updateCaseById(@RequestBody(required = false) TbCase tbcase,HttpServletRequest request) throws Exception {
+		return tbCaseService.updateCaseById(tbcase,request);
+	}
 	
 	//案号查验     
-	//这个接口  和上面的 查询所有案件共用，  传一个tbNumber就好了   
+	//这个接口  和上面的 查询所有案件共用，  传一个tbNumber就好了
 	//还是调用上面哪个接口 http://localhost:8080//index/news/queryAllCase    
 	//传参：
 	//{
 	//"tbNumber":"DC09875514"
 	// }
-	
 	
 	/**
 	 * 爬虫 (工作动态、通知公告、各区动态、应急要闻) 的数据
@@ -187,24 +185,19 @@ public class NewsController {
 	 */
 	@RequestMapping("/insertReptileData")
 	public ResultData<Object> insertReptileData() throws Exception {
-		 
 		int index = tbWorkDynamicsService.insertReptileData(null);
 		if(index == 0) {
-			
 			return ResultUtil.getResultData(false,StatusCode.ERROR,"没数据",null);
 		}
-			return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",index);
+		return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",index);
 	}
 		
 	@RequestMapping("/testImg")
 	public String testImg() throws Exception {
-		  
-//		 String url = StaticResourceController.class.getResource("/").getPath(); 
+//		 String url = StaticResourceController.class.getResource("/").getPath();
 		 String url = StaticResourceLocation.class.getResource("/").getPath();
 		 System.out.println(url+"=====");
-		 
-		 
-		return url;
+		 return url;
 		 
 	}
 	

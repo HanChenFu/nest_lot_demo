@@ -10,11 +10,9 @@
 		tb_images as tbImages, del_time as delTime, create_time as createTime
 	</sql>
 	
-	
   	<select id="queryNumber"   resultType="java.lang.Integer">
 		select count(1) from tb_case where tb_case_type_id=#{tbCaseTypeId}
 	</select>
-	
 	
 	<select id="queryForPage" resultType="com.hc.pojo.entity.TbCase">
 		select
@@ -59,7 +57,43 @@
 
 	</insert>
 	
-	
-	
-  
+	<!-- 这边是更新案件 -->
+	<update id="updateCaseById" parameterType="com.hc.pojo.entity.TbCase">
+		UPDATE tb_case 
+			<set>
+		      <if test="tbCaseTypeId != 0 &amp; tbCaseTypeId != null" >
+		        SET tb_case_type_id =#{tbCaseTypeId},
+		      </if>
+		      <if test="tbFilingAreaId != 0 &amp; tbFilingAreaId != null" >
+		      	tb_filing_area_id =#{tbFilingAreaId},
+		      </if>
+		      <if test="tbSize != 0 &amp; tbSize != null" >
+		        tb_size =#{tbSize},
+		      </if>
+		      <if test="tbStar != 0 &amp; tbStar != null" >
+		      	tb_star =#{tbStar},
+		      </if>
+		      <if test="tbReportAddress != '' &amp; tbReportAddress != null" >
+		        tb_report_address = #{tbReportAddress},
+		      </if>
+		    <if test="tbAddress != '' &amp; tbAddress != null" >
+		        tb_address = #{tbAddress},
+		      </if>
+		    <if test="tbReportAddress != '' &amp; tbReportAddress != null" >
+		        tb_report_address = #{tbReportAddress},
+		      </if>
+		    <if test="tbDesc != '' &amp; tbDesc != null" >
+		        tb_desc = #{tbDesc},
+		      </if>
+		    <if test="tbRemarks != '' &amp; tbRemarks != null" >
+		        tb_remarks = #{tbRemarks},
+		      </if>
+		    <if test="tbImages != '' &amp; tbImages != null" >
+		        tb_images = #{tbImages}
+		      </if>
+		    </set>
+		WHERE
+			tb_id = #{tbId}
+	</update>
+	  
 </mapper>
