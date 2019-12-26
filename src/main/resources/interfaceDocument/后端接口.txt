@@ -2,6 +2,9 @@
 
 接口不说请求方式 默认都是post
 
+
+
+
 1 登录接口路径： http://localhost:8080//web/admin/login
 参数：{
  "tbAccount":"liyun",
@@ -25,7 +28,7 @@
 {
         "tbId": 269,
         "tbTitle": "市应急管理局杨金山副局长带队到南山区督查森林防灭火工作",
-        "tbContent": "@img W020191217520095740604.png@imgText@img W020191217520095910778.png@imgText,　
+        "tbContent": "@img 20191226/W020191225642550500271.png@imgText@imgText@img W020191217520095910778.png@imgText,　
         "tbFigurePath": null,
         "delTime": null,
         "createTime": "2019-12-23 15:14:45.0",
@@ -33,6 +36,18 @@
         "dataTime": "2019-12-17",
         "tempImgUrl": null
  },
+ 
+ 访问图片需拼接：
+#工作动态图
+http://localhost:8080/upload/reptile_workDynamics_pic/
+#通知公告表
+http://localhost:8080/upload/reptile_notices_pic/
+#地区动态表
+http://localhost:8080/upload/reptile_everyAreaDynamics_pic/
+#应急要闻表
+http://localhost:8080/upload/reptile_emergencyNews_pic/
+
+例如：http://localhost:8081/upload/reptile_workDynamics_pic/20191226/W020191225642550500271.png
 
 3 获取首页记录数接口路径：http://localhost:8080//index/news/queryNumber 
 
@@ -41,7 +56,7 @@
 
 参数（用于搜索用，没有用的参数可以不传，假如只搜索案件类型，传一个tbCaseTypeId等于几给我就好了）	
 	tbCaseTypeId	（案件类型：1=刑事案件 2=森林火灾  3=普通案件 4=安全生产）  
-      	time		（时间搜索） 
+    time		（时间搜索） 
 	tbNumber 	（档案编号）
 	tbAddress  	（发生地点）
 	tbSize  	（时间大小）
@@ -50,17 +65,17 @@
 	
 5 联网备案 http://localhost:8080//index/news/insertCase  
 参数：
-tbNumber 编号(档案号)
-time     当前时间
+file			图片
 tbCaseTypeId    案件类型：1=刑事案件 2=森林火灾  3=普通案件 4=安全生产
-tbFilingAreaId  报案地点
-
+tbFilingAreaId  报案地点:1 马石警局 2	龙华警局 3	龙岗警局 4	南山警局
+tbReportAddress 案件地址
+tbAddress		案件地址（详细地址）
 tbSize			事件大小
 tbStar			关注星级
-tbAddress		案件地址（详细地址）
 tbDesc			案件经过
 tbRemarks  		案件备注
-tbImages		图片
+tbLongitude     经度(23.8112218284)
+tbLatitude      纬度(113.0998389150)
 
 
 6 案号查验 
@@ -68,6 +83,35 @@ tbImages		图片
 	//这个接口  和上面的 查询所有案件共用，  传一个tbNumber就好了   
 	//还是调用上面哪个接口 http://localhost:8080//index/news/queryAllCase      参数 tbNumber
 	//举例：传参：{"tbNumber":"DC09875514"}
+	
+
+6.2. 修改案件
+请求路径：http://localhost:8080///index/news/updateCaseById
+需要传的参数： tbId  (必填，案件id)
+选填：
+tbCaseTypeId：案件类型id------------1 刑事案件 2 森林火灾 3 普通案件 4 安全生产
+tbFilingAreaId：报案地区id----------1 马石警局 2 龙华警局 3 龙岗警局 4 南山警局
+tbSize：事件大小
+tbStar：关注星级
+tbReportAddress：案件地址
+tbAddress：案件地址(详细)
+tbLongitude：经度
+tbLatitude：纬度
+tbDesc：案件经过
+tbRemarks：案件备注
+tbImages:案件图片(后台出来的是存储图片的路径)
+例如：
+	{
+	 "tbId":1,
+	 "tbDesc":"安监局案件"
+	}
+
+返回参数：
+    "code": 状态码
+    "message": 返回信息
+    "success": 状态码
+
+
 	
 7.拨打电话
 请求路径：http://127.0.0.1:8080/voice/dial
@@ -557,8 +601,3 @@ createTime:记录的创建时间
         "token": null
     }
 }
-
-
-
-
-

@@ -1,6 +1,8 @@
 package com.hc.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -21,6 +23,7 @@ import com.hc.mapper.tbAreaDynamics.TbWorkDynamicsMapper;
 import com.hc.pojo.entity.TbWorkDynamics;
 import com.hc.service.TbWorkDynamicsService;
 import com.hc.test.GetJson;
+import com.hc.utils.conig.SystemConfigUtil;
 
 @Service("tbWorkDynamicsService")
 public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
@@ -52,11 +55,16 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 	
 	@Override 
 	public int insertReptileData(TbWorkDynamics tbWorkDynamics) throws Exception,CustomException{
-		
 		//工作动态
 		String workDynamicsJsonString = new GetJson().getHttpJson2(workDynamicsUrl, 1);
 		org.jsoup.nodes.Document workDynamicsDocument = Jsoup.parse(workDynamicsJsonString);
 		List<String> workDynamicsList = allCaseListItem(workDynamicsDocument);
+        String dateTime = "/"+new SimpleDateFormat("yyyyMMdd").format(new Date());
+        String base = SystemConfigUtil.getValue("upload_path");
+		String work_path = base + SystemConfigUtil.getValue("reptile_workDynamics_pic") + dateTime;
+		String notices_path = base + SystemConfigUtil.getValue("reptile_notices_pic") + dateTime;
+		String everyAreaDynamics_path = base + SystemConfigUtil.getValue("reptile_everyAreaDynamics_pic") + dateTime;
+		String emergencyNews_path = base + SystemConfigUtil.getValue("reptile_emergencyNews_pic") + dateTime;
 		Integer index = 0;
 		for (int i = 0; i < workDynamicsList.size(); i++) {
 			String[] hrefAndtimes = workDynamicsList.get(i).split("@Time");
@@ -69,19 +77,17 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 			wd = solvePageData(dayLineDocument,wd);
 			wd.setCreateTime(Tools.getAPIresponseDateTime());//当前时间
 			wd.setDataTime(hrefAndtimes[1]);//时间
-//			index = tbWorkDynamicsMapper.insertWorkDynamics(wd);
+			index = tbWorkDynamicsMapper.insertWorkDynamics(wd);
 			//把图片保存到本地
-			
 			String[] tempImgUrls = wd.getTempImgUrl().split("@img");
 			if(tempImgUrls!=null && tempImgUrls.length>0) {
 				for (int j = 0; j < tempImgUrls.length; j++) {
 					String filename = address.substring(0,address.lastIndexOf("/")+1);
-					DownloadImage.download(filename+tempImgUrls[j], "D:\\upload\\workDynamics");
+					DownloadImage.download(filename+tempImgUrls[j], work_path);
 				}
 			}
 			System.out.println(index+"===========================");
 		}
-		
 		//通知公告
 		String noticesJsonString = new GetJson().getHttpJson2(noticesUrl, 1);
 		org.jsoup.nodes.Document noticesDocument = Jsoup.parse(noticesJsonString);
@@ -101,7 +107,7 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 				String[] tempImgUrls = wd.getTempImgUrl().split("@img");
 				for (int j = 0; j < tempImgUrls.length; j++) {
 					String filename = address.substring(0,address.lastIndexOf("/")+1);
-					DownloadImage.download(filename+tempImgUrls[j], "D:\\upload\\notices");
+					DownloadImage.download(filename+tempImgUrls[j], notices_path);
 				}
 			}
 		}
@@ -125,7 +131,7 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 				String[] tempImgUrls = wd.getTempImgUrl().split("@img");
 				for (int j = 0; j < tempImgUrls.length; j++) {
 					String filename = address.substring(0,address.lastIndexOf("/")+1);
-					DownloadImage.download(filename+tempImgUrls[j], "D:\\upload\\everyAreaDynamics");
+					DownloadImage.download(filename+tempImgUrls[j], everyAreaDynamics_path);
 				}
 			}
 		}
@@ -149,7 +155,7 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 				String[] tempImgUrls = wd.getTempImgUrl().split("@img");
 				for (int j = 0; j < tempImgUrls.length; j++) {
 					String filename = address.substring(0,address.lastIndexOf("/")+1);
-					DownloadImage.download(filename+tempImgUrls[j], "D:\\upload\\emergencyNews");
+					DownloadImage.download(filename+tempImgUrls[j], emergencyNews_path);
 				}
 			}
 		}
@@ -165,6 +171,7 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 	 * @return
 	 */
 	public static TbWorkDynamics solvePageData(Document leakListDoc,TbWorkDynamics tbWorkDynamics) {
+	 String dateTime = new SimpleDateFormat("yyyyMMdd").format(new Date()) + "/";
 	 Elements ulElements = ((Element) leakListDoc).getElementsByClass("view_title");
 	 String str = new String();
 	 String strImgUrl = new String ();
@@ -180,7 +187,7 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 					String text = r.text();//获取内容
 //					System.out.println(oldsrc+"==="+text);
 					if(oldsrc!=null && !"".equals(oldsrc)) {
-						str = str + "@img "+ oldsrc + "@imgText";
+						str = str + "@img "+ dateTime+oldsrc + "@imgText";
 						strImgUrl = strImgUrl + oldsrc + "@img";
 					}else {
 						str = str + text+"@imgText";
@@ -192,7 +199,6 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 	 tbWorkDynamics.setTbTitle(ulElements.text());
 	 tbWorkDynamics.setTbContent(str);
 	 tbWorkDynamics.setTempImgUrl(strImgUrl);
-	 
 //	 String dd = TRS_Editor_ulElements.text();
 	 return tbWorkDynamics;
 	}

@@ -1,5 +1,6 @@
 package com.hc.controller.index;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,17 +10,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hc.common.code.StatusCode;
+import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
-import com.hc.common.tools.Tools;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.entity.TbCase;
@@ -28,6 +29,10 @@ import com.hc.service.TbCaseService;
 import com.hc.service.TbEmergencyNewsService;
 import com.hc.service.TbNoticeService;
 import com.hc.service.TbWorkDynamicsService;
+import com.hc.utils.conig.SystemConfigUtil;
+import com.hc.utils.date.MyDateUtil;
+import com.hc.utils.documentSequence.CreateSequence;
+import com.hc.utils.file.FileUtil;
 import com.hc.utils.result.ResultUtil;
 
 @Controller
@@ -124,44 +129,47 @@ public class NewsController {
 				return ResultUtil.getResultData(false,StatusCode.ERROR,"没数据",null);
 			}
 			return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",tbCase);
-//			return tbCaseService.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
-			
 		}
 	
 	//联网备案（这个接口包含的图片上传我没写）
 	@RequestMapping("/insertCase")
-	public String insertCase(@RequestBody(required = false) JSONObject jsonObject, HttpServletRequest request) throws Exception {
+	public String insertCase(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,int tbStar,String tbAddress,String tbDesc,String tbRemarks,double tbLongitude,String tbLatitude,HttpServletRequest request) throws Exception {
 		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
-		String tbNumber=jsonObject.getString("tbNumber");
-//		String time= jsonObject == null ? tools.getAPIresponseDateTime() : jsonObject.getString("time");
-		String time= Tools.getAPIresponseDateTime();
-		int tbCaseTypeId=jsonObject.getIntValue("tbCaseTypeId");
-		int tbFilingAreaId=jsonObject.getIntValue("tbFilingAreaId");
-		String tbReportAddress=jsonObject.getString("tbReportAddress");
-		String tbSize=jsonObject.getString("tbSize");
-		int tbStar=jsonObject.getIntValue("tbStar");
-		String tbAddress=jsonObject.getString("tbAddress");
-		String tbDesc=jsonObject.getString("tbDesc");
-		String tbRemarks=jsonObject.getString("tbRemarks");
-		String tbImages=jsonObject.getString("tbImages");
-		TbCase tbCase=new TbCase();
-		tbCase.setTbNumber(tbNumber);
-		tbCase.setCreateTime(time);
-		tbCase.setTbCaseTypeId(tbCaseTypeId);
-		tbCase.setTbFilingAreaId(1);
-		tbCase.setTbUserId(1);//把userId写死得了，不需要前端传用户id
-		tbCase.setTbReportAddress(tbReportAddress);
-		tbCase.setTbSize(tbSize);
-		tbCase.setTbStar(tbStar);
-		tbCase.setTbAddress(tbAddress);
-		tbCase.setTbDesc(tbDesc);
-		tbCase.setTbRemarks(tbRemarks);
-		tbCase.setTbImages(tbImages);
-		int a=tbCaseMapper.insertCase(tbCase);
-		if(a<1) {
-			return "案件内容上传失败";
-		}
-		return "案件内容上传成功";
+//		String tbNumber=jsonObject.getString("tbNumber");
+        // 文件原始名称
+//        String originalFilename = file.getOriginalFilename();
+        if (FileUtil.checkPictureFormat(file)) {
+            throw new CustomException(StatusCode.PARAM_ERROR, "只支持jpg,jpeg,png,gif格式的图片！");
+        }
+        String path = "";
+        try {
+        	//这边先是上传，然后再是进行格式的转换
+        	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
+        	String tbNumber = CreateSequence.getTimeMillisSequence();
+    		String time = MyDateUtil.getNowDateTime();
+    		TbCase tbCase=new TbCase();
+    		tbCase.setTbNumber(tbNumber);
+    		tbCase.setCreateTime(time);
+    		tbCase.setTbCaseTypeId(tbCaseTypeId);
+    		tbCase.setTbFilingAreaId(1);
+    		tbCase.setTbUserId(1);//把userId写死得了，不需要前端传用户id
+    		tbCase.setTbReportAddress(tbReportAddress);
+    		tbCase.setTbSize(tbSize);
+    		tbCase.setTbStar(tbStar);
+    		tbCase.setTbAddress(tbAddress);
+    		tbCase.setTbDesc(tbDesc);
+    		tbCase.setTbRemarks(tbRemarks);
+    		tbCase.setTbImages(path);
+    		tbCase.setTbLongitude(new BigDecimal(tbLongitude));
+    		tbCase.setTbLatitude(new BigDecimal(tbLatitude));
+    		int a=tbCaseMapper.insertCase(tbCase);
+    		if(a<1) {
+    			return "案件内容上传失败";
+    		}
+    		return "案件内容上传成功";
+        } catch (Exception e) {
+            throw e;
+        }
 	}
 	
 	//这边是更新案件

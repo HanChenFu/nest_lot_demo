@@ -4,22 +4,27 @@ import java.math.BigDecimal;
 
 public class TbCase {
 	private int  tbId;
-	private String  tbNumber;
-	private int  tbUserId;
-	private int  tbCaseTypeId;
-	private int	 tbFilingAreaId;
-	private String  tbSize;
-	private int  tbStar;
-	private String tbReportAddress;
-	private String  tbAddress;
-	private BigDecimal  tbLongitude;
-	private BigDecimal  tbLatitude;
-	private String  tbDesc;
-	private String  tbRemarks;
-	private String  tbImages;
+	private String  tbNumber;//案件标号
+	private int  tbUserId;//用户id
+	private int  tbCaseTypeId;//案件类型id
+	/*
+	 * 1 刑事案件 2 森林火灾 3 普通案件 4 安全生产
+	 */
+	private int	 tbFilingAreaId;//报案地区
+	/*
+	 * 1 马石警局 2 龙华警局 3 龙岗警局 4 南山警局
+	 */
+	private String  tbSize;//事件大小
+	private int  tbStar;//关注星级
+	private String tbReportAddress;//案件地址
+	private String  tbAddress;//案件地址(详细)
+	private BigDecimal  tbLongitude;//经度
+	private BigDecimal  tbLatitude;//纬度
+	private String  tbDesc;//案件经过
+	private String  tbRemarks;//案件备注
+	private String  tbImages;//关键图片
 	private String  delTime;
 	private String  createTime;
-	
 	
 	public String getTbReportAddress() {
 		return tbReportAddress;

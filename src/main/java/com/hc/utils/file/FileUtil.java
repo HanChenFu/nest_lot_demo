@@ -76,7 +76,6 @@ public class FileUtil {
                 if (!newFile.exists()) {
                     newFile.createNewFile();
                 }
-
                 // 将内存中的数据写入磁盘
                 items_pic.transferTo(newFile);
                 // 返回存储路径
@@ -94,38 +93,23 @@ public class FileUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String saveAudio(MultipartFile items_pic) throws Exception {
-
-		// 文件原始名称
-		String originalFilename = items_pic.getOriginalFilename();
-		// 上传图片
-		if (items_pic != null && originalFilename != null && originalFilename.length() > 0) {
-			try {
-				// 存储文件的物理路径
-				String pic_path = SystemConfigUtil.getValue("upload_path");
-				// 图片路径
-				String image_path = SystemConfigUtil.getValue("upload_image_path").trim();
-				String date = MyDateUtil.getNowByCustom("yyyyMM");
-				// 文件名称
-				String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
-				newFileName = newFileName.replaceAll("-", "");
-				// 新文件
-				File newFile = new File(pic_path + image_path + "/" + date, newFileName);
-				// 判断文件夹是否存在不存在就创建
-				if (!newFile.exists()) {
-					newFile.mkdirs();
-				}
-				// 将内存中的数据写入磁盘
-				items_pic.transferTo(newFile);
-				// 返回存储路径
-				return image_path + "/" + date + "/" + newFileName;
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw e; // 抛出异常
-			}
-		}
-		return null;
-	}
+	/*
+	 * public static String saveAudio(MultipartFile items_pic) throws Exception { //
+	 * 文件原始名称 String originalFilename = items_pic.getOriginalFilename(); // 上传图片 if
+	 * (items_pic != null && originalFilename != null && originalFilename.length() >
+	 * 0) { try { // 存储文件的物理路径 String pic_path =
+	 * SystemConfigUtil.getValue("upload_path"); // 图片路径 String image_path =
+	 * SystemConfigUtil.getValue("upload_image_path").trim(); String date =
+	 * MyDateUtil.getNowByCustom("yyyyMM"); // 文件名称 String newFileName =
+	 * UUID.randomUUID() +
+	 * originalFilename.substring(originalFilename.lastIndexOf(".")); newFileName =
+	 * newFileName.replaceAll("-", ""); // 新文件 File newFile = new File(pic_path +
+	 * image_path + "/" + date, newFileName); // 判断文件夹是否存在不存在就创建 if
+	 * (!newFile.exists()) { newFile.mkdirs(); } // 将内存中的数据写入磁盘
+	 * items_pic.transferTo(newFile); // 返回存储路径 return image_path + "/" + date + "/"
+	 * + newFileName; } catch (Exception e) { e.printStackTrace(); throw e; // 抛出异常
+	 * } } return null; }
+	 */
 
 	/**
 	 * 删除
@@ -172,12 +156,13 @@ public class FileUtil {
 		return false;
 	}
 
+	
 	/**
-	 * 检查指定音频格式
+	 * 检查指定图片格式
 	 * 
 	 * @param file
 	 */
-	public static boolean checkAudioFormat(MultipartFile file) throws CustomException, Exception {
+	public static boolean checkPictureFormat(MultipartFile file) throws CustomException, Exception {
 
 		if (null == file) {
 			throw new CustomException(StatusCode.PARAM_NULL, "文件不能为空！");
@@ -188,6 +173,47 @@ public class FileUtil {
 		if (null != configFormatStr && !"".equals(configFormatStr.trim()))
 			formats = configFormatStr.split(",");
 
+		if (null == formats || 0 == formats.length) {
+			formats = new String[7];
+			formats[0] = "jpg";
+			formats[1] = "jpeg";
+			formats[2] = "png";
+			formats[3] = "gif";
+			formats[4] = "mp4";
+			formats[5] = "rmvb";
+			formats[6] = "flv";
+		}
+		// 图片原始名称
+		String originalFilename = file.getOriginalFilename();
+		String formatStr = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
+		if (null == formatStr || "".equals(formatStr)) {
+			return false;
+		}
+		for (String str : formats) {
+			if (null == str) {
+				continue;
+			}
+			str = str.replace(".", "").toLowerCase();
+			if (formatStr.equals(str)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * 检查指定音频格式
+	 * 
+	 * @param file
+	 */
+	public static boolean checkAudioFormat(MultipartFile file) throws CustomException, Exception {
+		if (null == file) {
+			throw new CustomException(StatusCode.PARAM_NULL, "文件不能为空！");
+		}
+		String configFormatStr = SystemConfigUtil.getValue("head_format");
+		String[] formats = null;
+		if (null != configFormatStr && !"".equals(configFormatStr.trim()))
+			formats = configFormatStr.split(",");
 		if (null == formats || 0 == formats.length) {
 			formats = new String[4];
 			formats[0] = "pcm";
