@@ -88,10 +88,10 @@
 		    <if test="tbRemarks != '' &amp; tbRemarks != null" >
 		        tb_remarks = #{tbRemarks},
 		      </if>
-		    <if test="tb_longitude != '' &amp; tb_longitude != null" >
+		    <if test="tbLongitude != '' &amp; tbLongitude != null" >
 		        tb_longitude = #{tbLongitude},
 		      </if>
-		    <if test="tb_latitude != '' &amp; tb_latitude != null" >
+		    <if test="tbLatitude != '' &amp; tbLatitude != null" >
 		        tb_latitude = #{tbLatitude},
 		      </if>
 		    <if test="tbImages != '' &amp; tbImages != null" >

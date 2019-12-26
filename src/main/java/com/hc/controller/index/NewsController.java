@@ -174,8 +174,10 @@ public class NewsController {
 	
 	//这边是更新案件
 	@RequestMapping("/updateCaseById")
-	public ResultBase updateCaseById(@RequestBody(required = false) TbCase tbcase,HttpServletRequest request) throws Exception {
-		return tbCaseService.updateCaseById(tbcase,request);
+	public ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,
+			String tbReportAddress, String tbSize, int tbStar, String tbAddress, String tbDesc, String tbRemarks,
+			Double tbLongitude, Double tbLatitude, String tbId, HttpServletRequest request) throws Exception {
+		return tbCaseService.updateCaseById(file,tbCaseTypeId,tbFilingAreaId,tbReportAddress,tbSize,tbStar,tbAddress,tbDesc,tbRemarks,tbLongitude,tbLatitude,tbId,request);
 	}
 	
 	//案号查验     
