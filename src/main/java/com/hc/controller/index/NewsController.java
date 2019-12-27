@@ -133,7 +133,7 @@ public class NewsController {
 	
 	//联网备案（这个接口包含的图片上传我没写）
 	@RequestMapping("/insertCase")
-	public String insertCase(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,int tbStar,String tbAddress,String tbDesc,String tbRemarks,double tbLongitude,String tbLatitude,HttpServletRequest request) throws Exception {
+	public String insertCase(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,int tbStar,String tbAddress,String tbDesc,String tbRemarks,double tbLongitude,String tbLatitude,String caseTime,HttpServletRequest request) throws Exception {
 		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
 //		String tbNumber=jsonObject.getString("tbNumber");
         // 文件原始名称
@@ -143,7 +143,6 @@ public class NewsController {
         }
         String path = "";
         try {
-        	//这边先是上传，然后再是进行格式的转换
         	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
         	String tbNumber = CreateSequence.getTimeMillisSequence();
     		String time = MyDateUtil.getNowDateTime();
@@ -160,6 +159,7 @@ public class NewsController {
     		tbCase.setTbDesc(tbDesc);
     		tbCase.setTbRemarks(tbRemarks);
     		tbCase.setTbImages(path);
+    		tbCase.setCaseTime(caseTime);
     		tbCase.setTbLongitude(new BigDecimal(tbLongitude));
     		tbCase.setTbLatitude(new BigDecimal(tbLatitude));
     		int a=tbCaseMapper.insertCase(tbCase);
@@ -175,11 +175,15 @@ public class NewsController {
 	//这边是更新案件
 	@RequestMapping("/updateCaseById")
 	public ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,
-			String tbReportAddress, String tbSize, int tbStar, String tbAddress, String tbDesc, String tbRemarks,
-			Double tbLongitude, Double tbLatitude, String tbId, HttpServletRequest request) throws Exception {
-		return tbCaseService.updateCaseById(file,tbCaseTypeId,tbFilingAreaId,tbReportAddress,tbSize,tbStar,tbAddress,tbDesc,tbRemarks,tbLongitude,tbLatitude,tbId,request);
+			String tbReportAddress, String tbSize, Integer tbStar, String tbAddress, String tbDesc, String tbRemarks,
+			Double tbLongitude, Double tbLatitude, String tbId, String caseTime,HttpServletRequest request) throws Exception {
+		return tbCaseService.updateCaseById(file,tbCaseTypeId,tbFilingAreaId,tbReportAddress,tbSize,tbStar,tbAddress,tbDesc,tbRemarks,tbLongitude,tbLatitude,tbId,caseTime,request);
 	}
 	
+	@RequestMapping("/deleCase")
+	public ResultBase deleCase(@RequestBody(required = false) BasePara para,HttpServletRequest request) throws Exception,CustomException{
+		return tbCaseService.deleCase(para, request);
+	}
 	//案号查验     
 	//这个接口  和上面的 查询所有案件共用，  传一个tbNumber就好了
 	//还是调用上面哪个接口 http://localhost:8080//index/news/queryAllCase    

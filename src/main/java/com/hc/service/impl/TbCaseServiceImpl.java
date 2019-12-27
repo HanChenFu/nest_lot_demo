@@ -4,20 +4,19 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.result.ResultBase;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
+import com.hc.para.page_base.BasePara;
 import com.hc.pojo.entity.TbCase;
 import com.hc.service.TbCaseService;
 import com.hc.utils.conig.SystemConfigUtil;
-import com.hc.utils.date.MyDateUtil;
-import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.file.FileUtil;
 import com.hc.utils.result.ResultUtil;
 
@@ -51,19 +50,19 @@ public class TbCaseServiceImpl implements TbCaseService{
 
 	@Override
 	public ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,
-			String tbReportAddress, String tbSize, int tbStar, String tbAddress, String tbDesc, String tbRemarks,
-			Double tbLongitude, Double tbLatitude, String tbId, HttpServletRequest request)
+			String tbReportAddress, String tbSize, Integer tbStar, String tbAddress, String tbDesc, String tbRemarks,
+			Double tbLongitude, Double tbLatitude, String tbId, String caseTime,HttpServletRequest request)
 			throws Exception, CustomException {
+		String path = "";
 		if("".equals(tbId)||tbId==null) {
 			return ResultUtil.getResultBase("tbId不能为空");
 		}
 		if (FileUtil.checkPictureFormat(file)) {
-            throw new CustomException(StatusCode.PARAM_ERROR, "只支持jpg,jpeg,png,gif格式的图片！");
+			path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
+//            throw new CustomException(StatusCode.PARAM_ERROR, "只支持jpg,jpeg,png,gif格式的图片！");
         }
-        String path = "";
         try {
         	//这边先是上传，然后再是进行格式的转换
-        	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
     		TbCase tbCase=new TbCase();
     		tbCase.setTbId(Integer.parseInt(tbId));
     		if(tbCaseTypeId!=null) {
@@ -76,8 +75,12 @@ public class TbCaseServiceImpl implements TbCaseService{
     		if(tbReportAddress!=null) {
     			tbCase.setTbReportAddress(tbReportAddress);
     		}
-    		tbCase.setTbSize(tbSize);
-    		tbCase.setTbStar(tbStar);
+    		if(tbSize!=null) {
+    			tbCase.setTbSize(tbSize);
+    		}
+    		if(tbStar!=null) {
+    			tbCase.setTbStar(tbStar);
+    		}
     		if(tbAddress!=null) {
     			tbCase.setTbAddress(tbAddress);
     		}
@@ -86,6 +89,9 @@ public class TbCaseServiceImpl implements TbCaseService{
     		}
     		if (tbRemarks!=null) {
     			tbCase.setTbRemarks(tbRemarks);
+    		}
+    		if(caseTime!=null) {
+    			tbCase.setCaseTime(caseTime);
     		}
     		tbCase.setTbImages(path);
 			  if(tbLatitude!=null&&tbLongitude!=null) {
@@ -100,6 +106,16 @@ public class TbCaseServiceImpl implements TbCaseService{
         } catch (Exception e) {
             throw e;
         }
+	}
+
+	@Override
+	public ResultBase deleCase(BasePara para, HttpServletRequest request) throws Exception, CustomException {
+		List<Integer> li = para.getListid();
+		int size = tbCaseMapper.deleCase(li);
+		if (size>0) {
+			return ResultUtil.getResultBase("删除成功！");
+		}
+		return ResultUtil.getResultBase("删除失败！");
 	}
 	
 }

@@ -23,6 +23,7 @@ public class TbCase {
 	private String  tbDesc;//案件经过
 	private String  tbRemarks;//案件备注
 	private String  tbImages;//关键图片
+	private String caseTime;//案件发生时间
 	private String  delTime;
 	private String  createTime;
 	
@@ -122,5 +123,10 @@ public class TbCase {
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	
+	public String getCaseTime() {
+		return caseTime;
+	}
+	public void setCaseTime(String caseTime) {
+		this.caseTime = caseTime;
+	}
 }

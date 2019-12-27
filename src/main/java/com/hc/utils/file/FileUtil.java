@@ -163,29 +163,24 @@ public class FileUtil {
 	 * @param file
 	 */
 	public static boolean checkPictureFormat(MultipartFile file) throws CustomException, Exception {
-
+		/*
+		 * if (null == file) { throw new CustomException(StatusCode.PARAM_NULL,
+		 * "文件不能为空！"); }
+		 */
 		if (null == file) {
-			throw new CustomException(StatusCode.PARAM_NULL, "文件不能为空！");
+			return false;
 		}
-
-		String configFormatStr = SystemConfigUtil.getValue("head_format");
 		String[] formats = null;
-		if (null != configFormatStr && !"".equals(configFormatStr.trim()))
-			formats = configFormatStr.split(",");
-
 		if (null == formats || 0 == formats.length) {
 			formats = new String[7];
 			formats[0] = "jpg";
 			formats[1] = "jpeg";
 			formats[2] = "png";
 			formats[3] = "gif";
-			formats[4] = "mp4";
-			formats[5] = "rmvb";
-			formats[6] = "flv";
 		}
 		// 图片原始名称
 		String originalFilename = file.getOriginalFilename();
-		String formatStr = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
+		String formatStr = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase().replace(".", "").toLowerCase();
 		if (null == formatStr || "".equals(formatStr)) {
 			return false;
 		}

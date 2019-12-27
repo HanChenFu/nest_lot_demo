@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.result.ResultBase;
@@ -22,7 +21,6 @@ public class TbMailServiceImpl implements TbMailService{
 	@Override
 	@ParamCheck(names = {"to","title","content","tbAdminId"})
 	public ResultBase sendMail(TbEmail tbEmail, HttpServletRequest request) throws Exception,CustomException{
-		System.out.println("~~" + JSONObject.toJSONString(tbEmail));
 		tbAsyncTaskImpl.sendEmail(tbEmail);
         return ResultUtil.getResultBase("邮件已经发送!");
 	}

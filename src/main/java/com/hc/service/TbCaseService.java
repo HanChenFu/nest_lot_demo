@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
+import com.hc.para.page_base.BasePara;
 import com.hc.pojo.entity.TbCase;
 
 public interface TbCaseService {
@@ -17,5 +18,7 @@ public interface TbCaseService {
 			Integer tbStar);
 	
 	
-	ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,int tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String tbId,HttpServletRequest request) throws Exception,CustomException;
+	ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String tbId,String caseTime,HttpServletRequest request) throws Exception,CustomException;
+	
+	ResultBase deleCase(BasePara para,HttpServletRequest request) throws Exception,CustomException;
 }

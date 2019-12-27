@@ -142,6 +142,7 @@ CREATE TABLE `tb_case`  (
   `tb_desc` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '案件经过',
   `tb_remarks` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '案件备注',
   `tb_images` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '关键图片',
+  `case_time` datetime NULL DEFAULT NULL COMMENT '案件发生时间',
   `del_time` datetime NULL DEFAULT NULL,
   `create_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`tb_id`) USING BTREE,
@@ -156,9 +157,7 @@ CREATE TABLE `tb_case`  (
 -- ----------------------------
 -- Records of tb_case
 -- ----------------------------
-INSERT INTO `tb_case` VALUES (1, 'DC12345678', 1, 1, 1, '1', 1, "深圳",'深圳市罗湖区彩田北路星河丹堤小区', 114.0933880, 22.5304689, '中彩票了但是过期了，老板不认', NULL, NULL, NULL, '2019-12-11 13:45:13');
-INSERT INTO `tb_case` VALUES (2, 'DC23456789', 1, 1, 2, '1', 2, "南山",'致远中路深圳北站(致远中路)附近', 114.0788920, 22.5335037, '卡里无辜多了1000万', NULL, NULL, NULL, '2019-12-11 13:46:41');
-INSERT INTO `tb_case` VALUES (3, 'DC09876655', 1, 2, 3, '1', 1, "罗湖",'广东省深圳市龙华区S359(布龙公路)', 114.0933880, 22.5304689, '深圳市羊台山发生大火', NULL, NULL, NULL, '2019-12-11 13:51:20');
+INSERT INTO `tb_case`(`tb_number`, `tb_user_id`, `tb_case_type_id`, `tb_filing_area_id`, `tb_size`, `tb_star`, `tb_report_address`, `tb_address`, `tb_longitude`, `tb_latitude`, `tb_desc`, `tb_remarks`, `tb_images`, `case_time`, `del_time`, `create_time`) VALUES ('DC12345678', 1, 1, 1, '4', 3, '深圳市马田爱神的箭撒谎2222', '深圳市马田爱神的箭撒谎一首歌广寒深宫222', 114.0933880, 22.5304689, '帕库拉时间冻结哈市222', '仅仅是计算机222222', 'case_pic/20191226/11aa21137a314cdfaceb5ee7aebde7ce.jpg', '2019-12-27 11:55:27', NULL, '2019-12-11 13:45:13');
 
 -- ----------------------------
 -- Table structure for tb_case_type

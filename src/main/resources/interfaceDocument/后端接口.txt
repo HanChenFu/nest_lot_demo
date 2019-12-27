@@ -61,6 +61,22 @@ http://localhost:8080/upload/reptile_emergencyNews_pic/
 	tbAddress  	（发生地点）
 	tbSize  	（时间大小）
 	tbStar		（关注星级）
+
+返回参数：
+	tbNumber-----------------案件标号
+	tbUserId-----------------用户id
+	tbCaseTypeId-------------案件类型id -- 1 刑事案件 2 森林火灾 3 普通案件 4 安全生产
+	tbFilingAreaId-----------报案地区  -- 1 马石警局 2 龙华警局 3 龙岗警局 4 南山警局
+	tbSize-------------------事件大小
+	tbStar-------------------关注星级
+	tbReportAddress----------案件地址
+	tbAddress----------------案件地址(详细)
+	tbLongitude--------------经度
+	tbLatitude---------------纬度
+	tbDesc-------------------案件经过
+	tbRemarks----------------案件备注
+	tbImages-----------------关键图片
+	caseTime-----------------案件发生时间
 	
 	
 5 联网备案 http://localhost:8080//index/news/insertCase  
@@ -74,6 +90,7 @@ tbSize			事件大小
 tbStar			关注星级
 tbDesc			案件经过
 tbRemarks  		案件备注
+caseTime		案件发生的时间
 tbLongitude     经度(23.8112218284)
 tbLatitude      纬度(113.0998389150)
 
@@ -89,6 +106,8 @@ tbLatitude      纬度(113.0998389150)
 请求路径：http://localhost:8080///index/news/updateCaseById
 需要传的参数： tbId  (必填，案件id)
 选填：
+file:案件图片(后台是直接覆盖掉之前的图片)
+caseTime:案件发生的时间
 tbCaseTypeId：案件类型id------------1 刑事案件 2 森林火灾 3 普通案件 4 安全生产
 tbFilingAreaId：报案地区id----------1 马石警局 2 龙华警局 3 龙岗警局 4 南山警局
 tbSize：事件大小
@@ -99,12 +118,8 @@ tbLongitude：经度
 tbLatitude：纬度
 tbDesc：案件经过
 tbRemarks：案件备注
-tbImages:案件图片(后台出来的是存储图片的路径)
 例如：
-	{
-	 "tbId":1,
-	 "tbDesc":"安监局案件"
-	}
+	需要 form-data 格式
 
 返回参数：
     "code": 状态码
@@ -112,6 +127,19 @@ tbImages:案件图片(后台出来的是存储图片的路径)
     "success": 状态码
 
 
+6.3 删除案件
+请求路径：http://localhost:8080//index/news/deleCase
+需要传的参数：
+listid：案件的id
+例如：
+	{
+		"listid":[10,11,12]
+	}
+返回参数：
+	code:状态码
+	message:返回的发送信息
+	success:状态码
+	
 	
 7.拨打电话
 请求路径：http://127.0.0.1:8080/voice/dial
