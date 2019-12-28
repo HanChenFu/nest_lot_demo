@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 class SmsSenderUtil {
@@ -96,7 +97,7 @@ class SmsSenderUtil {
     	return calculateSigForTempl(accesskey, random, curTime, phoneNumbers);
     }
     
-    public JSONArray phoneNumbersToJSONArray(String nationCode, ArrayList<String> phoneNumbers) {
+    public JSONArray phoneNumbersToJSONArray(String nationCode, ArrayList<String> phoneNumbers) throws JSONException {
         JSONArray tel = new JSONArray();
         int i = 0;
         do {
@@ -117,7 +118,7 @@ class SmsSenderUtil {
         return smsParams;
     }
     
-    public SmsSingleSenderResult jsonToSmsSingleSenderResult(JSONObject json) {
+    public SmsSingleSenderResult jsonToSmsSingleSenderResult(JSONObject json) throws JSONException {
     	SmsSingleSenderResult result = new SmsSingleSenderResult();
     	
     	result.result = json.getInt("result");
