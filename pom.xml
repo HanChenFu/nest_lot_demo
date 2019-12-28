@@ -1,10 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>nest_lot_two</groupId>
-  <artifactId>nest_lot_two</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
-  <name>nest-web</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>nest_lot_two</groupId>
+	<artifactId>nest_lot_two</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>nest-web</name>
 	<description>SpringBoot project for Spring Boot</description>
 
 	<parent>
@@ -70,7 +71,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-			
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -81,13 +82,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		<!--jpush极光推送-->
-        <dependency>
-            <groupId>cn.jpush.api</groupId>
-            <artifactId>jpush-client</artifactId>
-            <version>3.3.11</version>
-        </dependency>
+
+		<!--jpush极光推送 -->
+		<dependency>
+			<groupId>cn.jpush.api</groupId>
+			<artifactId>jpush-client</artifactId>
+			<version>3.3.11</version>
+		</dependency>
 
 		<!-- poi -->
 		<dependency>
@@ -104,7 +105,7 @@
 		<!-- PDF格式转换 -->
 		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
 		<dependency>
-	        <groupId>com.itextpdf</groupId>
+			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
 			<version>5.4.3</version>
 		</dependency>
@@ -184,12 +185,25 @@
 			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
 			<version>1.1.0</version>
 		</dependency>
+		<!-- 阿里云OSS -->
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-sts</artifactId>
+			<version>2.1.6</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.aliyun.oss</groupId>
+			<artifactId>aliyun-sdk-oss</artifactId>
+			<version>2.2.3</version>
+			<scope>compile</scope>
+		</dependency>
 		<!-- 文件上传所依赖的jar包 -->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.3.1</version>
-        </dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
 		<!-- 热部署 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -198,53 +212,53 @@
 			<scope>true</scope>
 		</dependency>
 
-        <!-- ZXing二维码 -->
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>javase</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-        <!-- 解析HTML -->
+		<!-- ZXing二维码 -->
 		<dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.10.2</version>
- 		</dependency>
-		<dependency>  
-            <groupId>org.bouncycastle</groupId>  
-            <artifactId>bcprov-jdk15on</artifactId>  
-            <version>1.47</version>  
-        </dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+		<!-- 解析HTML -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.10.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.47</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<dependency>
-		    <groupId>com.google.code.gson</groupId>
-		    <artifactId>gson</artifactId>
-		    <version>2.8.2</version>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.2</version>
 		</dependency>
 
 		<!-- 百度语音识别 -->
-        <dependency>
-            <groupId>com.baidu.aip</groupId>
-            <artifactId>java-sdk</artifactId>
-            <version>4.3.2</version>
-        </dependency>
+		<dependency>
+			<groupId>com.baidu.aip</groupId>
+			<artifactId>java-sdk</artifactId>
+			<version>4.3.2</version>
+		</dependency>
 
 		<!-- 邮件发送 -->
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-mail</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
 		<!-- 阿里短信发送 -->
 		<dependency>
-		  <groupId>com.aliyun</groupId>
-		  <artifactId>aliyun-java-sdk-core</artifactId>
-		  <version>4.0.3</version>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-core</artifactId>
+			<version>4.0.3</version>
 		</dependency>
 	</dependencies>
 
@@ -266,7 +280,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<!--fork:如果没有该项配置,整个devtools不会起作用-->
+					<!--fork:如果没有该项配置,整个devtools不会起作用 -->
 					<fork>true</fork>
 				</configuration>
 			</plugin>
@@ -306,7 +320,7 @@
 				</executions>
 			</plugin>
 
-			<!-- 3、打包过程忽略Junit测试 111-->
+			<!-- 3、打包过程忽略Junit测试 111 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -315,9 +329,9 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
-		
+
 	</build>
-	
+
 </project>

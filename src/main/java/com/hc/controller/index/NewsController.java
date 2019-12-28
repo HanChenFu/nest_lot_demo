@@ -29,6 +29,7 @@ import com.hc.service.TbCaseService;
 import com.hc.service.TbEmergencyNewsService;
 import com.hc.service.TbNoticeService;
 import com.hc.service.TbWorkDynamicsService;
+import com.hc.utils.aliyunOss.StsServiceSample;
 import com.hc.utils.conig.SystemConfigUtil;
 import com.hc.utils.date.MyDateUtil;
 import com.hc.utils.documentSequence.CreateSequence;
@@ -143,7 +144,7 @@ public class NewsController {
         }
         String path = "";
         try {
-        	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
+        	path = StsServiceSample.uploadImg2Oss(file, "nieliyun/");
         	String tbNumber = CreateSequence.getTimeMillisSequence();
     		String time = MyDateUtil.getNowDateTime();
     		TbCase tbCase=new TbCase();
