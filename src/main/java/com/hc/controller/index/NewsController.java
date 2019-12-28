@@ -29,7 +29,6 @@ import com.hc.service.TbCaseService;
 import com.hc.service.TbEmergencyNewsService;
 import com.hc.service.TbNoticeService;
 import com.hc.service.TbWorkDynamicsService;
-import com.hc.utils.aliyunOss.StsServiceSample;
 import com.hc.utils.conig.SystemConfigUtil;
 import com.hc.utils.date.MyDateUtil;
 import com.hc.utils.documentSequence.CreateSequence;
@@ -133,41 +132,60 @@ public class NewsController {
 		}
 	
 	//联网备案（这个接口包含的图片上传我没写）
+		/**
+		 *  caseTime
+		 *  tbCaseTypeId
+			tbFilingAreaId
+			tbSize
+			tbStar
+			tbAddress
+			tbDesc
+		 * @throws Exception
+		 */
 	@RequestMapping("/insertCase")
-	public String insertCase(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,int tbStar,String tbAddress,String tbDesc,String tbRemarks,double tbLongitude,String tbLatitude,String caseTime,HttpServletRequest request) throws Exception {
+	public ResultBase insertCase(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String caseTime,String filedTime,HttpServletRequest request) throws Exception {
 		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
 //		String tbNumber=jsonObject.getString("tbNumber");
         // 文件原始名称
+//		1,1,3,null,2019-12-14 0:0:0,null,1,null
+		System.out.println(file +","+tbCaseTypeId + "," + tbFilingAreaId +"," + tbSize +"," + tbAddress +"," + caseTime + ","+tbDesc +"," + tbStar +","+ filedTime);
+		if(tbCaseTypeId ==null || tbFilingAreaId == null|| tbSize == null|| tbAddress == null|| caseTime == null|| tbDesc == null|| tbStar == null || filedTime == null) {
+			return ResultUtil.getResultBase("caseTime,tbCaseTypeId,tbFilingAreaId,tbSize,tbStar,tbAddress,tbDesc,filedTime参数不能为空");
+		}
+		String path = "";
 //        String originalFilename = file.getOriginalFilename();
         if (FileUtil.checkPictureFormat(file)) {
-            throw new CustomException(StatusCode.PARAM_ERROR, "只支持jpg,jpeg,png,gif格式的图片！");
+        	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
         }
-        String path = "";
         try {
-        	path = StsServiceSample.uploadImg2Oss(file, "nieliyun/");
         	String tbNumber = CreateSequence.getTimeMillisSequence();
     		String time = MyDateUtil.getNowDateTime();
     		TbCase tbCase=new TbCase();
     		tbCase.setTbNumber(tbNumber);
     		tbCase.setCreateTime(time);
     		tbCase.setTbCaseTypeId(tbCaseTypeId);
-    		tbCase.setTbFilingAreaId(1);
+    		tbCase.setTbFilingAreaId(tbFilingAreaId);
     		tbCase.setTbUserId(1);//把userId写死得了，不需要前端传用户id
     		tbCase.setTbReportAddress(tbReportAddress);
     		tbCase.setTbSize(tbSize);
     		tbCase.setTbStar(tbStar);
     		tbCase.setTbAddress(tbAddress);
     		tbCase.setTbDesc(tbDesc);
-    		tbCase.setTbRemarks(tbRemarks);
+    		tbCase.setFiledTime(filedTime);
+    		if(tbRemarks!=null) {
+    			tbCase.setTbRemarks(tbRemarks);
+    		}
     		tbCase.setTbImages(path);
     		tbCase.setCaseTime(caseTime);
-    		tbCase.setTbLongitude(new BigDecimal(tbLongitude));
-    		tbCase.setTbLatitude(new BigDecimal(tbLatitude));
+    		if(tbLongitude!=null&&tbLatitude!=null) {
+        		tbCase.setTbLongitude(new BigDecimal(tbLongitude));
+        		tbCase.setTbLatitude(new BigDecimal(tbLatitude));
+    		}
     		int a=tbCaseMapper.insertCase(tbCase);
     		if(a<1) {
-    			return "案件内容上传失败";
+    			return ResultUtil.getResultBase("案件内容上传失败");
     		}
-    		return "案件内容上传成功";
+    		return ResultUtil.getResultBase("案件内容上传成功");
         } catch (Exception e) {
             throw e;
         }
@@ -177,8 +195,8 @@ public class NewsController {
 	@RequestMapping("/updateCaseById")
 	public ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,
 			String tbReportAddress, String tbSize, Integer tbStar, String tbAddress, String tbDesc, String tbRemarks,
-			Double tbLongitude, Double tbLatitude, String tbId, String caseTime,HttpServletRequest request) throws Exception {
-		return tbCaseService.updateCaseById(file,tbCaseTypeId,tbFilingAreaId,tbReportAddress,tbSize,tbStar,tbAddress,tbDesc,tbRemarks,tbLongitude,tbLatitude,tbId,caseTime,request);
+			Double tbLongitude, Double tbLatitude, String tbId, String caseTime,String filedTime,HttpServletRequest request) throws Exception {
+		return tbCaseService.updateCaseById(file,tbCaseTypeId,tbFilingAreaId,tbReportAddress,tbSize,tbStar,tbAddress,tbDesc,tbRemarks,tbLongitude,tbLatitude,tbId,caseTime,filedTime,request);
 	}
 	
 	@RequestMapping("/deleCase")

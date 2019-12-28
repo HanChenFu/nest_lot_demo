@@ -18,7 +18,7 @@ public interface TbCaseService {
 			Integer tbStar);
 	
 	
-	ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String tbId,String caseTime,HttpServletRequest request) throws Exception,CustomException;
+	ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String tbId,String caseTime,String filedTime,HttpServletRequest request) throws Exception,CustomException;
 	
 	ResultBase deleCase(BasePara para,HttpServletRequest request) throws Exception,CustomException;
 }

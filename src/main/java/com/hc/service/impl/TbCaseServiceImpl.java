@@ -51,7 +51,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 	@Override
 	public ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,
 			String tbReportAddress, String tbSize, Integer tbStar, String tbAddress, String tbDesc, String tbRemarks,
-			Double tbLongitude, Double tbLatitude, String tbId, String caseTime,HttpServletRequest request)
+			Double tbLongitude, Double tbLatitude, String tbId, String caseTime,String filedTime,HttpServletRequest request)
 			throws Exception, CustomException {
 		String path = "";
 		if("".equals(tbId)||tbId==null) {
@@ -92,6 +92,9 @@ public class TbCaseServiceImpl implements TbCaseService{
     		}
     		if(caseTime!=null) {
     			tbCase.setCaseTime(caseTime);
+    		}
+    		if(filedTime!=null) {
+    			tbCase.setFiledTime(filedTime);
     		}
     		tbCase.setTbImages(path);
 			  if(tbLatitude!=null&&tbLongitude!=null) {

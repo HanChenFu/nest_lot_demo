@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hc.mapper.tbAreaDynamics.TbCaseMapper" >
-	
+	<!-- create_time as createTime, -->
 	<sql id="Base_Column_List">
 		tb_id as tbId,tb_number as tbNumber,tb_user_id as tbUserId,
 		tb_case_type_id as tbCaseTypeId, tb_filing_area_id as tbFilingAreaId,tb_size as tbSize,
 		tb_star as tbStar,tb_report_address as tbReportAddress, tb_address as tbAddress,tb_longitude as tbLongitude,
 		tb_latitude as tbLatitude, tb_desc as tbDesc,tb_remarks as tbRemarks,
-		tb_images as tbImages, case_time as caseTime,del_time as delTime, create_time as createTime
+		tb_images as tbImages, case_time as caseTime,del_time as delTime,filed_time as filedTime
 	</sql>
 	
   	<select id="queryNumber"   resultType="java.lang.Integer">
@@ -47,12 +47,12 @@
 		( `tb_number`, 			`tb_user_id`, 	`tb_case_type_id`,  
 		  `tb_filing_area_id`,  `tb_size`, 		`tb_star`, `tb_report_address`,
 		  `tb_address`, 		`tb_longitude`, `tb_latitude`, 
-		  `tb_desc`, 			`tb_remarks`, 	`tb_images`, `case_time`, 
+		  `tb_desc`, 			`tb_remarks`, 	`tb_images`, `case_time`, `filed_time`, 
 		  `del_time`, 			`create_time`) 
 		VALUES 
 		( #{tbNumber},#{tbUserId},#{tbCaseTypeId},#{tbFilingAreaId},#{tbSize},
 		#{tbStar},#{tbReportAddress},#{tbAddress},#{tbLongitude},#{tbLatitude},#{tbDesc},#{tbRemarks},#{tbImages},
-		#{caseTime},#{delTime},#{createTime}
+		#{caseTime},#{filedTime},#{delTime},#{createTime}
 		);
 
 	</insert>
@@ -99,6 +99,9 @@
 		      </if>
     		<if test="caseTime != '' &amp; caseTime != null" >
 		        case_time = #{caseTime}
+		      </if>
+    		<if test="filedTime != '' &amp; filedTime != null" >
+		        filed_time = #{filedTime}
 		      </if>
 		    </set>
 		WHERE
