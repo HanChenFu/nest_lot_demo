@@ -1,0 +1,2911 @@
+swagger: '2.0'
+info:
+  #接口标题
+  title: 学识宝-接口文档-新接口（增加）
+  #接口文档的描述
+  description: 李燕飞
+  #版本号
+  version: 1.0.0
+
+#认证
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "token"
+    in: "header"
+schemes:
+  - http
+paths:
+
+  /api/util/verifyBankCard:
+    post:
+      tags:
+        - 工具接口
+      summary: 验证银行卡返回银行卡信息
+      produces:
+        - application/json
+      parameters:
+        - name: bankCard
+          description: 银行卡号
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResBankCardInfo' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/util/aliyunOssGetParameter:
+    post:
+      tags:
+        - 工具接口
+      summary: 请求阿里云OSS参数信息
+      produces:
+        - application/json
+      parameters:
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResAliyunOssGetParameter' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/util/aliyunOssDelUrl:
+    post:
+      tags:
+        - 工具接口
+      summary: 阿里云OSS删除文件
+      produces:
+        - application/json
+      parameters:
+        - name: url
+          description: 需要删除的url地址（可以是拼接好的）
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+
+  /api/xsb/agencyAndCourseList:
+    post:
+      tags:
+        - 学识宝---机构/课程
+      summary: 老接口---查看机构、课程/需求/知识互换列表
+      produces:
+        - application/json
+      parameters:
+        - name: areaId
+          description: 地区ID
+          in: query
+          type: string
+          required: false
+        - name: order
+          description: 智能排序  离我最近--1   好评优先--2  人气最高--3
+          in: query
+          type: integer
+          required: false
+        - name: needServiceTypeId
+          description: 课程二级分类id
+          in: query
+          type: string
+          required: false
+        - name: parentTypeId
+          description: 课程一级分类id
+          in: query
+          type: string
+          required: false
+        - name: certificate
+          description: 教师认证-1，机构认证-2，学历认证-3，男-4，女-5，格式1_3_5(多选)
+          in: query
+          type: string
+          required: false
+        - name: serch
+          description: 搜索框内容
+          in: query
+          type: string
+          required: false
+        - name: needOrService
+          description: 要获取的列表内容：需求--1、服务--2、知识互换---3
+          in: query
+          type: integer
+          required: true
+        - name: lng
+          description: 经度
+          in: query
+          type: string
+          required: false
+        - name: lat
+          description: 纬度
+          in: query
+          type: string
+          required: false
+        - name: isHome
+          description: 是否首页，0-不是，1-是
+          in: query
+          type: integer
+          required: true
+        - name: pagesize
+          description: 每页多少条
+          in: query
+          type: integer
+          required: true
+        - name: page
+          description: 当前页
+          in: query
+          type: integer
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/OldResAgencyAndCourseList' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/agencyDetails:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 查看机构详情
+      produces:
+        - application/json
+      parameters:
+        - name: agencyId
+          description: 机构ID
+          in: query
+          type: string
+          required: true
+        - name: lng
+          description: 经度
+          in: query
+          type: string
+          required: false
+        - name: lat
+          description: 纬度
+          in: query
+          type: string
+          required: false
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResAgencyDetails' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/agencyIsRegister:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 查看是否注册过机构商家
+      produces:
+        - application/json
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResAgencyIsRegister' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/agencyClaimRegister:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 注册成为机构商家
+      produces:
+        - application/json
+      parameters:
+        - name: phone
+          description: 手机号
+          in: query
+          type: string
+          required: true
+        - name: code
+          description: 验证码
+          in: query
+          type: string
+          required: true
+        - name: password
+          description: 密码
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResAgencyClaimRegister' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/agencyLogin:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 登录机构商家
+      produces:
+        - application/json
+      parameters:
+        - name: phone
+          description: 手机号
+          in: query
+          type: string
+          required: true
+        - name: code
+          description: 验证码
+          in: query
+          type: string
+          required: false
+        - name: password
+          description: 密码
+          in: query
+          type: string
+          required: false
+        - name: status
+          description: 登录类型0-验证码登录，1-密码登录
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResAgencyLogin' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/agencyUpdatePassword:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 修改机构商家密码
+      produces:
+        - application/json
+      parameters:
+        - name: phone
+          description: 手机号
+          in: query
+          type: string
+          required: true
+        - name: code
+          description: 验证码
+          in: query
+          type: string
+          required: true
+        - name: password
+          description: 密码
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/myagencyClaim:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 查看我的机构认领
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+        - name: page
+          description: 当前页
+          in: query
+          type: integer
+          required: false
+        - name: pagesize
+          description: 每页多少条
+          in: query
+          type: integer
+          required: false
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResMyagencyClaim' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/agencyClaimSubmit:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 机构提交认领资料
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+        - name: agencyId
+          description: 机构ID
+          in: query
+          type: string
+          required: true
+        - name: licenseType
+          description: 营业执照类型：0企业法人，1个体工商户
+          in: query
+          type: string
+          required: true
+        - name: licenseImage
+          description: 营业执照图片路径
+          in: query
+          type: string
+          required: true
+        - name: licenseRegisterNumber
+          description: 营业执照信息：注册号
+          in: query
+          type: string
+          required: true
+        - name: licenseIsName
+          description: 营业执照信息：是否有名称：0普通营业执照，1无名称营业执照
+          in: query
+          type: string
+          required: true
+        - name: licenseName
+          description: 营业执照信息：名称：
+          in: query
+          type: string
+          required: false
+        - name: licenseValidityPeriod
+          description: 营业执照信息：有效期：0指定日期，1永久有效
+          in: query
+          type: string
+          required: true
+        - name: licenseStartDate
+          description: 营业执照信息：有效期开始时间[Format("yyyy-MM-dd HH:mm:ss")]
+          in: query
+          type: string
+          required: false
+        - name: licenseEndDate
+          description: 营业执照信息：有效期到期时间[Format("yyyy-MM-dd HH:mm:ss")]
+          in: query
+          type: string
+          required: false
+        - name: licenseLegalRepresentative
+          description: 营业执照信息：法定代表人
+          in: query
+          type: string
+          required: true
+        - name: idCarPositiveImage
+          description: 身份证正面图片路径
+          in: query
+          type: string
+          required: true
+        - name: idCarReverseImage
+          description: 身份证反面图片路径
+          in: query
+          type: string
+          required: true
+        - name: handheldIdCarImage
+          description: 手持身份证图片路径
+          in: query
+          type: string
+          required: true
+        - name: operatorName
+          description: 经营者信息：姓名
+          in: query
+          type: string
+          required: true
+        - name: operatorIdCar
+          description: 经营者信息：身份证
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResAgencyClaimSubmit' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/goAgencyManag:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 进入机构商家管理
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResGoAgencyManag' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/exitAgencyManag:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 退出机构商家管理
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/serviceType:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 服务类型
+      produces:
+        - application/json
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResServiceType' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/myAgencyInfo:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 查看商家机构信息
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResMyAgencyInfo' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/updateAgencyInfo:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 修改机构商家信息
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+        - name: agencyId
+          description: 机构ID
+          in: query
+          type: string
+          required: true
+        - name: agencyStyle
+          description: 机构培训类型ID
+          in: query
+          type: string
+          required: false
+        - name: agencyStyleSmallId
+          description: 机构培训二级类型ID[以逗号拼接]
+          in: query
+          type: string
+          required: false
+        - name: businessTime
+          description: 营业时间
+          in: query
+          type: string
+          required: false
+        - name: imagePath
+          description: 机构图片URL[以逗号拼接]
+          in: query
+          type: string
+          required: false
+        - name: featuresService
+          description: 特色服务
+          in: query
+          type: string
+          required: false
+        - name: agencyIntroduce
+          description: 店家简介
+          in: query
+          type: string
+          required: false
+        - name: contact
+          description: 联系方式
+          in: query
+          type: string
+          required: false
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResUpdateAgencyInfo' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/agencyCourseList:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 查看商家机构课程列表
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResAgencyCourseList' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/updateAgencyCourse:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 修改商家机构课程信息
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+        - name: courseInfoId
+          description: 课程ID
+          in: query
+          type: string
+          required: true
+        - name: courseName
+          description: 课程名称
+          in: query
+          type: string
+          required: false
+        - name: coursePrice
+          description: 课程价格
+          in: query
+          type: string
+          required: false
+        - name: courseTime
+          description: 课程时长
+          in: query
+          type: string
+          required: false
+        - name: courseFeatures
+          description: 课程特色
+          in: query
+          type: string
+          required: false
+        - name: courseStandby
+          description: 课程介绍
+          in: query
+          type: string
+          required: false
+        - name: courseStandby2
+          description: 课程流程
+          in: query
+          type: string
+          required: false
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/addAgencyCourse:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 增加商家机构课程
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+        - name: courseName
+          description: 课程名称
+          in: query
+          type: string
+          required: false
+        - name: coursePrice
+          description: 课程价格
+          in: query
+          type: string
+          required: false
+        - name: courseTime
+          description: 课程时长
+          in: query
+          type: string
+          required: false
+        - name: courseFeatures
+          description: 课程特色
+          in: query
+          type: string
+          required: false
+        - name: courseStandby
+          description: 课程介绍
+          in: query
+          type: string
+          required: false
+        - name: courseStandby2
+          description: 课程流程
+          in: query
+          type: string
+          required: false
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/xsb/delAgencyCourse:
+    post:
+      tags:
+        - 学识宝---机构
+      summary: 商家机构删除课程
+      produces:
+        - application/json
+      parameters:
+        - name: agencyToken
+          description: 机构token
+          in: query
+          type: string
+          required: true
+        - name: courseInfoId
+          description: 课程ID
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+            
+  /api/flea/goodsTypeListAll:
+    post:
+      tags:
+        - 二手市场---商品
+      summary: 分类列表
+      produces:
+        - application/json
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResGoodsTypeListAll' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/flea/pubLishGoods:
+    post:
+      tags:
+        - 二手市场---商品
+      summary: 发布商品
+      produces:
+        - application/json
+      parameters:
+        - name: name
+          description: 商品名称
+          in: query
+          type: string
+          required: true
+        - name: userId
+          description: 发布用户ID
+          in: query
+          type: string
+          required: true
+        - name: price
+          description: 价格
+          in: query
+          type: string
+          required: true
+        - name: mailPrice
+          description: 邮费
+          in: query
+          type: string
+          required: true
+        - name: goodsTypeId
+          description: 商品类型ID
+          in: query
+          type: string
+          required: true
+        - name: isMail
+          description: 是否包邮，0-不包邮，1-包邮
+          in: query
+          type: string
+          required: true
+        - name: content
+          description: 商品描述
+          in: query
+          type: string
+          required: false
+        - name: remark
+          description: 关键词
+          in: query
+          type: string
+          required: false
+        - name: provinceId
+          description: 省ID
+          in: query
+          type: string
+          required: false
+        - name: cityId
+          description: 市ID
+          in: query
+          type: string
+          required: false
+        - name: areaId
+          description: 区ID
+          in: query
+          type: string
+          required: false
+        - name: province
+          description: 省
+          in: query
+          type: string
+          required: false
+        - name: city
+          description: 市
+          in: query
+          type: string
+          required: false
+        - name: area
+          description: 区
+          in: query
+          type: string
+          required: false
+        - name: lng
+          description: 经度
+          in: query
+          type: string
+          required: false
+        - name: lat
+          description: 纬度
+          in: query
+          type: string
+          required: false
+        - name: imagePath
+          description: 图片路径
+          in: query
+          type: string
+          required: true
+        - name: videoPath
+          description: 视频路径
+          in: query
+          type: string
+          required: false
+        - name: picPath
+          description: 视频缩略图路径
+          in: query
+          type: string
+          required: false
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/flea/delShelvesGoods:
+    post:
+      tags:
+        - 二手市场---商品
+      summary: 删除/下架/上架商品接口
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: fleaGoodsId
+          description: 商品表ID
+          in: query
+          type: string
+          required: true
+        - name: status
+          description: [商品状态，1-上架，3-下架,4-删除]
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/flea/getGoodsListBySearch:
+    post:
+      tags:
+        - 二手市场---商品
+      summary: 查看商品列表
+      produces:
+        - application/json
+      parameters:
+        - name: goodsTypeId
+          description: 商品分类表的ID
+          in: query
+          type: string
+          required: false
+        - name: addressId
+          description: 商品发布地址的ID
+          in: query
+          type: string
+          required: false
+        - name: order
+          description: 排序[0-{价格有高到低、最新发布、离我最近}的综合，1-价格有低到高，2-价格有高到低，3-最新发布，4-离我最近]
+          in: query
+          type: string
+          required: true
+        - name: search
+          description: 模糊搜索的字段
+          in: query
+          type: string
+          required: false
+        - name: lng
+          description: 经度
+          in: query
+          type: string
+          required: false
+        - name: lat
+          description: 纬度
+          in: query
+          type: string
+          required: false
+        - name: pageSize
+          description: 每页多少条
+          in: query
+          type: integer
+          required: true
+        - name: page
+          description: 当前页
+          in: query
+          type: integer
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResGetGoodsListBySearch' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/flea/goodsDetails:
+    post:
+      tags:
+        - 二手市场---商品
+      summary: 商品详情接口
+      produces:
+        - application/json
+      parameters:
+        - name: fleaGoodsId
+          description: 商品的ID
+          in: query
+          type: string
+          required: true
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResGoodsDetails' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/flea/myPubLishGoods:
+    post:
+      tags:
+        - 二手市场---我的
+      summary: 我发布的接口
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: pageSize
+          description: 每页多少条
+          in: query
+          type: integer
+          required: true
+        - name: page
+          description: 当前页
+          in: query
+          type: integer
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResMyPubLishGoods' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/flea/myCollectionGoods:
+    post:
+      tags:
+        - 二手市场---我的
+      summary: 我收藏的接口
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: pageSize
+          description: 每页多少条
+          in: query
+          type: integer
+          required: true
+        - name: page
+          description: 当前页
+          in: query
+          type: integer
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResMyPubLishGoods' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+
+  /api/public/userComment:
+    post:
+      tags:
+        - 公用接口---评论/回复
+      summary: 用户评论
+      produces:
+        - application/json
+      parameters:
+        - name: targetId
+          description: 评论目标ID（必填）
+          in: query
+          type: string
+          required: true
+        - name: userId
+          description: 发布评论人的ID（必填）
+          in: query
+          type: string
+          required: true
+        - name: content
+          description: 评论内容（必填）
+          in: query
+          type: string
+          required: true
+        - name: targetType
+          description: 评论类型（必填）【1，二手市场商品，3，xsb机构帖子】
+          in: query
+          type: string
+          required: true
+        - name: isAnonymity
+          description: 是否匿名（选填）【0/不填，不匿名，1，匿名】
+          in: query
+          type: string
+          required: false
+        - name: theStars
+          description: 评论星级（选填）【当targetType==3时，此项必填】
+          in: query
+          type: integer
+          required: false
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/replyComment:
+    post:
+      tags:
+        - 公用接口---评论/回复
+      summary: 回复评论
+      produces:
+        - application/json
+      parameters:
+        - name: commentId
+          description: 评论的ID
+          in: query
+          type: string
+          required: true
+        - name: userId
+          description: 发布回复人的ID
+          in: query
+          type: string
+          required: true
+        - name: content
+          description: 回复内容
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/getCommentList:
+    post:
+      tags:
+        - 公用接口---评论/回复
+      summary: 查看评论列表
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: targetId
+          description: 评论目标ID
+          in: query
+          type: string
+          required: true
+        - name: targetType
+          description: 评论类型【1，二手市场商品，3，xsb机构帖子】
+          in: query
+          type: string
+          required: true
+        - name: pageSize
+          description: 每页多少条
+          in: query
+          type: integer
+          required: true
+        - name: page
+          description: 当前页
+          in: query
+          type: integer
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResGetCommentList' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/getReplyComment:
+    post:
+      tags:
+        - 公用接口---评论/回复
+      summary: 查看回复列表
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: commentId
+          description: 评论ID
+          in: query
+          type: string
+          required: true
+        - name: pageSize
+          description: 每页多少条
+          in: query
+          type: integer
+          required: true
+        - name: page
+          description: 当前页
+          in: query
+          type: integer
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResGetReplyComment' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/delReplyComment:
+    post:
+      tags:
+        - 公用接口---评论/回复
+      summary: 删除回复评论
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: replyCommentId
+          description: 评论、回复ID
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResDelReplyComment' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/userCollection:
+    post:
+      tags:
+        - 公用接口---收藏
+      summary: 用户收藏/取消
+      produces:
+        - application/json
+      parameters:
+        - name: targetId
+          description: 收藏目标ID
+          in: query
+          type: string
+          required: true
+        - name: userId
+          description: 收藏人的ID
+          in: query
+          type: string
+          required: true
+        - name: targetType
+          description: 收藏类型【1，二手市场商品】
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/addAddress:
+    post:
+      tags:
+        - 公用接口---收货地址
+      summary: 添加收货地址
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: name
+          description: 收货人姓名,25字以内
+          in: query
+          type: string
+          required: true
+        - name: province
+          description: 省,15字
+          in: query
+          type: string
+          required: true
+        - name: city
+          description: 市,20字
+          in: query
+          type: string
+          required: true
+        - name: area
+          description: 区/县,30字
+          in: query
+          type: string
+          required: true
+        - name: address
+          description: 详细地址,50字以内
+          in: query
+          type: string
+          required: true
+        - name: phone
+          description: 手机号
+          in: query
+          type: string
+          required: true
+        - name: isDefault
+          description: 是否默认0-不是，1-是
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/delAddress:
+    post:
+      tags:
+        - 公用接口---收货地址
+      summary: 删除收货地址
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: addressIds
+          description: 删除的收货地址ID（数组类型，也可以以逗号分隔的收货地址ID的字符串）
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/updateAddress:
+    post:
+      tags:
+        - 公用接口---收货地址
+      summary: 修改收货地址
+      produces:
+        - application/json
+      parameters:
+        - name: addressId
+          description: 收货地址表的ID
+          in: query
+          type: string
+          required: true
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: name
+          description: 收货人姓名,25字以内(不修改这个字段，这个字段就可以不用传)
+          in: query
+          type: string
+          required: false
+        - name: province
+          description: 省,15字(不修改这个字段，这个字段就可以不用传)
+          in: query
+          type: string
+          required: false
+        - name: city
+          description: 市,20字(不修改这个字段，这个字段就可以不用传)
+          in: query
+          type: string
+          required: false
+        - name: area
+          description: 区/县,30字(不修改这个字段，这个字段就可以不用传)
+          in: query
+          type: string
+          required: false
+        - name: address
+          description: 详细地址,50字以内(不修改这个字段，这个字段就可以不用传)
+          in: query
+          type: string
+          required: false
+        - name: phone
+          description: 手机号(不修改这个字段，这个字段就可以不用传)
+          in: query
+          type: string
+          required: false
+        - name: isDefault
+          description: 是否默认0-不是，1-是(不修改这个字段，这个字段就可以不用传)
+          in: query
+          type: string
+          required: false
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/myAddressList:
+    post:
+      tags:
+        - 公用接口---收货地址
+      summary: 查询我的收货地址
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          description: 用户ID
+          in: query
+          type: string
+          required: true
+        - name: pageSize
+          description: 每页多少条
+          in: query
+          type: integer
+          required: true
+        - name: page
+          description: 当前页
+          in: query
+          type: integer
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResMyAddressList' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/myDefaultAddress:
+    post:
+      tags:
+        - 公用接口---收货地址
+      summary: 查询我的默认收货地址
+      produces:
+        - application/json
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResMyDefaultAddress' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+            
+  /api/public/reportTypeList:
+    post:
+      tags:
+        - 公用接口---举报
+      summary: 查询举报类型列表
+      produces:
+        - application/json
+      parameters:
+        - name: targetType
+          description: 举报的目标类型【目标类型,0学识宝课程，1,学识宝需求，2，学识宝共享知识，3，学识宝机构帖子，4，评论/评价，5，跳蚤，6，商城，7，聊天，8，动态】
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/ResReportTypeList' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /api/public/report:
+    post:
+      tags:
+        - 公用接口---举报
+      summary: 用户举报
+      produces:
+        - application/json
+      parameters:
+        - name: targetType
+          description: 举报的目标类型【目标类型,0学识宝课程，1,学识宝需求，2，学识宝共享知识，3，学识宝机构帖子，4，评论/评价，5，跳蚤，6，商城，7，聊天，8，动态】
+          in: query
+          type: string
+          required: true
+        - name: targetId
+          description: 举报的目标ID
+          in: query
+          type: string
+          required: true
+        - name: reportContent
+          description: 举报的内容
+          in: query
+          type: string
+          required: true
+        - name: reportTypeId
+          description: 举报的类型ID
+          in: query
+          type: string
+          required: true
+        - name: imagePath
+          description: 举报的图片URL
+          in: query
+          type: string
+          required: false
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+            
+  /api/public/identifyPhone:
+    post:
+      tags:
+        - 公用接口---其他
+      summary: 发送验证码 （状态为1,2,3的暂时无法使用）
+      produces:
+        - application/json
+      parameters:
+        - name: phone
+          description: 手机号
+          in: query
+          type: string
+          required: true
+        - name: status
+          description: 状态[1,xsb注册；2，xsb修改手机号;3,xsb修改密码;4,机构商家注册;5,机构商家修改密码;6,机构商家登录]
+          in: query
+          type: string
+          required: true
+      responses:
+        100:
+          description: OK
+          schema:
+            $ref: '#/definitions/R' 
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+definitions:
+  R:
+      type: object
+      properties:
+        msgcode:
+          type: integer
+          description: 状态码 100：成功  非100：失败
+          format: int32
+        msg:
+          description: 失败原因
+          type: string
+        object:
+          description: 结果集
+  ResReportTypeList:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        type: array
+        items:
+          type: object
+          properties:
+            reportTypeId:
+              description: 举报类型ID
+              type: string
+            typeName:
+              description: 举报类型名称
+              type: string
+            targetType:
+              description: 目标类型,0学识宝课程，1,学识宝需求，2，学识宝共享知识，3，学识宝机构帖子，4，评论/评价
+              type: string
+            typeIntroduce:
+              description: 类型介绍
+              type: string
+  ResDelReplyComment:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResDelReplyComment_object'
+  ResDelReplyComment_object:
+    type: object
+    properties:
+      isHaveReply:
+        description: 是否有回复信息0-没有，1-有
+        type: integer
+  ResMyDefaultAddress:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResMyDefaultAddress_object'
+  ResMyDefaultAddress_object:
+    type: object
+    properties:
+      area:
+        description: 区/县
+        type: string
+      isDefault:
+        description: 是否默认0-不是，1-是
+        type: string
+      address:
+        description: 详细地址
+        type: string
+      province:
+        description: 省
+        type: string
+      creatTime:
+        description: 添加时间
+        type: string
+      city:
+        description: 市
+        type: integer
+      phone:
+        description: 手机号
+        type: string
+      name:
+        description: 收货人姓名
+        type: integer
+      updateTime:
+        description: 修改日期
+        type: integer
+      addressId:
+        description: 收货地址ID
+        type: string
+  ResMyAddressList:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResMyAddressList_object'
+  ResMyAddressList_object:
+    type: object
+    properties:
+      page:
+        description: 当前页
+        type: integer
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数
+        type: integer
+      results:
+        description: 结果集,列表
+        type: array
+        items:
+          type: object
+          properties:
+            area:
+              description: 区/县
+              type: string
+            isDefault:
+              description: 是否默认0-不是，1-是
+              type: string
+            address:
+              description: 详细地址
+              type: string
+            province:
+              description: 省
+              type: string
+            creatTime:
+              description: 添加时间
+              type: string
+            city:
+              description: 市
+              type: integer
+            phone:
+              description: 手机号
+              type: string
+            name:
+              description: 收货人姓名
+              type: integer
+            updateTime:
+              description: 修改日期
+              type: integer
+            addressId:
+              description: 收货地址ID
+              type: string
+  ResGetReplyComment:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGetReplyComment_object'
+  ResGetReplyComment_object:
+    type: object
+    properties:
+      page:
+        description: 当前页
+        type: integer
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数
+        type: integer
+      results:
+        description: 结果集,列表
+        type: array
+        items:
+          type: object
+          properties:
+            nickName:
+              description: 用户昵称
+              type: string
+            userHead:
+              description: 用户头像
+              type: string
+            userId:
+              description: 用户ID
+              type: string
+            replyId:
+              description: 回复ID
+              type: string
+            content:
+              description: 评论内容
+              type: string
+            floor:
+              description: 评论楼层
+              type: integer
+            isDel:
+              description: 是否删除0--未删除，1--已删除
+              type: string
+            level:
+              description: 等级，1-直接评论，2-回复
+              type: integer
+            isOwner:
+              description: 评论是否属于当前用户，0-不属于，1-属于
+              type: integer
+            creatTime:
+              description: 评论时间
+              type: string
+            creatTimeFormat:
+              description: 评论时间(格式化后)
+              type: string
+  ResGetCommentList:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGetCommentList_object'
+  ResGetCommentList_object:
+    type: object
+    properties:
+      page:
+        description: 当前页
+        type: integer
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数
+        type: integer
+      results:
+        description: 结果集,列表
+        type: array
+        items:
+          type: object
+          properties:
+            nickName:
+              description: 用户昵称
+              type: string
+            userHead:
+              description: 用户头像
+              type: string
+            userId:
+              description: 用户ID
+              type: string
+            commentId:
+              description: 评论ID
+              type: string
+            replyCount:
+              description: 回复的数量
+              type: string
+            content:
+              description: 评论内容
+              type: string
+            floor:
+              description: 评论楼层
+              type: integer
+            level:
+              description: 等级，1-直接评论，2-回复
+              type: integer
+            isDel:
+              description: 是否删除0--未删除，1--已删除
+              type: string
+            isOwner:
+              description: 评论是否属于当前用户，0-不属于，1-属于
+              type: integer
+            isAnonymity:
+              description: isAnonymity 是否匿名【0，不匿名，1，匿名】
+              type: string
+            theStars:
+              description: 评论星级
+              type: integer
+            creatTime:
+              description: 评论时间
+              type: string
+            creatTimeFormat:
+              description: 评论时间（格式化后）
+              type: string
+  ResMyPubLishGoods:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResMyPubLishGoods_object'
+  ResMyPubLishGoods_object:
+    type: object
+    properties:
+      page:
+        description: 当前页
+        type: integer
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数
+        type: integer
+      results:
+        description: 结果集,列表
+        type: array
+        items:
+          type: object
+          properties:
+            goodsId:
+              description: 商品ID
+              type: string
+            userId:
+              description: 用户ID
+              type: string
+            name:
+              description: 商品名称
+              type: string
+            content:
+              description: 商品介绍
+              type: string
+            remark:
+              description: 关键词
+              type: string
+            price:
+              description: 价格
+              type: string
+            province:
+              description: 省
+              type: string
+            city:
+              description: 市
+              type: string
+            area:
+              description: 区
+              type: string
+            status:
+              description: [商品状态，1-正常，2-已售完，3-已下架,4-删除]
+              type: string
+            creatTime:
+              description: 发布时间
+              type: string
+            imagePath:
+              description: 图片路径
+              type: string
+            creatTimeFormat:
+              description: 发布时间（格式化后）
+              type: string
+  ResGoodsDetails:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGoodsDetails_object'
+  ResGoodsDetails_object:
+    type: object
+    properties:
+      goodsId:
+        description: 二手商品ID
+        type: string
+      userId:
+        description: 发布人ID
+        type: string
+      collectionCount:
+        description: 是否收藏【0-未收藏，1-收藏】
+        type: integer
+      userHead:
+        description: 用户头像
+        type: string
+      nickName:
+        description: 用户昵称
+        type: string
+      name:
+        description: 商品名称
+        type: string
+      price:
+        description: 价格
+        type: string
+      remark:
+        description: 关键词
+        type: string
+      isMail:
+        description: 是否包邮，0-不包邮，1-包邮 ,
+        type: string
+      mailPrice:
+        description: 邮费
+        type: string
+      status:
+        description: [商品状态，1-正常，2-已售完，3-已下架,4-删除]
+        type: string
+      content:
+        description: 介绍
+        type: string
+      province:
+        description: 省
+        type: string
+      city:
+        description: 市
+        type: string
+      area:
+        description: 区
+        type: string
+      imagePath:
+        description: 商品图片
+        type: string
+      videoPath:
+        description: 商品视频
+        type: string
+      picPath:
+        description: 商品视频封面
+        type: string
+      creatTime:
+        description: 创建时间
+        type: string
+      creatTimeFormat:
+        description: 创建时间（格式化后）
+        type: string
+  ResGetGoodsListBySearch:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGetGoodsListBySearch_object'
+  ResGetGoodsListBySearch_object:
+    type: object
+    properties:
+      page:
+        description: 当前页
+        type: integer
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数
+        type: integer
+      results:
+        description: 结果集,列表
+        type: array
+        items:
+          type: object
+          properties:
+            goodsId:
+              description: 商品ID
+              type: string
+            userId:
+              description: 用户ID
+              type: string
+            name:
+              description: 商品名称
+              type: string
+            content:
+              description: 商品介绍
+              type: string
+            remark:
+              description: 关键词
+              type: string
+            price:
+              description: 价格
+              type: string
+            province:
+              description: 省
+              type: string
+            city:
+              description: 市
+              type: string
+            area:
+              description: 区
+              type: string
+            status:
+              description: [商品状态，1-正常，2-已售完，3-已下架,4-删除]
+              type: string
+            distance:
+              description: 距离
+              type: string
+            imagePath:
+              description: 图片路径
+              type: string
+            commentCount:
+              description: 评论数
+              type: string
+            creatTime:
+              description: 创建时间
+              type: string
+            creatTimeFormat:
+              description: 创建时间（格式化后）
+              type: string
+  ResGoodsTypeListAll:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGoodsTypeListAll_object'
+  ResGoodsTypeListAll_object:
+    type: object
+    properties:
+      page:
+        description: 当前页
+        type: integer
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数
+        type: integer
+      results:
+        description: 结果集,列表
+        type: array
+        items:
+          type: object
+          properties:
+            typeId:
+              description: 类型ID
+              type: string
+            typeContent:
+              description: 类型介绍
+              type: string
+            typeName:
+              description: 类型名称
+              type: string
+            isAvailable:
+              description: 是否可用，0可用，1不可用
+              type: string
+            creatTime:
+              description: 创建时间
+              type: string
+            creatTimeFormat:
+              description: 创建时间（格式化后）
+              type: string
+  ResBankCardInfo:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResBankCardInfo_object'
+  ResBankCardInfo_object:
+    type: object
+    properties:
+      error_code:
+        description: 第三方返回状态码
+        type: integer
+      reason:
+        description: 状态说明
+        type: string
+      ordersign:
+        description: 订单号
+        type: string
+      account:
+        description: 返回账户剩余次数
+        type: integer
+      result:
+        description: 结果集
+        $ref: '#/definitions/ResBankCardInfo_object_result'
+  ResBankCardInfo_object_result:
+    type: object
+    properties:
+      banknum:
+        description: 银行编码
+        type: string
+      cardprefixlength:
+        description: 银行卡bin长度
+        type: integer
+      abbreviation:
+        description: 银行简称
+        type: string
+      enbankname:
+        description: 银行名称(英文)
+        type: string
+      iscreditcard:
+        description: 是否是信用卡,1为借记卡,2为信用卡
+        type: integer
+      cardlength:
+        description: 银行卡长度
+        type: integer
+      cardname:
+        description: 银行卡名称
+        type: string
+      cardprefixnum:
+        description: 银行卡bin
+        type: string
+      servicephone:
+        description: 银行电话
+        type: string
+      bankurl:
+        description: 银行网址
+        type: string
+      bankname:
+        description: 银行名称(中文)
+        type: string
+      cardtype:
+        description: 银行卡类型
+        type: string
+      isLuhn:
+        description: 是否符合编码规范
+        type: boolean
+      bankimage:
+        description: 银行LOGO
+        type: string
+  ResAgencyCourseList:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        type: array
+        items:
+          type: object
+          properties:
+            courseInfoId:
+              description: 机构课程ID
+              type: string
+            agencyId:
+              description: 机构ID
+              type: string
+            courseName:
+              description: 课程名称
+              type: string
+            courseFeatures:
+              description: 课程特色
+              type: string
+            coursePrice:
+              description: 课程价格
+              type: string
+            courseTime:
+              description: 课程时长
+              type: string
+            courseStandby:
+              description: 课程介绍
+              type: string
+            courseStandby2:
+              description: 课程流程
+              type: string
+  ResUpdateAgencyInfo:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResUpdateAgencyInfo_object'
+  ResUpdateAgencyInfo_object:
+    type: object
+    properties:
+      agencyIntroduce:
+        description: 店家简介
+        type: string
+      imagePath:
+        description: 机构图片URL[以逗号拼接]
+        type: string
+      agencyTypeName:
+        description: 机构培训类型名称
+        type: string
+      agencyCity:
+        description: 机构所属市
+        type: string
+      agencyId:
+        description: 机构ID
+        type: string
+      agencyArea:
+        description: 机构所属区
+        type: string
+      businessTime:
+        description: 营业时间
+        type: string
+      agencyStyle:
+        description: 机构培训类型ID
+        type: string
+      agencyStyleSmallId:
+        description: 机构培训二级类型ID[以逗号拼接]
+        type: string
+      agencyProvince:
+        description: 机构所属省
+        type: string
+      userId:
+        description: 所认领的商家ID
+        type: string
+      agencyName:
+        description: 机构名称
+        type: string
+      agencyAddress:
+        description: 机构详细地址
+        type: string
+      featuresService:
+        description: 特色服务
+        type: string
+      contact:
+        description: 联系方式
+        type: string
+      grade:
+        description: 评论的星级
+        type: string
+  ResMyAgencyInfo:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResMyAgencyInfo_object'
+  ResMyAgencyInfo_object:
+    type: object
+    properties:
+      agencyIntroduce:
+        description: 店家简介
+        type: string
+      imagePath:
+        description: 机构图片URL[以逗号拼接]
+        type: string
+      agencyTypeName:
+        description: 机构培训类型名称
+        type: string
+      agencyCity:
+        description: 机构所属市
+        type: string
+      agencyId:
+        description: 机构ID
+        type: string
+      agencyArea:
+        description: 机构所属区
+        type: string
+      businessTime:
+        description: 营业时间
+        type: string
+      agencyStyle:
+        description: 机构培训类型ID
+        type: string
+      agencyStyleSmallId:
+        description: 机构培训二级类型ID[以逗号拼接]
+        type: string
+      agencyProvince:
+        description: 机构所属省
+        type: string
+      userId:
+        description: 所认领的商家ID
+        type: string
+      agencyName:
+        description: 机构名称
+        type: string
+      agencyAddress:
+        description: 机构详细地址
+        type: string
+      featuresService:
+        description: 特色服务
+        type: string
+      contact:
+        description: 联系方式
+        type: string
+      grade:
+        description: 评论的星级
+        type: string
+  ResServiceType:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        type: array
+        items:
+          type: object
+          properties:
+            agencyTypeId:
+              description: 类型ID
+              type: string
+            agencyTypeName:
+              description: 类型名称
+              type: string
+            remark:
+              description: 备注
+              type: string
+            parentId:
+              description: 上级ID
+              type: string
+            level:
+              description: 层级
+              type: integer
+            indexs:
+              description: 排序
+              type: integer
+            agencyTypeList:
+              description: 子类型集合
+              type: array
+              items:
+                type: object
+                properties:
+                  agencyTypeId:
+                    description: 类型ID
+                    type: string
+                  agencyTypeName:
+                    description: 类型名称
+                    type: string
+                  remark:
+                    description: 备注
+                    type: string
+                  parentId:
+                    description: 上级ID
+                    type: string
+                  level:
+                    description: 层级
+                    type: integer
+                  indexs:
+                    description: 排序
+                    type: integer
+  ResGoAgencyManag:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGoAgencyManag_object'
+  ResGoAgencyManag_object:
+    type: object
+    properties:
+      isReadOrders:
+        description: 未读订单数量
+        type: integer
+  ResAgencyClaimSubmit:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResAgencyClaimSubmit_object'
+  ResAgencyClaimSubmit_object:
+    type: object
+    properties:
+      agencyClaimId:
+        description: 机构认领ID
+        type: string
+      agencyAddress:
+        description: 机构详细地址
+        type: string
+      agencyTypeName:
+        description: 类型名称
+        type: string
+      agencyCity:
+        description: 市
+        type: string
+      agencyArea:
+        description: 区
+        type: string
+      isClaim:
+        description: 是否认领：0-已经注册账号，1-提交审核，2-审核拒绝，3-审核成功，4-认领完成
+        type: string
+      agencyProvince:
+        description: 省
+        type: string
+      agencyName:
+        description: 机构名称
+        type: string
+  ResMyagencyClaim:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResMyagencyClaim_object'
+  ResMyagencyClaim_object:
+    type: object
+    properties:
+      page:
+        description: 当前页
+        type: integer
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数(如果为0则未注册过，暂时只有一条)
+        type: integer
+      results:
+        description: 结果集,列表
+        type: array
+        items:
+          type: object
+          properties:
+            agencyClaimId:
+              description: 机构认领ID
+              type: string
+            agencyAddress:
+              description: 机构详细地址
+              type: string
+            agencyStyle:
+              description: 类型名称
+              type: string
+            agencyCity:
+              description: 市
+              type: string
+            agencyArea:
+              description: 区
+              type: string
+            isClaim:
+              description: 是否认领：0-已经注册账号，1-提交审核，2-审核拒绝，3-审核成功，4-认领完成
+              type: string
+            agencyProvince:
+              description: 省
+              type: string
+            agencyName:
+              description: 机构名称
+              type: string
+            refusedWhy:
+              description: 失败原因
+              type: string
+            agencyId:
+              description: 认领的机构ID
+              type: string
+  ResAgencyIsRegister:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResAgencyIsRegister_object'
+  ResAgencyIsRegister_object:
+    type: object
+    properties:
+      isRegister:
+        description: 是否注册过用户0-没有，1-有
+        type: integer
+  ResAgencyClaimRegister:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResAgencyClaimRegister_object'
+  ResAgencyClaimRegister_object:
+    type: object
+    properties:
+      agencyToken:
+        description: 机构 token
+        type: string
+  ResAgencyLogin:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResAgencyLogin_object'
+  ResAgencyLogin_object:
+    type: object
+    properties:
+      agencyToken:
+        description: 机构 token
+        type: string
+  ResAgencyDetails:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResAgencyDetails_object'
+  ResAgencyDetails_object:
+    type: object
+    properties:
+      agencyId:
+        description: 机构ID
+        type: string
+      userId:
+        description: 发布的用户ID
+        type: string
+      adminId:
+        description: 发布的系统用户ID
+        type: string
+      isSys:
+        description: 是否是系统发布【0是，1不是】
+        type: string
+      isPost:
+        description: 是否是帖子性质【0是，1不是】
+        type: string
+      agencyName:
+        description: 机构名称
+        type: string
+      agencyStyle:
+        description: 机构培训类型
+        type: string
+      agencyStyleSmall:
+        description: 机构培训二级类型（以逗号分隔）
+        type: string
+      businessTime:
+        description: 营业时间
+        type: string
+      agencyProvince:
+        description: 机构省
+        type: string
+      agencyCity:
+        description: 机构市
+        type: string
+      agencyAddress:
+        description: 机构详细地址
+        type: string
+      featuresService:
+        description: 特色服务
+        type: string
+      agencyIntroduce:
+        description: 店家简介
+        type: string
+      imagePath:
+        description: 图片地址（以逗号分隔）
+        type: string
+      grade:
+        description: 评价的星级（一位小数点）
+        type: string
+      contact:
+        description: 联系方式
+        type: string
+      creatTime:
+        description: 上传时间
+        type: string
+      lng:
+        description: 经度
+        type: string
+      lat:
+        description: 纬度
+        type: string
+      distance:
+        description: 距离
+        type: string
+      agencyArea:
+        description: 区
+        type: string
+      isClaim:
+        description: 是否被认领。0未被认领，1已被认领
+        type: string
+      object:
+        description: 课程结果集
+        $ref: '#/definitions/ResAgencyDetails_object_agencyCourseInfo'
+  ResAgencyDetails_object_agencyCourseInfo:
+    type: object
+    properties:
+      courseInfoId:
+        description: 机构下课程详情ID
+        type: string
+      agencyId:
+        description: 机构ID
+        type: string
+      courseName:
+        description: 课程名称
+        type: string
+      courseFeatures:
+        description: 课程特色
+        type: string
+      coursePrice:
+        description: 课程价格
+        type: string
+      courseTime:
+        description: 课程时间
+        type: string
+      courseStandby:
+        description: 备用字段1（课程介绍）
+        type: string
+      courseStandby2:
+        description: 备用字段2（课程流程）
+        type: string
+  OldResAgencyAndCourseList:
+    type: object
+    properties:
+      listnum:
+        description: 总条数
+        type: integer
+      msgcode:
+        description: 响应码
+        type: integer
+      needOrService:
+        description: 要获取的列表内容：需求--1、服务--2、知识互换---3
+        type: integer
+      pages:
+        description: 总页数
+        type: integer
+      recommend:
+        description: 结果集,列表
+        type: array
+        items:
+          type: object
+          properties:
+            needServiceCreateDate:
+              description: 服务开始日期
+              type: string
+            isSchoolPass:
+              description: 学历认证结果
+              type: integer
+            distance:
+              description: 距离，没有坐标时返回0
+              type: integer
+            city:
+              description: 城市
+              type: string
+            ptypeName:
+              description: 类型名称
+              type: string
+            remark:
+              description: 关键词
+              type: string
+            isOrganizationPass:
+              description: 机构认证结果
+              type: integer
+            content:
+              description: 课程/机构详情
+              type: string
+            needServicePrice:
+              description: 课程价格
+              type: string
+            dealTimes:
+              description: 成交量
+              type: integer
+            needServiceId:
+              description: 课程/机构id
+              type: string
+            isTeacherPass:
+              description: 教师认证结果
+              type: integer
+            needServiceTypeName:
+              description: 课程子类型名称
+              type: string
+            lat:
+              description: 经度
+              type: string
+            lng:
+              description: 纬度
+              type: string
+            sex:
+              description: 老师性别：1-男，2-女
+              type: integer
+            telephone:
+              description: 联系电话
+              type: string
+            needServiceHead:
+              description: 图片
+              type: string
+            licAuth:
+              description: 机构名称（应该无用字段）
+              type: string
+            userInfoId:
+              description: 用户ID
+              type: string
+            picPath:
+              description: 视频缩略图路径
+              type: string
+            videoPath:
+              description: 视频路径
+              type: string
+            needServiceUnitName:
+              description: 单位
+              type: string
+            needOrService:
+              description: 数据类型：课程--1、服务--2、知识互换---3
+              type: integer
+            district:
+              description: 区
+              type: string
+            grade:
+              description: 评价等级：0-5
+              type: string
+            exchangeName:
+              description: 目标交换名称
+              type: string
+            isPass:
+              description: 实名认证结果 0-失败，1-通过
+              type: integer
+            needServiceName:
+              description: 课程/机构名称
+              type: string
+            needServiceStatus:
+              description: 状态1-正常状态；0-停止发布
+              type: integer
+            status:
+              description: 类型0-课程，1-机构
+              type: integer
+  ResAliyunOssGetParameter:
+    type: object
+    properties:
+      msgcode:
+        description: 响应编码
+        type: integer
+      msg:
+        description: 响应信息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResAliyunOssGetParameter_object'
+  ResAliyunOssGetParameter_object:
+    type: object
+    properties:
+      accessKeyId:
+        description: 临时用户的accessKeyId
+        type: string
+      accessKeySecret:
+        description: 临时用户的accessKeySecret
+        type: string
+      expiration:
+        description: 过期时间
+        type: string
+      imgName:
+        description: 文件名称
+        type: string
+      securityToken:
+        description: 临时用户token
+        type: string
+      errCode:
+        description: 阿里云返回错误码
+        type: string
+      errMsg:
+        description: 阿里云返回错误信息
+        type: string

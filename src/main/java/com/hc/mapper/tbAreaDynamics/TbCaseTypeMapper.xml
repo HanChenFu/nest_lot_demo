@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.tbAreaDynamics.TbCaseTypeMapper" >
+	
+	<sql id="Base_Column_List">
+		tb_id as tbId,tb_name as tbName, del_time as delTime, create_time as createTime
+	</sql>
+	
+	
+	<select id="queryAll" resultType="com.hc.pojo.entity.TbCaseType">
+		select
+		<include refid="Base_Column_List" />
+		from tb_case_type
+		order by create_time desc
+	</select>
+	<select id="queryAllCount" resultType="java.lang.Integer">
+		select
+		count(*)
+		from tb_case_type
+	</select>
+	
+	<select id="queryByTbId" resultType="com.hc.pojo.entity.TbCaseType">
+		select
+		<include refid="Base_Column_List" />
+		from tb_case_type
+		where tb_id = #{tbId}
+	</select>
+	
+	
+	
+  
+</mapper>
