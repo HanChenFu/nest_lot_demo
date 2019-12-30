@@ -1,7 +1,6 @@
-package com.hc.test;
+package com.hc.utils.email;
 
 import java.util.Properties;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -16,16 +15,20 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import com.hc.utils.conig.SystemConfigUtil;
-/***
- * 
- * @author Administrator
- *
- */
-public final class SendMail2 {
+
+public class SendMail {
 	final static String host = SystemConfigUtil.getValue("spring.mail.host");// 你的accessKeySecret，参考本文档步骤2
 	final static String user = SystemConfigUtil.getValue("spring.mail.username");
 	final static String pwd = SystemConfigUtil.getValue("spring.mail.password");
 
+	/**
+	 * 
+	 * @param to	收件邮箱
+	 * @param subject	主题
+	 * @param affix_path	附件
+	 * @param affixName	附件名称
+	 * @param content	内容
+	 */
 	public final static void send(String to,String subject,String affix_path,String affixName,String content) {
 		Properties props = new Properties();
 		// 设置发送邮件的邮件服务器的属性（这里使用网易的smtp服务器）
@@ -81,6 +84,7 @@ public final class SendMail2 {
 	}
 
 	public static void main(String[] args) {
-		SendMail2.send("280888608@qq.com", "一个带附件的JavaMail邮件(标题)", "D:\\ffmpeg\\public.zip", "reply", "我是内容哦");
+		SendMail.send("280888608@qq.com", "一个带附件的JavaMail邮件(标题)", "D:\\ffmpeg\\public.zip", "reply", "我是内容哦");
 	}
+	
 }
