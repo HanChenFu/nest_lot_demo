@@ -29,7 +29,6 @@ import javax.mail.internet.MimeMultipart;
  *
  */
 public class SendMail2 {
-
 	private String host = "smtp.qq.com"; // smtp服务器
 	private String from = "1955913640@qq.com"; // 发件人地址
 	private String to = "280888608@qq.com"; // 收件人地址
