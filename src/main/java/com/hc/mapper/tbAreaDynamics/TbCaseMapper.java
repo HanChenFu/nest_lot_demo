@@ -20,4 +20,6 @@ public interface TbCaseMapper {
 	int updateCaseById(TbCase tbCase);
 	
 	int deleCase(List<Integer> list);
+
+	TbCase queryByTbNumber(String tbNumber);
 }
