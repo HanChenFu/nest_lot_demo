@@ -10,6 +10,11 @@
 		tb_images as tbImages, case_time as caseTime,del_time as delTime,filed_time as filedTime
 	</sql>
 	
+	<select id="queryByTbNumber"   resultType="com.hc.pojo.entity.TbCase">
+		select <include refid="Base_Column_List" /> from tb_case 
+		where tb_number=#{tbNumber}
+	</select>
+	
   	<select id="queryNumber"   resultType="java.lang.Integer">
 		select count(1) from tb_case where tb_case_type_id=#{tbCaseTypeId}
 	</select>
