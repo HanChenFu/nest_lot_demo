@@ -163,8 +163,8 @@ public class NewsController {
 		String path = "";
 //        String originalFilename = file.getOriginalFilename();
         if (FileUtil.checkPictureFormat(file)) {
-        	path = StsServiceSample.uploadImg2Oss(file, "nieliyun/");
-//        	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
+//        	path = StsServiceSample.uploadImg2Oss(file, "nieliyun/");
+        	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
         }
         try {
         	String tbNumber = CreateSequence.getTimeMillisSequence();

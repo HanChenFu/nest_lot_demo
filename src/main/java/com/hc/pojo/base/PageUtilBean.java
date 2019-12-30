@@ -31,6 +31,7 @@ public class PageUtilBean {
 		this.pagetotal = this.totalCount % this.pagesize == 0 ? (this.totalCount / this.pagesize):(this.totalCount / this.pagesize + 1);
 		this.page = page == null ? 1 : (page < 1 ? 1 : page );
 	}
+	
 	public void setResults(Object results) {
 		this.results = results;
 	}

@@ -1,6 +1,7 @@
 package com.hc.utils.sendCode;
 
 import java.io.UnsupportedEncodingException;
+
 import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -12,22 +13,22 @@ import com.aliyuncs.profile.IClientProfile;
 import com.hc.utils.conig.SystemConfigUtil;
 
 public final class AliyunSMSUtil {
-		// 替换成你的AK
-		final static String accessKeyId = SystemConfigUtil.getValue("aliyun_sms_accessKeyId");// 你的accessKeyId,参考本文档步骤2
-		final static String accessKeySecret = SystemConfigUtil.getValue("aliyun_sms_accessKeySecret");// 你的accessKeySecret，参考本文档步骤2
-		// 必填:短信签名-可在短信控制台中找到，需要更改
+	// 替换成你的AK
+	final static String accessKeyId = SystemConfigUtil.getValue("aliyun_sms_accessKeyId");// 你的accessKeyId,参考本文档步骤2
+	final static String accessKeySecret = SystemConfigUtil.getValue("aliyun_sms_accessKeySecret");// 你的accessKeySecret，参考本文档步骤2
+	// 必填:短信签名-可在短信控制台中找到，需要更改
 //		final static String signName = SystemConfigUtil.getValue("");
-		static String signName = "";
-		// 必填:短信模板-可在短信控制台中找到，需要更改
-		final static String templateCode = SystemConfigUtil.getValue("aliyun_sms_code_templateCode");
-		
-		static {
-			try {
-				signName = new String(SystemConfigUtil.getValue("aliyun_sms_code_signName").getBytes("ISO-8859-1"),"UTF-8");
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
+	static String signName = "";
+	// 必填:短信模板-可在短信控制台中找到，需要更改
+	final static String templateCode = SystemConfigUtil.getValue("aliyun_sms_code_templateCode");
+	
+	static {
+		try {
+			signName = new String(SystemConfigUtil.getValue("aliyun_sms_code_signName").getBytes("ISO-8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
+	}
 	
 	public final static boolean sendSMS(String phone, String code) {
 		try {

@@ -65,7 +65,7 @@ public class TbAsyncTaskImpl {
 	  	TbSendMess t = new TbSendMess(tbEmail.getTitle(),tbEmail.getContent());
 	  	tbSendMessMapper.insertSelective(t);
 	  	StringBuffer check_err = new StringBuffer();
-	  	String[] to = tbEmail.getTo();
+	  	String[] to = tbEmail.getTo().split(",");
 	  	List<String> list = new ArrayList<String>(Arrays.asList(to));//将数组转换为list集合
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
@@ -105,7 +105,7 @@ public class TbAsyncTaskImpl {
     public void sendSM(TbShortPara shortPara) throws Exception {
 	  	TbSendMess t = new TbSendMess(shortPara.getTitle(),shortPara.getContent());
 	  	tbSendMessMapper.insertSelective(t);
-	  	String[] to = shortPara.getTo();
+	  	String[] to = shortPara.getTo().split(",");
 	  	List<String> list = new ArrayList<String>(Arrays.asList(to));//将数组转换为list集合
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {

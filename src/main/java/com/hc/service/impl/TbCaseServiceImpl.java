@@ -138,7 +138,6 @@ public class TbCaseServiceImpl implements TbCaseService{
 		return ResultUtil.getResultBase("删除失败！");
 	}
 	
-	
 	//查询所有案件
 	@Override
 	public ResultData<PageUtilBean> queryAllCaseList(QueryAllCaseListReqBean bean) {
@@ -150,6 +149,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		pages.setResults(list);
 		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}
+	
 	//获取案件编号
 	@Override
 	public ResultData<Map<String, Object>> getCaseSerialNum() {
@@ -162,6 +162,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		map.put("time", res);
 		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", map);
 	}
+	
 	@Override
 	public ResultData<PageUtilBean> getCaseTypeList() {
 		int totalCount = tbCaseTypeMapper.queryAllCount();

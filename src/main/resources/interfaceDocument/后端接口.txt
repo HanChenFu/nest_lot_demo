@@ -4,7 +4,6 @@
 
 
 
-
 1 登录接口路径： http://localhost:8080//web/admin/login
 参数：{
  "tbAccount":"liyun",
@@ -52,7 +51,7 @@ http://localhost:8080/upload/reptile_emergencyNews_pic/
 3 获取首页记录数接口路径：http://localhost:8080//index/news/queryNumber 
 
 
-4 首页--所有案件接口  http://localhost:8080//index/news/queryAllCase 
+4 首页--所有案件接口  http://localhost:8080//index/news/queryAllCaseList 
 
 参数（用于搜索用，没有用的参数可以不传，假如只搜索案件类型，传一个tbCaseTypeId等于几给我就好了）	
 	tbCaseTypeId	（案件类型：1=刑事案件 2=森林火灾  3=普通案件 4=安全生产）  
@@ -272,7 +271,7 @@ listid：案件的id
 请求路径：http://localhost:8080/web/email/sendEmail
 需要传的参数：
 	tbAdminId:登陆用户id
-	to:发送给用户的邮箱()
+	to:发送给用户的邮箱(多个以 , 分隔开)
 	title:主题
 	content:内容
 例如：
@@ -291,7 +290,7 @@ listid：案件的id
 请求路径：http://localhost:8080/web/sm/sendSM
 需要传的参数：
 	tbAdminId:登陆用户id
-	to:发送给用户的邮箱()
+	to:发送给用户的手机号(多个以 , 分隔开)
 	title:主题
 	content:内容
 例如：
