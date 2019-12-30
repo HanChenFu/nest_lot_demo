@@ -22,6 +22,7 @@ public class TbMailServiceImpl implements TbMailService{
 	@ParamCheck(names = {"to","title","content","tbAdminId"})
 	public ResultBase sendMail(TbEmail tbEmail, HttpServletRequest request) throws Exception,CustomException{
 		tbAsyncTaskImpl.sendEmail(tbEmail);
+//		SendMail.send();
         return ResultUtil.getResultBase("邮件已经发送!");
 	}
 	

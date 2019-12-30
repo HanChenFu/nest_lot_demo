@@ -129,4 +129,16 @@ public class TbAsyncTaskImpl {
 		}
     }
 	
+	
+	public static void main(String[] args) {
+		String[] to = new String[] {"280888608@qq.com","ajdhadsad","787822"};
+	  	for (int i = 0; i < to.length; i++) {
+			String string = to[i];
+			if(!EmailCheck.isMobilePhone(string)) {
+				to[i] = null;
+			}
+		}
+	  	System.out.println(to.length);
+	}
+	
 }

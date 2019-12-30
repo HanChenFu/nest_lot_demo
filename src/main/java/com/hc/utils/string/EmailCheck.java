@@ -11,8 +11,6 @@ public final class EmailCheck {
 	
 	/**
 	 * 判断是否手机号
-	 * Author：William（徐威）
-	 * Create Time：2018-10-05
 	 * @param phone
 	 * @return
 	 */

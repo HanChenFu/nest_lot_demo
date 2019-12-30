@@ -4,7 +4,7 @@
 	<!-- create_time as createTime, -->
 	<sql id="Base_Column_List">
 		tb_id as tbId,tb_number as tbNumber,tb_user_id as tbUserId,
-		tb_case_type_id as tbCaseTypeId, tb_case_save_category as tbCaseSaveCategory, tb_filing_area_id as tbFilingAreaId,tb_size as tbSize,
+		tb_case_type_id as tbCaseTypeId, tb_filing_area_id as tbFilingAreaId,tb_size as tbSize,
 		tb_star as tbStar,tb_report_address as tbReportAddress, tb_address as tbAddress,tb_longitude as tbLongitude,
 		tb_latitude as tbLatitude, tb_desc as tbDesc,tb_remarks as tbRemarks,
 		tb_images as tbImages, case_time as caseTime,del_time as delTime,filed_time as filedTime
@@ -45,66 +45,6 @@
 			</if>
 		</where>
 		order by create_time desc
-	</select>
-	<!-- 根据条件查询案件的总条数  -->
-	<select id="selectCaseByConditionsCount" resultType="java.lang.Integer">
-		select
-		count(tb_id)
-		from tb_case
-		<where>
-			<if test="tbCaseTypeId != null">
-				and tb_case_type_id = #{tbCaseTypeId}
-			</if>
-			<if test="time != null">
-				<![CDATA[ and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(time) ]]> 
-			</if>
-			<if test="tbNumber != null">
-				and tb_number = #{tbNumber}
-			</if>
-			<if test="tbAddress != null">
-				and tb_address like concat('%',#{tbAddress},'%') 
-			</if>
-			<if test="tbSize != null">
-				and tb_size= #{tbSize}
-			</if>
-			<if test="tbStar != null">
-				and tb_Star= #{tbStar}
-			</if>
-			<if test="tbCaseSaveCategory != null">
-				and tb_case_save_category= #{tbCaseSaveCategory}
-			</if>
-		</where>
-	</select>
-	<!-- 根据条件查询案件的信息（分页）-->
-	<select id="selectCaseByConditions" resultType="com.hc.pojo.entity.TbCase">
-		select
-		<include refid="Base_Column_List" />
-		from tb_case
-		<where>
-			<if test="tbCaseTypeId != null">
-				and tb_case_type_id = #{tbCaseTypeId}
-			</if>
-			<if test="time != null">
-				<![CDATA[ and DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(time) ]]> 
-			</if>
-			<if test="tbNumber != null">
-				and tb_number = #{tbNumber}
-			</if>
-			<if test="tbAddress != null">
-				and tb_address like concat('%',#{tbAddress},'%') 
-			</if>
-			<if test="tbSize != null">
-				and tb_size= #{tbSize}
-			</if>
-			<if test="tbStar != null">
-				and tb_Star= #{tbStar}
-			</if>
-			<if test="tbCaseSaveCategory != null">
-				and tb_case_save_category= #{tbCaseSaveCategory}
-			</if>
-		</where>
-		order by create_time desc
-		LIMIT #{limitsTart},#{limitsEnd}
 	</select>
 	
 	<insert id="insertCase" parameterType="com.hc.pojo.entity.TbCase">
@@ -160,10 +100,10 @@
 		        tb_latitude = #{tbLatitude},
 		      </if>
 		    <if test="tbImages != '' &amp; tbImages != null" >
-		        tb_images = #{tbImages}
+		        tb_images = #{tbImages},
 		      </if>
     		<if test="caseTime != '' &amp; caseTime != null" >
-		        case_time = #{caseTime}
+		        case_time = #{caseTime},
 		      </if>
     		<if test="filedTime != '' &amp; filedTime != null" >
 		        filed_time = #{filedTime}

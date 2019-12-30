@@ -57,18 +57,20 @@ public class SendMail {
 			BodyPart contentPart = new MimeBodyPart();
 			contentPart.setText(content);
 			multipart.addBodyPart(contentPart);
-			// 添加附件
-			BodyPart messageBodyPart = new MimeBodyPart();
-			DataSource source = new FileDataSource(affix_path);
-			// 添加附件的内容
-			messageBodyPart.setDataHandler(new DataHandler(source));
-			// 添加附件的标题
-			// 这里很重要，通过下面的Base64编码的转换可以保证你的中文附件标题名在发送时不会变成乱码
-			sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();
-			messageBodyPart.setFileName("=?GBK?B?" + enc.encode(affixName.getBytes()) + "?=");
-			multipart.addBodyPart(messageBodyPart);
-			// 将multipart对象放到message中
-			message.setContent(multipart);
+			if(affix_path!=null&&affixName!=null) {
+				// 添加附件
+				BodyPart messageBodyPart = new MimeBodyPart();
+				DataSource source = new FileDataSource(affix_path);
+				// 添加附件的内容
+				messageBodyPart.setDataHandler(new DataHandler(source));
+				// 添加附件的标题
+				// 这里很重要，通过下面的Base64编码的转换可以保证你的中文附件标题名在发送时不会变成乱码
+				sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();
+				messageBodyPart.setFileName("=?GBK?B?" + enc.encode(affixName.getBytes()) + "?=");
+				multipart.addBodyPart(messageBodyPart);
+				// 将multipart对象放到message中
+				message.setContent(multipart);
+			}
 			// 保存邮件
 			message.saveChanges();
 			// 发送邮件
