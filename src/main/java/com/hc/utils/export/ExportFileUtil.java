@@ -26,6 +26,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
+import com.hc.utils.conig.SystemConfigUtil;
 import com.hc.utils.file.CustomXWPFDocument;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -36,12 +37,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 public class ExportFileUtil extends XWPFDocument{
-	static String fileName = "SDH0220191226145555000095";
+/*	static String fileName = "SDH0220191226145555000095";
 	static String sheetName = "SDH0220191226145555000095";
-	/* String[] title = new String[]{"hahahah","hahahah"}; */
-	/*SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	Date date = new Date();
-	String res = simpleDateFormat.format(date);*/
 
 	static String[][] values = new String[][] { { "档案编号", "SDH0220191226145555000095" }, { "归档日期", "yyyy-MM-dd HH:mm:ss" },
 			{ "档案类型", "普通案件" }, { "报案地点", "马田派出所" }, { "事件大小", "小" }, { "关注星级", "2" }, { "案件地址", "哈哈哈哈哈" },
@@ -56,65 +53,16 @@ public class ExportFileUtil extends XWPFDocument{
 			+ ",https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577364013275&di=e7c46f137a6ee19d19fff563756f04fb&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb151f8198618367aa7f3cc7424738bd4b31ce525.jpg"			
 			+ ",https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577364013275&di=e7c46f137a6ee19d19fff563756f04fb&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb151f8198618367aa7f3cc7424738bd4b31ce525.jpg"			
 			+ ",https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577364013275&di=e7c46f137a6ee19d19fff563756f04fb&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb151f8198618367aa7f3cc7424738bd4b31ce525.jpg";				
-	/**
-	 * 文件/文件夹删除方法
-	 * @param file 文件/文件夹路径
-	 * @return boolean 是否
-	 * ***/
-	static boolean delFile(File file) {
-        if (!file.exists()) {
-            return false;
-        }
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            for (File f : files) {
-                delFile(f);
-            }
-        }
-        return file.delete();
-    }
-	/**
-	 * 根据网络路径下载图片并返回本地路径
-	 * @param img 网络图片路径
-	 * @return String[] 本地路径数组
-	 * ***/
-	public static String[] BreakImg(String img) {
-		String[] imgs = img.split(",");
-		String[] imgsUrl = new String[imgs.length];
-		for(int i =0 ; i < imgs.length ; i ++){
-			URL url = null;
-	        try {
-	            url = new URL(imgs[i]);
-	            DataInputStream dataInputStream = new DataInputStream(url.openStream());
-	            String imageName =  "D:/" + UUID.randomUUID() + ".jpg";
-	            imgsUrl[i] = imageName;
-	            FileOutputStream fileOutputStream = new FileOutputStream(new File(imageName));
-	            ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-	            byte[] buffer = new byte[1024];
-	            int length;
-
-	            while ((length = dataInputStream.read(buffer)) > 0) {
-	                output.write(buffer, 0, length);
-	            }
-	            /*byte[] context=output.toByteArray();*/
-	            fileOutputStream.write(output.toByteArray());
-	            dataInputStream.close();
-	            fileOutputStream.close();
-	        } catch (MalformedURLException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-		}
-		return imgsUrl;
-	}
-	/**
+	*//**
 	 * excel导出到本地
 	 * @param img 网络图片路径
+	 * @param img 网络图片路径
+	 * @param img 网络图片路径
+	 * @param img 网络图片路径
 	 * @return String[] 本地路径数组
 	 * ***/
-	public static void exportExcelFile() {
+	
+	public static String exportExcelFile(String fileName,String sheetName,String[][] values,String img) {
 		// 第一步，创建一个HSSFWorkbook，对应一个Excel文件
 		HSSFWorkbook wb = new HSSFWorkbook();
 		// 第二步，在workbook中添加一个sheet,对应Excel文件中的sheet
@@ -133,30 +81,33 @@ public class ExportFileUtil extends XWPFDocument{
 			}
 		}
 		// 创建内容 图片内容
-		String[] imgs = BreakImg(img);
-		for (int h = 0; h < imgs.length; h++) {
-			//row = sheet.createRow(h);
-			BufferedImage bufferImg = null; 	
-			ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();   
-            try {
-				bufferImg = ImageIO.read(new File(imgs[h]));
-				ImageIO.write(bufferImg, "jpg", byteArrayOut);
-				//画图的顶级管理器，一个sheet只能获取一个（一定要注意这点）
-				HSSFPatriarch patriarch = sheet.createDrawingPatriarch();   
-				//anchor主要用于设置图片的属性
-				HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 255, 255,(short) 0, values.length+h*8+1, (short) 4, values.length+(h+1)*8);   
-				anchor.setAnchorType(3);   
-				//插入图片  
-				patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), HSSFWorkbook.PICTURE_TYPE_JPEG)); 
-				delFile(new File(imgs[h]));
-            } catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}   
+		if(!"".equals(img)){
+			
+			String[] imgs = BreakImg(img,SystemConfigUtil.getValue("upload_path")+"/temporary/excel/" + fileName+"/");
+			for (int h = 0; h < imgs.length; h++) {
+				//row = sheet.createRow(h);
+				BufferedImage bufferImg = null; 	
+				ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();   
+	            try {
+					bufferImg = ImageIO.read(new File(imgs[h]));
+					ImageIO.write(bufferImg, "jpg", byteArrayOut);
+					//画图的顶级管理器，一个sheet只能获取一个（一定要注意这点）
+					HSSFPatriarch patriarch = sheet.createDrawingPatriarch();   
+					//anchor主要用于设置图片的属性
+					HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 255, 255,(short) 0, values.length+h*8+1, (short) 4, values.length+(h+1)*8);   
+					anchor.setAnchorType(3);   
+					//插入图片  
+					patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), HSSFWorkbook.PICTURE_TYPE_JPEG)); 
+					delFile(new File(imgs[h]));
+	            } catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}   
+			}
 		}
 		// 第六步，将文件存到指定位置
 		try {
-			FileOutputStream fout = new FileOutputStream("D:/" + fileName + ".xlsx");
+			FileOutputStream fout = new FileOutputStream(SystemConfigUtil.getValue("upload_path")+"/temporary/excel/" + fileName + ".xlsx");
 			wb.write(fout);
 			String str = "导出" + fileName + "成功！";
 			System.out.println(str);
@@ -166,13 +117,14 @@ public class ExportFileUtil extends XWPFDocument{
 			String str1 = "导出" + fileName + "失败！";
 			System.out.println(str1);
 		}
+		return SystemConfigUtil.getValue("upload_path")+"/temporary/excel/" + fileName + ".xlsx";
 	}
 	/**
 	 * word导出到本地
 	 * @param img 网络图片路径
 	 * @return String[] 本地路径数组
 	 * ***/
-	public static void exportWordFile( ) {
+	public static String exportWordFile(String fileName,String[][] values,String img ) {
 		CustomXWPFDocument doc = new CustomXWPFDocument();
 		XWPFParagraph para = doc.createParagraph(); // 一个XWPFRun代表具有相同属性的一个区域：一段文本
 		XWPFRun run = para.createRun();
@@ -195,34 +147,37 @@ public class ExportFileUtil extends XWPFDocument{
 			run.addCarriageReturn();
 		}
 		// 创建内容 图片内容
-		String[] imgs = BreakImg(img);
-		for (int h = 0; h < imgs.length; h++) {
-            try {
-            	FileInputStream in = new FileInputStream(imgs[h]);
-            	byte[] ba = new byte[in.available()];
-            	in.read(ba);
-            	ByteArrayInputStream byteInputStream = new ByteArrayInputStream(ba);
-            	XWPFParagraph picture = doc.createParagraph();
-            	//添加图片
-            	doc.addPictureData(byteInputStream, CustomXWPFDocument.PICTURE_TYPE_JPEG);
-            	//图片大小、位置
-            	doc.createPicture(doc.getAllPictures().size() - 1, 300, 200, picture);
-            	run.addCarriageReturn();
-            } catch (FileNotFoundException e1) {
-            	// TODO Auto-generated catch block
-            	e1.printStackTrace();
-            } catch (IOException e) {
-            	// TODO Auto-generated catch block
-            	e.printStackTrace();
-            } catch (InvalidFormatException e) {
-            	// TODO Auto-generated catch block
-            	e.printStackTrace();
-            }
+		if(!"".equals(img)){
+			String[] imgs = BreakImg(img,SystemConfigUtil.getValue("upload_path")+"/temporary/word/" + fileName+"/");
+			for (int h = 0; h < imgs.length; h++) {
+	            try {
+	            	FileInputStream in = new FileInputStream(imgs[h]);
+	            	byte[] ba = new byte[in.available()];
+	            	in.read(ba);
+	            	ByteArrayInputStream byteInputStream = new ByteArrayInputStream(ba);
+	            	XWPFParagraph picture = doc.createParagraph();
+	            	//添加图片
+	            	doc.addPictureData(byteInputStream, CustomXWPFDocument.PICTURE_TYPE_JPEG);
+	            	//图片大小、位置
+	            	doc.createPicture(doc.getAllPictures().size() - 1, 300, 200, picture);
+	            	run.addCarriageReturn();
+	            } catch (FileNotFoundException e1) {
+	            	// TODO Auto-generated catch block
+	            	e1.printStackTrace();
+	            } catch (IOException e) {
+	            	// TODO Auto-generated catch block
+	            	e.printStackTrace();
+	            } catch (InvalidFormatException e) {
+	            	// TODO Auto-generated catch block
+	            	e.printStackTrace();
+	            }
+	            delFile(new File(imgs[h]));
+			}
 		}
 		
 		// 第六步，将文件存到指定位置
 		try {
-			FileOutputStream fout = new FileOutputStream("D:/" + fileName + ".docx");
+			FileOutputStream fout = new FileOutputStream(SystemConfigUtil.getValue("upload_path")+"/temporary/word/" + fileName + ".docx");
 			doc.write(fout);
 			String str = "导出" + fileName + "成功！";
 			System.out.println(str);
@@ -232,23 +187,14 @@ public class ExportFileUtil extends XWPFDocument{
 			String str1 = "导出" + fileName + "失败！";
 			System.out.println(str1);
 		}
-		for (int h = 0; h < imgs.length; h++) {
-			System.out.println(imgs[h]);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			delFile(new File(imgs[h]));
-		}
+		return SystemConfigUtil.getValue("upload_path")+"/temporary/word/" + fileName + ".docx";
 	}
 	/**
 	 * pdf导出到本地
 	 * @param img 网络图片路径
 	 * @return String[] 本地路径数组
 	 * ***/
-	public static void exportPdfFile() {
+	public static String exportPdfFile(String fileName,String[][] values,String img) {
 		//创建一个h5页面
 		StringBuffer html = new StringBuffer();
 		//循环插入内容
@@ -264,14 +210,16 @@ public class ExportFileUtil extends XWPFDocument{
 			html.append("<br/>");
 		}
 		//循环插入图片
-		String[] imgs = img.split(",");
-		for(int i = 0; i < imgs.length; i++){
-			html.append("<img src='"+imgs[i]+"' width='400'/>");
+		if(!"".equals(img)){
+			String[] imgs = img.split(",");
+			for(int i = 0; i < imgs.length; i++){
+				html.append("<img src='"+imgs[i]+"' width='400'/>");
+			}
 		}
 		try {
 			//把h5转换成pdf格式的，存储到本地
 			Document document = new Document();
-			PdfWriter mPdfWriter = PdfWriter.getInstance(document, new FileOutputStream("D:/" + fileName + ".pdf"));
+			PdfWriter mPdfWriter = PdfWriter.getInstance(document, new FileOutputStream(SystemConfigUtil.getValue("upload_path")+"/temporary/pdf/" + fileName + ".pdf"));
 			document.open();
 			String s = html.toString();
 			ByteArrayInputStream bin = new ByteArrayInputStream(s.getBytes());
@@ -281,7 +229,66 @@ public class ExportFileUtil extends XWPFDocument{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return SystemConfigUtil.getValue("upload_path")+"/temporary/pdf/" + fileName + ".pdf";
 	}
+	
+	/**
+	 * 文件/文件夹删除方法
+	 * @param file 文件/文件夹路径
+	 * @return boolean 是否
+	 * ***/
+	public static boolean delFile(File file) {
+        if (!file.exists()) {
+            return false;
+        }
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File f : files) {
+                delFile(f);
+            }
+        }
+        return file.delete();
+    }
+	/**
+	 * 根据网络路径下载图片并返回本地路径
+	 * @param img 网络图片路径
+	 * @param stringUrl 本地路径前缀
+	 * @return String[] 本地路径数组
+	 * ***/
+	public static String[] BreakImg(String img,String stringUrl) {
+		File file = new File(stringUrl);
+		file.mkdir();
+		String[] imgs = img.split(",");
+		String[] imgsUrl = new String[imgs.length];
+		for(int i =0 ; i < imgs.length ; i ++){
+			URL url = null;
+	        try {
+	            url = new URL(imgs[i]);
+	            DataInputStream dataInputStream = new DataInputStream(url.openStream());
+	            String imageName =  stringUrl + UUID.randomUUID() + ".jpg";
+	            imgsUrl[i] = imageName;
+	            FileOutputStream fileOutputStream = new FileOutputStream(new File(imageName));
+	            ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+	            byte[] buffer = new byte[1024];
+	            int length;
+
+	            while ((length = dataInputStream.read(buffer)) > 0) {
+	                output.write(buffer, 0, length);
+	            }
+	            /*byte[] context=output.toByteArray();*/
+	            fileOutputStream.write(output.toByteArray());
+	            dataInputStream.close();
+	            fileOutputStream.close();
+	        } catch (MalformedURLException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		}
+		return imgsUrl;
+	}
+	
 	//h5转换pdf工具类
 	public static final class ChinaFontProvide implements FontProvider {
 		@Override
@@ -306,12 +313,8 @@ public class ExportFileUtil extends XWPFDocument{
 	}
 
 	public static void main(String[] args) {
-		//getHSSFWorkbook();
-		//String[] imgs = BreakImg(img);
-		//getHSSFWorkbook2();
-		//for (int h = 0; h < imgs.length; h++) {
-		//	delFile(new File("D:/5d8ffcf1-d98f-4705-a149-e1579322e6e4.jpg"));
-		//}
-		//getHSSFWorkbook3();
+		/*exportExcelFile();
+		exportWordFile();
+		exportPdfFile();*/
 	}
 }
