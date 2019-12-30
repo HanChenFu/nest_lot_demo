@@ -1,5 +1,6 @@
 package com.hc.controller.index;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,14 +23,20 @@ import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
+import com.hc.common.result.ResultQuery;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
 import com.hc.para.page_base.BasePara;
+import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.entity.TbCase;
+import com.hc.pojo.entity.TbCaseType;
+import com.hc.pojo.entity.TbFilingArea;
+import com.hc.pojo.reqBean.QueryAllCaseListReqBean;
 import com.hc.service.TbAreaDynamicsService;
 import com.hc.service.TbCaseService;
 import com.hc.service.TbEmergencyNewsService;
 import com.hc.service.TbNoticeService;
 import com.hc.service.TbWorkDynamicsService;
+import com.hc.utils.aliyunOss.StsServiceSample;
 import com.hc.utils.conig.SystemConfigUtil;
 import com.hc.utils.date.MyDateUtil;
 import com.hc.utils.documentSequence.CreateSequence;
@@ -155,7 +163,8 @@ public class NewsController {
 		String path = "";
 //        String originalFilename = file.getOriginalFilename();
         if (FileUtil.checkPictureFormat(file)) {
-        	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
+        	path = StsServiceSample.uploadImg2Oss(file, "nieliyun/");
+//        	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
         }
         try {
         	String tbNumber = CreateSequence.getTimeMillisSequence();
@@ -225,4 +234,77 @@ public class NewsController {
 		return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",index);
 	}
 	
+	
+	/**
+	 * 查询所有案件
+	 * @param tbCaseTypeId 案件类型ID
+	 * @param time 时间
+	 * @param tbNumber  编号(档案号)
+	 * @param tbAddress  案件地址
+	 * @param tbSize  事件大小
+	 * @param tbStar  关注星级
+	 * @param tbCaseSaveCategory  案件保存类别（0：联网保存，1：草稿箱保存）
+	 * @param pageSize  每页多少条
+	 * @param page  当前页
+	 * @return ResultData
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/queryAllCaseList", method = RequestMethod.POST,produces="application/json")
+	public ResultData<PageUtilBean> queryAllCaseList(@RequestBody(required = false) QueryAllCaseListReqBean bean) throws Exception {
+		return tbCaseService.queryAllCaseList(bean);
+	}
+	
+	/**
+	 * 获取案件编号
+	 * @param 无
+	 * @return ResultData
+	 * @throws Exception
+	 */
+	@RequestMapping("/getCaseSerialNum")
+	public ResultData<Map<String,Object>> getCaseSerialNum() throws Exception {
+		return tbCaseService.getCaseSerialNum();
+	}
+	/**
+	 * 获取案件类型列表
+	 * @param 无
+	 * @return ResultQuery
+	 * @throws Exception
+	 */
+	@RequestMapping("/getCaseTypeList")
+	public ResultData<PageUtilBean> getCaseTypeList() throws Exception {
+		return tbCaseService.getCaseTypeList();
+	}
+	/**
+	 * 获取报案地址列表
+	 * @param 无
+	 * @return ResultData
+	 * @throws Exception
+	 */
+	//
+	@RequestMapping("/getReportAddressList")
+	public ResultData<PageUtilBean> getReportAddressList() throws Exception {
+		return tbCaseService.getReportAddressList();
+	}
+	/** 
+	 * 导出Excel/word/PDF案件文件 
+	 * @param tbNumber
+	 * @param type
+	 * @return ResultData
+	 * @throws Exception
+	 * */
+	@RequestMapping("/exportCaseFile")
+	public ResultData<Map<String,Object>> exportCaseFile(String tbNumber,int type)throws IOException {
+		return tbCaseService.exportCaseFile();
+	}
+	/** 
+	 * 删除导出的Excel/word/PDF案件文件 
+	 * @param tbNumber
+	 * @param type
+	 * @return ResultData
+	 * @throws Exception
+	 * */
+	@RequestMapping("/deleteExportCaseFile")
+	public ResultData<Map<String,Object>> deleteExportCaseFile(String tbNumber,int type)throws IOException {
+		return tbCaseService.deleteExportCaseFile();
+	}
 }

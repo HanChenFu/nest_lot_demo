@@ -9,7 +9,7 @@ import com.hc.pojo.entity.TbCaseType;
 
 public interface TbCaseTypeMapper {
 	
-	List<TbCaseType> queryAll();
+	List<TbCaseType> queryAll(@Param("limitsTart")Integer limitsTart,@Param("limitsEnd")Integer limitsEnd);
 	int queryAllCount();
 	
 	TbCaseType queryByTbId(@Param("tbId")Integer tbId);

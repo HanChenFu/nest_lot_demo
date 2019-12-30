@@ -12,10 +12,11 @@
 		<include refid="Base_Column_List" />
 		from tb_case_type
 		order by create_time desc
+		LIMIT #{limitsTart},#{limitsEnd}
 	</select>
 	<select id="queryAllCount" resultType="java.lang.Integer">
 		select
-		count(*)
+		count(tb_id)
 		from tb_case_type
 	</select>
 	

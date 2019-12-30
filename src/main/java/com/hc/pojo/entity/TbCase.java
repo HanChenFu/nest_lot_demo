@@ -8,6 +8,10 @@ public class TbCase {
 	private int  tbUserId;//用户id
 	private int  tbCaseTypeId;//案件类型id
 	/*
+	 * 案件保存类型  0：联网保存，1：草稿箱保存
+	 */
+	private int tbCaseSaveCategory;
+	/*
 	 * 1 刑事案件 2 森林火灾 3 普通案件 4 安全生产
 	 */
 	private int	 tbFilingAreaId;//报案地区
@@ -28,6 +32,12 @@ public class TbCase {
 	private String  delTime;
 	private String  createTime;
 	
+	public int getTbCaseSaveCategory() {
+		return tbCaseSaveCategory;
+	}
+	public void setTbCaseSaveCategory(int tbCaseSaveCategory) {
+		this.tbCaseSaveCategory = tbCaseSaveCategory;
+	}
 	public String getTbReportAddress() {
 		return tbReportAddress;
 	}
