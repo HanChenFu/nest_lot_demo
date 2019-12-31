@@ -15,9 +15,11 @@ import com.hc.utils.conig.SystemConfigUtil;
 public class MyWebMvcConfig extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    	registry.addResourceHandler("/upload/**")
+    			.addResourceLocations("file:"+SystemConfigUtil.getValue("upload_path"));
+    	
         registry.addResourceHandler("/**")
-                .addResourceLocations("file:"+SystemConfigUtil.getValue("upload_path")+",classpath:/static/");
-        /*registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");*/
+                .addResourceLocations("classpath:/static/");
         super.addResourceHandlers(registry);
     }
     /**

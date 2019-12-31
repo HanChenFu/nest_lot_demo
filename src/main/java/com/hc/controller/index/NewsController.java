@@ -166,7 +166,7 @@ public class NewsController {
         if (FileUtil.checkPictureFormat(file)) {
         	if(null!=file){
     			StsServiceSample.init();//初始化
-    			path = "http://hanchenfu-szemo.oss-cn-shenzhen.aliyuncs.com/case_imgs/"+tbNumber+"/" + StsServiceSample.uploadImg2Oss(file, "case_imgs/"+tbNumber+"/");
+    			path = "/case_imgs/"+tbNumber+"/" + StsServiceSample.uploadImg2Oss(file, "case_imgs/"+tbNumber+"/");
     		}else{
     			ResultUtil.getResultData(true, StatusCode.PARAM_NULL, "参数为空！", new Object());
     		}
