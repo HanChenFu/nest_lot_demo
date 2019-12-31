@@ -6,6 +6,8 @@ public class TbEmail {
 	private String to; //发送给的用户
 	private String title;
 	private String content;
+	private String appendixTitle;//这边是显示附件标题
+	
 	public String getFrom() {
 		return from;
 	}
@@ -36,5 +38,11 @@ public class TbEmail {
 	public void setTo(String to) {
 		this.to = to;
 	}
-	
+	public String getAppendixTitle() {
+		return appendixTitle;
+	}
+	public void setAppendixTitle(String appendixTitle) {
+		this.appendixTitle = appendixTitle;
+	}
+
 }

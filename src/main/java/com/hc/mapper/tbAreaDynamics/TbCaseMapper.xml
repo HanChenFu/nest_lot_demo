@@ -160,10 +160,10 @@
 		        tb_latitude = #{tbLatitude},
 		      </if>
 		    <if test="tbImages != '' &amp; tbImages != null" >
-		        tb_images = #{tbImages}
+		        tb_images = #{tbImages},
 		      </if>
     		<if test="caseTime != '' &amp; caseTime != null" >
-		        case_time = #{caseTime}
+		        case_time = #{caseTime},
 		      </if>
     		<if test="filedTime != '' &amp; filedTime != null" >
 		        filed_time = #{filedTime}

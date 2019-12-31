@@ -4,9 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
@@ -22,8 +22,8 @@ public class WebEmailController {
 	private TbMailService tbMailService;
 	
 	@RequestMapping("/sendEmail")
-	ResultBase sendMail(@RequestBody TbEmail tbEmail,HttpServletRequest request) throws Exception,CustomException{
-		return tbMailService.sendMail(tbEmail, request);
+	ResultBase sendMail(TbEmail tbEmail, MultipartFile file,HttpServletRequest request) throws Exception,CustomException{
+		return tbMailService.sendMail(tbEmail, file, request);
 	}
 
 }

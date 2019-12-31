@@ -4,13 +4,14 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+
 import org.springframework.web.multipart.MultipartFile;
+
 import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.utils.conig.SystemConfigUtil;
-import com.hc.utils.date.MyDateUtil;
 
-public class FileUtil {
+public final class FileUtil {
 	/**
 	 * 保存 文件，使用默认路径。返回绝对路径
 	 * 
@@ -172,7 +173,7 @@ public class FileUtil {
 		}
 		String[] formats = null;
 		if (null == formats || 0 == formats.length) {
-			formats = new String[7];
+			formats = new String[4];
 			formats[0] = "jpg";
 			formats[1] = "jpeg";
 			formats[2] = "png";
@@ -224,6 +225,44 @@ public class FileUtil {
 			return false;
 		}
 
+		for (String str : formats) {
+			if (null == str) {
+				continue;
+			}
+			str = str.replace(".", "").toLowerCase();
+			if (formatStr.equals(str)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * 这边是上传附件的格式
+	 * @param file
+	 * @return
+	 * @throws CustomException
+	 * @throws Exception
+	 */
+	public static boolean checkEnclosureFormat(MultipartFile file) throws CustomException, Exception {
+		if (null == file) {
+			return false;
+		}
+		String[] formats = null;
+		if (null == formats || 0 == formats.length) {
+			formats = new String[5];
+			formats[0] = "rar";
+			formats[1] = "zip";
+			formats[2] = "7z";
+			formats[3] = "gz";
+			formats[4] = "bz";
+		}
+		String originalFilename = file.getOriginalFilename();
+		String formatStr = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase().replace(".", "").toLowerCase();
+		if (null == formatStr || "".equals(formatStr)) {
+			return false;
+		}
 		for (String str : formats) {
 			if (null == str) {
 				continue;

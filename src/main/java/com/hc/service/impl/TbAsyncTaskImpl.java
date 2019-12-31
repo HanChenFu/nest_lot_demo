@@ -7,10 +7,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hc.common.redis.RedisUtil;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
@@ -24,16 +23,19 @@ import com.hc.pojo.sendMess.TbSendMess;
 import com.hc.pojo.shortMess.TbShortMess;
 import com.hc.pojo.shortMess.TbShortPara;
 import com.hc.pojo.user.TbUser;
+import com.hc.utils.conig.SystemConfigUtil;
 import com.hc.utils.documentSequence.CreateSequence;
+import com.hc.utils.email.SendMail;
+import com.hc.utils.file.FileUtil;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.sendCode.AliyunSMSUtil;
 import com.hc.utils.string.EmailCheck;
 
 @Service("tbAsyncTaskImpl")
 public class TbAsyncTaskImpl {
-
-	@Autowired
-    private JavaMailSender mailSender;
+	/*
+	 * @Autowired private JavaMailSender mailSender;
+	 */
 	
 	@Autowired
 	RedisUtil redis;
@@ -56,12 +58,10 @@ public class TbAsyncTaskImpl {
 	@Autowired
 	TbShortMessMapper tbShortMessMapper;
 	
-	@Value("${spring.mail.username}")
-    private String from;
+	final static String upload_path = SystemConfigUtil.getValue("upload_path");
 	
 	@Async
-    public void sendEmail(TbEmail tbEmail) throws Exception {
-	  	SimpleMailMessage message = new SimpleMailMessage();
+    public void sendEmail(TbEmail tbEmail, MultipartFile file) throws Exception {
 	  	TbSendMess t = new TbSendMess(tbEmail.getTitle(),tbEmail.getContent());
 	  	tbSendMessMapper.insertSelective(t);
 	  	StringBuffer check_err = new StringBuffer();
@@ -84,19 +84,13 @@ public class TbAsyncTaskImpl {
 	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2"));
 	  		}
 	  	}
-	  	String content = tbEmail.getContent();
-        message.setFrom(from); //腾讯的限制，发送人必须与发送邮箱相同，不同会报异常
         if(list.size()!=0) {
-        	String[] strings = new String[list.size()];
-        	list.toArray(strings);
-        	message.setTo(strings);//这边是把不合格的邮箱去掉之后，再换成string
-            message.setSubject(tbEmail.getTitle());
-            message.setText(content);
-            String[] ccList = new String[]{};//这里添加抄送人名称列表
-            message.setCc(ccList);
-            String[] bccList = new String[]{};//这里添加密送人名称列表
-            message.setBcc(bccList);
-            mailSender.send(message);
+        	for (int i = 0; i < list.size(); i++) {
+	        	String qq = list.get(i);
+	        	System.out.println("~~~~~~~~~~" + SystemConfigUtil.getValue("qq_enclosure_path"));
+	        	String path = FileUtil.save(file, SystemConfigUtil.getValue("qq_enclosure_path"));
+	        	SendMail.send(qq, tbEmail.getTitle(), upload_path + path, tbEmail.getAppendixTitle(), tbEmail.getContent());
+			}
         }
     }
 	
