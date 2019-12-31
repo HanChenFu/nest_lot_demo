@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   #接口标题
-  title: 学识宝-接口文档-老接口（需更新）
+  title: 深圳应急系统
   #接口文档的描述
   description: 李燕飞
   #版本号
@@ -40,6 +40,35 @@ paths:
           #描述返回值
           schema:
             $ref: '#/definitions/ResQueryAllCaseList'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/ceshi/uploadImg:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 案件类
+      #接口概要
+      summary: 根据条件查询所有案件
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: file
+          description: 上传文件
+          type: file
+          required: true
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
       #执行出错的处理
         default:
           description: 操作异常

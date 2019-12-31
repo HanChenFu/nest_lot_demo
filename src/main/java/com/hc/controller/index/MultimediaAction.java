@@ -3,6 +3,10 @@ package com.hc.controller.index;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,7 @@ import com.hc.service.TbCaseService;
 import com.hc.utils.aliyunOss.AliyunBean;
 import com.hc.utils.aliyunOss.StsServiceSample;
 import com.hc.utils.conig.SystemConfigUtil;
+import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.export.ExportFileUtil;
 import com.hc.utils.result.ResultUtil;
 
@@ -37,8 +42,17 @@ public class MultimediaAction {
 	}
 	/** 阿里云上传图片 */
 	@RequestMapping("/uploadImg")
-	public String upload(@RequestParam(value = "file", required = false) MultipartFile file)throws IOException {
-		return StsServiceSample.uploadImg2Oss(file, "nieliyun/");
+	public ResultData<Map<String,Object>> upload(@RequestParam(value = "file", required = false) MultipartFile file)throws IOException {
+		Map<String,Object> map = new HashMap<String, Object>();
+		if(null!=file){
+			StsServiceSample.init();
+			String uploadImg2Oss = StsServiceSample.uploadImg2Oss(file, "nieliyun/");;
+			map.put("uploadImg", "http://hanchenfu-szemo.oss-cn-shenzhen.aliyuncs.com/nieliyun/"+uploadImg2Oss);
+		}else{
+			ResultUtil.getResultData(true, StatusCode.PARAM_NULL, "参数为空！", map);
+		}
+		StsServiceSample.destory();
+		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", map);
 	}
 	/** 阿里云上传视频 */
 	@RequestMapping("/uploadVideo")

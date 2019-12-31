@@ -160,7 +160,7 @@ public class StsServiceSample {
 			String originalFilename = file.getOriginalFilename();
 			String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
 			Random random = new Random();
-			String name = random.nextInt(10000) + System.currentTimeMillis() + substring;
+			String name = UUID.randomUUID().toString() + substring;
 			InputStream inputStream = file.getInputStream();
 
 			// 创建上传Object的Metadata
@@ -201,7 +201,7 @@ public class StsServiceSample {
 			String originalFilename = file.getOriginalFilename();
 			String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
 			Random random = new Random();
-			String name = random.nextInt(10000) + System.currentTimeMillis() + substring;
+			String name = UUID.randomUUID().toString() + substring;
 			InputStream inputStream = file.getInputStream();
 
 			// 创建上传Object的Metadata
@@ -236,7 +236,7 @@ public class StsServiceSample {
 			String originalFilename = file.getOriginalFilename();
 			String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
 			Random random = new Random();
-			String name = random.nextInt(10000) + System.currentTimeMillis() + substring;
+			String name = UUID.randomUUID().toString() + substring;
 			InputStream inputStream = file.getInputStream();
 
 			// 创建上传Object的Metadata
