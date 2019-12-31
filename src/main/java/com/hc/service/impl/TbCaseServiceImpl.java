@@ -1,5 +1,6 @@
 package com.hc.service.impl;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,6 +22,7 @@ import com.hc.common.result.ResultData;
 import com.hc.common.result.ResultQuery;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
 import com.hc.mapper.tbAreaDynamics.TbCaseTypeMapper;
+import com.hc.mapper.tbAreaDynamics.TbFilingAreaMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.entity.TbCase;
@@ -30,6 +32,7 @@ import com.hc.pojo.reqBean.QueryAllCaseListReqBean;
 import com.hc.service.TbCaseService;
 import com.hc.utils.conig.SystemConfigUtil;
 import com.hc.utils.documentSequence.CreateSequence;
+import com.hc.utils.export.ExportFileUtil;
 import com.hc.utils.file.FileUtil;
 import com.hc.utils.result.ResultUtil;
 import com.hc.utils.string.IncreaseString;
@@ -42,6 +45,9 @@ public class TbCaseServiceImpl implements TbCaseService{
 	
 	@Autowired
 	private TbCaseTypeMapper tbCaseTypeMapper;
+	
+	@Autowired
+	private TbFilingAreaMapper tbFilingAreaMapper;
 	
 	public int queryNumber(int tbCaseTypeId) {
 		System.out.println(1);
@@ -138,6 +144,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		return ResultUtil.getResultBase("删除失败！");
 	}
 	
+	
 	//查询所有案件
 	@Override
 	public ResultData<PageUtilBean> queryAllCaseList(QueryAllCaseListReqBean bean) {
@@ -149,7 +156,6 @@ public class TbCaseServiceImpl implements TbCaseService{
 		pages.setResults(list);
 		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}
-	
 	//获取案件编号
 	@Override
 	public ResultData<Map<String, Object>> getCaseSerialNum() {
@@ -162,7 +168,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		map.put("time", res);
 		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", map);
 	}
-	
+	//获取案件类型列表
 	@Override
 	public ResultData<PageUtilBean> getCaseTypeList() {
 		int totalCount = tbCaseTypeMapper.queryAllCount();
@@ -171,25 +177,73 @@ public class TbCaseServiceImpl implements TbCaseService{
 		pages.setResults(list);
 		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}
-
+	//获取报案地址列表
 	@Override
 	public ResultData<PageUtilBean> getReportAddressList() {
-		int totalCount = tbCaseTypeMapper.queryAllCount();
+		int totalCount = tbFilingAreaMapper.queryAllCount();
 		PageUtilBean pages = new PageUtilBean(99999, totalCount, 1);
-		List<TbCaseType> list = tbCaseTypeMapper.queryAll( pages.limitsTart(),pages.limitsEnd());
+		List<TbFilingArea> list = tbFilingAreaMapper.queryAll( pages.limitsTart(),pages.limitsEnd());
 		pages.setResults(list);
 		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}
-
+	//导出Excel/word/PDF案件文件 
 	@Override
-	public ResultData<Map<String, Object>> exportCaseFile() {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultData<Map<String, Object>> exportCaseFile(String tbNumber,int type) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		String url = "";
+		TbCase tbCase = tbCaseMapper.queryByTbNumber(tbNumber);
+		String[][] values = new String[10][2];
+		values[0][0] = "档案编号";
+		values[0][1] = tbCase.getTbNumber();
+		values[1][0] = "归档日期";
+		values[1][1] = tbCase.getCaseTime();
+		values[2][0] = "档案类型";
+		values[2][1] = ""  +  tbCase.getTbCaseTypeId();
+		values[3][0] = "报案地点";
+		values[3][1] = ""  +  tbCase.getTbFilingAreaId();
+		values[4][0] = "事件大小";
+		values[4][1] = tbCase.getTbSize();
+		values[5][0] = "关注星级";
+		values[5][1] = ""  +  tbCase.getTbStar();
+		values[6][0] = "案件地址";
+		values[6][1] = tbCase.getTbAddress();
+		values[7][0] = "案件经过";
+		values[7][1] = tbCase.getTbDesc();
+		values[8][0] = "案件备注";
+		values[8][1] = tbCase.getTbRemarks();
+		values[9][0] = "案件图片";
+		values[9][1] = "";
+		String img = "";
+		if(null!=tbCase.getTbImages()){
+			img = tbCase.getTbImages();
+		}
+		if(1==type){
+			url = ExportFileUtil.exportExcelFile(tbCase.getTbNumber(), tbCase.getTbNumber(), values, img);
+		}else if(2==type){
+			url = ExportFileUtil.exportWordFile(tbCase.getTbNumber(), values, img);
+		}else if(3==type){
+			url = ExportFileUtil.exportPdfFile(tbCase.getTbNumber(), values, img);
+		}else{
+			return ResultUtil.getResultData(false, StatusCode.ERROR, "参数错误！", map);
+		}
+		map.put("url", url);
+		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", map);
 	}
-
+	//删除导出的Excel/word/PDF案件文件 
 	@Override
-	public ResultData<Map<String, Object>> deleteExportCaseFile() {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultData<Object> deleteExportCaseFile(String tbNumber,int type) {
+		if(1==type){
+			ExportFileUtil.delFile(new File(SystemConfigUtil.getValue("upload_path")+"/temporary/excel/"+tbNumber+".xlsx"));
+			ExportFileUtil.delFile(new File(SystemConfigUtil.getValue("upload_path")+"/temporary/excel/"+tbNumber));
+		}else if(2==type){
+			ExportFileUtil.delFile(new File(SystemConfigUtil.getValue("upload_path")+"/temporary/word/"+tbNumber+".docx"));
+			ExportFileUtil.delFile(new File(SystemConfigUtil.getValue("upload_path")+"/temporary/word/"+tbNumber));
+		}else if(3==type){
+			ExportFileUtil.delFile(new File(SystemConfigUtil.getValue("upload_path")+"/temporary/pdf/"+tbNumber+".pdf"));
+			ExportFileUtil.delFile(new File(SystemConfigUtil.getValue("upload_path")+"/temporary/pdf/"+tbNumber));
+		}else{
+			return ResultUtil.getResultData(false, StatusCode.ERROR, "参数错误！", new Object());
+		}
+		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", new Object());
 	}
 }

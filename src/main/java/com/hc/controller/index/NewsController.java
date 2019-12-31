@@ -161,13 +161,18 @@ public class NewsController {
 			return ResultUtil.getResultBase("caseTime,tbCaseTypeId,tbFilingAreaId,tbSize,tbStar,tbAddress,tbDesc,filedTime参数不能为空");
 		}
 		String path = "";
+		String tbNumber = CreateSequence.getTimeMillisSequence();
 //        String originalFilename = file.getOriginalFilename();
         if (FileUtil.checkPictureFormat(file)) {
-//        	path = StsServiceSample.uploadImg2Oss(file, "nieliyun/");
-        	path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
+        	if(null!=file){
+    			StsServiceSample.init();//初始化
+    			path = "http://hanchenfu-szemo.oss-cn-shenzhen.aliyuncs.com/case_imgs/"+tbNumber+"/" + StsServiceSample.uploadImg2Oss(file, "case_imgs/"+tbNumber+"/");
+    		}else{
+    			ResultUtil.getResultData(true, StatusCode.PARAM_NULL, "参数为空！", new Object());
+    		}
+    		StsServiceSample.destory();//销毁
         }
         try {
-        	String tbNumber = CreateSequence.getTimeMillisSequence();
     		String time = MyDateUtil.getNowDateTime();
     		TbCase tbCase=new TbCase();
     		tbCase.setTbNumber(tbNumber);
@@ -294,7 +299,7 @@ public class NewsController {
 	 * */
 	@RequestMapping("/exportCaseFile")
 	public ResultData<Map<String,Object>> exportCaseFile(String tbNumber,int type)throws IOException {
-		return tbCaseService.exportCaseFile();
+		return tbCaseService.exportCaseFile(tbNumber,type);
 	}
 	/** 
 	 * 删除导出的Excel/word/PDF案件文件 
@@ -304,7 +309,7 @@ public class NewsController {
 	 * @throws Exception
 	 * */
 	@RequestMapping("/deleteExportCaseFile")
-	public ResultData<Map<String,Object>> deleteExportCaseFile(String tbNumber,int type)throws IOException {
-		return tbCaseService.deleteExportCaseFile();
+	public ResultData<Object> deleteExportCaseFile(String tbNumber,int type)throws IOException {
+		return tbCaseService.deleteExportCaseFile(tbNumber,type);
 	}
 }
