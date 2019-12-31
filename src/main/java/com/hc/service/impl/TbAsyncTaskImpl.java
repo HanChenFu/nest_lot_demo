@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.hc.common.redis.RedisUtil;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
 import com.hc.mapper.letter.TbLetterMapper;
@@ -63,7 +60,11 @@ public class TbAsyncTaskImpl {
 	@Async
     public void sendEmail(TbEmail tbEmail, MultipartFile file) throws Exception {
 	  	TbSendMess t = new TbSendMess(tbEmail.getTitle(),tbEmail.getContent());
+	  	String path = "";
 	  	tbSendMessMapper.insertSelective(t);
+	  	if(file!=null) {
+	  		path = FileUtil.save(file, SystemConfigUtil.getValue("qq_enclosure_path"));
+	  	}
 	  	StringBuffer check_err = new StringBuffer();
 	  	String[] to = tbEmail.getTo().split(",");
 	  	List<String> list = new ArrayList<String>(Arrays.asList(to));//将数组转换为list集合
@@ -81,15 +82,22 @@ public class TbAsyncTaskImpl {
 	  				str = tb.getTbId();
 	  			}
 	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			tbLetterMapper.insertSelective(new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2"));
+	  			TbLetter letter = new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2");
+	  			if (!"".equals(path)) {
+	  				letter.setAppendixTitle(tbEmail.getAppendixTitle());
+	  				letter.setAppendixPath(path);
+				}
+	  			tbLetterMapper.insertSelective(letter);
 	  		}
 	  	}
         if(list.size()!=0) {
         	for (int i = 0; i < list.size(); i++) {
 	        	String qq = list.get(i);
-	        	System.out.println("~~~~~~~~~~" + SystemConfigUtil.getValue("qq_enclosure_path"));
-	        	String path = FileUtil.save(file, SystemConfigUtil.getValue("qq_enclosure_path"));
-	        	SendMail.send(qq, tbEmail.getTitle(), upload_path + path, tbEmail.getAppendixTitle(), tbEmail.getContent());
+	        	if(!"".equals(path)) {
+	        		SendMail.send(qq, tbEmail.getTitle(), upload_path + path, tbEmail.getAppendixTitle(), tbEmail.getContent());
+	        	}else {
+	        		SendMail.send(qq, tbEmail.getTitle(), null, null, tbEmail.getContent());
+	        	}
 			}
         }
     }

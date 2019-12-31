@@ -13,6 +13,8 @@ public class TbLetter {
 	private String target;//目标用户邮箱
 	private int sendMessId;
 	private String sendingState;
+	private String appendixTitle;//附件标题
+	private String appendixPath;//附件
 	private String delTime;
 	private String createTime;
 	
@@ -87,4 +89,20 @@ public class TbLetter {
 		this.target = target;
 	}
 
+	public String getAppendixTitle() {
+		return appendixTitle;
+	}
+
+	public void setAppendixTitle(String appendixTitle) {
+		this.appendixTitle = appendixTitle;
+	}
+
+	public String getAppendixPath() {
+		return appendixPath;
+	}
+
+	public void setAppendixPath(String appendixPath) {
+		this.appendixPath = appendixPath;
+	}
+	
 }

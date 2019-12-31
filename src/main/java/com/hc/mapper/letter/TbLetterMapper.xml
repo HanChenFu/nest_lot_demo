@@ -13,13 +13,15 @@
 			tl.create_time as createTime,
 			ts.tb_title as title,
 			ts.tb_content as content,
-			CASE WHEN tlf.tb_id IS NULL THEN 0 ELSE 1 END as follow
+			CASE WHEN tlf.tb_id IS NULL THEN 0 ELSE 1 END as follow,
+			tl.appendix_title as appendixTitle,
+			tl.appendix_path as appendixPath
 		FROM
 			`tb_letter` tl
 		LEFT JOIN tb_user tu ON tu.tb_id = tl.tb_user_id
 		LEFT JOIN tb_letter_follow tlf ON tl.tb_id = tlf.tb_letter_id AND tlf.tb_admin_id = #{id}
 		LEFT JOIN tb_send_mess ts ON ts.tb_id = tl.tb_send_mess_id
-		WHERE tl.tb_admin_id = #{id}
+		WHERE tl.tb_admin_id =#{id}
 		<if test="nickname!=null and nickname!=''">
 			AND tu.nickname like concat('%',#{nickname},'%')
 		</if>
@@ -44,9 +46,9 @@
 	
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO `tb_letter` 
-		(`tb_admin_id`,`tb_number`, `tb_user_id`, `target`, `tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
+		(`tb_admin_id`,`tb_number`, `tb_user_id`, `target`, `tb_send_mess_id`, `sending_state`,`appendix_title`,`appendix_path`, `del_time`, `create_time` )
 		VALUES
-		(#{tbAdminId},#{tbNumber}, #{tbUserId}, #{target},#{sendMessId},#{sendingState}, NULL, now() );
+		(#{tbAdminId},#{tbNumber}, #{tbUserId}, #{target},#{sendMessId},#{sendingState}, #{appendixTitle},#{appendixPath},NULL, now() );
 	</insert>
 	
 	<delete id="deleLetter" parameterType="java.util.List">

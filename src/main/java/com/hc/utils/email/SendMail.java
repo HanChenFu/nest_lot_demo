@@ -57,7 +57,7 @@ public class SendMail {
 			BodyPart contentPart = new MimeBodyPart();
 			contentPart.setText(content);
 			multipart.addBodyPart(contentPart);
-			if(affix_path!=null&&affixName!=null) {
+			if(affixName!=null&&(!"".contentEquals(affix_path))&&affix_path!=null) {
 				// 添加附件
 				BodyPart messageBodyPart = new MimeBodyPart();
 				DataSource source = new FileDataSource(affix_path);
@@ -68,9 +68,9 @@ public class SendMail {
 				sun.misc.BASE64Encoder enc = new sun.misc.BASE64Encoder();
 				messageBodyPart.setFileName("=?GBK?B?" + enc.encode(affixName.getBytes()) + "?=");
 				multipart.addBodyPart(messageBodyPart);
-				// 将multipart对象放到message中
-				message.setContent(multipart);
 			}
+			// 将multipart对象放到message中
+			message.setContent(multipart);
 			// 保存邮件
 			message.saveChanges();
 			// 发送邮件
@@ -86,7 +86,8 @@ public class SendMail {
 	}
 
 	public static void main(String[] args) {
-		SendMail.send("280888608@qq.com", "一个带附件的JavaMail邮件(标题)", "D:\\ffmpeg\\public.zip", "reply", "我是内容哦");
+//		SendMail.send("280888608@qq.com", "一个带附件的JavaMail邮件(标题)", "D:\\ffmpeg\\public.zip", "upload_data", "我是内容哦");
+		SendMail.send("280888608@qq.com", "一个带附件的JavaMail邮件(标题)", "", "", "我是内容哦");
 	}
 	
 }

@@ -4,14 +4,13 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
-
 import org.springframework.web.multipart.MultipartFile;
-
 import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.utils.conig.SystemConfigUtil;
+import com.hc.utils.date.MyDateUtil;
 
-public final class FileUtil {
+public class FileUtil {
 	/**
 	 * 保存 文件，使用默认路径。返回绝对路径
 	 * 

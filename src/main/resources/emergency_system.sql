@@ -232,6 +232,8 @@ CREATE TABLE `tb_letter`  (
   `target` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '目标用户邮箱',
   `tb_send_mess_id` int(11) NULL DEFAULT NULL COMMENT '发送内容表id',
   `sending_state` int(11) NULL DEFAULT 0 COMMENT '0表示未发送 1表示发送失败 2表示已经成功',
+  `appendix_title` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '附件标题',
+  `appendix_path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '发送邮件的附件',
   `del_time` datetime NULL DEFAULT NULL,
   `create_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`tb_id`) USING BTREE, 
@@ -245,9 +247,7 @@ CREATE TABLE `tb_letter`  (
 -- ----------------------------
 -- Records of tb_letter
 -- ----------------------------
-INSERT INTO `tb_letter` VALUES (1, 1,'DC987654321', 1, 1, 0, NULL, '2019-12-11 13:53:11');
-INSERT INTO `tb_letter` VALUES (2, 1,'DC187654321', 1, 1, 0, NULL, '2019-12-11 13:53:25');
-
+INSERT INTO `tb_letter`(`tb_id`, `tb_admin_id`, `tb_number`, `tb_user_id`, `target`, `tb_send_mess_id`, `appendix_title`, `appendix_path`, `sending_state`, `del_time`, `create_time`) VALUES (1, '20191223184216003', 5, 'wkr9606@sina.com', 282, NULL, NULL, 2, NULL, '2019-12-23 18:42:21');
 
 
 -- ----------------------------
