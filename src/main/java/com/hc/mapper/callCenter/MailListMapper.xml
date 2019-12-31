@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.callCenter.MailListMapper" >
+	 
+	 <sql id="mailList_Column_List">
+	 	mailList_id as mailListId,contacts as contacts,phone_Number as phoneNumber,remarks as remarks,
+	 	admin_id as adminId,modification_Time as modificationTime,create_Time as createTime
+	</sql>
+	 
+	<!-- 添加通讯录 -->
+	<insert id="insertMailList" keyProperty="mailListId" useGeneratedKeys="true">
+		INSERT INTO `tb_mailList` (
+				contacts,
+				phone_Number,
+				remarks,
+				admin_id,
+				create_Time
+				)
+				 VALUES (#{contacts},#{phoneNumber},#{remarks},#{adminId},#{createTime});
+	</insert>
+	
+	<!-- 查询通讯录 -->
+	<select id="getMailList" resultType="com.hc.pojo.callCenter.MailList">
+		select * from tb_mailList
+			order by create_time desc
+	</select>
+	 
+	 
+	 
+  
+</mapper>

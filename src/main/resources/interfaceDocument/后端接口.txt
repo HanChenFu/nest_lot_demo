@@ -631,3 +631,19 @@ createTime:记录的创建时间
         "token": null
     }
 }
+
+23.电话通讯录接口
+http://localhost:8080//mailList/insertMailList
+需要传参数:
+{
+	"contacts":"老聂",			 						--联系人
+	"phoneNumber":"13417708386",		 				--电话号码
+	"remarks":"中国电信",				 					--备注
+	"adminId":"1"										--经手人 的 id
+}
+返回参数:
+{
+    "success": true,									--成功状态码
+    "code": 1000,										--成功码
+    "message": "1"										--成功条数
+}
