@@ -274,6 +274,9 @@ listid：案件的id
 	to:发送给用户的邮箱(多个以 , 分隔开)
 	title:主题
 	content:内容
+	file:附件(必须为压缩格式)------非必填
+	appendixTitle:附件的标题-----非必填
+	
 例如：
 		{
 			"tbAdminId":1,
@@ -402,6 +405,8 @@ listid：信件的id
 	"follow": 是否关注 0 表示未关注 1表示已经关注
 	"title":发送的标题
 	"content":发送的内容
+	"appendixTitle":附件的标题
+	"appendixPath":附件的路径
 
 13 删除邮件
 请求路径：http://localhost:8080//web/letter/deleLetter

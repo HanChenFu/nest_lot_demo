@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSONArray;
 import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
@@ -148,6 +149,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 	//查询所有案件
 	@Override
 	public ResultData<PageUtilBean> queryAllCaseList(QueryAllCaseListReqBean bean) {
+		System.out.println("~~~~~~" + JSONArray.toJSONString(bean));
 		int totalCount = tbCaseMapper.selectCaseByConditionsCount(bean.getTbCaseTypeId(), bean.getTime(), bean.getTbNumber(), bean.getTbAddress(), 
 				bean.getTbSize(), bean.getTbStar(), bean.getTbCaseSaveCategory());
 		PageUtilBean pages = new PageUtilBean(bean.getPageSize(), totalCount, bean.getPage());
@@ -156,6 +158,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		pages.setResults(list);
 		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}
+	
 	//获取案件编号
 	@Override
 	public ResultData<Map<String, Object>> getCaseSerialNum() {

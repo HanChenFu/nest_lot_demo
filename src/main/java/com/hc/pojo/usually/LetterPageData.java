@@ -12,6 +12,8 @@ public class LetterPageData {
 	private int follow;//是否关注 0 表示未关注 1表示已经关注
 	private String title;//标题
 	private String content;//内容
+	private String appendixTitle;//附件标题
+	private String appendixPath;//附件路径
 	
 	public int getTbId() {
 		return tbId;
@@ -72,6 +74,18 @@ public class LetterPageData {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getAppendixTitle() {
+		return appendixTitle;
+	}
+	public void setAppendixTitle(String appendixTitle) {
+		this.appendixTitle = appendixTitle;
+	}
+	public String getAppendixPath() {
+		return appendixPath;
+	}
+	public void setAppendixPath(String appendixPath) {
+		this.appendixPath = appendixPath;
 	}
 	
 }
