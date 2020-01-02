@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
+import com.hc.common.result.ResultData;
 import com.hc.common.result.ResultQuery;
+import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.callCenter.CallCenter;
 import com.hc.pojo.callCenter.MailList;
 import com.hc.service.CallCenterService;
@@ -36,7 +38,7 @@ public class MailListController {
 	 * 查询通讯录
 	 */
 	@RequestMapping("getMailList")
-	public ResultQuery<MailList> getMailList(@RequestBody(required = false) MailList mailList) throws Exception,CustomException{
+	public ResultData<PageUtilBean> getMailList(@RequestBody(required = false) MailList mailList) throws Exception,CustomException{
 		return mailListService.getMailList(mailList);
 	}
 	

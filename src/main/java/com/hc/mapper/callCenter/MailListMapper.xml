@@ -28,6 +28,7 @@
 	 	from tb_mailList mail
 			left join tb_admin admin on mail.admin_id = admin.tb_id
 					order by mail.create_time desc
+					LIMIT #{limitsTart},#{limitsEnd}
 	</select>
 	
 	<!-- 查询通讯录总页数 -->

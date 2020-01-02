@@ -1,6 +1,8 @@
 package com.hc.pojo.callCenter;
 
-public class MailList {
+import com.hc.pojo.base.ReqPageBean;
+
+public class MailList extends ReqPageBean{
 
 	
 	private Integer mailListId;							//通讯录住建

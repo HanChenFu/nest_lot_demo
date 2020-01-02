@@ -661,11 +661,15 @@ http://localhost:8080//mailList/getMailList
 {
     "success": true,									--成功状态码
     "code": 1000,										--成功码
-    "message": "操作成功！",								--操作状态	
+    "message": "操作成功！",								--操作状态
     "data": {
-        "list": [
+        "pagesize": 10,									--页数大小				
+        "pagetotal": 1,									--总页数
+        "totalCount": 1,								--总数
+        "page": 1,
+        "results": [
             {
-                "mailListId": 8,						--通讯录主建	
+               "mailListId": 8,							--通讯录主建	
                 "contacts": "老聂",						--联系人
                 "phoneNumber": "13417708386",			--电话号码
                 "remarks": "中国电信",					--备注
@@ -674,8 +678,7 @@ http://localhost:8080//mailList/getMailList
                 "createTime": "2020-01-02 14:40:42.0",	--添加时间
                 "adminName": "思曼"						--经手人名字
             }
-        ],
-        "totalItems": 2									--总页数
+        ]
     }
 }
 

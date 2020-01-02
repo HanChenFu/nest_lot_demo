@@ -4,13 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
+import com.hc.common.result.ResultData;
 import com.hc.common.result.ResultQuery;
 import com.hc.common.tools.Tools;
 import com.hc.mapper.callCenter.CallCenterMapper;
 import com.hc.mapper.callCenter.MailListMapper;
 import com.hc.pojo.askRecord.TbAskRecord;
+import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.callCenter.CallCenter;
 import com.hc.pojo.callCenter.MailList;
 import com.hc.service.CallCenterService;
@@ -40,14 +44,12 @@ public class MailListImpl implements MailListService {
 	 * 查询通讯录
 	 */
 	@Override 
-	public ResultQuery<MailList> getMailList(MailList mailList) throws Exception,CustomException{
-		
-		List<MailList> mailLists = mailListMapper.getMailList(mailList);
-		if(mailLists==null) {
-			return ResultUtil.getResultQuery("没有数据！");
-		}
-		return  ResultUtil.getResultQuery(mailLists, mailListMapper.getMailListCount(mailList));
-		 
+	public ResultData<PageUtilBean> getMailList(MailList mailList) throws Exception,CustomException{
+		int totalCount = mailListMapper.getMailListCount(mailList);
+		PageUtilBean pages = new PageUtilBean(mailList.getPageSize(), totalCount, mailList.getPage());
+		List<MailList> mailLists = mailListMapper.getMailList(mailList, pages.limitsTart(),pages.limitsEnd());
+		pages.setResults(mailLists);
+		return  ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}
 	/**
 	 * 删除通讯录
