@@ -31,24 +31,24 @@ public class WebAudioConversionController {
      * @author DDM 2018年4月16日
      */
     @RequestMapping("audioToText")
-    public ResultData<String> audioToText(MultipartFile file, Integer type, HttpServletRequest request) throws CustomException, Exception {
+    public ResultData<String> audioToText(MultipartFile files, Integer type, HttpServletRequest request) throws CustomException, Exception {
 //    	TbAdmin tbUser = loginUserUtil.getLoginUser(request.getHeader("token"));// 获取请求头，得到token
-        if (null == file) {
+        if (null == files) {
             throw new CustomException(StatusCode.PARAM_NULL, "未选择音频！");
         }
         // 文件原始名称
-        String originalFilename = file.getOriginalFilename();
+        String originalFilename = files.getOriginalFilename();
         if (-1 == originalFilename.lastIndexOf(".")
                 || originalFilename.length() == originalFilename.lastIndexOf(".") + 1) {
             throw new CustomException(StatusCode.PARAM_ERROR, "只支持wav,amr,m4a格式的音频！");
         }
-        if (FileUtil.checkAudioFormat(file)) {
+        if (FileUtil.checkAudioFormat(files)) {
             throw new CustomException(StatusCode.PARAM_ERROR, "只支持wav,amr,m4a格式的音频！");
         }
         String path = "";
         try {
         	//这边先是上传，然后再是进行格式的转换
-        	path = FileUtil.save(file, SystemConfigUtil.getValue("audio"));
+        	path = FileUtil.save(files, SystemConfigUtil.getValue("audio"));
         	//对音频进行转换
         	String p = SystemConfigUtil.getValue("upload_path")+"/"+path;
         	String pcm_path = p.split("\\.")[0]+".pcm";

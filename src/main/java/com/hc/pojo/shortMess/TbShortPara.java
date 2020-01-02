@@ -6,6 +6,18 @@ public class TbShortPara {
 	private String to; //发送给的用户
 	private String title;
 	private String content;
+	
+	public TbShortPara() {
+		super();
+	}
+	
+	public TbShortPara(String tbAdminId, String to, String content) {
+		super();
+		this.tbAdminId = tbAdminId;
+		this.to = to;
+		this.content = content;
+	}
+
 	public String getFrom() {
 		return from;
 	}

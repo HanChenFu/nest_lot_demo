@@ -19,7 +19,7 @@ public class TbMailServiceImpl implements TbMailService{
 
 	@Autowired
 	private TbAsyncTaskImpl tbAsyncTaskImpl;
-	
+	 
 	@Override
 	@ParamCheck(names = {"to","title","content","tbAdminId"})
 	public ResultBase sendMail(TbEmail tbEmail, MultipartFile file,HttpServletRequest request) throws Exception,CustomException{

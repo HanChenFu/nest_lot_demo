@@ -8,6 +8,19 @@ public class TbEmail {
 	private String content;
 	private String appendixTitle;//这边是显示附件标题
 	
+	public TbEmail() {
+		super();
+	}
+	
+	public TbEmail(String tbAdminId, String to, String title, String content, String appendixTitle) {
+		super();
+		this.tbAdminId = tbAdminId;
+		this.to = to;
+		this.title = title;
+		this.content = content;
+		this.appendixTitle = appendixTitle;
+	}
+
 	public String getFrom() {
 		return from;
 	}
