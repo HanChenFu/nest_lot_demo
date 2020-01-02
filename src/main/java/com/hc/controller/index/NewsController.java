@@ -23,13 +23,11 @@ import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
-import com.hc.common.result.ResultQuery;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.entity.TbCase;
-import com.hc.pojo.entity.TbCaseType;
-import com.hc.pojo.entity.TbFilingArea;
+import com.hc.pojo.reqBean.AddAndUpdateCaseReqBean;
 import com.hc.pojo.reqBean.QueryAllCaseListReqBean;
 import com.hc.service.TbAreaDynamicsService;
 import com.hc.service.TbCaseService;
@@ -37,7 +35,6 @@ import com.hc.service.TbEmergencyNewsService;
 import com.hc.service.TbNoticeService;
 import com.hc.service.TbWorkDynamicsService;
 import com.hc.utils.aliyunOss.StsServiceSample;
-import com.hc.utils.conig.SystemConfigUtil;
 import com.hc.utils.date.MyDateUtil;
 import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.file.FileUtil;
@@ -166,7 +163,7 @@ public class NewsController {
         if (FileUtil.checkPictureFormat(file)) {
         	if(null!=file){
     			StsServiceSample.init();//初始化
-    			path = "/case_imgs/"+tbNumber+"/" + StsServiceSample.uploadImg2Oss(file, "case_imgs/"+tbNumber+"/");
+    			path = "case_imgs/"+tbNumber+"/" + StsServiceSample.uploadImg2Oss(file, "case_imgs/"+tbNumber+"/");
     		}else{
     			ResultUtil.getResultData(true, StatusCode.PARAM_NULL, "参数为空！", new Object());
     		}
@@ -213,10 +210,7 @@ public class NewsController {
 		return tbCaseService.updateCaseById(file,tbCaseTypeId,tbFilingAreaId,tbReportAddress,tbSize,tbStar,tbAddress,tbDesc,tbRemarks,tbLongitude,tbLatitude,tbId,caseTime,filedTime,request);
 	}
 	
-	@RequestMapping("/deleCase")
-	public ResultBase deleCase(@RequestBody(required = false) BasePara para,HttpServletRequest request) throws Exception,CustomException{
-		return tbCaseService.deleCase(para, request);
-	}
+	
 	//案号查验     
 	//这个接口  和上面的 查询所有案件共用，  传一个tbNumber就好了
 	//还是调用上面哪个接口 http://localhost:8080//index/news/queryAllCase    
@@ -241,6 +235,31 @@ public class NewsController {
 	
 	
 	/**
+	 * 新增案件
+	 * @param tbNumber 编号(档案号)
+	 * @param files 上传的图片流
+	 * @param tbCaseTypeId  案件类型ID	
+	 * @param tbCaseSaveCategory  案件保存类别（0：联网保存，1：草稿箱保存）
+	 * @param tbFilingAreaId  报案地址ID
+	 * @param tbSize  事件大小 1=小  2=中  3=大
+	 * @param tbStar  关注星级	
+	 * @param tbReportAddress  案件地址
+	 * @param tbAddress  案件地址(详细)
+	 * @param tbLongitude  经度
+	 * @param tbLatitude  纬度	
+	 * @param tbDesc  案件经过
+	 * @param tbRemarks  案件备注
+	 * @param filedTime  归档时间	
+	 * @param caseTime  案件发生时间	
+	 * @return ResultBase
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/addCase", method = RequestMethod.POST,produces="application/json")
+	public ResultBase addCase(@RequestBody(required = false) AddAndUpdateCaseReqBean bean) throws Exception {
+		return tbCaseService.addCase(bean);
+	}
+	
+	/**
 	 * 查询所有案件
 	 * @param tbCaseTypeId 案件类型ID
 	 * @param time 时间
@@ -258,7 +277,31 @@ public class NewsController {
 	public ResultData<PageUtilBean> queryAllCaseList(@RequestBody(required = false) QueryAllCaseListReqBean bean) throws Exception {
 		return tbCaseService.queryAllCaseList(bean);
 	}
-	
+	/**
+	 * 修改案件
+	 * @param tbId 案件ID
+	 * @param files 上传的图片流
+	 * @param delImgs 需要删除的图片数组
+	 * @param tbCaseTypeId  案件类型ID	
+	 * @param tbCaseSaveCategory  案件保存类别（0：联网保存，1：草稿箱保存）
+	 * @param tbFilingAreaId  报案地址ID
+	 * @param tbSize  事件大小 1=小  2=中  3=大
+	 * @param tbStar  关注星级	
+	 * @param tbReportAddress  案件地址
+	 * @param tbAddress  案件地址(详细)
+	 * @param tbLongitude  经度
+	 * @param tbLatitude  纬度	
+	 * @param tbDesc  案件经过
+	 * @param tbRemarks  案件备注
+	 * @param filedTime  归档时间	
+	 * @param caseTime  案件发生时间	
+	 * @return ResultBase
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/updateCase", method = RequestMethod.POST,produces="application/json")
+	public ResultBase updateCase(@RequestBody(required = false) AddAndUpdateCaseReqBean bean) throws Exception {
+		return tbCaseService.updateCase(bean);
+	}
 	/**
 	 * 获取案件编号
 	 * @param 无
@@ -285,15 +328,24 @@ public class NewsController {
 	 * @return ResultData
 	 * @throws Exception
 	 */
-	//
 	@RequestMapping("/getReportAddressList")
 	public ResultData<PageUtilBean> getReportAddressList() throws Exception {
 		return tbCaseService.getReportAddressList();
 	}
+	/**
+	 * 删除案件
+	 * @param listid 案件ID数组
+	 * @return ResultData
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/deleCase", method = RequestMethod.POST,produces="application/json")
+	public ResultBase deleCase(@RequestBody(required = false) Map<String,Object> map) throws Exception,CustomException{
+		return tbCaseService.deleCase(map);
+	}
 	/** 
 	 * 导出Excel/word/PDF案件文件 
-	 * @param tbNumber
-	 * @param type
+	 * @param tbNumber 编号(档案号)
+	 * @param type 导出类型1：Excel，2：word，3：PDF
 	 * @return ResultData
 	 * @throws Exception
 	 * */
@@ -303,8 +355,8 @@ public class NewsController {
 	}
 	/** 
 	 * 删除导出的Excel/word/PDF案件文件 
-	 * @param tbNumber
-	 * @param type
+	 * @param tbNumber  编号(档案号)
+	 * @param type  导出类型1：Excel，2：word，3：PDF
 	 * @return ResultData
 	 * @throws Exception
 	 * */

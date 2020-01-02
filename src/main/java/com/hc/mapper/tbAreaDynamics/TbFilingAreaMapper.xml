@@ -7,7 +7,7 @@
 	</sql>
 	
 	
-	<select id="queryAll" resultType="com.hc.pojo.entity.TbCaseType">
+	<select id="queryAll" resultType="com.hc.pojo.entity.TbFilingArea">
 		select
 		<include refid="Base_Column_List" />
 		from tb_filing_area
@@ -20,7 +20,7 @@
 		from tb_filing_area
 	</select>
 	
-	<select id="queryByTbId" resultType="com.hc.pojo.entity.TbCaseType">
+	<select id="queryByTbId" resultType="com.hc.pojo.entity.TbFilingArea">
 		select
 		<include refid="Base_Column_List" />
 		from tb_filing_area

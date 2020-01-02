@@ -14,6 +14,10 @@
 		select <include refid="Base_Column_List" /> from tb_case 
 		where tb_number=#{tbNumber}
 	</select>
+	<select id="queryByTbId"   resultType="com.hc.pojo.entity.TbCase">
+		select <include refid="Base_Column_List" /> from tb_case 
+		where tb_id=#{tbId}
+	</select>
 	
   	<select id="queryNumber"   resultType="java.lang.Integer">
 		select count(1) from tb_case where tb_case_type_id=#{tbCaseTypeId}
@@ -46,6 +50,191 @@
 		</where>
 		order by create_time desc
 	</select>
+	<!-- 动态新增案件信息 -->
+	<insert id="insertCase2" parameterType="com.hc.pojo.reqBean.AddAndUpdateCaseReqBean" >
+		INSERT INTO `tb_case`
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="tbId != null" >
+	        	tb_id,
+			</if>
+			<if test="tbNumber != null" >
+	        	tb_number,
+			</if>
+			<if test="tbUserId != null" >
+	        	tb_user_id,
+			</if>
+			<if test="tbCaseTypeId != null" >
+	        	tb_case_type_id,
+			</if>
+			<if test="tbCaseSaveCategory != null" >
+	        	tb_case_save_category,
+			</if>
+			<if test="tbFilingAreaId != null" >
+	        	tb_filing_area_id,
+			</if>
+			<if test="tbSize != null" >
+	        	tb_size,
+			</if>
+			<if test="tbStar != null" >
+	        	tb_star,
+			</if>
+			<if test="tbReportAddress != null" >
+	        	tb_report_address,
+			</if>
+			<if test="tbAddress != null" >
+	        	tb_address,
+			</if>
+			<if test="tbLongitude != null" >
+	        	tb_longitude,
+			</if>
+			<if test="tbLatitude != null" >
+	        	tb_latitude,
+			</if>
+			<if test="tbDesc != null" >
+	        	tb_desc,
+			</if>
+			<if test="tbRemarks != null" >
+	        	tb_remarks,
+			</if>
+			<if test="tbImages != null" >
+	        	tb_images,
+			</if>
+			<if test="filedTime != null" >
+	        	filed_time,
+			</if>
+			<if test="caseTime != null" >
+	        	case_time,
+			</if>
+			<if test="delTime != null" >
+	        	del_time,
+			</if>
+			<if test="createTime != null" >
+	        	create_time,
+			</if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="tbId != null" >
+				#{tbId,jdbcType=INTEGER},
+			</if>
+			<if test="tbNumber != null" >
+				#{tbNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="tbUserId != null" >
+				#{tbUserId,jdbcType=INTEGER},
+			</if>
+			<if test="tbCaseTypeId != null" >
+				#{tbCaseTypeId,jdbcType=INTEGER},
+			</if>
+			<if test="tbCaseSaveCategory != null" >
+				#{tbCaseSaveCategory,jdbcType=INTEGER},
+			</if>
+			<if test="tbFilingAreaId != null" >
+				#{tbFilingAreaId,jdbcType=INTEGER},
+			</if>
+			<if test="tbSize != null" >
+				#{tbSize,jdbcType=VARCHAR},
+			</if>
+			<if test="tbStar != null" >
+				#{tbStar,jdbcType=INTEGER},
+			</if>
+			<if test="tbReportAddress != null" >
+				#{tbReportAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="tbAddress != null" >
+				#{tbAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="tbLongitude != null" >
+				#{tbLongitude},
+			</if>
+			<if test="tbLatitude != null" >
+				#{tbLatitude},
+			</if>
+			<if test="tbDesc != null" >
+				#{tbDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="tbRemarks != null" >
+				#{tbRemarks,jdbcType=VARCHAR},
+			</if>
+			<if test="tbImages != null" >
+				#{tbImages,jdbcType=VARCHAR},
+			</if>
+			<if test="filedTime != null" >
+				#{filedTime},
+			</if>
+			<if test="caseTime != null" >
+				#{caseTime},
+			</if>
+			<if test="delTime != null" >
+				#{delTime},
+			</if>
+			<if test="createTime != null" >
+				#{createTime},
+			</if>
+	    </trim>
+	</insert>
+	<update id="updateCase" parameterType="com.hc.pojo.reqBean.AddAndUpdateCaseReqBean" >
+		update tb_case
+		<set >
+			<if test="tbId != null" >
+				tb_id = #{tbId},
+			</if>
+			<if test="tbNumber != null" >
+				tb_number = #{tbNumber},
+			</if>
+			<if test="tbUserId != null" >
+				tb_user_id = #{tbUserId},
+			</if>
+			<if test="tbCaseTypeId != null" >
+				tb_case_type_id = #{tbCaseTypeId},
+			</if>
+			<if test="tbCaseSaveCategory != null" >
+				tb_case_save_category = #{tbCaseSaveCategory},
+			</if>
+			<if test="tbFilingAreaId != null" >
+				tb_filing_area_id = #{tbFilingAreaId},
+			</if>
+			<if test="tbSize != null" >
+				tb_size = #{tbSize},
+			</if>
+			<if test="tbStar != null" >
+				tb_star = #{tbStar},
+			</if>
+			<if test="tbReportAddress != null" >
+				tb_report_address = #{tbReportAddress},
+			</if>
+			<if test="tbAddress != null" >
+				tb_address = #{tbAddress},
+			</if>
+			<if test="tbLongitude != null" >
+				tb_longitude = #{tbLongitude},
+			</if>
+			<if test="tbLatitude != null" >
+				tb_latitude = #{tbLatitude},
+			</if>
+			<if test="tbDesc != null" >
+				tb_desc = #{tbDesc},
+			</if>
+			<if test="tbRemarks != null" >
+				tb_remarks = #{tbRemarks},
+			</if>
+			<if test="tbImages != null" >
+				tb_images = #{tbImages},
+			</if>
+			<if test="filedTime != null" >
+				filed_time = #{filedTime},
+			</if>
+			<if test="caseTime != null" >
+				case_time = #{caseTime},
+			</if>
+			<if test="delTime != null" >
+				del_time = #{delTime},
+			</if>
+			<if test="createTime != null" >
+				create_time = #{createTime},
+			</if>
+		</set>
+		tb_id = #{tbId}
+	</update>
 	<!-- 根据条件查询案件的总条数  -->
 	<select id="selectCaseByConditionsCount" resultType="java.lang.Integer">
 		select
@@ -108,18 +297,19 @@
 	</select>
 	
 	<insert id="insertCase" parameterType="com.hc.pojo.entity.TbCase">
-		INSERT INTO `tb_case`
-		( `tb_number`, 			`tb_user_id`, 	`tb_case_type_id`,  
-		  `tb_filing_area_id`,  `tb_size`, 		`tb_star`, `tb_report_address`,
-		  `tb_address`, 		`tb_longitude`, `tb_latitude`, 
-		  `tb_desc`, 			`tb_remarks`, 	`tb_images`, `case_time`, `filed_time`, 
-		  `del_time`, 			`create_time`) 
-		VALUES 
-		( #{tbNumber},#{tbUserId},#{tbCaseTypeId},#{tbFilingAreaId},#{tbSize},
-		#{tbStar},#{tbReportAddress},#{tbAddress},#{tbLongitude},#{tbLatitude},#{tbDesc},#{tbRemarks},#{tbImages},
-		#{caseTime},#{filedTime},#{delTime},#{createTime}
-		);
-
+	INSERT INTO `tb_case`
+	( `tb_number`, `tb_user_id`, `tb_case_type_id`,
+	`tb_filing_area_id`, `tb_size`, `tb_star`, `tb_report_address`,
+	`tb_address`, `tb_longitude`, `tb_latitude`,
+	`tb_desc`, `tb_remarks`,
+	`tb_images`, `case_time`, `filed_time`,
+	`del_time`, `create_time`)
+	VALUES
+	(
+	#{tbNumber},#{tbUserId},#{tbCaseTypeId},#{tbFilingAreaId},#{tbSize},
+	#{tbStar},#{tbReportAddress},#{tbAddress},#{tbLongitude},#{tbLatitude},#{tbDesc},#{tbRemarks},#{tbImages},
+	#{caseTime},#{filedTime},#{delTime},#{createTime}
+	);
 	</insert>
 	
 	<!-- 这边是更新案件 -->

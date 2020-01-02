@@ -45,13 +45,224 @@ paths:
           description: 操作异常
           schema:
             $ref: '#/definitions/R'
-  /index/ceshi/uploadImg:
+  /index/news/addCase:
     post:
      #标签，方便快速过滤出User相关的接口 分组
       tags:
         - 案件类
       #接口概要
-      summary: 根据条件查询所有案件
+      summary: 新增案件
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqAddCase'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/news/updateCase:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 案件类
+      #接口概要
+      summary: 修改案件
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqUpdateCase'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/news/getCaseSerialNum:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 案件类
+      #接口概要
+      summary: 获取案件编号
+      produces:
+        - application/json
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResGetCaseSerialNum'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/news/getCaseTypeList:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 案件类
+      #接口概要
+      summary: 获取案件类型列表
+      produces:
+        - application/json
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResGetCaseTypeList'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/news/getReportAddressList:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 案件类
+      #接口概要
+      summary: 获取报案地址列表
+      produces:
+        - application/json
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResGetReportAddressList'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/news/deleCase:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 案件类
+      #接口概要
+      summary: 删除案件
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqDeleCase'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/news/exportCaseFile:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 案件类
+      #接口概要
+      summary: 导出Excel/word/PDF案件文件 -----（导出下载完之后必须调下面的删除接口）
+      produces:
+        - application/json
+      parameters:
+        - name: tbNumber
+          description: 编号(档案号)
+          in: query
+          type: string
+          required: true
+        - name: type
+          description: 导出类型1：Excel，2：word，3：PDF
+          in: query
+          type: string
+          required: true
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResExportCaseFile'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/news/deleteExportCaseFile:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 案件类
+      #接口概要
+      summary: 删除导出的Excel/word/PDF案件文件 
+      produces:
+        - application/json
+      parameters:
+        - name: tbNumber
+          description: 编号(档案号)
+          in: query
+          type: string
+          required: true
+        - name: type
+          description: 删除类型1：Excel，2：word，3：PDF
+          in: query
+          type: string
+          required: true
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/ceshi/uploadImg:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 测试
+      #接口概要
+      summary: 测试图片上传
       produces:
         - application/json
       consumes:
@@ -86,6 +297,122 @@ definitions:
         msg:
           description: 失败原因
           type: string
+  ReqDeleCase:
+    type: object
+    properties:
+      listid:
+        description: 案件的id【id数组】
+        type: array
+        items:
+          type: integer
+  ReqUpdateCase:
+    type: object
+    properties:
+      tbId:
+        description: 案件ID
+        type: integer
+      tbNumber:
+        description: 编号(档案号)
+        type: string
+      files:
+        description: 上传的图片流【类型：数组MultipartFile[]】流数组
+        type: array
+        items:
+          type: file
+      delImgs:
+        description: 需要删除的图片数组【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      tbCaseTypeId:
+        description: 案件类型ID	
+        type: integer
+      tbCaseSaveCategory:
+        description: 案件保存类别（0：联网保存，1：草稿箱保存）
+        type: integer
+      tbFilingAreaId:
+        description: 报案地址ID
+        type: integer
+      tbSize:
+        description: 事件大小 1=小  2=中  3=大
+        type: string
+      tbStar:
+        description: 关注星级
+        type: integer
+      tbReportAddress:
+        description: 案件地址	
+        type: string
+      tbAddress:
+        description: 案件地址(详细)
+        type: string
+      tbLongitude:
+        description: 经度
+        type: double
+      tbLatitude:
+        description: 纬度
+        type: double
+      tbDesc:
+        description: 案件经过
+        type: string
+      tbRemarks:
+        description: 案件备注
+        type: string
+      filedTime:
+        description: 归档时间
+        type: string
+      caseTime:
+        description: 案件发生时间
+        type: string
+  ReqAddCase:
+    type: object
+    properties:
+      tbNumber:
+        description: 编号(档案号)
+        type: string
+      files:
+        description: 上传的图片流【类型：数组MultipartFile[]】流数组
+        type: array
+        items:
+          type: file
+      tbCaseTypeId:
+        description: 案件类型ID	
+        type: integer
+      tbCaseSaveCategory:
+        description: 案件保存类别（0：联网保存，1：草稿箱保存）
+        type: integer
+      tbFilingAreaId:
+        description: 报案地址ID
+        type: integer
+      tbSize:
+        description: 事件大小 1=小  2=中  3=大
+        type: string
+      tbStar:
+        description: 关注星级
+        type: integer
+      tbReportAddress:
+        description: 案件地址	
+        type: string
+      tbAddress:
+        description: 案件地址(详细)
+        type: string
+      tbLongitude:
+        description: 经度
+        type: double
+      tbLatitude:
+        description: 纬度
+        type: double
+      tbDesc:
+        description: 案件经过
+        type: string
+      tbRemarks:
+        description: 案件备注
+        type: string
+      filedTime:
+        description: 归档时间
+        type: string
+      caseTime:
+        description: 案件发生时间
+        type: string
   ReqQueryAllCaseList:
     type: object
     properties:
@@ -116,6 +443,147 @@ definitions:
       page:
         description: 当前页
         type: integer
+  ResGetCaseSerialNum:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGetCaseSerialNum_object'
+  ResGetCaseSerialNum_object:
+    type: object
+    properties:
+      time:
+        description: 时间
+        type: string
+      tbNumber:
+        description: 编号(档案号)
+        type: string
+  ResExportCaseFile:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResExportCaseFile_object'
+  ResExportCaseFile_object:
+    type: object
+    properties:
+      url:
+        description: 文件的下载路径注意：拼接格式是  服务器地址+端口号+/update  例：http://192.168.1.8:8080/upload后面拼返回的url
+        type: string
+  ResGetReportAddressList:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGetReportAddressList_object'
+  ResGetReportAddressList_object:
+    type: object
+    properties:
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数
+        type: integer
+      page:
+        description: 当前页
+        type: integer
+      results:
+        description: 案件集合
+        type: array
+        items:
+          type: object
+          properties:
+            tbId:
+              description: 归档所在地ID
+              type: integer
+            tbName:
+              description: 归档所在地名称
+              type: string
+            delTime:
+              description: 删除日期
+              type: string
+            createTime:
+              description: 创建日期
+              type: string
+  ResGetCaseTypeList:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGetCaseTypeList_object'
+  ResGetCaseTypeList_object:
+    type: object
+    properties:
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数
+        type: integer
+      page:
+        description: 当前页
+        type: integer
+      results:
+        description: 案件集合
+        type: array
+        items:
+          type: object
+          properties:
+            tbId:
+              description: 案件类型ID
+              type: integer
+            tbName:
+              description: 案件类型名称
+              type: string
+            delTime:
+              description: 删除日期
+              type: string
+            createTime:
+              description: 创建日期
+              type: string
   ResQueryAllCaseList:
     type: object
     properties:
