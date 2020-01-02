@@ -13,7 +13,6 @@ import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.mapper.shortMess.TbShortMessMapper;
 import com.hc.para.page_base.BasePara;
-import com.hc.pojo.email.TbEmail;
 import com.hc.pojo.shortMess.TbShortPara;
 import com.hc.pojo.usually.LetterPageData;
 import com.hc.service.TbSMService;

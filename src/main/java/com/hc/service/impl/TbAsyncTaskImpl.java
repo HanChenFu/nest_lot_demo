@@ -33,7 +33,6 @@ public class TbAsyncTaskImpl {
 	/*
 	 * @Autowired private JavaMailSender mailSender;
 	 */
-	
 	@Autowired
 	RedisUtil redis;
 	

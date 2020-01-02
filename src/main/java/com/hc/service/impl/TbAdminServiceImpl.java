@@ -29,7 +29,6 @@ public class TbAdminServiceImpl implements TbAdminService{
 	@Autowired
 	LoginUserUtil loginUserUtil;
 	
-	
 	/**
 	 * 后台管理员登陆
 	 */

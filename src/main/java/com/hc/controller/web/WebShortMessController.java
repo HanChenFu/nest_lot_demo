@@ -20,7 +20,6 @@ import com.hc.service.TbSMService;
 @RequestMapping("/web/sm")
 @ResponseBody
 public class WebShortMessController {
-
 	@Autowired
 	private TbSMService tbSMService;
 	
@@ -35,7 +34,6 @@ public class WebShortMessController {
 	public ResultBase sendSM(@RequestBody TbShortPara shortPara, HttpServletRequest request) throws Exception {
 		return tbSMService.sendSM(shortPara, request);
 	}
-	
 	
 	@RequestMapping("/getShortMess")
 	ResultQuery<LetterPageData> getShortMess(@RequestBody(required = false) BasePara para,HttpServletRequest request) throws CustomException, Exception {
