@@ -637,7 +637,7 @@ createTime:记录的创建时间
     }
 }
 
-23.电话通讯录接口
+23.通讯录 添加接口
 http://localhost:8080//mailList/insertMailList
 需要传参数:
 {
@@ -652,3 +652,62 @@ http://localhost:8080//mailList/insertMailList
     "code": 1000,										--成功码
     "message": "1"										--成功条数
 }
+
+24.通讯录 查询接口
+http://localhost:8080//mailList/getMailList
+需要传参数:
+
+返回参数:
+{
+    "success": true,									--成功状态码
+    "code": 1000,										--成功码
+    "message": "操作成功！",								--操作状态	
+    "data": {
+        "list": [
+            {
+                "mailListId": 8,						--通讯录主建	
+                "contacts": "老聂",						--联系人
+                "phoneNumber": "13417708386",			--电话号码
+                "remarks": "中国电信",					--备注
+                "adminId": 1,							--经手人 的 id
+                "modificationTime": null,				--修改时间	
+                "createTime": "2020-01-02 14:40:42.0",	--添加时间
+                "adminName": "思曼"						--经手人名字
+            }
+        ],
+        "totalItems": 2									--总页数
+    }
+}
+
+25.通讯录 删除接口
+http://localhost:8080//mailList/deleteMailList
+需要传参数:
+{
+	"mailListId":"7"									--通讯录主建
+}
+返回参数:
+{
+    "success": true,									--成功状态码
+    "code": 1000,										--成功码
+    "message": "删除成功！"								--操作状态
+}
+
+
+26.通讯录 修改接口
+http://localhost:8080//mailList/updateMailList
+需要传参数:  (如果不需要修改的属性请 (不传/空 /null)
+{
+	"mailListId":"8",									--通讯录主建	
+	"contacts":"老陈",									--联系人
+  	"phoneNumber":"123456", 							--电话号码
+	"remarks":"修改", 									--备注
+  	"adminId":"1"										--经手人 的 id
+}
+返回参数:
+{
+    "success": true,									--成功状态码
+    "code": 1000,										--成功码
+    "message": "修改成功！"								--操作状态
+}
+
+

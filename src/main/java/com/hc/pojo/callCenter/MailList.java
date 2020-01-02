@@ -10,6 +10,7 @@ public class MailList {
 	private Integer adminId;							//经手人 index
 	private String  modificationTime;					//修改时间
 	private String  createTime;							//创建时间
+	private String  adminName;							//用户名
 	
 	 
 	public Integer getMailListId() {
@@ -53,6 +54,12 @@ public class MailList {
 	}
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+	public String getAdminName() {
+		return adminName;
+	}
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
 	}
 	
 }

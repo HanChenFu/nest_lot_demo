@@ -3,7 +3,7 @@
 <mapper namespace="com.hc.mapper.callCenter.MailListMapper" >
 	 
 	 <sql id="mailList_Column_List">
-	 	mailList_id as mailListId,contacts as contacts,phone_Number as phoneNumber,remarks as remarks,
+	 	mail_List_id as mailListId,contacts as contacts,phone_Number as phoneNumber,remarks as remarks,
 	 	admin_id as adminId,modification_Time as modificationTime,create_Time as createTime
 	</sql>
 	 
@@ -21,11 +21,59 @@
 	
 	<!-- 查询通讯录 -->
 	<select id="getMailList" resultType="com.hc.pojo.callCenter.MailList">
-		select * from tb_mailList
-			order by create_time desc
+		select 
+			mail.mail_List_id as mailListId,mail.contacts as contacts,mail.phone_Number as phoneNumber,mail.remarks as remarks,
+		 	mail.admin_id as adminId,mail.modification_Time as modificationTime,mail.create_Time as createTime,
+		 	admin.tb_name as adminName 
+	 	from tb_mailList mail
+			left join tb_admin admin on mail.admin_id = admin.tb_id
+					order by mail.create_time desc
+	</select>
+	
+	<!-- 查询通讯录总页数 -->
+	<select id="getMailListCount" resultType="java.lang.Integer">
+		select 
+			COUNT(1)
+	 	from tb_mailList mail
+			left join tb_admin admin on mail.admin_id = admin.tb_id
+	</select>
+	
+	<!-- 查询是否有该数据-->
+	<select id="getMailListTrueOrFalse" resultType="java.lang.Integer">
+		select 
+			COUNT(1)
+	 	from tb_mailList 
+	 	where mail_List_id = #{mailListId}
 	</select>
 	 
-	 
+	<delete id="deleteMailList">
+		delete from tb_mailList
+			where mail_List_id = #{mailListId}
+	</delete>
+	
+	<!--通讯录修改 -->
+	<update id="updateMailList" parameterType="com.hc.pojo.callCenter.MailList">
+		update tb_mailList   
+				<set>
+			      <if test="contacts != null" >
+			        	contacts =#{contacts},
+			      </if>
+			      <if test="phoneNumber != null" >
+			      		phone_Number =#{phoneNumber},
+			      </if>
+			      <if test="remarks != null" >
+			        	remarks =#{remarks},
+			      </if>
+			      <if test="adminId != null" >
+			      		admin_id =#{adminId},
+			      </if>
+			      <if test="modificationTime != null" >
+			        	modification_Time = #{modificationTime}
+			      </if>
+			    </set>
+			WHERE
+				mail_List_id = #{mailListId}
+	</update>
 	 
   
 </mapper>
