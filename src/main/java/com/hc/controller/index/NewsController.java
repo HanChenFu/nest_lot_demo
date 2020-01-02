@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -148,22 +149,22 @@ public class NewsController {
 		 * @throws Exception
 		 */
 	@RequestMapping("/insertCase")
-	public ResultBase insertCase(MultipartFile files, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String caseTime,String filedTime,HttpServletRequest request) throws Exception {
+	public ResultBase insertCase(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String caseTime,String filedTime,HttpServletRequest request) throws Exception {
 		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
 //		String tbNumber=jsonObject.getString("tbNumber");
         // 文件原始名称
 //		1,1,3,null,2019-12-14 0:0:0,null,1,null
-		System.out.println(files +","+tbCaseTypeId + "," + tbFilingAreaId +"," + tbSize +"," + tbAddress +"," + caseTime + ","+tbDesc +"," + tbStar +","+ filedTime);
+		System.out.println(file +","+tbCaseTypeId + "," + tbFilingAreaId +"," + tbSize +"," + tbAddress +"," + caseTime + ","+tbDesc +"," + tbStar +","+ filedTime);
 		if(tbCaseTypeId ==null || tbFilingAreaId == null|| tbSize == null|| tbAddress == null|| caseTime == null|| tbDesc == null|| tbStar == null || filedTime == null) {
 			return ResultUtil.getResultBase("caseTime,tbCaseTypeId,tbFilingAreaId,tbSize,tbStar,tbAddress,tbDesc,filedTime参数不能为空");
 		}
 		String path = "";
 		String tbNumber = CreateSequence.getTimeMillisSequence();
 //        String originalFilename = file.getOriginalFilename();
-        if (FileUtil.checkPictureFormat(files)) {
-        	if(null!=files){
+        if (FileUtil.checkPictureFormat(file)) {
+        	if(null!=file){
     			StsServiceSample.init();//初始化
-    			path = "case_imgs/"+tbNumber+"/" + StsServiceSample.uploadImg2Oss(files, "case_imgs/"+tbNumber+"/");
+    			path = "case_imgs/"+tbNumber+"/" + StsServiceSample.uploadImg2Oss(file, "case_imgs/"+tbNumber+"/");
     		}else{
     			ResultUtil.getResultData(true, StatusCode.PARAM_NULL, "参数为空！", new Object());
     		}
@@ -254,9 +255,10 @@ public class NewsController {
 	 * @return ResultBase
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/addCase", method = RequestMethod.POST,produces="application/json")
-	public ResultBase addCase(@RequestBody(required = false) AddAndUpdateCaseReqBean bean) throws Exception {
-		return tbCaseService.addCase(bean);
+	@RequestMapping("/addCase")
+	public ResultBase addCase(/*@RequestBody(required = false) AddAndUpdateCaseReqBean bean*/@RequestPart(value = "files", required = false) MultipartFile[] files,
+			@RequestPart("addCaseReqBean") AddAndUpdateCaseReqBean bean) throws Exception {
+		return tbCaseService.addCase(files,bean);
 	}
 	
 	/**
@@ -277,7 +279,6 @@ public class NewsController {
 	public ResultData<PageUtilBean> queryAllCaseList(@RequestBody(required = false) QueryAllCaseListReqBean bean) throws Exception {
 		return tbCaseService.queryAllCaseList(bean);
 	}
-	
 	/**
 	 * 修改案件
 	 * @param tbId 案件ID
@@ -299,9 +300,9 @@ public class NewsController {
 	 * @return ResultBase
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/updateCase", method = RequestMethod.POST,produces="application/json")
-	public ResultBase updateCase(@RequestBody(required = false) AddAndUpdateCaseReqBean bean) throws Exception {
-		return tbCaseService.updateCase(bean);
+	@RequestMapping("/updateCase")
+	public ResultBase updateCase(@RequestPart(value = "files", required = false) MultipartFile[] files,@RequestPart("addCaseReqBean")  AddAndUpdateCaseReqBean bean) throws Exception {
+		return tbCaseService.updateCase(files,bean);
 	}
 	/**
 	 * 获取案件编号

@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class AddAndUpdateCaseReqBean {
 	private Integer tbId;//案件ID（update） 
 	private String tbNumber;//编号(档案号)
-	private MultipartFile[] files;//上传的图片流
+	/*private MultipartFile[] files;*///上传的图片流
 	private String[] delImgs;//需要删除的图片数组（update）	
 	private Integer tbUserId;//用户id
 	private Integer tbCaseTypeId;//案件类型ID	
@@ -61,12 +61,12 @@ public class AddAndUpdateCaseReqBean {
 	public void setTbNumber(String tbNumber) {
 		this.tbNumber = tbNumber;
 	}
-	public MultipartFile[] getFiles() {
+	/*public MultipartFile[] getFiles() {
 		return files;
 	}
 	public void setFiles(MultipartFile[] files) {
 		this.files = files;
-	}
+	}*/
 	public String[] getDelImgs() {
 		return delImgs;
 	}

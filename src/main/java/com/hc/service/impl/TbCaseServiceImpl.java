@@ -149,13 +149,13 @@ public class TbCaseServiceImpl implements TbCaseService{
 	//对新增和修改请求实体类做检测
 	public ResultBase detectionCaseReqBean(AddAndUpdateCaseReqBean bean) {
 		//案件保存类别检测
-		if(null==bean.getTbLongitude()){
+		/*if(null==bean.getTbLongitude()){
 			return ResultUtil.getResultBase(false, StatusCode.PARAM_NULL, "地址坐标获取失败，请重新定位地址！");
 		}
 		//案件保存类别检测
 		if(null==bean.getTbLongitude()){
 			return ResultUtil.getResultBase(false, StatusCode.PARAM_NULL, "地址坐标获取失败，请重新定位地址！");
-		}
+		}*/
 		//案件保存类别检测
 		if(null==bean.getTbCaseSaveCategory()){
 			return ResultUtil.getResultBase(false, StatusCode.PARAM_NULL, "案件保存类别不能为空！");
@@ -218,7 +218,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 	}
 	//新增案件
 	@Override
-	public ResultBase addCase(AddAndUpdateCaseReqBean bean) throws Exception{
+	public ResultBase addCase(MultipartFile[] files,AddAndUpdateCaseReqBean bean) throws Exception{
 		ResultBase baseBean = ResultUtil.getResultBase(true, StatusCode.SUCCESS, "操作成功！");
 		//案件保存类别检测
 		if(null==bean.getTbCaseSaveCategory()){
@@ -230,7 +230,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 				return baseBean;
 			}
 			//案件图片检测
-			if(null==bean.getFiles()||bean.getFiles().length<1){
+			if(null==files||files.length<1){
 				return ResultUtil.getResultBase(false, StatusCode.PARAM_NULL, "案件图片不能为空！");
 			}
 		}else if(1==bean.getTbCaseSaveCategory()){
@@ -248,15 +248,15 @@ public class TbCaseServiceImpl implements TbCaseService{
 			}
 		} 
 		//图片处理
-		if(null!=bean.getFiles()&&bean.getFiles().length>0){
-			for(MultipartFile file : bean.getFiles() ){
+		if(null!=files&&files.length>0){
+			for(MultipartFile file : files ){
 				if (!FileUtil.checkPictureFormat(file)) {
 					return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "案件图片格式不正确！");
 				}
 			}
 			StringBuffer path = new StringBuffer();
 			StsServiceSample.init();//初始化
-			for(MultipartFile file : bean.getFiles() ){
+			for(MultipartFile file : files ){
 				String url = StsServiceSample.uploadImg2Oss(file, "case_imgs/"+bean.getTbNumber()+"/");
 				path.append("case_imgs/");
 				path.append(bean.getTbNumber());
@@ -299,7 +299,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 	}
 	//修改案件
 	@Override
-	public ResultBase updateCase(AddAndUpdateCaseReqBean bean)  throws Exception{
+	public ResultBase updateCase(MultipartFile[] files,AddAndUpdateCaseReqBean bean)  throws Exception{
 		//案件ID检测
 		TbCase tbCase = null;
 		if(null==bean.getTbId()){
@@ -318,7 +318,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		//得到本次修改需要增加图片的数量
 		int delImgsLength = null == bean.getDelImgs()?0:bean.getDelImgs().length;
 		//得到本次修改需要增加图片的数量
-		int filsLength = null == bean.getFiles()?0:bean.getFiles().length;
+		int filsLength = null == files?0:files.length;
 		int imgsLength = null == imgs?0:imgs.length;
 		//案件保存类别检测
 		if(null==bean.getTbCaseSaveCategory()){
@@ -338,8 +338,8 @@ public class TbCaseServiceImpl implements TbCaseService{
 			return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "参数案件保存类别错误！");
 		}
 		//检测上传图片格式是否正确
-		if(null!=bean.getFiles()&&bean.getFiles().length>0){
-			for(MultipartFile file : bean.getFiles() ){
+		if(null!=files&&files.length>0){
+			for(MultipartFile file : files ){
 				if (!FileUtil.checkPictureFormat(file)) {
 					return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "案件图片格式不正确！");
 				}
@@ -367,7 +367,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		//再增加需要增加的图片
 		if(filsLength!=0){
 			StsServiceSample.init();//初始化
-			for(MultipartFile file : bean.getFiles() ){
+			for(MultipartFile file : files ){
 				String url = StsServiceSample.uploadImg2Oss(file, "case_imgs/"+bean.getTbNumber()+"/");
 				path.append("case_imgs/");
 				path.append(bean.getTbNumber());

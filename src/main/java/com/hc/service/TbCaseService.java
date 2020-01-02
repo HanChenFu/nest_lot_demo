@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hc.common.exception.CustomException;
@@ -29,9 +30,9 @@ public interface TbCaseService {
 
 
 	//新增案件
-	ResultBase addCase(AddAndUpdateCaseReqBean bean)throws Exception;
+	ResultBase addCase(MultipartFile[] files,AddAndUpdateCaseReqBean bean)throws Exception;
 	//修改案件
-	ResultBase updateCase(AddAndUpdateCaseReqBean bean) throws Exception;
+	ResultBase updateCase(MultipartFile[] files,AddAndUpdateCaseReqBean bean) throws Exception;
 	//获取案件编号
 	ResultData<PageUtilBean> queryAllCaseList(QueryAllCaseListReqBean bean);
 	//获取案件编号
