@@ -104,7 +104,7 @@ public class StsServiceSample {
 			// 创建OSSClient实例
 			OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
 			// 删除Object
-			ossClient.deleteObject("hy-zhiyin", key);
+			ossClient.deleteObject(Constants.bucketName, key);
 			// 关闭client
 			ossClient.shutdown();
 			System.out.println("删除oss成功");
@@ -129,7 +129,7 @@ public class StsServiceSample {
 				OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
 				// Object是否存在
 				System.out.println(split[split.length - 1]);
-				boolean found = ossClient.doesObjectExist("hy-zhiyin", split[split.length - 1]);
+				boolean found = ossClient.doesObjectExist(Constants.bucketName, split[split.length - 1]);
 				if (found) {
 					System.out.println(split[split.length - 1]);
 					flag = split[split.length - 1];

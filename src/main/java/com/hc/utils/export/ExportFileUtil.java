@@ -37,23 +37,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 public class ExportFileUtil extends XWPFDocument{
-/*	static String fileName = "SDH0220191226145555000095";
-	static String sheetName = "SDH0220191226145555000095";
-
-	static String[][] values = new String[][] { { "档案编号", "SDH0220191226145555000095" }, { "归档日期", "yyyy-MM-dd HH:mm:ss" },
-			{ "档案类型", "普通案件" }, { "报案地点", "马田派出所" }, { "事件大小", "小" }, { "关注星级", "2" }, { "案件地址", "哈哈哈哈哈" },
-			{ "案件经过",
-					"哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济" },
-			{ "案件备注",
-					"哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济哈桑来房间瓦尔克服务IE案件覅问饿哦发鸡娃儿经济" }, 
-			{"案件图片",""}};
-	static String img = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577364013275&di=e7c46f137a6ee19d19fff563756f04fb&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb151f8198618367aa7f3cc7424738bd4b31ce525.jpg"
-			+ ",https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577364013275&di=e7c46f137a6ee19d19fff563756f04fb&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb151f8198618367aa7f3cc7424738bd4b31ce525.jpg"			
-			+ ",https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577364013275&di=e7c46f137a6ee19d19fff563756f04fb&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb151f8198618367aa7f3cc7424738bd4b31ce525.jpg"			
-			+ ",https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577364013275&di=e7c46f137a6ee19d19fff563756f04fb&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb151f8198618367aa7f3cc7424738bd4b31ce525.jpg"			
-			+ ",https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577364013275&di=e7c46f137a6ee19d19fff563756f04fb&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb151f8198618367aa7f3cc7424738bd4b31ce525.jpg"			
-			+ ",https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577364013275&di=e7c46f137a6ee19d19fff563756f04fb&imgtype=0&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Fb151f8198618367aa7f3cc7424738bd4b31ce525.jpg";				
-	*//**
+	/**
 	 * excel导出到本地
 	 * @param img 网络图片路径
 	 * @param img 网络图片路径
@@ -117,7 +101,7 @@ public class ExportFileUtil extends XWPFDocument{
 			String str1 = "导出" + fileName + "失败！";
 			System.out.println(str1);
 		}
-		return SystemConfigUtil.getValue("upload_path")+"/temporary/excel/" + fileName + ".xlsx";
+		return "/temporary/excel/" + fileName + ".xlsx";
 	}
 	/**
 	 * word导出到本地
@@ -187,7 +171,7 @@ public class ExportFileUtil extends XWPFDocument{
 			String str1 = "导出" + fileName + "失败！";
 			System.out.println(str1);
 		}
-		return SystemConfigUtil.getValue("upload_path")+"/temporary/word/" + fileName + ".docx";
+		return "/temporary/word/" + fileName + ".docx";
 	}
 	/**
 	 * pdf导出到本地
@@ -212,8 +196,9 @@ public class ExportFileUtil extends XWPFDocument{
 		//循环插入图片
 		if(!"".equals(img)){
 			String[] imgs = img.split(",");
+			html.append("<br/>");
 			for(int i = 0; i < imgs.length; i++){
-				html.append("<img src='"+imgs[i]+"' width='400'/>");
+				html.append("<img src='"+SystemConfigUtil.getValue("aliyun_oss_url")+imgs[i]+"' width='400'/>");
 			}
 		}
 		try {
@@ -229,7 +214,7 @@ public class ExportFileUtil extends XWPFDocument{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return SystemConfigUtil.getValue("upload_path")+"/temporary/pdf/" + fileName + ".pdf";
+		return "/temporary/pdf/" + fileName + ".pdf";
 	}
 	
 	/**
@@ -263,7 +248,7 @@ public class ExportFileUtil extends XWPFDocument{
 		for(int i =0 ; i < imgs.length ; i ++){
 			URL url = null;
 	        try {
-	            url = new URL(imgs[i]);
+	            url = new URL(SystemConfigUtil.getValue("aliyun_oss_url")+imgs[i]);
 	            DataInputStream dataInputStream = new DataInputStream(url.openStream());
 	            String imageName =  stringUrl + UUID.randomUUID() + ".jpg";
 	            imgsUrl[i] = imageName;
