@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
-
 import com.hc.utils.conig.SystemConfigUtil;
  
 /**

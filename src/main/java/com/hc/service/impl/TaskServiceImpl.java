@@ -35,6 +35,7 @@ import com.hc.pojo.task.TaskInfo;
 import com.hc.service.TaskService;
 import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.result.ResultUtil;
+import com.hc.utils.string.FormatCheck;
 
 @Service("taskService")
 public class TaskServiceImpl implements TaskService{
@@ -91,6 +92,12 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	 */
 	@ParamCheck(names = {"cronExpression","to","title","content","tbAdminId"})
 	public boolean addJob(TaskInfo info) throws Exception {
+		String[] eamil = info.getTo().split(",");
+		for (int i = 0; i < eamil.length; i++) {
+			if (!FormatCheck.isEmail(eamil[i])) {
+				return false;
+			}
+		}
 		String j_name = "com.hc.common.timingTask.MailJob";
 		String g_name = CreateSequence.getTimeMillisSequence();
 		String jobName = j_name, 
@@ -222,7 +229,7 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 
 	@Override
 	@ParamCheck(names = {"id"})
-	public ResultBase getUserTaskList(BasePara base, HttpServletRequest request) throws Exception, CustomException {
+	public ResultBase getUserTaskList(BasePara base, HttpServletRequest request) throws Exception,CustomException {
 		List<TaskData> list = tbEmailTimingTaskMapper.getTaskByAdminId(base);
 		if(list==null) {
 			return ResultUtil.getResultQuery("没有数据！");

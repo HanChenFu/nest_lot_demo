@@ -214,6 +214,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		}
 		return ResultUtil.getResultBase(true, StatusCode.SUCCESS, "操作成功！");
 	}
+	
 	//新增案件
 	@Override
 	public ResultBase addCase(MultipartFile[] files,AddAndUpdateCaseReqBean bean) throws Exception{
@@ -276,6 +277,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		}
 		return baseBean;
 	}
+	
 	//查询所有案件
 	@Override
 	public ResultData<PageUtilBean> queryAllCaseList(QueryAllCaseListReqBean bean) {

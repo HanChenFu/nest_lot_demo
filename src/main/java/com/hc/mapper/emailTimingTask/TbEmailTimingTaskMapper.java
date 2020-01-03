@@ -17,4 +17,6 @@ public interface TbEmailTimingTaskMapper {
 	List<TaskData> getTaskByAdminId(BasePara base);
 	
 	int getTaskByAdminIdCount(BasePara base);
+	
+	int updateNumberToZero();
 }

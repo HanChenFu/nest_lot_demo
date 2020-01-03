@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.task.TaskInfo;
@@ -102,7 +103,7 @@ public class TaskManageController {
 	}
 	
 	@RequestMapping("/getUserTaskList")
-	public ResultBase getUserTaskList(@RequestBody(required = false) BasePara base, HttpServletRequest request) throws Exception {
+	public ResultBase getUserTaskList(@RequestBody BasePara base, HttpServletRequest request) throws Exception,CustomException {
 		return taskService.getUserTaskList(base, request);
 	}
 

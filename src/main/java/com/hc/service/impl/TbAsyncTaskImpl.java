@@ -33,7 +33,7 @@ import com.hc.utils.email.SendMail;
 import com.hc.utils.file.FileUtil;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.sendCode.AliyunSMSUtil;
-import com.hc.utils.string.EmailCheck;
+import com.hc.utils.string.FormatCheck;
 
 @Service("tbAsyncTaskImpl")
 public class TbAsyncTaskImpl {
@@ -83,7 +83,7 @@ public class TbAsyncTaskImpl {
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
 	  		String s = it.next();
-	  		if (!EmailCheck.isEmail(s)) {
+	  		if (!FormatCheck.isEmail(s)) {
 	  			it.remove();
 	  			check_err.append(s+",");
 	  		}else {
@@ -124,7 +124,7 @@ public class TbAsyncTaskImpl {
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
 	  		String s = it.next();
-	  		if (!EmailCheck.isMobilePhone(s)) {
+	  		if (!FormatCheck.isMobilePhone(s)) {
 	  			it.remove();
 	  		}else {
 	  			String str = tbUserMapper.getUserIdByPhone(s);
@@ -143,7 +143,6 @@ public class TbAsyncTaskImpl {
 		}
     }
 	
-	
 	//定时任务插入数据
 	@Async
     public void insertEmailTask(TaskInfo info) throws Exception {
@@ -159,7 +158,7 @@ public class TbAsyncTaskImpl {
 		String[] to = new String[] {"280888608@qq.com","ajdhadsad","787822"};
 	  	for (int i = 0; i < to.length; i++) {
 			String string = to[i];
-			if(!EmailCheck.isMobilePhone(string)) {
+			if(!FormatCheck.isMobilePhone(string)) {
 				to[i] = null;
 			}
 		}
