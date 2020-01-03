@@ -13,6 +13,11 @@
 		select
 		<include refid="Base_Column_List" />
 		from tb_emergency_news
+		LIMIT #{limitsTart},#{limitsEnd}
+	</select>
+	
+	<select id="queryEmergencyNewsCount" resultType="java.lang.Integer">
+		select COUNT(1) from tb_emergency_news 
 	</select>
 	
 	 <!-- 添加 应急要闻 -->

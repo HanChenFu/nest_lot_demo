@@ -72,20 +72,20 @@ public class NewsController {
 	
 	//查询首页的工作动态、通知公告、各区动态、应急要闻
 	@RequestMapping("/everyAreaDynamics")
-	public List<?> queryEveryAreaDynamics(@RequestBody(required = false) BasePara para) throws Exception {
+	public ResultData<PageUtilBean> queryEveryAreaDynamics(@RequestBody(required = false) BasePara para) throws Exception {
 		if (para!=null) {
 			String type = para.getType();
 			if(type == null || "".equals(type)) {
-				return tbWorkDynamicsService.queryWorkDynamics();
+				return tbWorkDynamicsService.queryWorkDynamics(para);
 			}else {
 				if(Integer.valueOf(type)==1) {
-					return tbWorkDynamicsService.queryWorkDynamics();
+					return tbWorkDynamicsService.queryWorkDynamics(para);
 				}else if(Integer.valueOf(type)==2) {
-					return tbNoticeService.queryNotice();
+					return tbNoticeService.queryNotice(para);
 				}else if(Integer.valueOf(type)==3) {
-					return tbAreaDynamicsService.queryEveryAreaDynamics();
+					return tbAreaDynamicsService.queryEveryAreaDynamics(para);
 				}else if(Integer.valueOf(type)==4) {
-					return tbEmergencyNewsService.queryEmergencyNews(); 
+					return tbEmergencyNewsService.queryEmergencyNews(para); 
 				}
 			}
 		}

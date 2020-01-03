@@ -13,6 +13,11 @@
 		select
 		<include refid="Base_Column_List" />
 		from tb_work_dynamics
+		LIMIT #{limitsTart},#{limitsEnd}
+	</select>
+	
+	<select id="queryWorkDynamicsCount" resultType="java.lang.Integer">
+		select COUNT(1) from tb_work_dynamics
 	</select>
   
   <!-- 添加 工作动态 -->

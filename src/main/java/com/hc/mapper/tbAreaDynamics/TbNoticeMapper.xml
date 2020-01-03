@@ -13,6 +13,11 @@
 		select
 		<include refid="Base_Column_List" />
 		from tb_notice
+		LIMIT #{limitsTart},#{limitsEnd}
+	</select>
+	
+	<select id="queryNoticeCount" resultType="java.lang.Integer">
+		select COUNT(1) from tb_notice
 	</select>
 	
   <!-- 添加 工通知公告 -->

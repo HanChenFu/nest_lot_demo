@@ -13,17 +13,23 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
+import com.hc.common.result.ResultData;
 import com.hc.common.tools.DownloadImage;
 import com.hc.common.tools.Tools;
 import com.hc.mapper.tbAreaDynamics.TbAreaDynamicsMapper;
 import com.hc.mapper.tbAreaDynamics.TbEmergencyNewsMapper;
 import com.hc.mapper.tbAreaDynamics.TbNoticeMapper;
 import com.hc.mapper.tbAreaDynamics.TbWorkDynamicsMapper;
+import com.hc.para.page_base.BasePara;
+import com.hc.pojo.base.PageUtilBean;
+import com.hc.pojo.callCenter.MailList;
 import com.hc.pojo.entity.TbWorkDynamics;
 import com.hc.service.TbWorkDynamicsService;
 import com.hc.test.GetJson;
 import com.hc.utils.conig.SystemConfigUtil;
+import com.hc.utils.result.ResultUtil;
 
 @Service("tbWorkDynamicsService")
 public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
@@ -45,8 +51,12 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 	
 	
 	@Override
-	public List<TbWorkDynamics> queryWorkDynamics() {
-		return tbWorkDynamicsMapper.queryWorkDynamics();
+	public ResultData<PageUtilBean> queryWorkDynamics(BasePara para) {
+		int totalCount = tbWorkDynamicsMapper.queryWorkDynamicsCount();
+		PageUtilBean pages = new PageUtilBean(para.getPageSize(), totalCount, para.getPage());
+		List<TbWorkDynamics> tbWorkDynamicsList = tbWorkDynamicsMapper.queryWorkDynamics(pages.limitsTart(),pages.limitsEnd());
+		pages.setResults(tbWorkDynamicsList);
+		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}
 	
 	/**

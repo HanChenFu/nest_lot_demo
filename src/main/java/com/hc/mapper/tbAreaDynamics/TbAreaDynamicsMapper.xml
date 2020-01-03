@@ -12,6 +12,11 @@
 		select
 		<include refid="Base_Column_List" />
 		from tb_area_dynamics
+			LIMIT #{limitsTart},#{limitsEnd}
+	</select>
+	
+	<select id="queryEveryAreaDynamicsCount" resultType="java.lang.Integer">
+		select COUNT(1) from tb_area_dynamics
 	</select>
 	
     <!-- 添加 各区动态 -->

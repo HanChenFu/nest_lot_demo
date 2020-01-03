@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.callCenter.StationSettingMapper" >
+	 
+	 <sql id="stationSetting_Column_List">
+	 	station_setting_Id as stationSettingId,seat_number as seatNumber,seat_password as seatPassword,
+	 	ipURL as ipURL,admin_id as adminId,create_Time as createTime,modification_Time as modificationTime,
+	 	create_Time as createTime
+	</sql>
+	 
+	<!-- 添加座机 -->
+	<insert id="insertStationSetting" keyProperty="stationSettingId" useGeneratedKeys="true">
+		
+		INSERT INTO `tb_station_setting` (
+						seat_number,
+						seat_password,
+						ipURL,
+						admin_id,
+						create_Time
+						)
+						VALUES(#{seatNumber},#{seatPassword},#{ipURL},#{adminId},#{createTime})
+	</insert>
+	
+	<!-- 查询座机 -->
+	<select id="getStationSetting" resultType="com.hc.pojo.callCenter.StationSetting">
+		select 
+		ss.station_setting_Id as stationSettingId,ss.seat_number as seatNumber,ss.seat_password as seatPassword,
+		ss.ipURL as ipURL,ss.admin_id as adminId,ss.create_Time as createTime,ss.modification_Time as modificationTime
+		,admin.tb_name as adminName 
+	 	from tb_station_setting ss
+			left join tb_admin admin on ss.admin_id = admin.tb_id
+					order by ss.create_time desc  
+					LIMIT #{limitsTart},#{limitsEnd}
+	</select>
+	
+	<!-- 查询座机总页数 -->
+	<select id="getStationSettingCount" resultType="java.lang.Integer">
+		select 
+			COUNT(1)
+		 	from tb_station_setting ss
+				left join tb_admin admin on ss.admin_id = admin.tb_id 
+	</select>
+	
+	<!-- 查询是否有该数据-->
+	<select id="getStationSettingTrueOrFalse" resultType="java.lang.Integer">
+		select 
+			COUNT(1)
+	 	from tb_station_setting 
+	 	where station_setting_Id = #{stationSettingId}
+	</select>
+	 
+	 <!-- 删除座机 -->
+	<delete id="deleteStationSetting">
+		delete from tb_station_setting
+			where station_setting_Id = #{stationSettingId}
+	</delete>
+	
+	<!--修改 座机 -->
+	<update id="updateStationSetting" parameterType="com.hc.pojo.callCenter.StationSetting">
+		update tb_station_setting   
+				<set>
+			      <if test="seatNumber != null" >
+			        	seat_number =#{seatNumber},
+			      </if>
+			      <if test="seatPassword != null" >
+			      		seat_password =#{seatPassword},
+			      </if>
+			      <if test="ipURL != null" >
+			        	ipURL =#{ipURL},
+			      </if>
+			      <if test="adminId != null" >
+			      		admin_id =#{adminId},
+			      </if>
+			      <if test="modificationTime != null" >
+			        	modification_Time = #{modificationTime}
+			      </if>
+			    </set>
+			WHERE
+				station_setting_Id = #{stationSettingId}
+	</update>
+	 
+  
+</mapper>
