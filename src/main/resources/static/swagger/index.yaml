@@ -54,9 +54,17 @@ paths:
       summary: 新增案件
       produces:
         - application/json
+      consumes:
+        - multipart/form-data
       parameters:
+        - in: file
+          name: files
+          description: 上传的图片流【类型：数组MultipartFile[]】流数组
+          type: array
+          items:
+            type: file
         - in: body
-          name: body
+          name: addCaseReqBean
           description: 请求Body参数
           required: true
           schema:
@@ -82,9 +90,17 @@ paths:
       summary: 修改案件
       produces:
         - application/json
+      consumes:
+        - multipart/form-data
       parameters:
+        - in: file
+          name: files
+          description: 上传的图片流【类型：数组MultipartFile[]】流数组
+          type: array
+          items:
+            type: file
         - in: body
-          name: body
+          name: addCaseReqBean
           description: 请求Body参数
           required: true
           schema:
@@ -314,11 +330,6 @@ definitions:
       tbNumber:
         description: 编号(档案号)
         type: string
-      files:
-        description: 上传的图片流【类型：数组MultipartFile[]】流数组
-        type: array
-        items:
-          type: file
       delImgs:
         description: 需要删除的图片数组【类型：数组String[]】字符串数组
         type: array
@@ -369,11 +380,6 @@ definitions:
       tbNumber:
         description: 编号(档案号)
         type: string
-      files:
-        description: 上传的图片流【类型：数组MultipartFile[]】流数组
-        type: array
-        items:
-          type: file
       tbCaseTypeId:
         description: 案件类型ID	
         type: integer
