@@ -513,6 +513,39 @@ INSERT INTO `tb_work_dynamics` VALUES (1, '维护国家安全是我们共同的�
 
 SET FOREIGN_KEY_CHECKS = 1;
 
+DROP TABLE IF EXISTS `tb_email_task`;
+
+CREATE TABLE `tb_email_task`  (
+  `tb_id` int(11) NOT NULL AUTO_INCREMENT,
+  `target` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '目标用户邮箱',
+  `tb_send_mess_id` int(11) NULL DEFAULT NULL COMMENT '发送内容表id',
+  `appendix_title` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '附件标题',
+  `appendix_path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '发送邮件的附件',
+  `del_time` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+  `create_time` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`tb_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '邮件任务表' ROW_FORMAT = Compact;
+
+
+
+DROP TABLE IF EXISTS `tb_email_timing_task`;
+
+CREATE TABLE `tb_email_timing_task`  (
+  `tb_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tb_admin_id` int(11) NULL DEFAULT NULL,
+  `tb_email_task_id` int(11) NULL DEFAULT NULL,
+  `tb_jobName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务名称',
+  `tb_jobGroup` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务分组',
+  `tb_jobDesc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务描述',
+  `tb_jobStatus` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务状态',
+  `tb_cron` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务表达式',
+  `del_time` timestamp NULL DEFAULT NULL COMMENT '删除时间',
+  `create_time` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`tb_id`) USING BTREE,
+  CONSTRAINT `tb_timing_task_1` FOREIGN KEY (`tb_admin_id`) REFERENCES `tb_admin` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `tb_timing_task_2` FOREIGN KEY (`tb_email_task_id`) REFERENCES `tb_email_task` (`tb_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '邮件定时任务表' ROW_FORMAT = Compact;
+
 
 
 

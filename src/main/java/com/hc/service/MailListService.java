@@ -19,8 +19,4 @@ public interface MailListService {
 
 	ResultBase updateMailList(MailList mailList) throws Exception, CustomException;
 
-
-
-
-
 }

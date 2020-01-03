@@ -22,7 +22,6 @@ import com.hc.common.result.ResultData;
 import com.hc.mapper.tbAreaDynamics.TbCaseMapper;
 import com.hc.mapper.tbAreaDynamics.TbCaseTypeMapper;
 import com.hc.mapper.tbAreaDynamics.TbFilingAreaMapper;
-import com.hc.para.page_base.BasePara;
 import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.entity.TbCase;
 import com.hc.pojo.entity.TbCaseType;
@@ -37,7 +36,6 @@ import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.export.ExportFileUtil;
 import com.hc.utils.file.FileUtil;
 import com.hc.utils.result.ResultUtil;
-
 
 @Service("tbCaseService")
 public class TbCaseServiceImpl implements TbCaseService{

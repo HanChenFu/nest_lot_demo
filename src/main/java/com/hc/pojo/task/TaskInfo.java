@@ -19,6 +19,12 @@ public class TaskInfo {
 	private String cronExpression;
 	
 	private String createTime;
+	
+	private String tbAdminId;
+	private String to; //发送给的用户
+	private String title;
+	private String content;
+	private String appendixTitle;//这边是显示附件标题
 
 	public String getJobName() {
 		return jobName;
@@ -75,4 +81,49 @@ public class TaskInfo {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public String getTbAdminId() {
+		return tbAdminId;
+	}
+
+	public void setTbAdminId(String tbAdminId) {
+		this.tbAdminId = tbAdminId;
+	}
+
+	public String getTo() {
+		return to;
+	}
+
+	public void setTo(String to) {
+		this.to = to;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getAppendixTitle() {
+		return appendixTitle;
+	}
+
+	public void setAppendixTitle(String appendixTitle) {
+		this.appendixTitle = appendixTitle;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
 }

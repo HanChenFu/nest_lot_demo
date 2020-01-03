@@ -55,7 +55,7 @@ public class NewsController {
 	@Autowired 
 	private TbEmergencyNewsService tbEmergencyNewsService; 
 	@Autowired
-	private TbCaseService tbCaseService; 
+	private TbCaseService tbCaseService;
 	@Autowired
 	private TbCaseMapper tbCaseMapper; 
 	

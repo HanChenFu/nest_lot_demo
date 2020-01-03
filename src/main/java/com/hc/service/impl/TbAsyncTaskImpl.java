@@ -4,21 +4,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.hc.common.redis.RedisUtil;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
+import com.hc.mapper.emailTask.TbEmailTaskMapper;
+import com.hc.mapper.emailTimingTask.TbEmailTimingTaskMapper;
 import com.hc.mapper.letter.TbLetterMapper;
 import com.hc.mapper.sendMess.TbSendMessMapper;
 import com.hc.mapper.shortMess.TbShortMessMapper;
 import com.hc.mapper.user.TbUserMapper;
 import com.hc.pojo.email.TbEmail;
+import com.hc.pojo.emailTask.EmailTask;
+import com.hc.pojo.emailTimingTask.TbEmailTimingTask;
 import com.hc.pojo.letter.TbLetter;
 import com.hc.pojo.sendMess.TbSendMess;
 import com.hc.pojo.shortMess.TbShortMess;
 import com.hc.pojo.shortMess.TbShortPara;
+import com.hc.pojo.task.TaskInfo;
 import com.hc.pojo.user.TbUser;
 import com.hc.utils.conig.SystemConfigUtil;
 import com.hc.utils.documentSequence.CreateSequence;
@@ -53,6 +60,12 @@ public class TbAsyncTaskImpl {
 	
 	@Autowired
 	TbShortMessMapper tbShortMessMapper;
+	
+	@Autowired
+	TbEmailTaskMapper tbEmailTaskMapper;
+	
+	@Autowired
+	TbEmailTimingTaskMapper TbEmailTimingTaskMapper;
 	
 	final static String upload_path = SystemConfigUtil.getValue("upload_path");
 	
@@ -130,6 +143,17 @@ public class TbAsyncTaskImpl {
 		}
     }
 	
+	
+	//定时任务插入数据
+	@Async
+    public void insertEmailTask(TaskInfo info) throws Exception {
+	  	TbSendMess t = new TbSendMess(info.getTitle(),info.getContent());
+	  	tbSendMessMapper.insertSelective(t);
+//	  	String target, String tbSendMessId, String appendixTitle, String appendixPath
+	  	EmailTask task = new EmailTask(info.getTo(),String.valueOf(t.getTbId()),"","");
+	  	tbEmailTaskMapper.insertSelective(task);
+	  	TbEmailTimingTaskMapper.insertSelective(new TbEmailTimingTask(info.getTbAdminId(),String.valueOf(task.getTbId()) , info.getJobName(), info.getJobGroup(), info.getJobDescription(), info.getCronExpression()));
+	}
 	
 	public static void main(String[] args) {
 		String[] to = new String[] {"280888608@qq.com","ajdhadsad","787822"};

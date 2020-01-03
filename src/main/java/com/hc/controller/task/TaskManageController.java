@@ -1,5 +1,7 @@
 package com.hc.controller.task;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hc.common.result.ResultBase;
+import com.hc.para.page_base.BasePara;
 import com.hc.pojo.task.TaskInfo;
 import com.hc.service.TaskService;
 
 @Controller
 @RequestMapping("/qy/task/")
+@ResponseBody
 public class TaskManageController {
 	
 	@Autowired(required=false)
@@ -95,6 +99,11 @@ public class TaskManageController {
 			return e.getMessage();
 		}
 		return "成功";
+	}
+	
+	@RequestMapping("/getUserTaskList")
+	public ResultBase getUserTaskList(@RequestBody(required = false) BasePara base, HttpServletRequest request) throws Exception {
+		return taskService.getUserTaskList(base, request);
 	}
 
 }

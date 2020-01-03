@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
@@ -23,18 +25,30 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hc.common.exception.CustomException;
+import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.result.ResultBase;
+import com.hc.mapper.emailTimingTask.TbEmailTimingTaskMapper;
+import com.hc.para.page_base.BasePara;
+import com.hc.pojo.task.TaskData;
 import com.hc.pojo.task.TaskInfo;
 import com.hc.service.TaskService;
+import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.result.ResultUtil;
 
-@Service
+@Service("taskService")
 public class TaskServiceImpl implements TaskService{
 private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	
 	@Autowired(required=false)
 	private Scheduler scheduler;
 	
+	@Autowired
+	private TbAsyncTaskImpl tbAsyncTaskImpl;
+	
+	@Autowired
+	private TbEmailTimingTaskMapper tbEmailTimingTaskMapper;
+		
 	/**
 	 * 所有任务列表
 	 */
@@ -73,14 +87,19 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	/**
 	 * 保存定时任务
 	 * @param info
+	 * @throws Exception 
 	 */
-	@SuppressWarnings("unchecked")
-	public boolean addJob(TaskInfo info) {
-		String jobName = info.getJobName(), 
-			   jobGroup = info.getJobGroup(),
+	@ParamCheck(names = {"cronExpression","to","title","content","tbAdminId"})
+	public boolean addJob(TaskInfo info) throws Exception {
+		String j_name = "com.hc.common.timingTask.MailJob";
+		String g_name = CreateSequence.getTimeMillisSequence();
+		String jobName = j_name, 
+			   jobGroup = g_name,
 			   cronExpression = info.getCronExpression(),
 			   jobDescription = info.getJobDescription(),
 			   createTime = DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss");
+		info.setJobName(j_name);
+		info.setJobGroup(g_name);
 		try {
 			if (checkExists(jobName, jobGroup)) {
 //				logger.info("add job fail, job already exist, jobGroup:{}, jobName:{}", jobGroup, jobName);
@@ -93,6 +112,7 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 			Class<? extends Job> clazz = (Class<? extends Job>)Class.forName(jobName);
 			JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(jobKey).withDescription(jobDescription).build();
 			scheduler.scheduleJob(jobDetail, trigger);
+			tbAsyncTaskImpl.insertEmailTask(info);//这边是异步插入数据库
 			return true;
 		} catch (SchedulerException | ClassNotFoundException e) {
 			logger.error("类名不存在或执行表达式错误,exception:{}",e.getMessage());
@@ -198,6 +218,16 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	public boolean checkExists(String jobName, String jobGroup) throws SchedulerException{
 		TriggerKey triggerKey = TriggerKey.triggerKey(jobName, jobGroup);
 		return scheduler.checkExists(triggerKey);
+	}
+
+	@Override
+	@ParamCheck(names = {"id"})
+	public ResultBase getUserTaskList(BasePara base, HttpServletRequest request) throws Exception, CustomException {
+		List<TaskData> list = tbEmailTimingTaskMapper.getTaskByAdminId(base);
+		if(list==null) {
+			return ResultUtil.getResultQuery("没有数据！");
+		}
+		return ResultUtil.getResultQuery(list, tbEmailTimingTaskMapper.getTaskByAdminIdCount(base));
 	}
 	
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.emailTimingTask.TbEmailTimingTaskMapper" >
+	  
+	<insert id="insertSelective" keyProperty="tbId" useGeneratedKeys="true">
+		INSERT INTO `tb_email_timing_task` (`tb_admin_id`, `tb_email_task_id`, `tb_jobName`, `tb_jobGroup`, `tb_jobDesc`, `tb_jobStatus`, `tb_cron`, `tb_number`, `del_time`, `create_time` )
+		VALUES
+			( #{tbAdminId}, #{tbEmailTaskId}, #{tbJobName}, #{tbJobGroup}, #{tbJobDesc}, #{tbJobStatus}, #{tbCron}, 1, NULL, now() );
+	</insert>
+
+	<select id="getByJobGroup" resultType="com.hc.pojo.task.TaskData">
+	SELECT
+			te.tb_id as tbId,
+			te.tb_admin_id as tbAdminId,
+			te.tb_number as tbNumber,
+			tt.target as target,
+			tt.appendix_title as appendixTitle,
+			tt.appendix_path as appendixPath,
+			ts.tb_title as tbTitle,
+			ts.tb_content  as tbContent
+		FROM
+			tb_email_timing_task te
+			LEFT OUTER JOIN tb_email_task tt ON tt.tb_id = te.tb_email_task_id
+			LEFT OUTER JOIN tb_send_mess ts ON ts.tb_id = tt.tb_send_mess_id 
+		WHERE
+			tb_jobGroup = #{tbJobGroup}
+	</select>
+	
+	<update id="updateNumber" parameterType="java.lang.Integer">
+		UPDATE tb_email_timing_task 
+		SET tb_number = tb_number - 1 
+		WHERE
+			tb_id = #{tbId}
+	</update>
+	
+	<select id="getTaskByAdminId" resultType="com.hc.pojo.task.TaskData">
+		SELECT
+			te.tb_id as tbId,
+			te.tb_admin_id as tbAdminId,
+			te.tb_number as tbNumber,
+			tt.target as target,
+			tt.appendix_title as appendixTitle,
+			tt.appendix_path as appendixPath,
+			ts.tb_title as tbTitle,
+			ts.tb_content  as tbContent,
+			te.tb_cron as cron
+		FROM
+			tb_email_timing_task te
+			LEFT OUTER JOIN tb_email_task tt ON tt.tb_id = te.tb_email_task_id
+			LEFT OUTER JOIN tb_send_mess ts ON ts.tb_id = tt.tb_send_mess_id 
+		WHERE
+			tb_admin_id = #{id}
+		ORDER BY te.create_time DESC
+		<if test="page != null and size != null">
+			LIMIT #{start}, #{size}
+		</if>
+	</select>
+	
+	<select id="getTaskByAdminIdCount" resultType="java.lang.Integer">
+		SELECT
+			COUNT( 1 ) 
+		FROM
+			tb_email_timing_task 
+		WHERE
+			tb_admin_id = #{id}
+	</select>	
+	
+</mapper>
