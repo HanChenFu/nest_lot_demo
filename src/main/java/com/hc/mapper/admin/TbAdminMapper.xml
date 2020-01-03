@@ -25,5 +25,29 @@
 			tb_account = #{tbAccount}
 		AND tb_password = #{tbPassword}
 	</select>
+	<select id="getAdminByTbId" resultType="com.hc.pojo.base.TbAdmin" >
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM
+			tb_admin
+		WHERE
+			tb_id = #{tbId}
+	</select>
+  <update id="updateAdminPassword" parameterType="com.hc.pojo.reqBean.UpdateUserPasswordReqBean">
+		UPDATE tb_admin 
+		<set >
+			<if test="tbName != null" >
+				tb_name = #{tbName},
+			</if>
+			<if test="passwordNew != null" >
+				tb_password = #{passwordNew},
+			</if>
+			<if test="tbEmail != null" >
+				tb_email = #{tbEmail},
+			</if>
+		</set>
+		WHERE
+			tb_id = #{tbId}
+  </update>
   
 </mapper>

@@ -32,7 +32,7 @@ import com.hc.utils.result.ResultUtil;
 @Controller
 @RequestMapping("/index/ceshi")
 @ResponseBody
-public class MultimediaAction {
+public class MultimediaController {
 	@Autowired
 	private TbCaseMapper tbCaseService; 
 	/** 阿里云获取参数 */

@@ -15,8 +15,6 @@ public interface TbCaseMapper {
 			@Param("tbNumber")String tbNumber,@Param("tbAddress")String tbAddress,
 			@Param("tbSize")String tbSize,@Param("tbStar")Integer tbStar);
 	
-	
-	
 	int selectCaseByConditionsCount(@Param("tbCaseTypeId")Integer tbCaseTypeId,@Param("time")String time,
 			@Param("tbNumber")String tbNumber,@Param("tbAddress")String tbAddress,
 			@Param("tbSize")String tbSize,@Param("tbStar")Integer tbStar,Integer tbCaseSaveCategory);

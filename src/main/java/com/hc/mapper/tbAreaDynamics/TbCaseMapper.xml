@@ -233,6 +233,7 @@
 				create_time = #{createTime},
 			</if>
 		</set>
+		where 
 		tb_id = #{tbId}
 	</update>
 	<!-- 根据条件查询案件的总条数  -->

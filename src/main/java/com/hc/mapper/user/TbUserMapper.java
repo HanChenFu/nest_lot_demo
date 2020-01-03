@@ -2,6 +2,7 @@ package com.hc.mapper.user;
 
 import java.util.List;
 
+import com.hc.pojo.reqBean.UpdateUserPasswordReqBean;
 import com.hc.pojo.user.TbUser;
 
 public interface TbUserMapper {
@@ -24,4 +25,8 @@ public interface TbUserMapper {
 	int updateNickNameByPhoneOrEmail(TbUser tbUser);
 	
 	int updateUserById(TbUser tbUser);
+	
+	
+	
+
 }

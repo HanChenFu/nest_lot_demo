@@ -17,6 +17,173 @@ schemes:
   - http
 paths:
 
+  /index/userInfo/updateAdminPassword:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 首页
+      #接口概要
+      summary: 更改密码与邮箱信息
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqUpdateAdminPassword'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/dynamicMessage/addInfo:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 首页
+      #接口概要
+      summary: 增加动态消息
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqDynamicMessageAddInfo'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/dynamicMessage/delInfo:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 首页
+      #接口概要
+      summary: 删除动态消息
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqDynamicMessageDelInfo'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/dynamicMessage/updateInfo:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 首页
+      #接口概要
+      summary: 修改动态消息
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqDynamicMessageUpdateInfo'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/dynamicMessage/getAllInfo:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 首页
+      #接口概要
+      summary: 查询动态消息
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqDynamicMessageGetAllInfo'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResDynamicMessageGetAllInfo'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/dynamicMessage/getOneInfoById:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 首页
+      #接口概要
+      summary: 查询动态消息详情通过ID
+      produces:
+        - application/json
+      parameters:
+        - name: tbId
+          description: 动态消息信息ID
+          in: query
+          type: integer
+          required: true
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResDynamicMessageGetOneInfoById'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
   /index/news/queryAllCaseList:
     post:
      #标签，方便快速过滤出User相关的接口 分组
@@ -313,6 +480,155 @@ definitions:
         msg:
           description: 失败原因
           type: string
+  ReqDynamicMessageDelInfo:
+    type: object
+    properties:
+      listid:
+        description: 动态消息信息Id【id数组】
+        type: array
+        items:
+          type: integer
+  ReqUpdateAdminPassword:
+    type: object
+    properties:
+      tbId:
+        description: 管理员ID
+        type: string
+      tbName:
+        description: 用户名
+        type: string
+      passwordOld:
+        description: 老密码
+        type: string
+      passwordNew:
+        description: 新密码
+        type: string
+      tbEmail:
+        description: 电子邮箱
+        type: string
+  ReqDynamicMessageAddInfo:
+    type: object
+    properties:
+      tbTitle:
+        description: 标题
+        type: string
+      tbType:
+        description: 类型（0：台风，1：天气预报，1：办公室内部信息）
+        type: string
+      releaseTime:
+        description: 内容发布时间
+        type: string
+      tbContent:
+        description: 内容
+        type: string
+  ReqDynamicMessageGetAllInfo:
+    type: object
+    properties:
+      tbType:
+        description: 类型（0：台风，1：天气预报，1：办公室内部信息）不传则查全部
+        type: string
+      pageSize:
+        description: 每页多少条
+        type: integer
+      page:
+        description: 当前页
+        type: integer
+  ResDynamicMessageGetOneInfoById:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResDynamicMessageGetOneInfoById_object'
+  ResDynamicMessageGetOneInfoById_object:
+    type: object
+    properties:
+      tbId:
+        description: 动态消息信息ID
+        type: integer
+      tbTitle:
+        description: 标题
+        type: integer
+      tbType:
+        description: 类型（0：台风，1：天气预报，1：办公室内部信息）
+        type: integer
+      releaseTime:
+        description: 内容发布时间
+        type: integer
+      createTime:
+        description: 创建时间
+        type: integer
+      updateTime:
+        description: 更新时间	
+        type: integer
+      tbContent:
+        description: 内容
+        type: integer
+  ResDynamicMessageGetAllInfo:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResDynamicMessageGetAllInfo_object'
+  ResDynamicMessageGetAllInfo_object:
+    type: object
+    properties:
+      pagesize:
+        description: 每页多少条
+        type: integer
+      pagetotal:
+        description: 总页数
+        type: integer
+      totalCount:
+        description: 总条数
+        type: integer
+      page:
+        description: 当前页
+        type: integer
+      results:
+        description: 动态消息信息集合
+        type: array
+        items:
+          type: object
+          properties:
+            tbId:
+              description: 动态消息信息ID
+              type: integer
+            tbTitle:
+              description: 标题
+              type: string
+            tbType:
+              description: 类型（0：台风，1：天气预报，1：办公室内部信息）
+              type: string
+            releaseTime:
+              description: 内容发布时间
+              type: string
+            createTime:
+              description: 创建时间
+              type: string
+            updateTime:
+              description: 更新时间
+              type: string
+            tbContent:
+              description: 内容
+              type: string
   ReqDeleCase:
     type: object
     properties:
@@ -418,6 +734,24 @@ definitions:
         type: string
       caseTime:
         description: 案件发生时间
+        type: string
+  ReqDynamicMessageUpdateInfo:
+    type: object
+    properties:
+      tbId:
+        description: 动态消息信息Id
+        type: integer
+      tbTitle:
+        description: 标题
+        type: string
+      tbType:
+        description: 类型（0：台风，1：天气预报，1：办公室内部信息）
+        type: string
+      releaseTime:
+        description: 内容发布时间
+        type: string
+      tbContent:
+        description: 内容
         type: string
   ReqQueryAllCaseList:
     type: object

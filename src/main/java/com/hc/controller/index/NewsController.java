@@ -301,7 +301,7 @@ public class NewsController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/updateCase")
-	public ResultBase updateCase(@RequestPart(value = "files", required = false) MultipartFile[] files,@RequestPart("addCaseReqBean")  AddAndUpdateCaseReqBean bean) throws Exception {
+	public ResultBase updateCase(@RequestPart("files") MultipartFile[] files,@RequestPart("addCaseReqBean")  AddAndUpdateCaseReqBean bean) throws Exception {
 		return tbCaseService.updateCase(files,bean);
 	}
 	/**

@@ -17,7 +17,67 @@ schemes:
   - http
 paths:
 
-  /api/util/verifyBankCard:
+  /index/news/ReqVerifyReq:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 案件类
+      #接口概要
+      summary: 根据条件查询所有案件
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: name
+          description: 名字
+          type: string
+        - in: body
+          name: age
+          description: 年龄
+          type: integer
+        - in: body
+          name: bean
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqVerifyReq'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  ReqVerifyReq:
+    type: object
+    properties:
+      tbId:
+        description: 案件ID
+        type: integer
+      tbTitle:
+        description: 标题
+        type: string
+      tbType:
+        description: 类型
+        type: string
+      releaseTime:
+        description: 发布日期
+        type: string
+      createTime:
+        description: 创建日期
+        type: string
+      updateTime:
+        description: 修改日期
+        type: string
+      tbContent:
+        description: 内容
+        type: string
+  /api/util/verifyReq:
     post:
       tags:
         - 工具接口
@@ -34,7 +94,7 @@ paths:
         100:
           description: OK
           schema:
-            $ref: '#/definitions/ResBankCardInfo' 
+            $ref: '#/definitions/ResVerifyReq' 
       #执行出错的处理
         default:
           description: 操作异常

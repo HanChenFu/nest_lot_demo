@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
+import com.hc.pojo.reqBean.UpdateUserPasswordReqBean;
 import com.hc.pojo.user.TbUser;
 public interface TbUserService {
 	/**
@@ -24,4 +25,5 @@ public interface TbUserService {
 	ResultBase updateUserById(TbUser tbUser,HttpServletRequest request) throws Exception,CustomException;
 	
 	ResultBase tokenCheck(HttpServletRequest request) throws Exception,CustomException;
+	
 }

@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.redis.RedisUtil;
 import com.hc.common.result.ResultBase;
 import com.hc.mapper.admin.TbAdminMapper;
 import com.hc.pojo.base.TbAdmin;
+import com.hc.pojo.reqBean.UpdateUserPasswordReqBean;
+import com.hc.pojo.user.TbUser;
 import com.hc.service.TbAdminService;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.result.ResultUtil;
@@ -64,6 +67,27 @@ public class TbAdminServiceImpl implements TbAdminService{
 		return ResultUtil.getResultData("退出登录失败");
 	}
 
+
+	//修改用户密码与邮箱信息
+	@Override
+	public ResultBase updateAdminPassword(UpdateUserPasswordReqBean bean) throws Exception, CustomException {
+		TbAdmin Tbadmin = tbAdminMapper.getAdminByTbId(bean.getTbId());
+		if(Tbadmin==null){
+			return ResultUtil.getResultBase(false, StatusCode.FAIL, "该用户不存在");
+		}else{
+			String oldPassword = MD5Util.MD5(bean.getPasswordOld());
+			if(bean.getPasswordNew()!=null&&Tbadmin.getTbPassword().equals(oldPassword)){
+				int i = tbAdminMapper.updateAdminPassword(bean);
+				if(i>0){
+					return ResultUtil.getResultBase(true, StatusCode.SUCCESS, "操作成功！");
+				}else{
+					return ResultUtil.getResultBase(false, StatusCode.FAIL, "操作失败！");
+				}
+			}else{
+				return ResultUtil.getResultBase(false, StatusCode.FAIL, "密码错误！");
+			}
+		}
+	}
 	
 	
 }
