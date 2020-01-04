@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hc.mapper.letterTask.TbLetterTaskMapper" >
+	
+	<!-- 
+		private int tbId;
+	private String target;//目标值
+	private String tbSendMessId;//发送内容id
+	private String delTime;
+	private String createTime;//创建时间
+	 -->
+	<insert id="insertSelective" keyProperty="tbId" useGeneratedKeys="true">
+	INSERT INTO `tb_letter_task` ( `target`, `tb_send_mess_id`, `del_time`, `create_time` )
+	VALUES
+	( #{target}, #{tbSendMessId}, NULL, now() );
+	</insert>
+		  
+</mapper>

@@ -194,7 +194,6 @@ public class ServiceParamCheck {
 							}
 						}
 					}
-
 					throw new CustomException(StatusCode.PARAM_NULL, name + "参数不能为空");
 				}
 			}

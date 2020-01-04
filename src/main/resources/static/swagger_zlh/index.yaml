@@ -1,0 +1,203 @@
+swagger: '2.0'
+info:
+  #接口标题
+  title: 深圳应急系统
+  #接口文档的描述
+  description: 李燕飞
+  #版本号
+  version: 1.0.0
+
+#认证
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "token"
+    in: "header"
+schemes:
+  - http
+paths:
+
+  /email/task/save:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 定时任务
+      #接口概要
+      summary: 增加定时任务
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqRaskSave'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqRaskSave'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /email/task/getUserTaskList:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 定时任务
+      #接口概要
+      summary: 查询该登陆用户下面的所有task
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqGetRask'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqGetRask'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /email/task/edit:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 定时任务
+      #接口概要
+      summary: 修改定时任务
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqRaskUpdate'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqRaskUpdate'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /email/task/delete:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 定时任务
+      #接口概要
+      summary: 删除定时任务
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqRaskDele'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqRaskDele'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+            
+definitions:
+  R:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 状态码 0：成功  非0：失败
+          format: int32
+        msg:
+          description: 失败原因
+          type: string
+  ReqRaskSave:
+    type: object
+    properties:
+      jobDescription:
+        description: 定时任务的描述
+        default: task测试哦
+        type: string
+      cronExpression:
+        description: 定时任务的时间
+        default: 0 36,37,38,39 * * * ?
+        type: string
+      to:
+        description: 接收者的邮箱
+        default: 280888608@qq.com
+        type: string
+      title:
+        description: 发送邮件的标题
+        default: 标题
+        type: string
+      content:
+        description: 发送邮件的内容
+        default: 上山打老虎
+        type: string
+      tbAdminId:
+        description: 登陆用户的id
+        default: 1
+        type: integer
+  ReqGetRask:
+    type: object
+    properties:
+      id:
+        description: 登陆用户的id
+        default: 1
+        type: string
+  ReqRaskUpdate:
+    type: object
+    properties:
+      jobGroup:
+        description: 定时任务组的名称
+        default: 20200104153422071
+        type: string
+      cronExpression:
+        description: 定时任务组的名称
+        default: 0 39 * * * ?
+        type: string
+      jobName:
+        description: 定时任务组名称
+        default: com.hc.common.timingTask.MailJob
+        type: string
+  ReqRaskDele:
+    type: object
+    properties:
+      jobGroup:
+        description: 定时任务组的名称
+        default: 20200104153420573
+        type: string
+      jobName:
+        description: 工作组的名称(默认：com.hc.common.timingTask.MailJob)
+        default: com.hc.common.timingTask.MailJob
+        type: string

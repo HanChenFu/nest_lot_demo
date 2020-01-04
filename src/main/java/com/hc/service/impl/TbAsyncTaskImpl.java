@@ -15,13 +15,17 @@ import com.hc.mapper.askRecord.TbAskRecordMapper;
 import com.hc.mapper.emailTask.TbEmailTaskMapper;
 import com.hc.mapper.emailTimingTask.TbEmailTimingTaskMapper;
 import com.hc.mapper.letter.TbLetterMapper;
+import com.hc.mapper.letterTask.TbLetterTaskMapper;
+import com.hc.mapper.letterTimingTask.TbLetterTimingTaskMapper;
 import com.hc.mapper.sendMess.TbSendMessMapper;
 import com.hc.mapper.shortMess.TbShortMessMapper;
 import com.hc.mapper.user.TbUserMapper;
+import com.hc.pojo.TbLetterTimingTask.TbLetterTimingTask;
 import com.hc.pojo.email.TbEmail;
 import com.hc.pojo.emailTask.EmailTask;
 import com.hc.pojo.emailTimingTask.TbEmailTimingTask;
 import com.hc.pojo.letter.TbLetter;
+import com.hc.pojo.letterTask.LetterTask;
 import com.hc.pojo.sendMess.TbSendMess;
 import com.hc.pojo.shortMess.TbShortMess;
 import com.hc.pojo.shortMess.TbShortPara;
@@ -66,6 +70,12 @@ public class TbAsyncTaskImpl {
 	
 	@Autowired
 	TbEmailTimingTaskMapper TbEmailTimingTaskMapper;
+	
+	@Autowired
+	TbLetterTimingTaskMapper tbLetterTimingTaskMapper;
+	
+	@Autowired
+	TbLetterTaskMapper tbLetterTaskMapper;
 	
 	final static String upload_path = SystemConfigUtil.getValue("upload_path");
 	
@@ -152,6 +162,30 @@ public class TbAsyncTaskImpl {
 	  	EmailTask task = new EmailTask(info.getTo(),String.valueOf(t.getTbId()),"","");
 	  	tbEmailTaskMapper.insertSelective(task);
 	  	TbEmailTimingTaskMapper.insertSelective(new TbEmailTimingTask(info.getTbAdminId(),String.valueOf(task.getTbId()) , info.getJobName(), info.getJobGroup(), info.getJobDescription(), info.getCronExpression()));
+	}
+	
+	//定时任务插入数据
+	@Async
+    public void insertLetterTask(TaskInfo info) throws Exception {
+	  	TbSendMess t = new TbSendMess(info.getTitle(),info.getContent());
+	  	tbSendMessMapper.insertSelective(t);
+//	  	String target, String tbSendMessId, String appendixTitle, String appendixPath
+	  	LetterTask task = new LetterTask(info.getTo(),String.valueOf(t.getTbId()));
+	  	tbLetterTaskMapper.insertSelective(task);
+	  	tbLetterTimingTaskMapper.insertSelective(new TbLetterTimingTask(info.getTbAdminId(),String.valueOf(task.getTbId()) , info.getJobName(), info.getJobGroup(), info.getJobDescription(), info.getCronExpression()));
+	}
+	
+	//定时任务修改时间
+	@Async
+    public void updateEmailTask(TaskInfo info) throws Exception {
+		TbEmailTimingTaskMapper.updateTaskByjobGroup(info);
+	}
+	
+	
+	//定时任务修改时间
+	@Async
+    public void updateLetterTask(TaskInfo info) throws Exception {
+		tbLetterTimingTaskMapper.updateTaskByjobGroup(info);
 	}
 	
 	public static void main(String[] args) {

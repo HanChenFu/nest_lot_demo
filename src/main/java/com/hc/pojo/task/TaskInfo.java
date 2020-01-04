@@ -19,6 +19,7 @@ public class TaskInfo {
 	private String cronExpression;
 	
 	private String createTime;
+	private String tbNumber;//发送的次数
 	
 	private String tbAdminId;
 	private String to; //发送给的用户
@@ -125,5 +126,14 @@ public class TaskInfo {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public String getTbNumber() {
+		return tbNumber;
+	}
+
+	public void setTbNumber(String tbNumber) {
+		this.tbNumber = tbNumber;
+	}
+	
 	
 }

@@ -15,9 +15,9 @@ import com.hc.pojo.task.TaskInfo;
 import com.hc.service.TaskService;
 
 @Controller
-@RequestMapping("/qy/task/")
+@RequestMapping("/letter/task/")
 @ResponseBody
-public class TaskManageController {
+public class TaskLetterController {
 	
 	@Autowired(required=false)
 	private TaskService taskService;
@@ -26,7 +26,6 @@ public class TaskManageController {
 	 * 任务列表
 	 * @return
 	 */
-	@ResponseBody
 	@RequestMapping(value="list")
 	public ResultBase list(){
 //		Map<String, Object> map = new HashMap<>();
@@ -37,19 +36,18 @@ public class TaskManageController {
 	 * 保存定时任务
 	 * @param info
 	 */
-	@ResponseBody
 	@RequestMapping(value="save")
-	public String save(@RequestBody TaskInfo info){
-		try {
-			if(info.getId() == 0) {
-				taskService.addJob(info);
-			}else{
-				taskService.edit(info);
-			}
-		} catch (Exception e) {
-			return e.getMessage();
-		}
-		return "成功";
+	public ResultBase save(@RequestBody(required = false) TaskInfo info) throws Exception,CustomException{
+		return taskService.addJob(info,1);
+	}
+	
+	/**
+	 * 保存定时任务
+	 * @param info
+	 */
+	@RequestMapping(value="edit")
+	public ResultBase edit(@RequestBody(required = false) TaskInfo info) throws Exception,CustomException{
+		return taskService.edit(info,1);
 	}
 	
 	/**
@@ -57,16 +55,9 @@ public class TaskManageController {
 	 * @param jobName
 	 * @param jobGroup
 	 */
-	@ResponseBody
 	@RequestMapping(value="delete")
-	public String delete(@RequestBody TaskInfo info){
-//	public String delete(@PathVariable String jobName, @PathVariable String jobGroup){
-		try {
-			taskService.delete(info.getJobName(), info.getJobGroup());
-		} catch (Exception e) {
-			return e.getMessage();
-		}
-		return "成功";
+	public ResultBase delete(@RequestBody(required = false) TaskInfo info) throws Exception,CustomException{
+		return taskService.delete(info,1);
 	}
 	
 	/**
@@ -74,7 +65,6 @@ public class TaskManageController {
 	 * @param jobName
 	 * @param jobGroup
 	 */
-	@ResponseBody
 	@RequestMapping(value="pause")
 //	public String pause(@PathVariable String jobName, @PathVariable String jobGroup){
 	public String pause(@RequestBody TaskInfo info){
@@ -104,7 +94,7 @@ public class TaskManageController {
 	
 	@RequestMapping("/getUserTaskList")
 	public ResultBase getUserTaskList(@RequestBody BasePara base, HttpServletRequest request) throws Exception,CustomException {
-		return taskService.getUserTaskList(base, request);
+		return taskService.getUserTaskList(base, request,1);
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.hc.service;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.quartz.SchedulerException;
+
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.para.page_base.BasePara;
@@ -11,11 +13,11 @@ public interface TaskService {
 
 	ResultBase list();
 	
-	boolean addJob(TaskInfo info) throws Exception;
+	ResultBase addJob(TaskInfo info,int type) throws Exception;
 	
-	boolean edit(TaskInfo info);
+	ResultBase edit(TaskInfo info,int type)  throws Exception;
 	
-	boolean delete(String jobName, String jobGroup);
+	ResultBase delete(TaskInfo info,int type) throws Exception;
 	
 	boolean pause(String jobName, String jobGroup);
 	
@@ -23,6 +25,6 @@ public interface TaskService {
 	
 	boolean checkExists(String jobName, String jobGroup) throws SchedulerException;
 	
-	ResultBase getUserTaskList(BasePara base,HttpServletRequest request) throws Exception, CustomException;
+	ResultBase getUserTaskList(BasePara base,HttpServletRequest request,int type) throws Exception, CustomException;
 	
 }

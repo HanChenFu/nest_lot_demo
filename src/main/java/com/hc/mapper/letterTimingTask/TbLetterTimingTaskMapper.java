@@ -1,15 +1,15 @@
-package com.hc.mapper.emailTimingTask;
+package com.hc.mapper.letterTimingTask;
 
 import java.util.List;
 
 import com.hc.para.page_base.BasePara;
-import com.hc.pojo.emailTimingTask.TbEmailTimingTask;
+import com.hc.pojo.TbLetterTimingTask.TbLetterTimingTask;
 import com.hc.pojo.task.TaskData;
 import com.hc.pojo.task.TaskInfo;
 
-public interface TbEmailTimingTaskMapper {
+public interface TbLetterTimingTaskMapper {
 	
-	int insertSelective(TbEmailTimingTask task);
+	int insertSelective(TbLetterTimingTask task);
 	
 	TaskData getByJobGroup(String tbJobGroup);
 	

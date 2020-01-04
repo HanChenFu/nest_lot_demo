@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hc.mapper.emailTimingTask.TbEmailTimingTaskMapper" >
+<mapper namespace="com.hc.mapper.letterTimingTask.TbLetterTimingTaskMapper" >
 	  
 	<insert id="insertSelective" keyProperty="tbId" useGeneratedKeys="true">
-		INSERT INTO `tb_email_timing_task` (`tb_admin_id`, `tb_email_task_id`, `tb_jobName`, `tb_jobGroup`, `tb_jobDesc`, `tb_jobStatus`, `tb_cron`, `tb_number`, `del_time`, `create_time` )
+		INSERT INTO `tb_letter_timing_task` (`tb_admin_id`, `tb_letter_task_id`, `tb_jobName`, `tb_jobGroup`, `tb_jobDesc`, `tb_jobStatus`, `tb_cron`, `tb_number`, `del_time`, `create_time` )
 		VALUES
-			( #{tbAdminId}, #{tbEmailTaskId}, #{tbJobName}, #{tbJobGroup}, #{tbJobDesc}, #{tbJobStatus}, #{tbCron}, 1, NULL, now() );
+			( #{tbAdminId}, #{tbLetterTaskId}, #{tbJobName}, #{tbJobGroup}, #{tbJobDesc}, #{tbJobStatus}, #{tbCron}, 1, NULL, now() );
 	</insert>
 
 	<select id="getByJobGroup" resultType="com.hc.pojo.task.TaskData">
 	SELECT
-			te.tb_id as tbId,
-			te.tb_admin_id as tbAdminId,
-			te.tb_number as tbNumber,
+			tl.tb_id as tbId,
+			tl.tb_admin_id as tbAdminId,
+			tl.tb_number as tbNumber,
 			tt.target as target,
-			tt.appendix_title as appendixTitle,
-			tt.appendix_path as appendixPath,
 			ts.tb_title as tbTitle,
 			ts.tb_content  as tbContent
 		FROM
-			tb_email_timing_task te
-			LEFT OUTER JOIN tb_email_task tt ON tt.tb_id = te.tb_email_task_id
+			tb_letter_timing_task tl
+			LEFT OUTER JOIN tb_letter_task tt ON tt.tb_id = tl.tb_letter_task_id
 			LEFT OUTER JOIN tb_send_mess ts ON ts.tb_id = tt.tb_send_mess_id 
 		WHERE
 			tb_jobGroup = #{tbJobGroup}
 	</select>
 	
 	<update id="updateNumber" parameterType="java.lang.Integer">
-		UPDATE tb_email_timing_task 
+		UPDATE tb_letter_timing_task 
 		SET tb_number = tb_number - 1 
 		WHERE
 			tb_id = #{tbId}
@@ -35,22 +33,20 @@
 	
 	<select id="getTaskByAdminId" resultType="com.hc.pojo.task.TaskData">
 		SELECT
-			te.tb_id as tbId,
-			te.tb_admin_id as tbAdminId,
-			te.tb_number as tbNumber,
+			tl.tb_id as tbId,
+			tl.tb_admin_id as tbAdminId,
+			tl.tb_number as tbNumber,
 			tt.target as target,
-			tt.appendix_title as appendixTitle,
-			tt.appendix_path as appendixPath,
 			ts.tb_title as tbTitle,
 			ts.tb_content  as tbContent,
-			te.tb_cron as cron
+			tl.tb_cron as cron
 		FROM
-			tb_email_timing_task te
-			LEFT OUTER JOIN tb_email_task tt ON tt.tb_id = te.tb_email_task_id
+			tb_letter_timing_task tl
+			LEFT OUTER JOIN tb_letter_task tt ON tt.tb_id = tl.tb_letter_task_id
 			LEFT OUTER JOIN tb_send_mess ts ON ts.tb_id = tt.tb_send_mess_id 
 		WHERE
 			tb_admin_id = #{id}
-		ORDER BY te.create_time DESC
+		ORDER BY tl.create_time DESC
 		<if test="page != null and size != null">
 			LIMIT #{start}, #{size}
 		</if>
@@ -60,7 +56,7 @@
 		SELECT
 			COUNT( 1 ) 
 		FROM
-			tb_email_timing_task 
+			tb_letter_timing_task 
 		WHERE
 			tb_admin_id = #{id}
 	</select>
@@ -72,7 +68,7 @@
 		tb_jobName = ""
 	 -->
 	<update id="updateNumberToZero" parameterType="java.lang.Integer">
-		UPDATE tb_email_timing_task
+		UPDATE tb_letter_timing_task
 		SET tb_number = 0
 		WHERE
 			tb_id = #{tbId}
@@ -82,7 +78,7 @@
 	<delete id="deleAllTask" parameterType="java.lang.String">
 		DELETE 
 		FROM
-			tb_email_timing_task 
+			tb_letter_timing_task 
 		WHERE
 			tb_jobGroup = #{jobGroup}
 	</delete>
@@ -103,12 +99,11 @@
 	 -->
 	
 	<update id="updateTaskByjobGroup" parameterType="com.hc.pojo.task.TaskInfo">
-		UPDATE tb_email_timing_task 
+		UPDATE tb_letter_timing_task 
 		SET tb_cron = #{cronExpression},
 		tb_jobDesc = #{jobDescription}, tb_number = #{tbNumber}
 		WHERE
 			tb_jobGroup = #{jobGroup}
 	</update>
-	
 
 </mapper>
