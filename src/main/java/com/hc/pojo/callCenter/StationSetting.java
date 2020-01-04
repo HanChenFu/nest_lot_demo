@@ -12,6 +12,7 @@ public class StationSetting extends ReqPageBean{
 	private Integer adminId;                 					//经手人
 	private String  createTime;              					//创建时间
 	private String  modificationTime;        					//修改时间
+	private String  adminName;									//经手人名称
 	
 	
 	public Integer getStationSettingId() {
@@ -55,6 +56,12 @@ public class StationSetting extends ReqPageBean{
 	}
 	public void setModificationTime(String modificationTime) {
 		this.modificationTime = modificationTime;
+	}
+	public String getAdminName() {
+		return adminName;
+	}
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
 	}
 	
 }

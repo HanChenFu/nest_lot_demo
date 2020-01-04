@@ -42,7 +42,7 @@ public class StationSettingImpl implements StationSettingService {
 	public ResultData<PageUtilBean> getStationSetting(StationSetting stationSetting) throws Exception,CustomException{
 		int totalCount = stationSettingMapper.getStationSettingCount(stationSetting);
 		PageUtilBean pages = new PageUtilBean(stationSetting.getPageSize(), totalCount, stationSetting.getPage());
-		List<StationSetting> stationSettings = stationSettingMapper.getStationSetting(stationSetting, pages.limitsTart(),pages.limitsEnd());
+		List<StationSetting> stationSettings = stationSettingMapper.getStationSetting(pages.limitsTart(),pages.limitsEnd(),stationSetting.getSeatNumber());
 		pages.setResults(stationSettings);
 		return  ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}

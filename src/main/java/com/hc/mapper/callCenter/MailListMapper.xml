@@ -27,6 +27,14 @@
 		 	admin.tb_name as adminName 
 	 	from tb_mailList mail
 			left join tb_admin admin on mail.admin_id = admin.tb_id
+			<where>
+				<if test="contacts != null"> 
+					 mail.contacts like concat('%',#{contacts},'%') 
+				</if>
+				<if test="phoneNumber != null"> 
+					 and mail.phone_Number like concat('%',#{phoneNumber},'%') 
+				</if>
+			</where> 
 					order by mail.create_time desc
 					LIMIT #{limitsTart},#{limitsEnd}
 	</select>
@@ -37,6 +45,14 @@
 			COUNT(1)
 	 	from tb_mailList mail
 			left join tb_admin admin on mail.admin_id = admin.tb_id
+			<where>
+				<if test="contacts != null"> 
+					 mail.contacts like concat('%',#{contacts},'%') 
+				</if>
+				<if test="phoneNumber != null"> 
+					 and mail.phone_Number like concat('%',#{phoneNumber},'%') 
+				</if>
+			</where> 
 	</select>
 	
 	<!-- 查询是否有该数据-->

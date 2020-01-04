@@ -10,7 +10,7 @@ public interface StationSettingMapper {
 
 	int insertStationSetting(StationSetting stationSetting);
 	
-	List<StationSetting> getStationSetting(StationSetting stationSetting,@Param("limitsTart")Integer limitsTart,@Param("limitsEnd")Integer limitsEnd); 
+	List<StationSetting> getStationSetting(@Param("limitsTart")Integer limitsTart,@Param("limitsEnd")Integer limitsEnd,@Param("seatNumber")String seatNumber); 
 	
 	int updateStationSetting(StationSetting stationSetting);
 	

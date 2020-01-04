@@ -13,7 +13,8 @@ public class MailList extends ReqPageBean{
 	private String  modificationTime;					//修改时间
 	private String  createTime;							//创建时间
 	private String  adminName;							//用户名
-	
+	private Integer limitsTart;							//开始页数
+	private Integer limitsEnd;							//结束页数
 	 
 	public Integer getMailListId() {
 		return mailListId;
@@ -62,6 +63,18 @@ public class MailList extends ReqPageBean{
 	}
 	public void setAdminName(String adminName) {
 		this.adminName = adminName;
+	}
+	public Integer getLimitsTart() {
+		return limitsTart;
+	}
+	public void setLimitsTart(Integer limitsTart) {
+		this.limitsTart = limitsTart;
+	}
+	public Integer getLimitsEnd() {
+		return limitsEnd;
+	}
+	public void setLimitsEnd(Integer limitsEnd) {
+		this.limitsEnd = limitsEnd;
 	}
 	
 }

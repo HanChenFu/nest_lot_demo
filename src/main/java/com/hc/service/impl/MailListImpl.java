@@ -47,7 +47,9 @@ public class MailListImpl implements MailListService {
 	public ResultData<PageUtilBean> getMailList(MailList mailList) throws Exception,CustomException{
 		int totalCount = mailListMapper.getMailListCount(mailList);
 		PageUtilBean pages = new PageUtilBean(mailList.getPageSize(), totalCount, mailList.getPage());
-		List<MailList> mailLists = mailListMapper.getMailList(mailList, pages.limitsTart(),pages.limitsEnd());
+		mailList.setLimitsTart(pages.limitsTart());
+		mailList.setLimitsEnd(pages.limitsEnd());
+		List<MailList> mailLists = mailListMapper.getMailList(mailList);
 		pages.setResults(mailLists);
 		return  ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}

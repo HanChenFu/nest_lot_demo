@@ -45,7 +45,7 @@
 					and tb_state = #{tbState}
 				</if>
 				<if test="tbDuration != null"> 
-					and tb_duration like LIKE concat('%',#{tbDuration},'%')  
+					and tb_duration like concat('%',#{tbDuration},'%')  
 				</if>
 				<if test="callName != null"> 
 					and call_name like concat('%',#{callName},'%')

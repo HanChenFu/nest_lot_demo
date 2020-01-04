@@ -29,8 +29,13 @@
 		,admin.tb_name as adminName 
 	 	from tb_station_setting ss
 			left join tb_admin admin on ss.admin_id = admin.tb_id
-					order by ss.create_time desc  
-					LIMIT #{limitsTart},#{limitsEnd}
+			<where>
+				<if test="seatNumber != null"> 
+					 ss.seat_number like concat('%',#{seatNumber},'%') 
+				</if> 
+			</where> 
+			order by ss.create_time desc  
+			LIMIT #{limitsTart},#{limitsEnd}
 	</select>
 	
 	<!-- 查询座机总页数 -->
@@ -39,6 +44,11 @@
 			COUNT(1)
 		 	from tb_station_setting ss
 				left join tb_admin admin on ss.admin_id = admin.tb_id 
+			 	<where>
+					<if test="seatNumber != null"> 
+						 ss.seat_number like concat('%',#{seatNumber},'%')  
+					</if>
+				</where>
 	</select>
 	
 	<!-- 查询是否有该数据-->

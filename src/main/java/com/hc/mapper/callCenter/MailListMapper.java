@@ -11,7 +11,7 @@ public interface MailListMapper {
 
 	int insertMailList(MailList mailList);
 	
-	List<MailList> getMailList(MailList mailList,@Param("limitsTart")Integer limitsTart,@Param("limitsEnd")Integer limitsEnd); 
+	List<MailList> getMailList(MailList mailList); 
 	
 	int updateMailList(MailList mailList);
 	
