@@ -2,6 +2,8 @@ package com.hc.pojo.entity;
 
 import java.math.BigDecimal;
 
+import com.hc.utils.conig.SystemConfigUtil;
+
 public class TbCase {
 	private int  tbId;
 	private String  tbNumber;//案件标号
@@ -32,6 +34,14 @@ public class TbCase {
 	private String  delTime;
 	private String  createTime;
 	
+	private String[]  tbImagesFomat;
+	
+	public String[] getTbImagesFomat() {
+		return tbImagesFomat;
+	}
+	/*public void setTbImagesFomat(String[] tbImagesFomat) {
+		this.tbImagesFomat = tbImagesFomat;
+	}*/
 	public int getTbCaseSaveCategory() {
 		return tbCaseSaveCategory;
 	}
@@ -121,6 +131,13 @@ public class TbCase {
 	}
 	public void setTbImages(String tbImages) {
 		this.tbImages = tbImages;
+		if(tbImages!=null&&!"".equals(tbImages)){
+			String[] tbImagesUrl = tbImages.split(",");
+			for(String imgs : tbImagesUrl){
+				imgs = SystemConfigUtil.getValue("aliyun_oss_url") + imgs;
+			}
+			this.tbImagesFomat = tbImagesUrl;
+		}
 	}
 	public String getDelTime() {
 		return delTime;

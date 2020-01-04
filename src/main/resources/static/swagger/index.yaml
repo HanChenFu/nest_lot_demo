@@ -513,7 +513,7 @@ definitions:
         description: 标题
         type: string
       tbType:
-        description: 类型（0：台风，1：天气预报，1：办公室内部信息）
+        description: 类型（0：台风，1：天气预报，2：办公室内部信息）
         type: string
       releaseTime:
         description: 内容发布时间
@@ -525,7 +525,7 @@ definitions:
     type: object
     properties:
       tbType:
-        description: 类型（0：台风，1：天气预报，1：办公室内部信息）不传则查全部
+        description: 类型（0：台风，1：天气预报，2：办公室内部信息）不传则查全部
         type: string
       pageSize:
         description: 每页多少条
@@ -558,7 +558,7 @@ definitions:
         description: 标题
         type: integer
       tbType:
-        description: 类型（0：台风，1：天气预报，1：办公室内部信息）
+        description: 类型（0：台风，1：天气预报，2：办公室内部信息）
         type: integer
       releaseTime:
         description: 内容发布时间
@@ -615,7 +615,7 @@ definitions:
               description: 标题
               type: string
             tbType:
-              description: 类型（0：台风，1：天气预报，1：办公室内部信息）
+              description: 类型（0：台风，1：天气预报，2：办公室内部信息）
               type: string
             releaseTime:
               description: 内容发布时间
@@ -745,7 +745,7 @@ definitions:
         description: 标题
         type: string
       tbType:
-        description: 类型（0：台风，1：天气预报，1：办公室内部信息）
+        description: 类型（0：台风，1：天气预报，2：办公室内部信息）
         type: string
       releaseTime:
         description: 内容发布时间
@@ -1017,3 +1017,8 @@ definitions:
             createTime:
               description: 创建时间
               type: string
+            tbImagesFomat:
+              description: 拼接好的图片数组【类型：数组String[]】字符串数组
+              type: array
+              items:
+                type: string

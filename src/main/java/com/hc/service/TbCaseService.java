@@ -20,15 +20,15 @@ import com.hc.pojo.reqBean.QueryAllCaseListReqBean;
 public interface TbCaseService {
 	int queryNumber(int tbCaseTypeId);
 
-	List<TbCase> queryForPage(Integer tbCaseTypeId, String time, String tbNumber, String tbAddress, String tbSize,
+	/*List<TbCase> queryForPage(Integer tbCaseTypeId, String time, String tbNumber, String tbAddress, String tbSize,
 			Integer tbStar);
+	*/
 	
-	
-	ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String tbId,String caseTime,String filedTime,HttpServletRequest request) throws Exception,CustomException;
-	
-	ResultBase deleCase(/*BasePara para,HttpServletRequest request*/Map<String,Object> map) throws Exception,CustomException;
+	/*ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String tbId,String caseTime,String filedTime,HttpServletRequest request) throws Exception,CustomException;
+	*/
 
-
+	//删除案件
+	ResultBase deleCase(Map<String,Object> map) throws Exception,CustomException;
 	//新增案件
 	ResultBase addCase(MultipartFile[] files,AddAndUpdateCaseReqBean bean)throws Exception;
 	//修改案件

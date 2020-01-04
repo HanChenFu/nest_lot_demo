@@ -35,6 +35,7 @@ import com.hc.service.TbCaseService;
 import com.hc.service.TbEmergencyNewsService;
 import com.hc.service.TbNoticeService;
 import com.hc.service.TbWorkDynamicsService;
+import com.hc.utils.aliyunOss.AliyunBean;
 import com.hc.utils.aliyunOss.StsServiceSample;
 import com.hc.utils.date.MyDateUtil;
 import com.hc.utils.documentSequence.CreateSequence;
@@ -110,7 +111,7 @@ public class NewsController {
 	
 	
 	//查询所有案件
-	@RequestMapping("/queryAllCase")
+/*	@RequestMapping("/queryAllCase")
 	public List<TbCase> queryAllCase(@RequestBody(required = false) JSONObject jsonObject, HttpServletRequest request) throws Exception {
 		Integer tbCaseTypeId = jsonObject == null ? null : jsonObject.getInteger("tbCaseTypeId");
 		String  time= jsonObject == null ? null : jsonObject.getString("time");
@@ -119,10 +120,10 @@ public class NewsController {
 		String tbSize=jsonObject == null ? null : jsonObject.getString("tbSize");
 		Integer tbStar=jsonObject == null ? null : jsonObject.getInteger("tbStar");
 		return tbCaseService.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
-	}
+	}*/
 	
 	//查询所有案件
-		@RequestMapping("/queryAllCase2")
+		/*@RequestMapping("/queryAllCase2")
 		public ResultData<Object> queryAllCase2(@RequestBody(required = false) JSONObject jsonObject, HttpServletRequest request) throws Exception {
 			Integer tbCaseTypeId = jsonObject == null ? null : jsonObject.getInteger("tbCaseTypeId");
 			String  time= jsonObject == null ? null : jsonObject.getString("time");
@@ -135,7 +136,7 @@ public class NewsController {
 				return ResultUtil.getResultData(false,StatusCode.ERROR,"没数据",null);
 			}
 			return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",tbCase);
-		}
+		}*/
 	
 	//联网备案（这个接口包含的图片上传我没写）
 		/**
@@ -148,19 +149,14 @@ public class NewsController {
 			tbDesc
 		 * @throws Exception
 		 */
-	@RequestMapping("/insertCase")
+	/*@RequestMapping("/insertCase")
 	public ResultBase insertCase(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String caseTime,String filedTime,HttpServletRequest request) throws Exception {
-		//前端必须要传的参数：tbCaseTypeId  tbFilingAreaId   涉及到后端的外键
-//		String tbNumber=jsonObject.getString("tbNumber");
-        // 文件原始名称
-//		1,1,3,null,2019-12-14 0:0:0,null,1,null
 		System.out.println(file +","+tbCaseTypeId + "," + tbFilingAreaId +"," + tbSize +"," + tbAddress +"," + caseTime + ","+tbDesc +"," + tbStar +","+ filedTime);
 		if(tbCaseTypeId ==null || tbFilingAreaId == null|| tbSize == null|| tbAddress == null|| caseTime == null|| tbDesc == null|| tbStar == null || filedTime == null) {
 			return ResultUtil.getResultBase("caseTime,tbCaseTypeId,tbFilingAreaId,tbSize,tbStar,tbAddress,tbDesc,filedTime参数不能为空");
 		}
 		String path = "";
 		String tbNumber = CreateSequence.getTimeMillisSequence();
-//        String originalFilename = file.getOriginalFilename();
         if (FileUtil.checkPictureFormat(file)) {
         	if(null!=file){
     			StsServiceSample.init();//初始化
@@ -201,24 +197,15 @@ public class NewsController {
         } catch (Exception e) {
             throw e;
         }
-	}
+	}*/
 	
 	//这边是更新案件
-	@RequestMapping("/updateCaseById")
+	/*@RequestMapping("/updateCaseById")
 	public ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,
 			String tbReportAddress, String tbSize, Integer tbStar, String tbAddress, String tbDesc, String tbRemarks,
 			Double tbLongitude, Double tbLatitude, String tbId, String caseTime,String filedTime,HttpServletRequest request) throws Exception {
 		return tbCaseService.updateCaseById(file,tbCaseTypeId,tbFilingAreaId,tbReportAddress,tbSize,tbStar,tbAddress,tbDesc,tbRemarks,tbLongitude,tbLatitude,tbId,caseTime,filedTime,request);
-	}
-	
-	
-	//案号查验     
-	//这个接口  和上面的 查询所有案件共用，  传一个tbNumber就好了
-	//还是调用上面哪个接口 http://localhost:8080//index/news/queryAllCase    
-	//传参：
-	//{
-	//"tbNumber":"DC09875514"
-	// }
+	}*/
 	
 	/**
 	 * 爬虫 (工作动态、通知公告、各区动态、应急要闻) 的数据
@@ -256,7 +243,7 @@ public class NewsController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/addCase")
-	public ResultBase addCase(/*@RequestBody(required = false) AddAndUpdateCaseReqBean bean*/@RequestPart(value = "files", required = false) MultipartFile[] files,
+	public ResultBase addCase(@RequestPart(value = "files", required = false) MultipartFile[] files,
 			@RequestPart("addCaseReqBean") AddAndUpdateCaseReqBean bean) throws Exception {
 		return tbCaseService.addCase(files,bean);
 	}
@@ -365,5 +352,10 @@ public class NewsController {
 	@RequestMapping("/deleteExportCaseFile")
 	public ResultData<Object> deleteExportCaseFile(String tbNumber,int type)throws IOException {
 		return tbCaseService.deleteExportCaseFile(tbNumber,type);
+	}
+	/** 阿里云获取参数 */
+	@RequestMapping("/getAliyun")
+	public AliyunBean getAliyun() {
+		return StsServiceSample.getAliyun();
 	}
 }

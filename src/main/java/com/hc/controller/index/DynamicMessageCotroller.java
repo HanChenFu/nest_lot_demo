@@ -14,6 +14,7 @@ import com.hc.common.result.ResultData;
 import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.entity.TbDynamicMessageInfo;
 import com.hc.pojo.reqBean.DynamicMessageGetInfoReqBean;
+import com.hc.pojo.resBean.ResSevenDaysWeatherBean;
 import com.hc.service.TbDynamicMessageService;
 
 @Controller
@@ -23,7 +24,7 @@ public class DynamicMessageCotroller {
 
 	
 	@Autowired
-	private TbDynamicMessageService TbDynamicMessageService; 
+	private TbDynamicMessageService tbDynamicMessageService; 
 	/**
 	 * 测试东西
 	 * @param tbCaseTypeId 案件类型ID
@@ -59,7 +60,7 @@ public class DynamicMessageCotroller {
 	 */
 	@RequestMapping(value = "/addInfo", method = RequestMethod.POST,produces="application/json")
 	public ResultBase addInfo(@RequestBody TbDynamicMessageInfo bean) throws Exception {
-		return TbDynamicMessageService.addInfo(bean);
+		return tbDynamicMessageService.addInfo(bean);
 	}
 	/**
 	 * 删除动态消息
@@ -77,7 +78,7 @@ public class DynamicMessageCotroller {
 	 */
 	@RequestMapping(value = "/delInfo", method = RequestMethod.POST,produces="application/json")
 	public ResultBase delInfo(@RequestBody(required = false) Map<String,Object> map) throws Exception {
-		return TbDynamicMessageService.delInfo(map);
+		return tbDynamicMessageService.delInfo(map);
 	}
 	/**
 	 * 修改动态消息
@@ -95,7 +96,7 @@ public class DynamicMessageCotroller {
 	 */
 	@RequestMapping(value = "/updateInfo", method = RequestMethod.POST,produces="application/json")
 	public ResultBase updateInfo(@RequestBody TbDynamicMessageInfo bean) throws Exception {
-		return TbDynamicMessageService.updateInfo(bean);
+		return tbDynamicMessageService.updateInfo(bean);
 	}
 	/**
 	 * 查询动态消息
@@ -113,7 +114,7 @@ public class DynamicMessageCotroller {
 	 */
 	@RequestMapping(value = "/getAllInfo", method = RequestMethod.POST,produces="application/json")
 	public ResultData<PageUtilBean> getAllInfo(@RequestBody DynamicMessageGetInfoReqBean bean) throws Exception {
-		return TbDynamicMessageService.getAllInfo(bean);
+		return tbDynamicMessageService.getAllInfo(bean);
 	}
 	/**
 	 * 查询动态消息详情通过ID
@@ -131,6 +132,24 @@ public class DynamicMessageCotroller {
 	 */
 	@RequestMapping(value = "/getOneInfoById", method = RequestMethod.POST,produces="application/json")
 	public ResultData<TbDynamicMessageInfo> getOneInfoById(Integer tbId) throws Exception {
-		return TbDynamicMessageService.getOneInfoById(tbId);
+		return tbDynamicMessageService.getOneInfoById(tbId);
+	}
+	/**
+	 * 返回天气预报详情
+	 * @param tbCaseTypeId 案件类型ID
+	 * @param time 时间
+	 * @param tbNumber  编号(档案号)
+	 * @param tbAddress  案件地址
+	 * @param tbSize  事件大小
+	 * @param tbStar  关注星级
+	 * @param tbCaseSaveCategory  案件保存类别（0：联网保存，1：草稿箱保存）
+	 * @param pageSize  每页多少条
+	 * @param page  当前页
+	 * @return ResultData
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getWeatherForecastDetails", method = RequestMethod.POST,produces="application/json")
+	public ResultData<ResSevenDaysWeatherBean> getWeatherForecastDetails() throws Exception {
+		return tbDynamicMessageService.getWeatherForecastDetails();
 	}
 }

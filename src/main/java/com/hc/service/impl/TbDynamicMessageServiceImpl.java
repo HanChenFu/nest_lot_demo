@@ -3,6 +3,9 @@ package com.hc.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +16,10 @@ import com.hc.mapper.tbAreaDynamics.TbDynamicMessageInfoMapper;
 import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.entity.TbDynamicMessageInfo;
 import com.hc.pojo.reqBean.DynamicMessageGetInfoReqBean;
+import com.hc.pojo.resBean.ResOneDayWeatherBean;
+import com.hc.pojo.resBean.ResSevenDaysWeatherBean;
 import com.hc.service.TbDynamicMessageService;
+import com.hc.test.GetJson;
 import com.hc.utils.result.ResultUtil;
 
 
@@ -45,7 +51,7 @@ public class TbDynamicMessageServiceImpl implements TbDynamicMessageService{
 	}
 	//修改动态消息
 	@Override
-	public ResultBase updateInfo(TbDynamicMessageInfo bean) {
+	public ResultBase updateInfo(TbDynamicMessageInfo bean)  throws Exception  {
 		int i = tbDynamicMessageInfoMapper.updateByPrimaryKeySelective(bean);
 		if (i>0) {
 			return ResultUtil.getResultBase(true, StatusCode.SUCCESS,"修改成功！");
@@ -54,7 +60,7 @@ public class TbDynamicMessageServiceImpl implements TbDynamicMessageService{
 	}
 	//查询动态消息
 	@Override
-	public ResultData<PageUtilBean> getAllInfo(DynamicMessageGetInfoReqBean bean) {
+	public ResultData<PageUtilBean> getAllInfo(DynamicMessageGetInfoReqBean bean)  throws Exception {
 		//查询总条数
 		int totalCount = tbDynamicMessageInfoMapper.selectDynamicMessageAllCount(bean.getTbType());
 		PageUtilBean pages = new PageUtilBean(bean.getPageSize(), totalCount, bean.getPage());
@@ -65,7 +71,7 @@ public class TbDynamicMessageServiceImpl implements TbDynamicMessageService{
 	}
 	//查询动态消息详情通过ID
 	@Override
-	public ResultData<TbDynamicMessageInfo> getOneInfoById(Integer tbId) {
+	public ResultData<TbDynamicMessageInfo> getOneInfoById(Integer tbId)  throws Exception {
 		if(null == tbId){
 			return ResultUtil.getResultData(false, StatusCode.FAIL, "id不能为空！", new TbDynamicMessageInfo());
 		}
@@ -75,6 +81,28 @@ public class TbDynamicMessageServiceImpl implements TbDynamicMessageService{
 		}
 		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", messageInfo );
 	}
-	
+	//返回天气预报详情
+	@Override
+	public ResultData<ResSevenDaysWeatherBean> getWeatherForecastDetails() throws Exception {
+		
+		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", new ResSevenDaysWeatherBean());
+	}
+	public static void main(String[] args) throws Exception {
+		String emergencyNewsJsonString = new GetJson().getHttpJson2("http://www.nmc.cn/publish/forecast/AGD/shenzhen.html", 1);
+		org.jsoup.nodes.Document emergencyNewsDocument = Jsoup.parse(emergencyNewsJsonString);
+		Element forecast = ((Element) emergencyNewsDocument).getElementById("forecast");//获取每条路径
+		Elements list_detail = forecast.getElementsByClass("detail");
+		list_detail = list_detail != null ? list_detail : null;
+		for (int i = 0; i < list_detail.size(); i++) {
+			Elements list_tr = list_detail.get(i).getElementsByTag("tr");
+			Elements list_td = list_tr.get(0).getElementsByTag("td");
+			//Elements list_td = list_tr.get(0).getElementsByTag("td");
+			
+			System.out.println(list_tr.get(0).text());
+			System.out.println(list_tr.get(1).text());
+			ResOneDayWeatherBean bean = new ResOneDayWeatherBean();
+			
+		}
+	}
 	
 }

@@ -54,12 +54,11 @@ public class TbCaseServiceImpl implements TbCaseService{
 		return tbCaseMapper.queryNumber(tbCaseTypeId);
 	}
 
-	@Override
+	/*@Override
 	public List<TbCase> queryForPage(Integer tbCaseTypeId, String time, String tbNumber, String tbAddress,
 			String tbSize, Integer tbStar) {
-//		List<TbCase> d = tbCaseMapper.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
 		return tbCaseMapper.queryForPage(tbCaseTypeId, time, tbNumber, tbAddress, tbSize, tbStar);
-	}
+	}*/
 
 	@ParamCheck(names = "tbId")
 	public ResultBase updateCaseById(TbCase tbcase, HttpServletRequest request) throws Exception, CustomException {
@@ -70,7 +69,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 		return ResultUtil.getResultBase("修改失败！");
 	}
 
-	@Override
+/*	@Override
 	public ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,
 			String tbReportAddress, String tbSize, Integer tbStar, String tbAddress, String tbDesc, String tbRemarks,
 			Double tbLongitude, Double tbLatitude, String tbId, String caseTime,String filedTime,HttpServletRequest request)
@@ -81,7 +80,6 @@ public class TbCaseServiceImpl implements TbCaseService{
 		}
 		if (FileUtil.checkPictureFormat(file)) {
 			path = FileUtil.save(file, SystemConfigUtil.getValue("case_pic"));
-//            throw new CustomException(StatusCode.PARAM_ERROR, "只支持jpg,jpeg,png,gif格式的图片！");
         }
         try {
         	//这边先是上传，然后再是进行格式的转换
@@ -131,7 +129,7 @@ public class TbCaseServiceImpl implements TbCaseService{
         } catch (Exception e) {
             throw e;
         }
-	}
+	}*/
 
 	@Override
 	public ResultBase deleCase(Map<String,Object> map) throws Exception, CustomException {
@@ -352,10 +350,10 @@ public class TbCaseServiceImpl implements TbCaseService{
 			for(String img : imgs){
 				boolean flag = true;
 				for(String img2 : bean.getDelImgs()){
-					if(img.equals(img2)){
+					if((SystemConfigUtil.getValue("aliyun_oss_url")+img).equals(img2)){
 						flag = false;
 						//调取阿里云OSS删除【img2】的图片
-						StsServiceSample.delAliyunUrl(SystemConfigUtil.getValue("aliyun_oss_url")+img2);
+						StsServiceSample.delAliyunUrl(img2);
 					}
 				}
 				if(flag){
