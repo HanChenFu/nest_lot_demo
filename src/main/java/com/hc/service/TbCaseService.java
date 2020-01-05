@@ -26,7 +26,6 @@ public interface TbCaseService {
 	
 	/*ResultBase updateCaseById(MultipartFile file, Integer tbCaseTypeId, Integer tbFilingAreaId,String tbReportAddress,String tbSize,Integer tbStar,String tbAddress,String tbDesc,String tbRemarks,Double tbLongitude,Double tbLatitude,String tbId,String caseTime,String filedTime,HttpServletRequest request) throws Exception,CustomException;
 	*/
-
 	//删除案件
 	ResultBase deleCase(Map<String,Object> map) throws Exception,CustomException;
 	//新增案件
