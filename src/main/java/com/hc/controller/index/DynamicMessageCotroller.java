@@ -14,6 +14,7 @@ import com.hc.common.result.ResultData;
 import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.entity.TbDynamicMessageInfo;
 import com.hc.pojo.reqBean.DynamicMessageGetInfoReqBean;
+import com.hc.pojo.resBean.ResGetTyphoonWarningsBean;
 import com.hc.pojo.resBean.ResSevenDaysWeatherBean;
 import com.hc.service.TbDynamicMessageService;
 
@@ -136,20 +137,20 @@ public class DynamicMessageCotroller {
 	}
 	/**
 	 * 返回天气预报详情
-	 * @param tbCaseTypeId 案件类型ID
-	 * @param time 时间
-	 * @param tbNumber  编号(档案号)
-	 * @param tbAddress  案件地址
-	 * @param tbSize  事件大小
-	 * @param tbStar  关注星级
-	 * @param tbCaseSaveCategory  案件保存类别（0：联网保存，1：草稿箱保存）
-	 * @param pageSize  每页多少条
-	 * @param page  当前页
 	 * @return ResultData
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/getWeatherForecastDetails", method = RequestMethod.POST,produces="application/json")
 	public ResultData<ResSevenDaysWeatherBean> getWeatherForecastDetails() throws Exception {
 		return tbDynamicMessageService.getWeatherForecastDetails();
+	}
+	/**
+	 * 返回台风预警详情
+	 * @return ResultData
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/getTyphoonWarning", method = RequestMethod.POST,produces="application/json")
+	public ResultData<ResGetTyphoonWarningsBean> getTyphoonWarning() throws Exception {
+		return tbDynamicMessageService.getTyphoonWarning();
 	}
 }

@@ -184,6 +184,27 @@ paths:
           description: 操作异常
           schema:
             $ref: '#/definitions/R'
+  /index/dynamicMessage/getWeatherForecastDetails:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 首页
+      #接口概要
+      summary: 返回天气预报详情
+      produces:
+        - application/json
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResGetWeatherForecastDetails'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
   /index/news/queryAllCaseList:
     post:
      #标签，方便快速过滤出User相关的接口 分组
@@ -533,6 +554,125 @@ definitions:
       page:
         description: 当前页
         type: integer
+  ResGetWeatherForecastDetails:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      object:
+        description: 结果集
+        $ref: '#/definitions/ResGetWeatherForecastDetails_object'
+  ResGetWeatherForecastDetails_object:
+    type: object
+    properties:
+      beanList:
+        description: 动态消息信息集合
+        type: array
+        items:
+          type: object
+          properties:
+            date:
+              description: 日期
+              type: integer
+            dateName:
+              description: 日期名称例：昨天，今天
+              type: string
+            week:
+              description: 星期
+              type: string
+            wicon:
+              description: 天气现象img左边
+              type: string
+            wicon2:
+              description: 天气现象img右边
+              type: string
+            wdesc:
+              description: 天气现象左边
+              type: string
+            wdesc2:
+              description: 天气现象右边
+              type: string
+            temp:
+              description: 气温左边
+              type: string
+            temp2:
+              description: 气温右边
+              type: string
+            direct:
+              description: 风向左边
+              type: string
+            direct2:
+              description: 风向右边
+              type: string
+            wind:
+              description: 风度左边
+              type: string
+            wind2:
+              description: 风度右边
+              type: string
+            WeatherBean:
+              description: 精细预报
+              $ref: '#/definitions/ResGetWeatherForecastDetails_object_weatherBean'
+  ResGetWeatherForecastDetails_object_weatherBean:
+    type: object
+    properties:
+      forecast:
+        description: 精细预报【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      weatherPhenomenon:
+        description: 天气现象【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      temperature:
+        description: 气温【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      precipitation:
+        description: 降水【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      windSpeed:
+        description: 风速【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      directionOfTheWind:
+        description: 风向【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      airPressure:
+        description: 气压【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      relativeHumidity:
+        description: 相对湿度【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      cloudCover:
+        description: 云量【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
+      visibility:
+        description: 能见度【类型：数组String[]】字符串数组
+        type: array
+        items:
+          type: string
   ResDynamicMessageGetOneInfoById:
     type: object
     properties:

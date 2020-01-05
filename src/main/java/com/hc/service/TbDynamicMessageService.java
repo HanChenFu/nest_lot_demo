@@ -7,6 +7,7 @@ import com.hc.common.result.ResultData;
 import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.entity.TbDynamicMessageInfo;
 import com.hc.pojo.reqBean.DynamicMessageGetInfoReqBean;
+import com.hc.pojo.resBean.ResGetTyphoonWarningsBean;
 import com.hc.pojo.resBean.ResSevenDaysWeatherBean;
 
 public interface TbDynamicMessageService {
@@ -22,4 +23,6 @@ public interface TbDynamicMessageService {
 	ResultData<TbDynamicMessageInfo> getOneInfoById(Integer tbId) throws Exception ;
 	//返回天气预报详情
 	ResultData<ResSevenDaysWeatherBean> getWeatherForecastDetails() throws Exception ;
+	//返回天气预报详情
+	ResultData<ResGetTyphoonWarningsBean> getTyphoonWarning() throws Exception ;
 }

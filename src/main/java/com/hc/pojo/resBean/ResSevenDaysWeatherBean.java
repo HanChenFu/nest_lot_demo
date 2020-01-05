@@ -1,12 +1,17 @@
 package com.hc.pojo.resBean;
 
-public class ResSevenDaysWeatherBean {
-	private ResOneDaysWeatherBean[] oneDaysWeatherBeans = new ResOneDaysWeatherBean[7];
+import java.util.List;
 
-	public ResOneDaysWeatherBean[] getOneDaysWeatherBeans() {
-		return oneDaysWeatherBeans;
+public class ResSevenDaysWeatherBean {
+	private List<ResOneDayWeatherBean> beanList;
+
+	public List<ResOneDayWeatherBean> getBeanList() {
+		return beanList;
 	}
-	public void setOneDaysWeatherBeans(ResOneDaysWeatherBean[] oneDaysWeatherBeans) {
-		this.oneDaysWeatherBeans = oneDaysWeatherBeans;
+
+	public void setBeanList(List<ResOneDayWeatherBean> beanList) {
+		this.beanList = beanList;
 	}
+
+
 }

@@ -4,17 +4,24 @@ public class ResOneDayWeatherBean {
 	private String date;//日期
 	private String dateName;//日期名称
 	private String week;//星期
-	private String wicon;//天气现象img
-	private String wicon2;//天气现象img
-	private String wdesc;//天气现象
-	private String wdesc2;//天气现象
-	private String temp;//气温
-	private String temp2;//气温
-	private String direct;//风向
-	private String direct2;//风向
-	private String wind;//风度
-	private String wind2;//风度
+	private String wicon;//天气现象img左边
+	private String wicon2;//天气现象img右边
+	private String wdesc;//天气现象左边
+	private String wdesc2;//天气现象右边
+	private String temp;//气温左边
+	private String temp2;//气温右边
+	private String direct;//风向左边
+	private String direct2;//风向右边
+	private String wind;//风度左边
+	private String wind2;//风度右边
+	private ResOneDayDetailsWeatherBean WeatherBean;
 	
+	public ResOneDayDetailsWeatherBean getWeatherBean() {
+		return WeatherBean;
+	}
+	public void setWeatherBean(ResOneDayDetailsWeatherBean weatherBean) {
+		WeatherBean = weatherBean;
+	}
 	public String getDateName() {
 		return dateName;
 	}
