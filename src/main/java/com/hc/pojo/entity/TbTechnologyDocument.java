@@ -7,7 +7,7 @@ public class TbTechnologyDocument {
 
     private String tbUrl;
 
-    private Boolean isAvailable;
+    private Boolean flag;
 
     private Date createTime;
 
@@ -27,12 +27,12 @@ public class TbTechnologyDocument {
         this.tbUrl = tbUrl;
     }
 
-    public Boolean getIsAvailable() {
-        return isAvailable;
+    public Boolean getFlag() {
+        return flag;
     }
 
-    public void setIsAvailable(Boolean isAvailable) {
-        this.isAvailable = isAvailable;
+    public void setFlag(Boolean flag) {
+        this.flag = flag;
     }
 
     public Date getCreateTime() {

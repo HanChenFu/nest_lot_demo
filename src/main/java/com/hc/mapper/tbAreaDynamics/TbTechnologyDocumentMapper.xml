@@ -4,11 +4,11 @@
   <resultMap id="BaseResultMap" type="com.hc.pojo.entity.TbTechnologyDocument" >
     <id column="tb_id" property="tbId" jdbcType="INTEGER" />
     <result column="tb_url" property="tbUrl" jdbcType="VARCHAR" />
-    <result column="is_available" property="isAvailable" jdbcType="BIT" />
+    <result column="flag" property="flag" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    tb_id, tb_url, is_available, create_time
+    tb_id, tb_url, flag, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,9 +21,9 @@
     where tb_id = #{tbId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.hc.pojo.entity.TbTechnologyDocument" >
-    insert into tb_technology_document (tb_id, tb_url, is_available, 
+    insert into tb_technology_document (tb_id, tb_url, flag, 
       create_time)
-    values (#{tbId,jdbcType=INTEGER}, #{tbUrl,jdbcType=VARCHAR}, #{isAvailable,jdbcType=BIT}, 
+    values (#{tbId,jdbcType=INTEGER}, #{tbUrl,jdbcType=VARCHAR}, #{flag,jdbcType=BIT}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.hc.pojo.entity.TbTechnologyDocument" >
@@ -35,8 +35,8 @@
       <if test="tbUrl != null" >
         tb_url,
       </if>
-      <if test="isAvailable != null" >
-        is_available,
+      <if test="flag != null" >
+        flag,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -49,8 +49,8 @@
       <if test="tbUrl != null" >
         #{tbUrl,jdbcType=VARCHAR},
       </if>
-      <if test="isAvailable != null" >
-        #{isAvailable,jdbcType=BIT},
+      <if test="flag != null" >
+        #{flag,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -63,8 +63,8 @@
       <if test="tbUrl != null" >
         tb_url = #{tbUrl,jdbcType=VARCHAR},
       </if>
-      <if test="isAvailable != null" >
-        is_available = #{isAvailable,jdbcType=BIT},
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -75,7 +75,7 @@
   <update id="updateByPrimaryKey" parameterType="com.hc.pojo.entity.TbTechnologyDocument" >
     update tb_technology_document
     set tb_url = #{tbUrl,jdbcType=VARCHAR},
-      is_available = #{isAvailable,jdbcType=BIT},
+      flag = #{flag,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where tb_id = #{tbId,jdbcType=INTEGER}
   </update>
@@ -84,7 +84,7 @@
     select 
     <include refid="Base_Column_List" />
     from tb_technology_document
-    where is_available = 0
+    where flag = 0
     order by tb_id desc
     limit 1 
   </select>
