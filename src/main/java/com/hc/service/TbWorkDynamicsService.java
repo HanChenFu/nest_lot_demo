@@ -14,4 +14,6 @@ public interface TbWorkDynamicsService {
 
 	int insertReptileData(TbWorkDynamics tbWorkDynamics) throws Exception, CustomException;
 
+	int insertReptileDataAll(TbWorkDynamics tbWorkDynamics) throws Exception, CustomException;
+
 }

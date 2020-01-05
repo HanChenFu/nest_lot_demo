@@ -46,8 +46,10 @@ public class GetJson {
                 return jsonString;
             }
         } catch (MalformedURLException e) {
+        	System.out.println(url+"**======================**");
             e.printStackTrace();
         } catch (IOException ex) {
+        	System.out.println(url+"***======================***");
             ex.printStackTrace();
         }
         return null;
