@@ -18,6 +18,7 @@ import com.hc.mapper.tbAreaDynamics.TbDynamicMessageInfoMapper;
 import com.hc.pojo.base.PageUtilBean;
 import com.hc.pojo.entity.TbDynamicMessageInfo;
 import com.hc.pojo.reqBean.DynamicMessageGetInfoReqBean;
+import com.hc.pojo.resBean.ResGetOneTyphoonWarningBean;
 import com.hc.pojo.resBean.ResGetTyphoonWarningsBean;
 import com.hc.pojo.resBean.ResOneDayDetailsWeatherBean;
 import com.hc.pojo.resBean.ResOneDayWeatherBean;
@@ -233,7 +234,22 @@ public class TbDynamicMessageServiceImpl implements TbDynamicMessageService{
 	}
 	@Override
 	public ResultData<ResGetTyphoonWarningsBean> getTyphoonWarning() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		ResGetTyphoonWarningsBean bean = new ResGetTyphoonWarningsBean();
+		List<ResGetOneTyphoonWarningBean> beanList = new ArrayList<ResGetOneTyphoonWarningBean>();
+		String emergencyNewsJsonString = new GetJson().getHttpJson2("http://www.nmc.cn/publish/country/warning/typhoon.html", 1);
+		org.jsoup.nodes.Document emergencyNewsDocument = Jsoup.parse(emergencyNewsJsonString);
+		Element mylistcarousel = ((Element) emergencyNewsDocument).getElementById("mylistcarousel");//获取每条路径
+		Elements elements_li = mylistcarousel.getElementsByTag("li");
+		for (int i = 0; i < elements_li.size(); i++) {
+			ResGetOneTyphoonWarningBean typhoonWarning = new ResGetOneTyphoonWarningBean();
+			String timeTitle = elements_li.get(0).getElementsByTag("p").get(0).text();
+			String interfaces = elements_li.get(0).getElementsByTag("p").get(0).attr("data-id");
+			typhoonWarning.setTimeTitle(timeTitle);
+			typhoonWarning.setInterfaces("http://www.nmc.cn/f/rest/getContent?dataId="+interfaces);
+			beanList.add(typhoonWarning);
+		}
+		bean.setListBean(beanList);
+		System.out.println(JSON.toJSONString(bean));
+		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", bean);
 	}
 }

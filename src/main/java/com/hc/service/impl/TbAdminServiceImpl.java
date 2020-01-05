@@ -11,10 +11,11 @@ import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.redis.RedisUtil;
 import com.hc.common.result.ResultBase;
+import com.hc.common.result.ResultData;
 import com.hc.mapper.admin.TbAdminMapper;
 import com.hc.pojo.base.TbAdmin;
 import com.hc.pojo.reqBean.UpdateUserPasswordReqBean;
-import com.hc.pojo.user.TbUser;
+import com.hc.pojo.resBean.ResGetNameAndEmail;
 import com.hc.service.TbAdminService;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.result.ResultUtil;
@@ -87,6 +88,15 @@ public class TbAdminServiceImpl implements TbAdminService{
 				return ResultUtil.getResultBase(false, StatusCode.FAIL, "密码错误！");
 			}
 		}
+	}
+	//查询用户密码与邮箱信息
+	@Override
+	public ResultData<ResGetNameAndEmail> getNameAndEmail(Integer tbId) throws Exception, CustomException {
+		TbAdmin tbadmin = tbAdminMapper.getAdminByTbId(tbId);
+		ResGetNameAndEmail getNameAndEmail = new ResGetNameAndEmail();
+		getNameAndEmail.setTbEmail(tbadmin.getTbEmail());
+		getNameAndEmail.setTbName(tbadmin.getTbName());
+		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", getNameAndEmail);
 	}
 	
 	

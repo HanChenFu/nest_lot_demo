@@ -17,6 +17,33 @@ schemes:
   - http
 paths:
 
+  /index/userInfo/getNameAndEmail:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 首页
+      #接口概要
+      summary: 查询用户密码与邮箱信息
+      produces:
+        - application/json
+      parameters:
+        - name: tbId
+          description: 管理员ID
+          in: query
+          type: integer
+          required: true
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResGetNameAndEmail'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
   /index/userInfo/updateAdminPassword:
     post:
      #标签，方便快速过滤出User相关的接口 分组
@@ -200,6 +227,27 @@ paths:
           #描述返回值
           schema:
             $ref: '#/definitions/ResGetWeatherForecastDetails'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /index/dynamicMessage/getTyphoonWarning:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 首页
+      #接口概要
+      summary: 返回台风预警详情
+      produces:
+        - application/json
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResGetTyphoonWarning'
       #执行出错的处理
         default:
           description: 操作异常
@@ -554,6 +602,60 @@ definitions:
       page:
         description: 当前页
         type: integer
+  ResGetTyphoonWarning:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      data:
+        description: 结果集
+        $ref: '#/definitions/ResGetTyphoonWarning_object'
+  ResGetTyphoonWarning_object:
+    type: object
+    properties:
+      listBean:
+        description: 台风预警信息集合
+        type: array
+        items:
+          type: object
+          properties:
+            interfaces:
+              description: 获取HTML片段详情的接口
+              type: string
+            timeTitle:
+              description: 日期标题
+              type: string
+  ResGetNameAndEmail:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      data:
+        description: 结果集
+        $ref: '#/definitions/ResGetNameAndEmail_object'
+  ResGetNameAndEmail_object:
+    type: object
+    properties:
+      tbName:
+        description: 用户名
+        type: string
+      tbEmail:
+        description: 邮箱
+        type: string
   ResGetWeatherForecastDetails:
     type: object
     properties:
@@ -566,21 +668,21 @@ definitions:
       msg:
         description: 消息
         type: string
-      object:
+      data:
         description: 结果集
         $ref: '#/definitions/ResGetWeatherForecastDetails_object'
   ResGetWeatherForecastDetails_object:
     type: object
     properties:
       beanList:
-        description: 动态消息信息集合
+        description: 天气预报信息集合
         type: array
         items:
           type: object
           properties:
             date:
               description: 日期
-              type: integer
+              type: string
             dateName:
               description: 日期名称例：昨天，今天
               type: string
