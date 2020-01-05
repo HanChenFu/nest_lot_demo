@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,8 +102,8 @@ public class NewsController {
 		int hillFire=tbCaseService.queryNumber(2);
 		int commonCase=tbCaseService.queryNumber(3);
 		int safetyProduction=tbCaseService.queryNumber(4);
-		Map<String,Integer> map=new HashMap<String,Integer>();
-		map.put("crCase", crownCase);
+		Map<String,Integer> map=new LinkedHashMap<String,Integer>();
+		map.put("crownCase", crownCase);
 		map.put("hillFire", hillFire);
 		map.put("commonCase", commonCase);
 		map.put("safetyProduction", safetyProduction);
