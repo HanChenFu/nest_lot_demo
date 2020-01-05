@@ -361,6 +361,11 @@ public class TbCaseServiceImpl implements TbCaseService{
 					path.append(",");
 				}
 			}
+		}else{
+			if(null!=tbCase.getTbImages()&&!"".equals(tbCase.getTbImages())){
+				path.append(tbCase.getTbImages());
+				path.append(",");
+			}
 		}
 		//再增加需要增加的图片
 		if(filsLength!=0){
