@@ -102,7 +102,7 @@ public class NewsController {
 		int commonCase=tbCaseService.queryNumber(3);
 		int safetyProduction=tbCaseService.queryNumber(4);
 		Map<String,Integer> map=new HashMap<String,Integer>();
-		map.put("crownCase", crownCase);
+		map.put("crCase", crownCase);
 		map.put("hillFire", hillFire);
 		map.put("commonCase", commonCase);
 		map.put("safetyProduction", safetyProduction);
