@@ -57,7 +57,7 @@ public class TaskLetterController {
 	 */
 	@RequestMapping(value="delete")
 	public ResultBase delete(@RequestBody(required = false) TaskInfo info) throws Exception,CustomException{
-		return taskService.delete(info,1);
+		return taskService.delete(info.getJobName(), info.getJobGroup());
 	}
 	
 	/**

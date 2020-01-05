@@ -39,7 +39,9 @@
 			tt.target as target,
 			ts.tb_title as tbTitle,
 			ts.tb_content  as tbContent,
-			tl.tb_cron as cron
+			tl.tb_cron as cron,
+			tl.tb_jobName as jobName,
+			tl.tb_jobGroup as jobGroup
 		FROM
 			tb_letter_timing_task tl
 			LEFT OUTER JOIN tb_letter_task tt ON tt.tb_id = tl.tb_letter_task_id
@@ -83,25 +85,19 @@
 			tb_jobGroup = #{jobGroup}
 	</delete>
 	
-	<!-- 
-	private int id;
-	private String jobName;
-	private String jobGroup;
-	private String jobDescription;
-	private String jobStatus;
-	private String cronExpression;
-	private String createTime;
-	private String tbAdminId;
-	private String to; //发送给的用户
-	private String title;
-	private String content;
-	private String appendixTitle;//这边是显示附件标题
-	 -->
-	
 	<update id="updateTaskByjobGroup" parameterType="com.hc.pojo.task.TaskInfo">
 		UPDATE tb_letter_timing_task 
-		SET tb_cron = #{cronExpression},
-		tb_jobDesc = #{jobDescription}, tb_number = #{tbNumber}
+		<set >
+			<if test="cronExpression != null" >
+				tb_cron = #{cronExpression},
+			</if>
+			<if test="jobDescription != null" >
+				tb_jobDesc = #{jobDescription},
+			</if>
+			<if test="tbNumber != null" >
+				tb_number = #{tbNumber}
+			</if>
+		</set>
 		WHERE
 			tb_jobGroup = #{jobGroup}
 	</update>

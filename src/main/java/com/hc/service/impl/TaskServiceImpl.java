@@ -191,12 +191,13 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	 * 
 	 * 	/**任务名称*/
 	@ParamCheck(names = {"jobName","jobGroup"})
-	public ResultBase delete(TaskInfo info,int type) throws Exception{
-		String name = info.getJobName();
-		String group = info.getJobGroup();
-		TriggerKey triggerKey = TriggerKey.triggerKey(name,group);
+	public ResultBase delete(String jobName, String jobGroup) throws Exception{
+		if (!"".contentEquals(jobName)&&!"".equals(jobGroup)) {
+			return ResultUtil.getResultBase(false);
+		}
+		TriggerKey triggerKey = TriggerKey.triggerKey(jobName,jobGroup);
         try {
-			if (checkExists(name, group)) {
+			if (checkExists(jobName, jobGroup)) {
 				scheduler.pauseTrigger(triggerKey);
 			    scheduler.unscheduleJob(triggerKey);
 //			    logger.info("delete job, triggerKey:{},jobGroup:{}, jobName:{}", triggerKey ,jobGroup, jobName);

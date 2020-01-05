@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.redis.RedisUtil;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
 import com.hc.mapper.emailTask.TbEmailTaskMapper;
@@ -41,9 +42,6 @@ import com.hc.utils.string.FormatCheck;
 
 @Service("tbAsyncTaskImpl")
 public class TbAsyncTaskImpl {
-	/*
-	 * @Autowired private JavaMailSender mailSender;
-	 */
 	@Autowired
 	RedisUtil redis;
 	
@@ -79,6 +77,7 @@ public class TbAsyncTaskImpl {
 	
 	final static String upload_path = SystemConfigUtil.getValue("upload_path");
 	
+//		@ParamCheck(names = {"to","title","content","tbAdminId"})
 	@Async
     public void sendEmail(TbEmail tbEmail, MultipartFile file) throws Exception {
 	  	TbSendMess t = new TbSendMess(tbEmail.getTitle(),tbEmail.getContent());
@@ -93,10 +92,6 @@ public class TbAsyncTaskImpl {
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
 	  		String s = it.next();
-	  		if (!FormatCheck.isEmail(s)) {
-	  			it.remove();
-	  			check_err.append(s+",");
-	  		}else {
 	  			String str = tbUserMapper.getUserIdByEmail(s);
 	  			if(str==null) {
 	  				TbUser tb = new TbUser(s);
@@ -110,7 +105,6 @@ public class TbAsyncTaskImpl {
 	  				letter.setAppendixPath(path);
 				}
 	  			tbLetterMapper.insertSelective(letter);
-	  		}
 	  	}
         if(list.size()!=0) {
         	for (int i = 0; i < list.size(); i++) {
@@ -134,18 +128,14 @@ public class TbAsyncTaskImpl {
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
 	  		String s = it.next();
-	  		if (!FormatCheck.isMobilePhone(s)) {
-	  			it.remove();
-	  		}else {
-	  			String str = tbUserMapper.getUserIdByPhone(s);
-	  			if(str==null) {
-	  				TbUser tb = new TbUser(s,1);
-	  				tbUserMapper.insertSelective(tb);
-	  				str = tb.getTbId();
-	  			}
-	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			tbShortMessMapper.insertSelective(new TbShortMess(shortPara.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2"));
-	  		}
+  			String str = tbUserMapper.getUserIdByPhone(s);
+  			if(str==null) {
+  				TbUser tb = new TbUser(s,1);
+  				tbUserMapper.insertSelective(tb);
+  				str = tb.getTbId();
+  			}
+  			int auto_id = t.getTbId() == 0?null:t.getTbId();
+  			tbShortMessMapper.insertSelective(new TbShortMess(shortPara.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2"));
 	  	}
 	  	String content = shortPara.getContent();
 	  	for (int i = 0; i < list.size(); i++) {
@@ -153,7 +143,8 @@ public class TbAsyncTaskImpl {
 		}
     }
 	
-	//定时任务插入数据
+	//定时任务插入邮箱数据
+//	@ParamCheck(names = {"cronExpression","to","title","content","tbAdminId"})
 	@Async
     public void insertEmailTask(TaskInfo info) throws Exception {
 	  	TbSendMess t = new TbSendMess(info.getTitle(),info.getContent());
@@ -164,7 +155,7 @@ public class TbAsyncTaskImpl {
 	  	TbEmailTimingTaskMapper.insertSelective(new TbEmailTimingTask(info.getTbAdminId(),String.valueOf(task.getTbId()) , info.getJobName(), info.getJobGroup(), info.getJobDescription(), info.getCronExpression()));
 	}
 	
-	//定时任务插入数据
+	//定时任务插入短信数据
 	@Async
     public void insertLetterTask(TaskInfo info) throws Exception {
 	  	TbSendMess t = new TbSendMess(info.getTitle(),info.getContent());
@@ -180,7 +171,6 @@ public class TbAsyncTaskImpl {
     public void updateEmailTask(TaskInfo info) throws Exception {
 		TbEmailTimingTaskMapper.updateTaskByjobGroup(info);
 	}
-	
 	
 	//定时任务修改时间
 	@Async

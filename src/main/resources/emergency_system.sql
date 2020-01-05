@@ -564,7 +564,6 @@ DROP TABLE IF EXISTS `tb_letter_timing_task`;
 CREATE TABLE `tb_letter_timing_task`  (
   `tb_id` int(11) NOT NULL AUTO_INCREMENT,
   `tb_admin_id` int(11) NULL DEFAULT NULL,
-  `tb_letter_id` int(11) NULL DEFAULT NULL,
   `tb_letter_task_id` int(11) NULL DEFAULT NULL,
   `tb_jobName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务名称',
   `tb_jobGroup` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务分组',

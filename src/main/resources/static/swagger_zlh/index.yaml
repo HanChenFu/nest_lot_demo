@@ -21,7 +21,7 @@ paths:
     post:
      #标签，方便快速过滤出User相关的接口 分组
       tags:
-        - 定时任务
+        - 邮件定时任务
       #接口概要
       summary: 增加定时任务
       produces:
@@ -49,7 +49,7 @@ paths:
     post:
      #标签，方便快速过滤出User相关的接口 分组
       tags:
-        - 定时任务
+        - 邮件定时任务
       #接口概要
       summary: 查询该登陆用户下面的所有task
       produces:
@@ -77,7 +77,7 @@ paths:
     post:
      #标签，方便快速过滤出User相关的接口 分组
       tags:
-        - 定时任务
+        - 邮件定时任务
       #接口概要
       summary: 修改定时任务
       produces:
@@ -105,7 +105,7 @@ paths:
     post:
      #标签，方便快速过滤出User相关的接口 分组
       tags:
-        - 定时任务
+        - 邮件定时任务
       #接口概要
       summary: 删除定时任务
       produces:
@@ -129,7 +129,118 @@ paths:
           description: 操作异常
           schema:
             $ref: '#/definitions/R'
-            
+  /letter/task/save:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 短信定时任务
+      #接口概要
+      summary: 增加短信定时任务
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqRaskLetterSave'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqRaskLetterSave'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /letter/task/getUserTaskList:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 短信定时任务
+      #接口概要
+      summary: 查询短信的定时任务
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqRaskLetterList'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqRaskLetterList'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /letter/task/edit:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 短信定时任务
+      #接口概要
+      summary: 编辑短信的定时任务
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqRaskLetterEdit'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqRaskLetterEdit'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /letter/task/delete:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 短信定时任务
+      #接口概要
+      summary: 删除短信的定时任务
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqRaskLetterDele'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqRaskLetterDele'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
 definitions:
   R:
       type: object
@@ -200,4 +311,64 @@ definitions:
       jobName:
         description: 工作组的名称(默认：com.hc.common.timingTask.MailJob)
         default: com.hc.common.timingTask.MailJob
+        type: string
+  ReqRaskLetterSave:
+    type: object
+    properties:
+      jobDescription:
+        description: 定时任务的描述
+        default: task测试哦
+        type: string
+      cronExpression:
+        description: 定时任务的时间
+        default: 0 36,37,38,39 * * * ?
+        type: string
+      to:
+        description: 接收者的手机号
+        default: 18122711575
+        type: string
+      title:
+        description: 发送短信的标题
+        default: 111
+        type: string
+      content:
+        description: 发送短信的内容
+        default: 222
+        type: string
+      tbAdminId:
+        description: 登陆用户的id
+        default: 1
+        type: integer
+  ReqRaskLetterList:
+    type: object
+    properties:
+      id:
+        description: 登陆用户的id
+        default: 1
+        type: string
+  ReqRaskLetterEdit:
+    type: object
+    properties:
+      jobGroup:
+        description: 定时任务组的名称
+        default: 20200105100822193
+        type: string
+      cronExpression:
+        description: 定时任务的时间
+        default: 0 36,37,38,39 * * * ?
+        type: string
+      jobName:
+        description: 定时任务的名称
+        default: com.hc.common.timingTask.LetterJob
+        type: string
+  ReqRaskLetterDele:
+    type: object
+    properties:
+      jobGroup:
+        description: 定时任务组的名称
+        default: 20200105100822193
+        type: string
+      jobName:
+        description: 定时任务的名称
+        default: com.hc.common.timingTask.LetterJob
         type: string

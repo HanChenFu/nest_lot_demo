@@ -18,56 +18,60 @@ import com.hc.service.TaskService;
 @RequestMapping("/email/task/")
 @ResponseBody
 public class TaskEmailController {
-	
-	@Autowired(required=false)
+
+	@Autowired(required = false)
 	private TaskService taskService;
 
 	/**
 	 * 任务列表
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value="list")
-	public ResultBase list(){
-//		Map<String, Object> map = new HashMap<>();
+	@RequestMapping(value = "list")
+	public ResultBase list() {
 		return taskService.list();
 	}
-	
+
 	/**
 	 * 保存定时任务
+	 * 
 	 * @param info
 	 */
-	@RequestMapping(value="save")
-	public ResultBase save(@RequestBody(required = false) TaskInfo info) throws Exception,CustomException{
-		return taskService.addJob(info,0);
+	@RequestMapping(value = "save")
+	public ResultBase save(@RequestBody(required = false) TaskInfo info) throws Exception, CustomException {
+		return taskService.addJob(info, 0);
 	}
-	
+
 	/**
 	 * 保存定时任务
+	 * 
 	 * @param info
 	 */
-	@RequestMapping(value="edit")
-	public ResultBase edit(@RequestBody(required = false) TaskInfo info) throws Exception,CustomException{
-		return taskService.edit(info,0);
+	@RequestMapping(value = "edit")
+	public ResultBase edit(@RequestBody(required = false) TaskInfo info) throws Exception, CustomException {
+		return taskService.edit(info, 0);
 	}
-	
+
 	/**
 	 * 删除定时任务
+	 * 
 	 * @param jobName
 	 * @param jobGroup
 	 */
-	@RequestMapping(value="delete")
-	public ResultBase delete(@RequestBody(required = false) TaskInfo info) throws Exception,CustomException{
-		return taskService.delete(info,0);
+	@RequestMapping(value = "delete")
+	public ResultBase delete(@RequestBody(required = false) TaskInfo info) throws Exception, CustomException {
+		return taskService.delete(info.getJobName(), info.getJobGroup());
 	}
-	
+
 	/**
 	 * 暂停定时任务
+	 * 
 	 * @param jobName
 	 * @param jobGroup
 	 */
-	@RequestMapping(value="pause")
+	@RequestMapping(value = "pause")
 //	public String pause(@PathVariable String jobName, @PathVariable String jobGroup){
-	public String pause(@RequestBody TaskInfo info){
+	public String pause(@RequestBody TaskInfo info) {
 		try {
 			taskService.pause(info.getJobName(), info.getJobGroup());
 		} catch (Exception e) {
@@ -75,15 +79,16 @@ public class TaskEmailController {
 		}
 		return "成功";
 	}
-	
+
 	/**
 	 * 重新开始定时任务
+	 * 
 	 * @param jobName
 	 * @param jobGroup
 	 */
 	@ResponseBody
-	@RequestMapping(value="resume")
-	public String resume(@RequestBody TaskInfo info){
+	@RequestMapping(value = "resume")
+	public String resume(@RequestBody TaskInfo info) {
 		try {
 			taskService.resume(info.getJobName(), info.getJobGroup());
 		} catch (Exception e) {
@@ -91,10 +96,11 @@ public class TaskEmailController {
 		}
 		return "成功";
 	}
-	
+
 	@RequestMapping("/getUserTaskList")
-	public ResultBase getUserTaskList(@RequestBody BasePara base, HttpServletRequest request) throws Exception,CustomException {
-		return taskService.getUserTaskList(base, request,0);
+	public ResultBase getUserTaskList(@RequestBody BasePara base, HttpServletRequest request)
+			throws Exception, CustomException {
+		return taskService.getUserTaskList(base, request, 0);
 	}
 
 }

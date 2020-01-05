@@ -11,11 +11,15 @@ import org.springframework.stereotype.Component;
 import com.hc.mapper.letterTimingTask.TbLetterTimingTaskMapper;
 import com.hc.pojo.shortMess.TbShortPara;
 import com.hc.pojo.task.TaskData;
+import com.hc.service.TaskService;
 import com.hc.service.impl.TbAsyncTaskImpl;
 
 @Component
 public class LetterJob implements Job{
 	private Logger logger = LoggerFactory.getLogger(LetterJob.class);
+	
+	@Autowired(required = false)
+	private TaskService taskService;
 	
 	@Autowired
 	private TbAsyncTaskImpl tbAsyncTaskImpl;
@@ -26,19 +30,24 @@ public class LetterJob implements Job{
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		try {
-			System.out.println("~~~~~task MailJob run~~~~~");
+			System.out.println("~~~~~task LetterJob run~~~~~");
 			String name = context.getJobDetail().getKey().getName();
 			String group = context.getJobDetail().getKey().getGroup();
 			TaskData task = tbLetterTimingTaskMapper.getByJobGroup(group);
-			String[] to = task.getTarget().split(",");
-			for (int i = 0; i < to.length; i++) {
-				try {
-					tbAsyncTaskImpl.sendSM(new TbShortPara(String.valueOf(task.getTbAdminId()),to[i],task.getTbContent()));
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			if (task.getTbNumber() > 0) {
+				String[] to = task.getTarget().split(",");
+				for (int i = 0; i < to.length; i++) {
+					try {
+						tbAsyncTaskImpl.sendSM(new TbShortPara(String.valueOf(task.getTbAdminId()),to[i],task.getTbContent()));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
+				tbLetterTimingTaskMapper.updateNumber(task.getTbId());
+			}else {
+				taskService.delete(name,group);
 			}
+			
 		} catch (Exception e) {
 			logger.error("LetterJob:"+e);
 		}

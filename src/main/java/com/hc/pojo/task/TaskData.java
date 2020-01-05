@@ -10,6 +10,8 @@ public class TaskData {
 	private String	tbTitle;//标题
 	private String	tbContent;//内容
 	private String cron;//表达式
+	private String jobName;//定时任务名称
+	private String jobGroup;//定时任务组
 	
 	public String getTarget() {
 		return target;
@@ -64,6 +66,18 @@ public class TaskData {
 	}
 	public void setCron(String cron) {
 		this.cron = cron;
+	}
+	public String getJobName() {
+		return jobName;
+	}
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+	public String getJobGroup() {
+		return jobGroup;
+	}
+	public void setJobGroup(String jobGroup) {
+		this.jobGroup = jobGroup;
 	}
 	
 }
