@@ -14,4 +14,7 @@ public interface TbTechnologyDocumentMapper {
     int updateByPrimaryKeySelective(TbTechnologyDocument record);
 
     int updateByPrimaryKey(TbTechnologyDocument record);
+    
+    //获取技术文档
+    TbTechnologyDocument selectNewDocument();
 }

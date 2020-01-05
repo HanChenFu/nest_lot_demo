@@ -79,4 +79,13 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where tb_id = #{tbId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectNewDocument" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_technology_document
+    where is_available = 0
+    order by tb_id desc
+    limit 1 
+  </select>
 </mapper>

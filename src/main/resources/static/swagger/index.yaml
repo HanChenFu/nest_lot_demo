@@ -17,6 +17,27 @@ schemes:
   - http
 paths:
 
+  /technology/document/getUrl:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 技术文档
+      #接口概要
+      summary: 获取技术文档
+      produces:
+        - application/json
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ResGetUrl'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
   /index/userInfo/getNameAndEmail:
     post:
      #标签，方便快速过滤出User相关的接口 分组
@@ -632,6 +653,37 @@ definitions:
             timeTitle:
               description: 日期标题
               type: string
+            title:
+              description: 标题
+              type: string
+            author:
+              description: ·
+              type: string
+            textList:
+              description: 文本集合
+              type: array
+              items:
+                type: string
+            imgList:
+              description: 图片集合
+              type: array
+              items:
+                type: string
+  ResGetUrl:
+    type: object
+    properties:
+      success:
+        description: 成功与否
+        type: boolean
+      msgcode:
+        description: 状态码
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      data:
+        description: url
+        type: string
   ResGetNameAndEmail:
     type: object
     properties:

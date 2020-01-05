@@ -247,6 +247,31 @@ public class TbDynamicMessageServiceImpl implements TbDynamicMessageService{
 			typhoonWarning.setTimeTitle(timeTitle);
 			typhoonWarning.setInterfaces("http://www.nmc.cn/f/rest/getContent?dataId="+interfaces);
 			beanList.add(typhoonWarning);
+			String emergencyNewsJsonString_text = new GetJson().getHttpJson2(typhoonWarning.getInterfaces(), 1);
+			org.jsoup.nodes.Document emergencyNewsDocument_text = Jsoup.parse(emergencyNewsJsonString_text);
+			Elements bean_title = ((Element) emergencyNewsDocument_text).getElementsByClass("title");
+			typhoonWarning.setTitle(bean_title.get(0).text());
+			Elements bean_author = ((Element) emergencyNewsDocument_text).getElementsByClass("author");
+			typhoonWarning.setAuthor(bean_author.get(0).html());
+			Elements bean_writing = ((Element) emergencyNewsDocument_text).getElementsByClass("writing");
+			Elements bean_writing_ps = bean_writing.get(0).getElementsByTag("p");
+			List<String> textList = new ArrayList<String>();
+			for (int j = 0; j < bean_writing_ps.size(); j++) {
+				String text = bean_writing_ps.get(j).html();
+				if(!"".equals(text)){
+					textList.add(text);
+				}
+			}
+			typhoonWarning.setTextList(textList);
+			Elements bean_writing_div = bean_writing.get(0).getElementsByTag("div");
+			List<String> imgList = new ArrayList<String>();
+			for (int k = 0; k < bean_writing_div.size(); k++) {
+				String img = bean_writing_div.get(k).getElementsByTag("img").attr("src");
+				if(!"".equals(img)){
+					imgList.add(img);
+				}
+			}
+			typhoonWarning.setImgList(imgList);
 		}
 		bean.setListBean(beanList);
 		System.out.println(JSON.toJSONString(bean));
