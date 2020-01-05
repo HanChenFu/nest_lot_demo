@@ -252,7 +252,7 @@ public class TbDynamicMessageServiceImpl implements TbDynamicMessageService{
 			Elements bean_title = ((Element) emergencyNewsDocument_text).getElementsByClass("title");
 			typhoonWarning.setTitle(bean_title.get(0).text());
 			Elements bean_author = ((Element) emergencyNewsDocument_text).getElementsByClass("author");
-			typhoonWarning.setAuthor(bean_author.get(0).html());
+			typhoonWarning.setAuthor(bean_author.get(0).text());
 			Elements bean_writing = ((Element) emergencyNewsDocument_text).getElementsByClass("writing");
 			Elements bean_writing_ps = bean_writing.get(0).getElementsByTag("p");
 			List<String> textList = new ArrayList<String>();
