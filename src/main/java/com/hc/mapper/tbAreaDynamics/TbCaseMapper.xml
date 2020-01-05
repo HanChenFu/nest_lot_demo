@@ -20,7 +20,7 @@
 	</select>
 	
   	<select id="queryNumber"   resultType="java.lang.Integer">
-		select count(1) from tb_case where tb_case_type_id=#{tbCaseTypeId}
+		select count(1) from tb_case where tb_case_type_id=#{tbCaseTypeId} and tb_case_save_category=0
 	</select>
 	
 	<select id="queryForPage" resultType="com.hc.pojo.entity.TbCase">

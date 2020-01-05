@@ -133,8 +133,8 @@ public class TbCase {
 		this.tbImages = tbImages;
 		if(tbImages!=null&&!"".equals(tbImages)){
 			String[] tbImagesUrl = tbImages.split(",");
-			for(String imgs : tbImagesUrl){
-				imgs = SystemConfigUtil.getValue("aliyun_oss_url") + imgs;
+			for(int i = 0 ; i<tbImagesUrl.length ; i++){
+				tbImagesUrl[i] = SystemConfigUtil.getValue("aliyun_oss_url") + tbImagesUrl[i];
 			}
 			this.tbImagesFomat = tbImagesUrl;
 		}
