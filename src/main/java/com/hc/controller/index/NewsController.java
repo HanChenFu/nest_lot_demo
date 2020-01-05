@@ -72,22 +72,22 @@ public class NewsController {
 		return res;
 	}
 	
-	//查询首页的工作动态、通知公告、各区动态、应急要闻
+	//查询首页 type ：1=通知公告   2=应急要闻  3=工作动态  4=各区动态
 	@RequestMapping("/everyAreaDynamics")
 	public ResultData<PageUtilBean> queryEveryAreaDynamics(@RequestBody(required = false) BasePara para) throws Exception {
 		if (para!=null) {
 			String type = para.getType();
 			if(type == null || "".equals(type)) {
-				return tbWorkDynamicsService.queryWorkDynamics(para);
+				return tbNoticeService.queryNotice(para);
 			}else {
 				if(Integer.valueOf(type)==1) {
-					return tbWorkDynamicsService.queryWorkDynamics(para);
-				}else if(Integer.valueOf(type)==2) {
 					return tbNoticeService.queryNotice(para);
-				}else if(Integer.valueOf(type)==3) {
-					return tbAreaDynamicsService.queryEveryAreaDynamics(para);
-				}else if(Integer.valueOf(type)==4) {
+				}else if(Integer.valueOf(type)==2) {
 					return tbEmergencyNewsService.queryEmergencyNews(para); 
+				}else if(Integer.valueOf(type)==3) {
+					return tbWorkDynamicsService.queryWorkDynamics(para);
+				}else if(Integer.valueOf(type)==4) {
+					return tbAreaDynamicsService.queryEveryAreaDynamics(para);
 				}
 			}
 		}
@@ -222,6 +222,20 @@ public class NewsController {
 		return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",index);
 	}
 	
+	/**
+	 * 爬分页下面的全部数据 
+	 * 爬虫 (工作动态、通知公告、各区动态、应急要闻) 的数据
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/insertReptileDataAll")
+	public ResultData<Object> insertReptileDataAll() throws Exception {
+		int index = tbWorkDynamicsService.insertReptileDataAll(null);
+		if(index == 0) {
+			return ResultUtil.getResultData(false,StatusCode.ERROR,"没数据",null);
+		}
+		return ResultUtil.getResultData(true,StatusCode.SUCCESS,"操作成功",index);
+	}
 	
 	/**
 	 * 新增案件
