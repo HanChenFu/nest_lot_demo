@@ -3,6 +3,7 @@ package com.hc.service;
 import javax.servlet.http.HttpServletRequest;
 
 import org.quartz.SchedulerException;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
@@ -13,7 +14,7 @@ public interface TaskService {
 
 	ResultBase list();
 	
-	ResultBase addJob(TaskInfo info,int type) throws Exception;
+	ResultBase addJob(TaskInfo info,int type,MultipartFile file) throws Exception;
 	
 	ResultBase edit(TaskInfo info,int type)  throws Exception;
 	

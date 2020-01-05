@@ -47,7 +47,6 @@ public class LetterJob implements Job{
 			}else {
 				taskService.delete(name,group);
 			}
-			
 		} catch (Exception e) {
 			logger.error("LetterJob:"+e);
 		}

@@ -7,7 +7,7 @@ import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
 import com.hc.common.result.ResultQuery;
 
-public class ResultUtil {
+public final class ResultUtil {
 	/**
 	 * 获取基本结果，不需要 数据。
 	 * 

@@ -1,6 +1,7 @@
 package com.hc.utils.email;
 
 import java.util.Properties;
+
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -16,7 +17,7 @@ import javax.mail.internet.MimeMultipart;
 
 import com.hc.utils.conig.SystemConfigUtil;
 
-public class SendMail {
+public final class SendMail {
 	final static String host = SystemConfigUtil.getValue("spring.mail.host");// 你的accessKeySecret，参考本文档步骤2
 	final static String user = SystemConfigUtil.getValue("spring.mail.username");
 	final static String pwd = SystemConfigUtil.getValue("spring.mail.password");

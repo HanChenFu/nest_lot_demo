@@ -34,14 +34,10 @@ public class MailJob implements Job {
 		try {
 			System.out.println("~~~~~task MailJob run~~~~~");
 			TaskData task = tbEmailTimingTaskMapper.getByJobGroup(group);
-			int num = task.getTbNumber();
-			if (num > 0) {
-				String[] to = task.getTarget().split(",");
+			if (task.getTbNumber() > 0) {
 				String title = task.getTbTitle();
 				String content = task.getTbContent();
-				for (int i = 0; i < to.length; i++) {
-					tbAsyncTaskImpl.sendEmail(new TbEmail(String.valueOf(task.getTbAdminId()), to[i], title, content, null), null);
-				}
+				tbAsyncTaskImpl.sendEmailWithPath(new TbEmail(String.valueOf(task.getTbAdminId()), task.getTarget(), title, content, task.getAppendixTitle()), task.getAppendixPath());
 				tbEmailTimingTaskMapper.updateNumber(task.getTbId());// 这边是把执行次数减去一 }else {
 //			  	taskService.delete(name,group); 
 			}else {

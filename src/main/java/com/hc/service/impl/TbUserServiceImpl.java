@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.redis.RedisUtil;
@@ -15,7 +14,6 @@ import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.mapper.user.TbUserMapper;
 import com.hc.pojo.base.TbAdmin;
-import com.hc.pojo.reqBean.UpdateUserPasswordReqBean;
 import com.hc.pojo.user.TbUser;
 import com.hc.service.TbUserService;
 import com.hc.utils.redis.LoginUserUtil;
@@ -34,6 +32,7 @@ public class TbUserServiceImpl implements TbUserService{
 	LoginUserUtil loginUserUtil;
 
 	@Override
+	@ParamCheck(names = {"nickname"})
 	public ResultQuery<TbUser> getUserMessByName(TbUser tbUser, HttpServletRequest request) throws Exception, CustomException {
 		List<TbUser> li = tbUserMapper.getUserMessByName(tbUser);
 		if(li==null) {

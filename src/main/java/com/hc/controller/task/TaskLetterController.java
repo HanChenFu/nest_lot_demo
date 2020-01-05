@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
@@ -37,8 +38,8 @@ public class TaskLetterController {
 	 * @param info
 	 */
 	@RequestMapping(value="save")
-	public ResultBase save(@RequestBody(required = false) TaskInfo info) throws Exception,CustomException{
-		return taskService.addJob(info,1);
+	public ResultBase save(@RequestBody(required = false) TaskInfo info,MultipartFile file) throws Exception,CustomException{
+		return taskService.addJob(info,1,file);
 	}
 	
 	/**

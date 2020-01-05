@@ -7,7 +7,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.http.entity.ContentType;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
@@ -24,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
@@ -36,6 +39,7 @@ import com.hc.pojo.task.TaskData;
 import com.hc.pojo.task.TaskInfo;
 import com.hc.service.TaskService;
 import com.hc.utils.documentSequence.CreateSequence;
+import com.hc.utils.file.FileUtil;
 import com.hc.utils.result.ResultUtil;
 import com.hc.utils.string.FormatCheck;
 
@@ -96,9 +100,10 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	 * @throws Exception 
 	 */
 	@ParamCheck(names = {"cronExpression","to","title","content","tbAdminId"})
-	public ResultBase addJob(TaskInfo info,int type) throws Exception {
+	public ResultBase addJob(TaskInfo info,int type,MultipartFile file) throws Exception {
 		String[] str = info.getTo().split(",");
 		String j_name = "";
+		MultipartFile file2 = null;
 		if(type==0) {
 			j_name = "com.hc.common.timingTask.MailJob";
 			for (int i = 0; i < str.length; i++) {
@@ -113,6 +118,13 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 					return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "手机格式不对!");
 				}
 			}
+		}
+		if(file!=null) {
+			if(!FileUtil.checkEnclosureFormat(file)) {
+				return ResultUtil.getResultBase("附件需为压缩格式!");
+			}
+			byte[] pdfFile = IOUtils.toByteArray(file.getInputStream());
+			file2 = new org.springframework.mock.web.MockMultipartFile("file",file.getOriginalFilename(),ContentType.APPLICATION_OCTET_STREAM.toString(), pdfFile);
 		}
 		String g_name = CreateSequence.getTimeMillisSequence();
 		String jobName = j_name, 
@@ -135,10 +147,11 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 			JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(jobKey).withDescription(jobDescription).build();
 			scheduler.scheduleJob(jobDetail, trigger);
 			if (type==0) {
-				tbAsyncTaskImpl.insertEmailTask(info);//这边是异步插入数据库
+				tbAsyncTaskImpl.insertEmailTask(info,file2);//这边是异步插入数据库
 			}else {
 				tbAsyncTaskImpl.insertLetterTask(info);//这边是异步插入数据库
 			}
+			file = null;
 			return ResultUtil.getResultBase(true);
 		} catch (SchedulerException | ClassNotFoundException e) {
 			logger.error("类名不存在或执行表达式错误,exception:{}",e.getMessage());
@@ -190,9 +203,8 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	 * @param jobGroup
 	 * 
 	 * 	/**任务名称*/
-	@ParamCheck(names = {"jobName","jobGroup"})
 	public ResultBase delete(String jobName, String jobGroup) throws Exception{
-		if (!"".contentEquals(jobName)&&!"".equals(jobGroup)) {
+		if (jobName == null || jobGroup == null || (!"".contentEquals(jobName))||(!"".equals(jobGroup))) {
 			return ResultUtil.getResultBase(false);
 		}
 		TriggerKey triggerKey = TriggerKey.triggerKey(jobName,jobGroup);
