@@ -46,7 +46,7 @@ public class MailJob implements Job {
 		} catch (Exception e) {
 			logger.error("MailJob:" + e);
 		}
-		logger.info("JobName: {}", "MailJob" + name);
+//		logger.info("JobName: {}", "MailJob" + name);
 	}
 
 }

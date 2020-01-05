@@ -288,4 +288,25 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 		}
 	}
 	
+	public boolean simpleAddJob(TaskData taskData) throws Exception {
+		String jobName = taskData.getJobName(), 
+			   jobGroup = taskData.getJobGroup(),
+			   cronExpression = taskData.getCron(),
+			   jobDescription = "task",
+			   createTime = DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss");
+		try {
+			TriggerKey triggerKey = TriggerKey.triggerKey(jobName, jobGroup);
+			JobKey jobKey = JobKey.jobKey(jobName, jobGroup);
+			CronScheduleBuilder schedBuilder = CronScheduleBuilder.cronSchedule(cronExpression).withMisfireHandlingInstructionDoNothing();
+			CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerKey).withDescription(createTime).withSchedule(schedBuilder).build();
+			Class<? extends Job> clazz = (Class<? extends Job>)Class.forName(jobName);
+			JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(jobKey).withDescription(jobDescription).build();
+			scheduler.scheduleJob(jobDetail, trigger);
+			return true;
+		} catch (SchedulerException | ClassNotFoundException e) {
+			logger.error("类名不存在或执行表达式错误,exception:{}",e.getMessage());
+		}
+		return false;
+	}
+	
 }

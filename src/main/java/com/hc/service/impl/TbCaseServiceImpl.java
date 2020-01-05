@@ -307,7 +307,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 			if(null==tbCase){
 				return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "该案件已删除！请刷新");
 			}
-		} 
+		}
 		
 		ResultBase baseBean = ResultUtil.getResultBase(true, StatusCode.SUCCESS, "操作成功！");
 		

@@ -29,10 +29,10 @@ public class LetterJob implements Job{
 	
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
+		String name = context.getJobDetail().getKey().getName();
+		String group = context.getJobDetail().getKey().getGroup();
 		try {
 			System.out.println("~~~~~task LetterJob run~~~~~");
-			String name = context.getJobDetail().getKey().getName();
-			String group = context.getJobDetail().getKey().getGroup();
 			TaskData task = tbLetterTimingTaskMapper.getByJobGroup(group);
 			if (task.getTbNumber() > 0) {
 				String[] to = task.getTarget().split(",");
@@ -50,7 +50,7 @@ public class LetterJob implements Job{
 		} catch (Exception e) {
 			logger.error("LetterJob:"+e);
 		}
-		logger.info("JobName: {}", "LetterJob" + context.getJobDetail().getKey().getName());
+//		logger.info("JobName: {}", "LetterJob" + context.getJobDetail().getKey().getName());
 	}
 	
 }

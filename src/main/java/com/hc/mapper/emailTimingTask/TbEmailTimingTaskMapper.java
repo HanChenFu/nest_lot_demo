@@ -24,4 +24,7 @@ public interface TbEmailTimingTaskMapper {
 	int deleAllTask(String jobGroup);
 	
 	int updateTaskByjobGroup(TaskInfo info);
+	
+	List<TaskData> getAllTask();
+	
 }

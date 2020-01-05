@@ -29,6 +29,7 @@ import com.hc.pojo.letterTask.LetterTask;
 import com.hc.pojo.sendMess.TbSendMess;
 import com.hc.pojo.shortMess.TbShortMess;
 import com.hc.pojo.shortMess.TbShortPara;
+import com.hc.pojo.task.TaskData;
 import com.hc.pojo.task.TaskInfo;
 import com.hc.pojo.user.TbUser;
 import com.hc.utils.conig.SystemConfigUtil;
@@ -46,6 +47,9 @@ public class TbAsyncTaskImpl {
 	
 	@Autowired
 	TbAskRecordMapper tbAskRecordMapper;
+	
+	@Autowired
+	TaskServiceImpl taskServiceImpl;
 	
 	@Autowired
 	LoginUserUtil loginUserUtil;
@@ -73,6 +77,7 @@ public class TbAsyncTaskImpl {
 	
 	@Autowired
 	TbLetterTaskMapper tbLetterTaskMapper;
+	
 	
 	final static String upload_path = SystemConfigUtil.getValue("upload_path");
 	
@@ -104,8 +109,9 @@ public class TbAsyncTaskImpl {
 				}
 	  			tbLetterMapper.insertSelective(letter);
 	  	}
-        if(list.size()!=0) {
-        	for (int i = 0; i < list.size(); i++) {
+	  	int size = list.size();
+        if(size!=0) {
+        	for (int i = 0; i < size; i++) {
 	        	String qq = list.get(i);
 	        	if(!"".equals(path)) {
 	        		SendMail.send(qq, tbEmail.getTitle(), upload_path + path, tbEmail.getAppendixTitle(), tbEmail.getContent());
@@ -213,6 +219,19 @@ public class TbAsyncTaskImpl {
 	@Async
     public void updateLetterTask(TaskInfo info) throws Exception {
 		tbLetterTimingTaskMapper.updateTaskByjobGroup(info);
+	}
+	
+	
+	//把数据库的任务启动之后放到队列里面去
+	@Async
+    public void putTimingTaskToTask() throws Exception {
+		List<TaskData> list = TbEmailTimingTaskMapper.getAllTask();
+		if(list!=null) {
+			int size = list.size();
+			for (int i = 0; i < size; i++) {
+				taskServiceImpl.simpleAddJob(list.get(i));
+			}
+		}
 	}
 	
 	public static void main(String[] args) {

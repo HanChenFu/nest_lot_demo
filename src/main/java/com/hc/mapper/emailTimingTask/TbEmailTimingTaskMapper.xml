@@ -106,5 +106,25 @@
 			tb_jobGroup = #{jobGroup}
 	</update>
 	
+	<!-- 这边是查询所有未完成的任务 -->
+	<select id="getAllTask" resultType="com.hc.pojo.task.TaskData">
+		SELECT
+			te.tb_cron AS cron,
+			te.tb_jobName AS jobName,
+			te.tb_jobGroup AS jobGroup 
+		FROM
+			tb_email_timing_task te
+		WHERE
+			te.tb_number > 0
+		UNION
+		SELECT
+			tl.tb_cron as cron,
+			tl.tb_jobName as jobName,
+			tl.tb_jobGroup as jobGroup
+		FROM
+			tb_letter_timing_task tl
+		WHERE
+			tl.tb_number > 0
+	</select>
 
 </mapper>
