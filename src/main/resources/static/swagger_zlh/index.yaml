@@ -241,6 +241,62 @@ paths:
           description: 操作异常
           schema:
             $ref: '#/definitions/R'
+  /web/letter/updateNameById:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 发送的邮件名用户名修改
+      #接口概要
+      summary: 删除短信的定时任务
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqRaskLetterUpdate'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqRaskLetterUpdate'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /web/sm/updateNameById:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 发送的短信名修改
+      #接口概要
+      summary: 发送的短信名用户名修改
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqRaskSmUpdate'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/ReqRaskSmUpdate'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
 definitions:
   R:
       type: object
@@ -372,3 +428,26 @@ definitions:
         description: 定时任务的名称
         default: com.hc.common.timingTask.LetterJob
         type: string
+  ReqRaskLetterUpdate:
+    type: object
+    properties:
+      tbId:
+        description: 发送邮件的id
+        default: 340
+        type: string
+      name:
+        description: 修改的名字
+        default: aal
+        type: string
+  ReqRaskSmUpdate:
+    type: object
+    properties:
+      tbId:
+        description: 发送短信id
+        default: 38
+        type: string
+      name:
+        description: 修改的名字
+        default: aal
+        type: string
+        

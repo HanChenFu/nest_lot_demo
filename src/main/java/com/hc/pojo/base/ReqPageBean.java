@@ -2,7 +2,7 @@ package com.hc.pojo.base;
 
 public class ReqPageBean {
 
-	private Integer page = 1; // 查询页
+	private Integer page = 1; // 开始页数
 	private Integer pageSize = 10; // 每页条数
 	private Integer start; // 开始条数
 
