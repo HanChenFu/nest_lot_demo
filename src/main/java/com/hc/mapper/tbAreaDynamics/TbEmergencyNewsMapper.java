@@ -14,4 +14,5 @@ public interface TbEmergencyNewsMapper {
 	List<TbEmergencyNews> queryEmergencyNews(@Param("limitsTart")Integer limitsTart,@Param("limitsEnd")Integer limitsEnd);
 	int insertEmergencyNews(TbWorkDynamics tbWorkDynamics);
 	int queryEmergencyNewsCount();
+	int queryEmergencyNewsTbTitle(@Param("tbTitle")String tbTitle);
 }

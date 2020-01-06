@@ -12,4 +12,5 @@ public interface TbWorkDynamicsMapper {
 	List<TbWorkDynamics> queryWorkDynamics(@Param("limitsTart")Integer limitsTart,@Param("limitsEnd")Integer limitsEnd);
 	int insertWorkDynamics(TbWorkDynamics tbWorkDynamics);
 	int queryWorkDynamicsCount();
+	int queryWorkDynamicsTbTitle(@Param("tbTitle")String tbTitle);
 }

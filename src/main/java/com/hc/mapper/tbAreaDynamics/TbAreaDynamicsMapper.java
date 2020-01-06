@@ -14,5 +14,6 @@ public interface TbAreaDynamicsMapper {
 	
 	int insertAreaDynamics(TbWorkDynamics tbWorkDynamics);
 	int queryEveryAreaDynamicsCount();
+	int queryAreaDynamicsTbTitle(@Param("tbTitle")String tbTitle);
 	
 }

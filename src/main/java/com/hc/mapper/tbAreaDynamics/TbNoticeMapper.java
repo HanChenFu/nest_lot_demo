@@ -14,6 +14,7 @@ public interface TbNoticeMapper {
 	List<TbNotice> queryNotice(@Param("limitsTart")Integer limitsTart,@Param("limitsEnd")Integer limitsEnd);
 	int insertNotice(TbWorkDynamics tbWorkDynamics);
 	int queryNoticeCount();
+	int queryNoticeTbTitle(@Param("tbTitle")String tbTitle);
 	
 
 }

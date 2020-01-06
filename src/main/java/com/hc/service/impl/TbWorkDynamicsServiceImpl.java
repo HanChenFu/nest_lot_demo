@@ -87,6 +87,10 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 			wd = solvePageData(dayLineDocument,wd);
 			wd.setCreateTime(Tools.getAPIresponseDateTime());//当前时间
 			wd.setDataTime(hrefAndtimes[1]);//时间
+			int count = tbWorkDynamicsMapper.queryWorkDynamicsTbTitle(wd.getTbTitle());
+			if(count>0) {
+				break;//如果存在就跳出
+			}
 			index = tbWorkDynamicsMapper.insertWorkDynamics(wd);
 			//把图片保存到本地
 			String[] tempImgUrls = wd.getTempImgUrl().split("@img");
@@ -114,6 +118,10 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 			wd = solvePageData(dayLineDocument,wd);
 			wd.setCreateTime(Tools.getAPIresponseDateTime());//当前时间
 			wd.setDataTime(hrefAndtimes[1]);//时间
+			int count = tbNoticeMapper.queryNoticeTbTitle(wd.getTbTitle());
+			if(count>0) {
+				break;//如果存在就跳出
+			}
 			index = tbNoticeMapper.insertNotice(wd);
 			//System.out.println(index+"===========================");
 			if(wd.getTempImgUrl()!=null && !"".equals(wd.getTempImgUrl())) {
@@ -142,6 +150,10 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 			wd = solvePageData(dayLineDocument,wd);
 			wd.setCreateTime(Tools.getAPIresponseDateTime());//当前时间
 			wd.setDataTime(hrefAndtimes[1]);//时间
+			int count = tbAreaDynamicsMapper.queryAreaDynamicsTbTitle(wd.getTbTitle());
+			if(count>0) {
+				break;//如果存在就跳出
+			}
 			index = tbAreaDynamicsMapper.insertAreaDynamics(wd);
 			//System.out.println(index+"===========================");
 			if(wd.getTempImgUrl()!=null && !"".equals(wd.getTempImgUrl())) {
@@ -170,6 +182,10 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 			wd = solvePageData(dayLineDocument,wd);
 			wd.setCreateTime(Tools.getAPIresponseDateTime());//当前时间
 			wd.setDataTime(hrefAndtimes[1]);//时间
+			int count = tbEmergencyNewsMapper.queryEmergencyNewsTbTitle(wd.getTbTitle());
+			if(count>0) {
+				break;//如果存在就跳出
+			}
 			index = tbEmergencyNewsMapper.insertEmergencyNews(wd);
 			//System.out.println(index+"===========================");
 			if(wd.getTempImgUrl()!=null && !"".equals(wd.getTempImgUrl())) {
@@ -271,7 +287,7 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 			}
 			Thread.sleep(1000); //1000 毫秒，也就是1秒.
 		}
-		
+	
 		String everyAreaDynamicsTempURL = everyAreaDynamicsUrl;
 		for (int n = 0; n < 98; n++) {
 			if(n>0) {
@@ -305,6 +321,7 @@ public class TbWorkDynamicsServiceImpl implements TbWorkDynamicsService{
 			} 
 			Thread.sleep(500); //1000 毫秒，也就是1秒.
 		}
+
 
 		//应急要闻
 		String emergencyNewsUrlTempURL = emergencyNewsUrl;

@@ -49,4 +49,9 @@
 		select COUNT(1) from tb_notice
 			where tb_title = #{tbTitle} and data_time = #{dataTime}
 	</select>
+	
+	<select id="queryNoticeTbTitle" resultType="java.lang.Integer" >
+		select COUNT(1) from tb_notice
+			where tb_title = #{tbTitle} 
+	</select>
 </mapper>
