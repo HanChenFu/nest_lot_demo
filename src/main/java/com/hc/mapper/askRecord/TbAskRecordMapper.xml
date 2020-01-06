@@ -52,6 +52,7 @@
 		UPDATE tb_ask_record 
 		SET tb_name = #{tbName},
 		tb_draft = #{tbDraft},
+		tb_number = #{tbNumber},
 		update_time = now()
 		WHERE
 			tb_id = #{tbId}
