@@ -346,6 +346,16 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
+			<!-- 打包成可执行jar,防止中文乱码，必须要下面这一个插件  -->
+            <plugin> 
+                <groupId>org.apache.maven.plugins</groupId> 
+                <artifactId>maven-compiler-plugin</artifactId> 
+                <configuration> 
+                <source>1.8</source> 
+                <target>1.8</target> 
+                <encoding>utf-8</encoding> 
+                </configuration> 
+            </plugin>
 		</plugins>
 
 	</build>
