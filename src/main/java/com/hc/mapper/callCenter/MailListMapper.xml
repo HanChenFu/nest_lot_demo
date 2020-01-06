@@ -18,7 +18,7 @@
 				create_user_id,
 				create_Time
 				)
-				 VALUES (#{contacts},#{phoneNumber},#{mailboxNumber},#{remarks},#{createUserId},#{createTime}});
+				 VALUES (#{contacts},#{phoneNumber},#{mailboxNumber},#{remarks},#{createUserId},#{createTime});
 	</insert>
 	
 	<!-- 查询通讯录 -->

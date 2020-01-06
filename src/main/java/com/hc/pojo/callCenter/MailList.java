@@ -5,7 +5,7 @@ import com.hc.pojo.base.ReqPageBean;
 public class MailList extends ReqPageBean{
 
 	
-	private Integer mailListId;							//通讯录住建
+	private Integer mailListId;							//通讯录主建
 	private String  contacts;							//联系人
 	private String  phoneNumber;						//电话号码
 	private String  mailboxNumber;						//邮箱
