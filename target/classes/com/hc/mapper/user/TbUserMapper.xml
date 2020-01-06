@@ -143,4 +143,32 @@
 			tb_id = #{tbId}
   </update>
   
+	<!-- 这边是根据id查询用户信息 
+	<select id="getUserMessByUserId" resultType="com.hc.pojo.user.TbUser" parameterType="java.lang.Integer">
+	SELECT
+		wpopenid as wpopenid,
+		minopenid as minopenid,
+		phone as phone,
+		tb_email as tbEmail,
+		nickname as nickname,
+		username as username,
+		sex as sex,
+		birthday as birthday,
+		height as height,
+		tb_province_name as tbProvinceName,
+		tb_province_id as tbProvinceId,
+		tb_city_name as tbCityName,
+		tb_city_id as tbCityId,
+		tb_area_name as tbAreaName,
+		tb_area_id as tbAreaId,
+		detailed_address as detailedAddress,
+		head_portrait as headPortrait,
+		create_time as createTime,
+		tb_uuid as tbUuid
+		FROM
+			tb_user 
+		WHERE
+			tb_id = #{tbId}
+	</select>
+  -->
 </mapper>

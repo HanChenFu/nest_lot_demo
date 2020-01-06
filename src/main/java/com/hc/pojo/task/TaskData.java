@@ -13,6 +13,17 @@ public class TaskData {
 	private String jobName;//定时任务名称
 	private String jobGroup;//定时任务组
 	
+	public TaskData() {
+		super();
+	}
+	
+	public TaskData(String cron, String jobName, String jobGroup) {
+		super();
+		this.cron = cron;
+		this.jobName = jobName;
+		this.jobGroup = jobGroup;
+	}
+
 	public String getTarget() {
 		return target;
 	}
