@@ -49,9 +49,9 @@ public class TbAskRecordServiceImpl implements TbAskRecordService{
 	}
 
 	@Override
-	@ParamCheck(names = {"tbAdminId","tbUserId","tbName","tbDraft"})
+	@ParamCheck(names = {"tbAdminId","tbUserId","tbName","tbDraft","tbNumber"})
 	public ResultBase insertSelective(TbAskRecord ask, HttpServletRequest request) throws Exception, CustomException {
-		ask.setTbNumber(CreateSequence.getTimeMillisSequence());
+//		ask.setTbNumber(CreateSequence.getTimeMillisSequence());
 		int size = tbAskRecordMapper.insertSelective(ask);
 		if (size>0) {
 			return ResultUtil.getResultBase("操作成功！");
