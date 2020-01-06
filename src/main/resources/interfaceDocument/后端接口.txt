@@ -656,10 +656,11 @@ createTime:记录的创建时间
 http://localhost:8080//mailList/insertMailList
 需要传参数:
 {
-	"contacts":"老聂",			 						--联系人
+	"contacts":"老聂",			 							--联系人
 	"phoneNumber":"13417708386",		 				--电话号码
+	"mailbox_number":"642462188@qq.com",				--邮箱号
 	"remarks":"中国电信",				 					--备注
-	"adminId":"1"										--经手人 的 id
+	"createUserId":"1"									--经手人 的 id
 }
 返回参数:
 {
@@ -672,16 +673,17 @@ http://localhost:8080//mailList/insertMailList
 http://localhost:8080//mailList/getMailList
 需要传参数:
 	{
-		"contacts":"老",					--联系人(模糊查找)
-		"phoneNumber":"123456",			--电话号码 (模糊查找)
-		"pageSize":"10",				--每页多少条
-		"page":"2" 						--当前页
+		"contacts":"老",									--联系人(模糊查找)
+		"phoneNumber":"123456",							--电话号码 (模糊查找)
+		"mailboxNumber": "642462188@qq.com",			--邮箱号(模糊查找)
+		"pageSize":"10",								--每页多少条
+		"page":"2" 										--当前页
 	}
 返回参数:
 {
     "success": true,									--成功状态码
     "code": 1000,										--成功码
-    "message": "操作成功！",								--操作状态
+    "message": "操作成功！",									--操作状态
     "data": {
         "pagesize": 10,									--每页多少条				
         "pagetotal": 1,									--总页数
@@ -692,9 +694,11 @@ http://localhost:8080//mailList/getMailList
                "mailListId": 8,							--通讯录主建	
                 "contacts": "老聂",						--联系人
                 "phoneNumber": "13417708386",			--电话号码
-                "remarks": "中国电信",					--备注
-                "adminId": 1,							--经手人 的 id
-                "modificationTime": null,				--修改时间	
+                "mailboxNumber": "642462188@qq.com",	--邮箱号
+                "remarks": "中国电信",						--备注
+                "createUserId": 1,						--创建人 的 id
+                "updateUserId": null,					--修改人 id
+                "updateTime": null,						--修改时间	
                 "createTime": "2020-01-02 14:40:42.0",	--添加时间
                 "adminName": "思曼"						--经手人名字
             }
@@ -706,13 +710,14 @@ http://localhost:8080//mailList/getMailList
 http://localhost:8080//mailList/deleteMailList
 需要传参数:
 {
-	"mailListId":"7"									--通讯录主建
+	"mailListId":"7",									--通讯录主建
+	"updateUserId":"1"									--修改人id(也就是经手人)
 }
 返回参数:
 {
     "success": true,									--成功状态码
     "code": 1000,										--成功码
-    "message": "删除成功！"								--操作状态
+    "message": "删除成功！"									--操作状态
 }
 
 
@@ -720,17 +725,18 @@ http://localhost:8080//mailList/deleteMailList
 http://localhost:8080//mailList/updateMailList
 需要传参数:  (如果不需要修改的属性请 (不传/空 /null)
 {
-	"mailListId":"8",									--通讯录主建	
-	"contacts":"老陈",									--联系人
-  	"phoneNumber":"123456", 							--电话号码
-	"remarks":"修改", 									--备注
-  	"adminId":"1"										--经手人 的 id
+	"mailListId":"8",											--通讯录主建	
+	"contacts":"老陈",												--联系人
+  	"phoneNumber":"123456", 									--电话号码
+  	"mailboxNumber":"642462188@qq.com",							--邮箱号
+	"remarks":"修改", 												--备注
+  	"updateUserId":"1"											--修改人id(也就是经手人)
 }
 返回参数:
 {
-    "success": true,									--成功状态码
-    "code": 1000,										--成功码
-    "message": "修改成功！"								--操作状态
+    "success": true,											--成功状态码
+    "code": 1000,												--成功码
+    "message": "修改成功！"											--操作状态
 }
 
 
@@ -741,7 +747,7 @@ http://localhost:8080//stationSetting/insertStationSetting
 	"seatNumber":"803",									--座机号
 	"seatPassword":"654321",							--座机密码
 	"ipURL":"192.168.1.11",								--ip连接路径
-	"adminId":"1"										--经手人的 id
+	"createUserId":"1"									--创建人 的 id
 }
 返回参数:
 {
@@ -755,7 +761,7 @@ http://localhost:8080//stationSetting/insertStationSetting
 http://localhost:8080//stationSetting/getStationSetting
 需要传参数:	(如果条件为空 可以不穿)
 {
-	"seatNumber":"805"												--座机号(可模糊查询)
+	"seatNumber":"805",												--座机号(可模糊查询)
 	"pageSize":"10",												--每页多少条
 	"page":"2" 														--当前页
 }
@@ -764,7 +770,7 @@ http://localhost:8080//stationSetting/getStationSetting
 {
     "success": true,												--成功状态码
     "code": 1000,													--成功码
-    "message": "操作成功！",											--操作状态
+    "message": "操作成功！",												--操作状态
     "data": {
         "pagesize": 10,												--每页多少条				
         "pagetotal": 1,												--总页数
@@ -778,9 +784,10 @@ http://localhost:8080//stationSetting/getStationSetting
                 "seatNumber": "803",								--座机号
                 "seatPassword": "654321",							--座机密码	
                 "ipURL": "192.168.1.11",							--座机连接ip
-                "adminId": 1,										--经手人的 id
+                "createUserId": 1,									--创建人 的 id
+                "updateUserId": null,								--修改人id
                 "createTime": "2020-01-03 19:23:38.0",				--创建时间
-                "modificationTime": null							--修改时间
+                "updateTime": null									--修改时间
                 "adminName": "hahaha"								--经手人名称
             },
         ]
@@ -797,7 +804,7 @@ http://localhost:8080//stationSetting/deleteStationSetting
 {
     "success": true,									--成功状态码
     "code": 1000,										--成功码
-    "message": "删除成功！"								--操作状态
+    "message": "删除成功！"									--操作状态
 }
 
 30.座机 修改接口
@@ -808,13 +815,13 @@ http://localhost:8080//stationSetting/updateStationSetting
 	"seatNumber":"803",									--座机号
 	"seatPassword":"654321",							--座机密码
 	"ipURL":"192.168.1.11",								--座机连接ip
-	"adminId":"1"										--经手人的 id
+	"updateUserId":"1"									--修改人id(也就是经手人)
 }
 返回参数:
 {
     "success": true,									--成功状态码
     "code": 1000,										--成功码
-    "message": "修改成功！"								--操作状态
+    "message": "修改成功！"									--操作状态
 }
 
 

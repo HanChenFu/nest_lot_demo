@@ -4,8 +4,8 @@
 	 
 	 <sql id="stationSetting_Column_List">
 	 	station_setting_Id as stationSettingId,seat_number as seatNumber,seat_password as seatPassword,
-	 	ipURL as ipURL,admin_id as adminId,create_Time as createTime,modification_Time as modificationTime,
-	 	create_Time as createTime
+	 	ipURL as ipURL,create_user_id as createUserId,update_user_id as updateUserId,create_Time as createTime,
+	 	update_time as updateTime
 	</sql>
 	 
 	<!-- 添加座机 -->
@@ -15,20 +15,20 @@
 						seat_number,
 						seat_password,
 						ipURL,
-						admin_id,
+						create_user_id,
 						create_Time
 						)
-						VALUES(#{seatNumber},#{seatPassword},#{ipURL},#{adminId},#{createTime})
+						VALUES(#{seatNumber},#{seatPassword},#{ipURL},#{createUserId},#{createTime})
 	</insert>
 	
 	<!-- 查询座机 -->
 	<select id="getStationSetting" resultType="com.hc.pojo.callCenter.StationSetting">
 		select 
 		ss.station_setting_Id as stationSettingId,ss.seat_number as seatNumber,ss.seat_password as seatPassword,
-		ss.ipURL as ipURL,ss.admin_id as adminId,ss.create_Time as createTime,ss.modification_Time as modificationTime
-		,admin.tb_name as adminName 
+		ss.ipURL as ipURL,ss.create_user_id as createUserId,ss.update_user_id as updateUserId,ss.create_Time as createTime
+		,ss.update_time as updateTime,admin.tb_name as adminName 
 	 	from tb_station_setting ss
-			left join tb_admin admin on ss.admin_id = admin.tb_id
+			left join tb_admin admin on ss.create_user_id = admin.tb_id
 			<where>
 				<if test="seatNumber != null"> 
 					 ss.seat_number like concat('%',#{seatNumber},'%') 
@@ -43,7 +43,7 @@
 		select 
 			COUNT(1)
 		 	from tb_station_setting ss
-				left join tb_admin admin on ss.admin_id = admin.tb_id 
+				left join tb_admin admin on ss.create_user_id = admin.tb_id 
 			 	<where>
 					<if test="seatNumber != null"> 
 						 ss.seat_number like concat('%',#{seatNumber},'%')  
@@ -78,11 +78,11 @@
 			      <if test="ipURL != null" >
 			        	ipURL =#{ipURL},
 			      </if>
-			      <if test="adminId != null" >
-			      		admin_id =#{adminId},
+			      <if test="updateUserId != null" >
+			      		update_user_id =#{updateUserId},
 			      </if>
-			      <if test="modificationTime != null" >
-			        	modification_Time = #{modificationTime}
+			      <if test="updateTime != null" >
+			        	update_time = #{updateTime}
 			      </if>
 			    </set>
 			WHERE

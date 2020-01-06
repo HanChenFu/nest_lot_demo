@@ -43,12 +43,13 @@ public class MailListController {
 	}
 	
 	/**
-	 * 添加通讯录
+	 * 删除通讯录
 	 */
 	@RequestMapping("deleteMailList")
 	public ResultBase deleteMailList(@RequestBody(required = false) JSONObject jsonObject) throws Exception,CustomException{
 		String mailListId = jsonObject == null ? null : jsonObject.getString("mailListId");
-		return mailListService.deleteMailList(mailListId==null?null:Integer.valueOf(mailListId));
+		String updateUserId = jsonObject == null ? null : jsonObject.getString("updateUserId");
+		return mailListService.deleteMailList(mailListId==null?null:Integer.valueOf(mailListId),Integer.valueOf(updateUserId));
 	}
 	
 	/**

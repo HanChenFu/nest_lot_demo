@@ -27,7 +27,7 @@ public class MyWebMvcConfig extends WebMvcConfigurationSupport {
      */
     @Bean
     public ServerEndpointExporter serverEndpointExporter() {
-    	System.out.println("test.................");
+//    	System.out.println("test.................");
         return new ServerEndpointExporter();
     }
 }

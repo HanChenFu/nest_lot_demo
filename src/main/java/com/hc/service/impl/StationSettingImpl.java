@@ -12,6 +12,7 @@ import com.hc.common.result.ResultData;
 import com.hc.common.tools.Tools;
 import com.hc.mapper.callCenter.StationSettingMapper;
 import com.hc.pojo.base.PageUtilBean;
+import com.hc.pojo.callCenter.MailList;
 import com.hc.pojo.callCenter.StationSetting;
 import com.hc.service.StationSettingService;
 import com.hc.utils.result.ResultUtil;
@@ -40,8 +41,11 @@ public class StationSettingImpl implements StationSettingService {
 	 */
 	@Override 
 	public ResultData<PageUtilBean> getStationSetting(StationSetting stationSetting) throws Exception,CustomException{
+		stationSetting = stationSetting == null ? new StationSetting() : stationSetting;
 		int totalCount = stationSettingMapper.getStationSettingCount(stationSetting);
-		PageUtilBean pages = new PageUtilBean(stationSetting.getPageSize(), totalCount, stationSetting.getPage());
+		int page = stationSetting.getPage()==null ? 1 : stationSetting.getPage();
+		int pageSize = stationSetting.getPageSize()==null ? 10 : stationSetting.getPageSize();
+		PageUtilBean pages = new PageUtilBean(pageSize, totalCount, page);
 		List<StationSetting> stationSettings = stationSettingMapper.getStationSetting(pages.limitsTart(),pages.limitsEnd(),stationSetting.getSeatNumber());
 		pages.setResults(stationSettings);
 		return  ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
@@ -67,7 +71,7 @@ public class StationSettingImpl implements StationSettingService {
 	public ResultBase updateStationSetting(StationSetting stationSetting) throws Exception,CustomException{
 		int count = stationSettingMapper.getStationSettingTrueOrFalse(stationSetting.getStationSettingId());
 		if(count > 0) {
-			stationSetting.setModificationTime(Tools.getAPIresponseDateTime());
+			stationSetting.setUpdateTime(Tools.getAPIresponseDateTime());
 			int updateCount = stationSettingMapper.updateStationSetting(stationSetting);
 			if (updateCount > 0) {
 				return ResultUtil.getResultBase("修改成功！");

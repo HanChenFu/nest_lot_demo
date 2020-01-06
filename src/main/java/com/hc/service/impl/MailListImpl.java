@@ -9,10 +9,15 @@ import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
+import com.hc.common.result.ResultQuery;
 import com.hc.common.tools.Tools;
+import com.hc.mapper.callCenter.CallCenterMapper;
 import com.hc.mapper.callCenter.MailListMapper;
+import com.hc.pojo.askRecord.TbAskRecord;
 import com.hc.pojo.base.PageUtilBean;
+import com.hc.pojo.callCenter.CallCenter;
 import com.hc.pojo.callCenter.MailList;
+import com.hc.service.CallCenterService;
 import com.hc.service.MailListService;
 import com.hc.utils.result.ResultUtil;
 
@@ -40,8 +45,11 @@ public class MailListImpl implements MailListService {
 	 */
 	@Override 
 	public ResultData<PageUtilBean> getMailList(MailList mailList) throws Exception,CustomException{
+		mailList = mailList == null ? new MailList() : mailList;
 		int totalCount = mailListMapper.getMailListCount(mailList);
-		PageUtilBean pages = new PageUtilBean(mailList.getPageSize(), totalCount, mailList.getPage());
+		int page = mailList.getPage()==null ? 1 : mailList.getPage();
+		int pageSize = mailList.getPageSize()==null ? 10 : mailList.getPageSize();
+		PageUtilBean pages = new PageUtilBean(pageSize, totalCount, page);
 		mailList.setLimitsTart(pages.limitsTart());
 		mailList.setLimitsEnd(pages.limitsEnd());
 		List<MailList> mailLists = mailListMapper.getMailList(mailList);
@@ -52,11 +60,18 @@ public class MailListImpl implements MailListService {
 	 * 删除通讯录
 	 */
 	@Override 
-	public ResultBase deleteMailList(Integer mailListId) throws Exception,CustomException{
+	public ResultBase deleteMailList(Integer mailListId,Integer updateUserId) throws Exception,CustomException{
 		int count = mailListMapper.getMailListTrueOrFalse(mailListId);
+		
 		if(count > 0) {
-			int deleteCount = mailListMapper.deleteMailList(mailListId);
-			if (deleteCount > 0) {
+			MailList mailList = new MailList();
+			mailList.setMailListId(mailListId);
+			mailList.setUpdateUserId(updateUserId);
+			mailList.setUpdateTime(Tools.getAPIresponseDateTime());
+			mailList.setFlag(2);
+//			int deleteCount = mailListMapper.deleteMailList(mailListId);
+			int updateCount = mailListMapper.updateMailListFlag(mailList);
+			if (updateCount > 0) {
 				return ResultUtil.getResultBase("删除成功！");
 			}
 		}
@@ -69,7 +84,7 @@ public class MailListImpl implements MailListService {
 	public ResultBase updateMailList(MailList mailList) throws Exception,CustomException{
 		int count = mailListMapper.getMailListTrueOrFalse(mailList.getMailListId());
 		if(count > 0) {
-			mailList.setModificationTime(Tools.getAPIresponseDateTime());
+			mailList.setUpdateTime(Tools.getAPIresponseDateTime());
 			int updateCount = mailListMapper.updateMailList(mailList);
 			if (updateCount > 0) {
 				return ResultUtil.getResultBase("修改成功！");

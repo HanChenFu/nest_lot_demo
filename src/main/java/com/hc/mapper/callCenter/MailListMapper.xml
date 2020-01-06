@@ -3,36 +3,42 @@
 <mapper namespace="com.hc.mapper.callCenter.MailListMapper" >
 	 
 	 <sql id="mailList_Column_List">
-	 	mail_List_id as mailListId,contacts as contacts,phone_Number as phoneNumber,remarks as remarks,
-	 	admin_id as adminId,modification_Time as modificationTime,create_Time as createTime
+	 	mail_List_id as mailListId,contacts as contacts,phone_number as phoneNumber,mailbox_number as mailboxNumber,
+	 	remarks as remarks,create_user_id as createUserId,update_user_id as updateUserId,create_Time as createTime,
+	 	update_time as updateTime,
 	</sql>
 	 
 	<!-- 添加通讯录 -->
 	<insert id="insertMailList" keyProperty="mailListId" useGeneratedKeys="true">
 		INSERT INTO `tb_mailList` (
 				contacts,
-				phone_Number,
+				phone_number,
+				mailbox_number,
 				remarks,
-				admin_id,
+				create_user_id,
 				create_Time
 				)
-				 VALUES (#{contacts},#{phoneNumber},#{remarks},#{adminId},#{createTime});
+				 VALUES (#{contacts},#{phoneNumber},#{mailboxNumber},#{remarks},#{createUserId},#{createTime}});
 	</insert>
 	
 	<!-- 查询通讯录 -->
 	<select id="getMailList" resultType="com.hc.pojo.callCenter.MailList">
 		select 
-			mail.mail_List_id as mailListId,mail.contacts as contacts,mail.phone_Number as phoneNumber,mail.remarks as remarks,
-		 	mail.admin_id as adminId,mail.modification_Time as modificationTime,mail.create_Time as createTime,
-		 	admin.tb_name as adminName 
+			mail.mail_List_id as mailListId,mail.contacts as contacts,mail.phone_number as phoneNumber,mail.mailbox_number as mailboxNumber,
+			mail.remarks as remarks,mail.create_user_id as createUserId,mail.update_user_id as updateUserId,mail.create_Time as createTime,
+			mail.update_time as updateTime,admin.tb_name as adminName 
 	 	from tb_mailList mail
-			left join tb_admin admin on mail.admin_id = admin.tb_id
+			left join tb_admin admin on mail.create_user_id = admin.tb_id
 			<where>
+			    flag != 2
 				<if test="contacts != null"> 
-					 mail.contacts like concat('%',#{contacts},'%') 
+					and mail.contacts like concat('%',#{contacts},'%') 
 				</if>
 				<if test="phoneNumber != null"> 
-					 and mail.phone_Number like concat('%',#{phoneNumber},'%') 
+					 and mail.phone_number like concat('%',#{phoneNumber},'%') 
+				</if>
+				<if test="mailboxNumber != null"> 
+					 and mail.mailbox_number like concat('%',#{mailboxNumber},'%') 
 				</if>
 			</where> 
 					order by mail.create_time desc
@@ -44,13 +50,17 @@
 		select 
 			COUNT(1)
 	 	from tb_mailList mail
-			left join tb_admin admin on mail.admin_id = admin.tb_id
+			left join tb_admin admin on mail.create_user_id = admin.tb_id
 			<where>
+				flag != 2
 				<if test="contacts != null"> 
-					 mail.contacts like concat('%',#{contacts},'%') 
+					and mail.contacts like concat('%',#{contacts},'%') 
 				</if>
 				<if test="phoneNumber != null"> 
-					 and mail.phone_Number like concat('%',#{phoneNumber},'%') 
+					 and mail.phone_number like concat('%',#{phoneNumber},'%') 
+				</if>
+				<if test="mailboxNumber != null"> 
+					 and mail.mailbox_number like concat('%',#{mailboxNumber},'%') 
 				</if>
 			</where> 
 	</select>
@@ -60,13 +70,21 @@
 		select 
 			COUNT(1)
 	 	from tb_mailList 
-	 	where mail_List_id = #{mailListId}
+	 	where mail_List_id = #{mailListId} and flag != 2
 	</select>
 	 
+	 <!-- 删除通讯录 -->
 	<delete id="deleteMailList">
 		delete from tb_mailList
 			where mail_List_id = #{mailListId}
 	</delete>
+	
+	<!--通讯录修改 修改成不可用 相当于删除-->
+	<update id="updateMailListFlag" parameterType="com.hc.pojo.callCenter.MailList">
+		update tb_mailList  set flag = #{flag} , update_user_id = #{updateUserId}, 
+							update_time = #{updateTime}
+					where mail_List_id = #{mailListId}
+	</update>
 	
 	<!--通讯录修改 -->
 	<update id="updateMailList" parameterType="com.hc.pojo.callCenter.MailList">
@@ -76,16 +94,19 @@
 			        	contacts =#{contacts},
 			      </if>
 			      <if test="phoneNumber != null" >
-			      		phone_Number =#{phoneNumber},
+			      		phone_number =#{phoneNumber},
+			      </if>
+			      <if test="mailboxNumber != null" >
+			      		mailbox_number =#{mailboxNumber},
 			      </if>
 			      <if test="remarks != null" >
 			        	remarks =#{remarks},
 			      </if>
-			      <if test="adminId != null" >
-			      		admin_id =#{adminId},
+			       <if test="updateUserId != null" >
+			        	update_user_id = #{updateUserId},
 			      </if>
-			      <if test="modificationTime != null" >
-			        	modification_Time = #{modificationTime}
+			      <if test="updateTime != null" >
+			        	update_time = #{updateTime}
 			      </if>
 			    </set>
 			WHERE

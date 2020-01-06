@@ -20,4 +20,6 @@ public interface MailListMapper {
 	int getMailListCount(MailList mailList);
 	
 	int getMailListTrueOrFalse(Integer mailListId);
+	
+	int updateMailListFlag(MailList mailList);
 }

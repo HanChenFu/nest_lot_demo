@@ -15,7 +15,7 @@ public interface MailListService {
 
 	ResultData<PageUtilBean> getMailList(MailList mailList) throws Exception, CustomException;
 
-	ResultBase deleteMailList(Integer mailListId) throws Exception, CustomException;
+	ResultBase deleteMailList(Integer mailListId,Integer updateUserId) throws Exception, CustomException;
 
 	ResultBase updateMailList(MailList mailList) throws Exception, CustomException;
 
