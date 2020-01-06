@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hc.common.result.ResultBase;
 import com.hc.pojo.base.TbAdmin;
+import com.hc.pojo.reqBean.UpdateUserMess;
 import com.hc.service.TbAdminService;
 
 @Controller
@@ -28,6 +29,11 @@ public class WebAdminController {
 	@RequestMapping("/adminLogout")
 	public ResultBase adminLogout(HttpServletRequest request) throws Exception {
 		return tbAdminService.adminLogout(request);
+	}
+	
+	@RequestMapping("/updateAdminMess")
+	public ResultBase updateAdminMess(@RequestBody UpdateUserMess bean,HttpServletRequest request) throws Exception {
+		return tbAdminService.updateAdminMess(bean,request);
 	}
 	
 }

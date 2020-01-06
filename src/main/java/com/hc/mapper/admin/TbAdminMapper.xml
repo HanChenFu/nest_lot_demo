@@ -6,8 +6,8 @@
 		tb_id as tbId,
 		tb_role_id as tbRoleId,
 		tb_account as tbAccount,
-		tb_phone as tbPhone,
 		tb_password as tbPassword,
+		tb_phone as tbPhone,
 		tb_name as tbName,
 		tb_head_path as tbHeadPath,
 		tb_email as tbEmail,
@@ -25,6 +25,7 @@
 			tb_account = #{tbAccount}
 		AND tb_password = #{tbPassword}
 	</select>
+	
 	<select id="getAdminByTbId" resultType="com.hc.pojo.base.TbAdmin" >
 		SELECT
 		<include refid="Base_Column_List"/>
@@ -33,7 +34,8 @@
 		WHERE
 			tb_id = #{tbId}
 	</select>
-  <update id="updateAdminPassword" parameterType="com.hc.pojo.reqBean.UpdateUserPasswordReqBean">
+	
+  <update id="updateAdminPassword" parameterType="com.hc.pojo.reqBean.UpdateUserMess">
 		UPDATE tb_admin 
 		<set >
 			<if test="tbName != null" >
@@ -45,9 +47,20 @@
 			<if test="tbEmail != null" >
 				tb_email = #{tbEmail},
 			</if>
+			<if test="tbPhone != null" >
+				tb_phone = #{tbPhone},
+			</if>
+			<if test="tbPhone != null" >
+				tb_phone = #{tbPhone},
+			</if>
+			<if test="tbHeadPath != null" >
+				tb_head_path = #{tbHeadPath},
+			</if>
+			tb_uuid = ''
 		</set>
 		WHERE
 			tb_id = #{tbId}
   </update>
+  
   
 </mapper>

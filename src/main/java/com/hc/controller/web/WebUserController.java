@@ -50,7 +50,6 @@ public class WebUserController {
    		return tbUserServer.updateUserById(tbUser, request);
    	}
 	
-	
 	/**
 	 * 	check 用户是否拿到token
 	 * @param tbUser

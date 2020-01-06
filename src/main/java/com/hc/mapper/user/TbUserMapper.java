@@ -1,6 +1,7 @@
 package com.hc.mapper.user;
 
 import java.util.List;
+
 import com.hc.pojo.user.TbUser;
 
 public interface TbUserMapper {
@@ -24,7 +25,6 @@ public interface TbUserMapper {
 	
 	int updateUserById(TbUser tbUser);
 	
-	
-	
+//	TbUser getUserMessByUserId(int tbId);
 
 }

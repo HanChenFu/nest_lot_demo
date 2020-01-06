@@ -6,7 +6,7 @@ import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
 import com.hc.pojo.base.TbAdmin;
-import com.hc.pojo.reqBean.UpdateUserPasswordReqBean;
+import com.hc.pojo.reqBean.UpdateUserMess;
 import com.hc.pojo.resBean.ResGetNameAndEmail;
 
 public interface TbAdminService {
@@ -32,7 +32,10 @@ public interface TbAdminService {
 	ResultBase adminLogout(HttpServletRequest request)throws Exception,CustomException;
 	
 	//修改用户密码与邮箱信息
-	ResultBase updateAdminPassword(UpdateUserPasswordReqBean bean) throws Exception,CustomException;
+	ResultBase updateAdminMess(UpdateUserMess bean,HttpServletRequest request) throws Exception,CustomException;
+	
 	//查询用户密码与邮箱信息
-	ResultData<ResGetNameAndEmail> getNameAndEmail(Integer tbId) throws Exception,CustomException;
+	ResultData<ResGetNameAndEmail> getNameAndEmail(UpdateUserMess bean) throws Exception,CustomException;
+
+	ResultBase updateAdminPassword(UpdateUserMess bean, HttpServletRequest request) throws Exception, CustomException;
 }

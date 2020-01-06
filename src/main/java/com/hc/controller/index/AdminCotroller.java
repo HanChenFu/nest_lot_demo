@@ -1,5 +1,7 @@
 package com.hc.controller.index;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
-import com.hc.pojo.reqBean.UpdateUserPasswordReqBean;
+import com.hc.pojo.reqBean.UpdateUserMess;
 import com.hc.pojo.resBean.ResGetNameAndEmail;
 import com.hc.service.TbAdminService;
 
@@ -31,9 +33,9 @@ public class AdminCotroller {
 	 * @return ResultData
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/updateAdminPassword", method = RequestMethod.POST,produces="application/json")
-	public ResultBase updateAdminPassword(@RequestBody(required = false) UpdateUserPasswordReqBean bean) throws Exception {
-		return tbAdminService.updateAdminPassword(bean);
+	@RequestMapping(value = "/updateAdminMess", method = RequestMethod.POST,produces="application/json")
+	public ResultBase updateAdminMess(@RequestBody(required = false) UpdateUserMess bean,HttpServletRequest request) throws Exception {
+		return tbAdminService.updateAdminPassword(bean,request);
 	}
 	/**
 	 * 查询用户密码与邮箱信息
@@ -48,7 +50,7 @@ public class AdminCotroller {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/getNameAndEmail", method = RequestMethod.POST,produces="application/json")
-	public ResultData<ResGetNameAndEmail> getNameAndEmail(Integer tbId) throws Exception {
-		return tbAdminService.getNameAndEmail(tbId);
+	public ResultData<ResGetNameAndEmail> getNameAndEmail(@RequestBody(required = false)  UpdateUserMess bean) throws Exception {
+		return tbAdminService.getNameAndEmail(bean);
 	}
 }

@@ -80,5 +80,5 @@ public class TbUserServiceImpl implements TbUserService{
 		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
 		return ResultUtil.getResultData(t);
 	}
-	
+
 }
