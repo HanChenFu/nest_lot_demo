@@ -14,7 +14,7 @@ import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
 import com.hc.mapper.admin.TbAdminMapper;
 import com.hc.pojo.base.TbAdmin;
-import com.hc.pojo.reqBean.UpdateUserPasswordReqBean;
+import com.hc.pojo.reqBean.UpdateUserMess;
 import com.hc.pojo.resBean.ResGetNameAndEmail;
 import com.hc.service.TbAdminService;
 import com.hc.utils.redis.LoginUserUtil;
@@ -71,7 +71,8 @@ public class TbAdminServiceImpl implements TbAdminService{
 
 	//修改用户密码与邮箱信息
 	@Override
-	public ResultBase updateAdminPassword(UpdateUserPasswordReqBean bean) throws Exception, CustomException {
+	@ParamCheck(names = {"tbId"})
+	public ResultBase updateAdminPassword(UpdateUserMess bean,HttpServletRequest request) throws Exception, CustomException {
 		TbAdmin Tbadmin = tbAdminMapper.getAdminByTbId(bean.getTbId());
 		if(Tbadmin==null){
 			return ResultUtil.getResultBase(false, StatusCode.FAIL, "该用户不存在");
@@ -106,6 +107,13 @@ public class TbAdminServiceImpl implements TbAdminService{
 		getNameAndEmail.setTbEmail(tbadmin.getTbEmail());
 		getNameAndEmail.setTbName(tbadmin.getTbName());
 		return ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", getNameAndEmail);
+	}
+
+
+	@Override
+	public ResultBase updateAdminMess(UpdateUserMess bean, HttpServletRequest request)
+			throws Exception, CustomException {
+		return null;
 	}
 	
 	
