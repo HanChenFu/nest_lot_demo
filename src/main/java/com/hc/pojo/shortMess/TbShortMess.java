@@ -15,7 +15,7 @@ public class TbShortMess {
 	private String sendingState;
 	private String delTime;
 	private String createTime;
-	private String name;
+	private String nickname;
 	
 	public TbShortMess() {
 		super();
@@ -87,12 +87,12 @@ public class TbShortMess {
 		this.target = target;
 	}
 
-	public String getName() {
-		return name;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
-	
+
 }

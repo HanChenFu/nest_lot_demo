@@ -11,7 +11,7 @@ public class TbLetter {
 	private String tbAdminId;
 	private int tbUserId;
 	private String target;//目标用户邮箱
-	private String name;//目标用户名字
+	private String nickname;//昵称
 	private int sendMessId;
 	private String sendingState;
 	private String appendixTitle;//附件标题
@@ -105,12 +105,14 @@ public class TbLetter {
 		this.appendixPath = appendixPath;
 	}
 
-	public String getName() {
-		return name;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
+
+
 	
 }

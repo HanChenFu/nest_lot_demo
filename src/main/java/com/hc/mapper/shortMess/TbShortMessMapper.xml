@@ -43,7 +43,7 @@
 		INSERT INTO `tb_short_mess` 
 		(`tb_admin_id`,`tb_number`,`target`,`tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
 		VALUES
-		(#{tbAdminId},#{tbNumber}, #{target},#{sendMessId},#{sendingState}, NULL, now() );
+		(#{tbAdminId},#{tbNumber}, #{target},#{sendMessId},#{sendingState}, NULL, now());
 	</insert>
 	
 	<delete id="deleShort" parameterType="java.util.List">
@@ -64,7 +64,7 @@
 	
 	<update id="updateNameById" parameterType="com.hc.pojo.shortMess.TbShortMess">
 		UPDATE tb_short_mess 
-		SET NAME = #{name}
+		SET NAME = #{nickname}
 		WHERE
 			tb_id = #{tbId}
 	</update>

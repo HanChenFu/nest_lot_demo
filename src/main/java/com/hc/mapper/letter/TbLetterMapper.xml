@@ -35,7 +35,7 @@
 			CASE WHEN tlf.tb_id IS NULL THEN 0 ELSE 1 END as follow,
 			tl.appendix_title as appendixTitle,
 			tl.appendix_path as appendixPath,
-			tl.name as name
+			tl.name as nickname
 		FROM
 			`tb_letter` tl
 		LEFT JOIN tb_letter_follow tlf ON tl.tb_id = tlf.tb_letter_id AND tlf.tb_admin_id = #{id}
@@ -64,9 +64,9 @@
 	
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO `tb_letter` 
-		(`tb_admin_id`,`tb_number`, `tb_user_id`, `target`, `tb_send_mess_id`, `sending_state`,`appendix_title`,`appendix_path`, `del_time`, `create_time` )
+		(`tb_admin_id`,`tb_number`, `target`, `tb_send_mess_id`, `sending_state`,`appendix_title`,`appendix_path`, `del_time`, `create_time` )
 		VALUES
-		(#{tbAdminId},#{tbNumber}, #{tbUserId}, #{target},#{sendMessId},#{sendingState}, #{appendixTitle},#{appendixPath},NULL, now() );
+		(#{tbAdminId},#{tbNumber}, #{target},#{sendMessId},#{sendingState}, #{appendixTitle},#{appendixPath},NULL, now());
 	</insert>
 	
 	<delete id="deleLetter" parameterType="java.util.List">
@@ -87,7 +87,7 @@
 	
 	<update id="updateNameById" parameterType="com.hc.pojo.letter.TbLetter">
 		UPDATE tb_letter 
-		SET NAME = #{name}
+		SET NAME = #{nickname}
 		WHERE
 			tb_id =#{tbId}	
 	</update>
