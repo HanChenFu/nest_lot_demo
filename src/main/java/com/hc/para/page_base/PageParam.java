@@ -48,5 +48,18 @@ public class PageParam {
 		}
 		return start;
 	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public void setStart(Integer start) {
+		this.start = start;
+	}
+	
 }
 

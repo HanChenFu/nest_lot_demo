@@ -45,7 +45,7 @@ public class CallCenterImpl implements CallCenterService {
 		if(callCenters==null) {
 			return ResultUtil.getResultQuery("没有数据！");
 		}
-		return  ResultUtil.getResultQuery(callCenters, callCenterMapper.getCallCenterRecordCount(callCenter),callCenter.getPage(),callCenter.getSize());
+		return  ResultUtil.getResultQuery(callCenters, callCenterMapper.getCallCenterRecordCount(callCenter),callCenter.getPage(),callCenter.getPageSize());
 	}
 	
 	

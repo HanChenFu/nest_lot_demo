@@ -45,7 +45,7 @@ public class TbAskRecordServiceImpl implements TbAskRecordService{
 		if(li==null) {
 			return ResultUtil.getResultQuery("没有数据！");
 		}
-		return ResultUtil.getResultQuery(li, tbAskRecordMapper.getAskRecordCount(ask),ask.getPage(),ask.getSize());
+		return ResultUtil.getResultQuery(li, tbAskRecordMapper.getAskRecordCount(ask),ask.getPage(),ask.getPageSize());
 	}
 
 	@Override
