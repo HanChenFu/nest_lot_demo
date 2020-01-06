@@ -1,7 +1,6 @@
 package com.hc.pojo.usually;
 
 public class LetterPageData {
-	
 	private int tbId;
 	private String tbNumber;//编号
 	private int sendingState;//发送状态 0表示未发送 1表示发送中 2表示已经发送

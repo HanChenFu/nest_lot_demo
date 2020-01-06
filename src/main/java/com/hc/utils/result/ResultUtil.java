@@ -129,11 +129,15 @@ public final class ResultUtil {
 	 * 
 	 * @author DDM 2018年1月18日
 	 */
-	public static <T> ResultQuery<T> getResultQuery(List<T> t, Integer totalItems) {
+	public static <T> ResultQuery<T> getResultQuery(List<T> t, Integer totalItems,Integer page,Integer pagesize) {
 		ResultQuery<T> res = new ResultQuery<T>();
 		res.setData(new Datas<T>());
 		// 设置总条数
 		res.getData().setTotalItems(totalItems);
+		//当前页
+		res.getData().setPage(page);
+		//每页条数
+		res.getData().setPageSize(pagesize);
 		// 设置数据
 		res.getData().setList(t);
 		// 调用成功.

@@ -53,8 +53,8 @@
 		WHERE
 			tb_admin_id = #{id}
 		ORDER BY te.create_time DESC
-		<if test="page != null and size != null">
-			LIMIT #{start}, #{size}
+		<if test="page != null and pageSize != null">
+			LIMIT #{start}, #{pageSize}
 		</if>
 	</select>
 	

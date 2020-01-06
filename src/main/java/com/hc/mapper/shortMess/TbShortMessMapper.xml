@@ -8,24 +8,22 @@
 			tl.tb_number as tbNumber,
 			tl.sending_state as sendingState,
 			tl.target as phone,
-			tu.tb_email as tbEmail,
-			tu.nickname as nickname,
+			tl.name as nickname,
 			tl.create_time as createTime,
 			ts.tb_title as title,
 			ts.tb_content as content,
 			CASE WHEN tlf.tb_id IS NULL THEN 0 ELSE 1 END as follow
 		FROM
 			`tb_short_mess` tl
-		LEFT JOIN tb_user tu ON tu.tb_id = tl.tb_user_id
 		LEFT JOIN tb_short_mess_follow tlf ON tl.tb_id = tlf.tb_short_mess_id AND tlf.tb_admin_id = #{id}
 		LEFT JOIN tb_send_mess ts ON ts.tb_id = tl.tb_send_mess_id
 		WHERE tl.tb_admin_id = #{id}
 		<if test="nickname!=null and nickname!=''">
-			AND tu.nickname like concat('%',#{nickname},'%')
+			AND tl.name like concat('%',#{nickname},'%')
 		</if>
-		ORDER BY tl.create_time DESC
-		<if test="page != null and size != null">
-			LIMIT #{start}, #{size}
+		ORDER BY follow DESC,tl.create_time DESC
+		<if test="page != null and pageSize != null">
+			LIMIT #{start}, #{pageSize}
 		</if>
 	</select>
 	
@@ -34,19 +32,18 @@
 			COUNT( 1 ) 
 		FROM
 			`tb_short_mess` ts
-			LEFT JOIN tb_user tu ON tu.tb_id = ts.tb_user_id 
 		WHERE
 			ts.tb_admin_id = #{id}
 		<if test="nickname!=null and nickname!=''">
-			AND tu.nickname like concat('%',#{nickname},'%')
+			AND tl.name like concat('%',#{nickname},'%')
 		</if>
 	</select>
 	
 	<insert id="insertSelective" keyProperty="id" useGeneratedKeys="true">
 		INSERT INTO `tb_short_mess` 
-		(`tb_admin_id`,`tb_number`, `tb_user_id`, `target`,`tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
+		(`tb_admin_id`,`tb_number`,`target`,`tb_send_mess_id`, `sending_state`, `del_time`, `create_time` )
 		VALUES
-		(#{tbAdminId},#{tbNumber}, #{tbUserId}, #{target},#{sendMessId},#{sendingState}, NULL, now() );
+		(#{tbAdminId},#{tbNumber}, #{target},#{sendMessId},#{sendingState}, NULL, now() );
 	</insert>
 	
 	<delete id="deleShort" parameterType="java.util.List">
@@ -64,5 +61,12 @@
         </foreach>
         ;
 	</delete>
+	
+	<update id="updateNameById" parameterType="com.hc.pojo.shortMess.TbShortMess">
+		UPDATE tb_short_mess 
+		SET NAME = #{name}
+		WHERE
+			tb_id = #{tbId}
+	</update>
 	
 </mapper>

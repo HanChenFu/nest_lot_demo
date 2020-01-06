@@ -1,6 +1,5 @@
 package com.hc.common.result;
 
-
 /**
  * API 查询，返回结果实体类
  * 
@@ -13,7 +12,7 @@ package com.hc.common.result;
  */
 public class ResultQuery<T> extends ResultBase {
 	private Datas<T> data;
-
+	
 	public Datas<T> getData() {
 		return data;
 	}
@@ -36,4 +35,5 @@ public class ResultQuery<T> extends ResultBase {
 		}
 		return start;
 	}
+
 }

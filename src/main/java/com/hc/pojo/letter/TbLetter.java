@@ -11,6 +11,7 @@ public class TbLetter {
 	private String tbAdminId;
 	private int tbUserId;
 	private String target;//目标用户邮箱
+	private String name;//目标用户名字
 	private int sendMessId;
 	private String sendingState;
 	private String appendixTitle;//附件标题
@@ -22,11 +23,10 @@ public class TbLetter {
 		super();
 	}
 	
-	public TbLetter(String tbAdminId,String tbNumber, int tbUserId, String target,int sendMessId,String sendingState) {
+	public TbLetter(String tbAdminId,String tbNumber, String target,int sendMessId,String sendingState) {
 		super();
 		this.tbAdminId = tbAdminId;
 		this.tbNumber = tbNumber;
-		this.tbUserId = tbUserId;
 		this.target = target;
 		this.sendMessId = sendMessId;
 		this.sendingState = sendingState;
@@ -103,6 +103,14 @@ public class TbLetter {
 
 	public void setAppendixPath(String appendixPath) {
 		this.appendixPath = appendixPath;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

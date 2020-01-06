@@ -39,4 +39,9 @@ public class WebLetterController {
 		return tbLetterService.deleLetter(para, request);
 	}
 	
+	@RequestMapping("/updateNameById")
+	ResultBase updateNameById(@RequestBody TbLetter letter,HttpServletRequest request) throws Exception,CustomException{
+		return tbLetterService.updateNameById(letter, request);
+	}
+	
 }

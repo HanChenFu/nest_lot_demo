@@ -22,9 +22,6 @@ public interface TbDynamicMessageInfoMapper {
 
     int updateByPrimaryKey(TbDynamicMessageInfo record);
     
-    
-    
-    
     //删除
     int deleDynamicMessage(List<Integer> list);
     

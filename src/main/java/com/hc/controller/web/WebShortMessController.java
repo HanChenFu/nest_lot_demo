@@ -12,6 +12,7 @@ import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.para.page_base.BasePara;
+import com.hc.pojo.shortMess.TbShortMess;
 import com.hc.pojo.shortMess.TbShortPara;
 import com.hc.pojo.usually.LetterPageData;
 import com.hc.service.TbSMService;
@@ -45,4 +46,10 @@ public class WebShortMessController {
 		return tbSMService.deleShort(para, request);
 	}
 	
+//		ResultBase updateNameById(TbShortMess letter,HttpServletRequest request) throws Exception,CustomException;
+	
+	@RequestMapping("/updateNameById")
+	ResultBase updateNameById(@RequestBody(required = false) TbShortMess letter,HttpServletRequest request) throws Exception,CustomException{
+		return tbSMService.updateNameById(letter, request);
+	}
 }

@@ -6,7 +6,6 @@ package com.hc.pojo.shortMess;
  *
  */
 public class TbShortMess {
-
 	private int tbId;
 	private String tbNumber;
 	private String tbAdminId;
@@ -16,16 +15,16 @@ public class TbShortMess {
 	private String sendingState;
 	private String delTime;
 	private String createTime;
+	private String name;
 	
 	public TbShortMess() {
 		super();
 	}
 	
-	public TbShortMess(String tbAdminId,String tbNumber, int tbUserId, String target,int sendMessId,String sendingState) {
+	public TbShortMess(String tbAdminId,String tbNumber, String target,int sendMessId,String sendingState) {
 		super();
 		this.tbAdminId = tbAdminId;
 		this.tbNumber = tbNumber;
-		this.tbUserId = tbUserId;
 		this.target = target;
 		this.sendMessId = sendMessId;
 		this.sendingState = sendingState;
@@ -88,4 +87,12 @@ public class TbShortMess {
 		this.target = target;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 }

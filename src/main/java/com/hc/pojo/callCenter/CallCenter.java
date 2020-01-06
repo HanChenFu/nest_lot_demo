@@ -1,7 +1,8 @@
 package com.hc.pojo.callCenter;
 
-public class CallCenter {
+import com.hc.para.page_base.PageParam;
 
+public class CallCenter extends PageParam{
 	private Integer tbId;
 	private Integer tbUserId;
 	private String tbNumber;
@@ -13,6 +14,7 @@ public class CallCenter {
 	private String delTime;
 	private String createTime;
 	private String callName;
+	
 	public Integer getTbId() {
 		return tbId;
 	}

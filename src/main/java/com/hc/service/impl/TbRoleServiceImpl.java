@@ -32,7 +32,7 @@ public class TbRoleServiceImpl implements TbRoleService{
 		if (role==null) {
 			 return ResultUtil.getResultQuery("没有数据！");
 		}
-		return ResultUtil.getResultQuery(r,tbRoleMapper.getRoleMessCount(role));
+		return ResultUtil.getResultQuery(r,tbRoleMapper.getRoleMessCount(role),role.getPage(),role.getSize());
 	}
 
 }

@@ -42,7 +42,7 @@ public class TbLetterServiceImpl implements TbLetterService{
 		if(l==null) {
 			return ResultUtil.getResultQuery("没有数据！");
 		}
-		return ResultUtil.getResultQuery(l, tbLetterMapper.getLetterMessCount(para));
+		return ResultUtil.getResultQuery(l, tbLetterMapper.getLetterMessCount(para),para.getPage(),para.getPageSize());
 	}
 
 	@Override
@@ -65,6 +65,16 @@ public class TbLetterServiceImpl implements TbLetterService{
 			return ResultUtil.getResultBase("删除成功！");
 		}
 		return ResultUtil.getResultBase("删除失败！");
+	}
+
+	@Override
+	@ParamCheck(names = {"name"})
+	public ResultBase updateNameById(TbLetter letter, HttpServletRequest request) throws Exception, CustomException {
+		int size = tbLetterMapper.updateNameById(letter);
+		if (size>0) {
+			return ResultUtil.getResultBase("修改成功！");
+		}
+		return ResultUtil.getResultBase("修改失败！");
 	}
 
 }

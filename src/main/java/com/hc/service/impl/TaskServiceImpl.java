@@ -204,7 +204,7 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	 * 
 	 * 	/**任务名称*/
 	public ResultBase delete(String jobName, String jobGroup) throws Exception{
-		if (jobName == null || jobGroup == null || (!"".contentEquals(jobName))||(!"".equals(jobGroup))) {
+		if (jobName == null || jobGroup == null || ("".contentEquals(jobName))||("".equals(jobGroup))) {
 			return ResultUtil.getResultBase(false);
 		}
 		TriggerKey triggerKey = TriggerKey.triggerKey(jobName,jobGroup);
@@ -278,13 +278,13 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 			if(list==null) {
 				return ResultUtil.getResultQuery("没有数据！");
 			}
-			return ResultUtil.getResultQuery(list, tbEmailTimingTaskMapper.getTaskByAdminIdCount(base));
+			return ResultUtil.getResultQuery(list, tbEmailTimingTaskMapper.getTaskByAdminIdCount(base),base.getPage(),base.getPageSize());
 		}else {
 			List<TaskData> list = tbLetterTimingTaskMapper.getTaskByAdminId(base);
 			if(list==null) {
 				return ResultUtil.getResultQuery("没有数据！");
 			}
-			return ResultUtil.getResultQuery(list, tbLetterTimingTaskMapper.getTaskByAdminIdCount(base));
+			return ResultUtil.getResultQuery(list, tbLetterTimingTaskMapper.getTaskByAdminIdCount(base),base.getPage(),base.getPageSize());
 		}
 	}
 	

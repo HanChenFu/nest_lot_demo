@@ -7,8 +7,8 @@ package com.hc.para.page_base;
  *
  */
 public class PageParam {
-	private Integer page; // 查询页
-	private Integer size; // 每页条数
+	private Integer page = 1; // 查询页
+	private Integer pageSize = 10; // 每页条数
 	private Integer start; // 开始条数
 
 	public Integer getPage() {
@@ -24,12 +24,12 @@ public class PageParam {
 	}
 
 	public Integer getSize() {
-		return size;
+		return pageSize;
 	}
 
 	public void setSize(Integer size) {
 		if (null != size && size > 0) {
-			this.size = size;
+			this.pageSize = size;
 		} else {
 			size = null;
 		}
@@ -43,8 +43,8 @@ public class PageParam {
 	 */
 	public Integer getStart() {
 		start = null;
-		if (null != page && null != size) {
-			start = (page - 1) * size;
+		if (null != page && null != pageSize) {
+			start = (page - 1) * pageSize;
 		}
 		return start;
 	}

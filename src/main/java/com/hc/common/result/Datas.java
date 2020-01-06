@@ -15,6 +15,8 @@ import java.util.List;
 public class Datas<T> {
 	private List<T> list;
 	private Integer totalItems; // 总条数
+	private Integer page;//当前页面
+	private Integer pageSize;//每页大小
 
 	public List<T> getList() {
 		return list;
@@ -32,4 +34,20 @@ public class Datas<T> {
 		this.totalItems = totalItems;
 	}
 
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+	
 }

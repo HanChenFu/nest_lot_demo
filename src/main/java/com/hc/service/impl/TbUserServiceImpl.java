@@ -38,7 +38,7 @@ public class TbUserServiceImpl implements TbUserService{
 		if(li==null) {
 			return ResultUtil.getResultQuery("没有数据！");
 		}
-		return ResultUtil.getResultQuery(li,tbUserMapper.getUserMessByNameCount(tbUser));
+		return ResultUtil.getResultQuery(li,tbUserMapper.getUserMessByNameCount(tbUser),tbUser.getPage(),tbUser.getSize());
 	}
 
 	@Override

@@ -41,13 +41,11 @@ public class CallCenterImpl implements CallCenterService {
 	 */
 	@Override 
 	public ResultQuery<CallCenter> getCallCenterRecord(CallCenter callCenter){
-		
 		List<CallCenter> callCenters = callCenterMapper.getCallCenterRecord(callCenter);
-		
 		if(callCenters==null) {
 			return ResultUtil.getResultQuery("没有数据！");
 		}
-		return  ResultUtil.getResultQuery(callCenters, callCenterMapper.getCallCenterRecordCount(callCenter));
+		return  ResultUtil.getResultQuery(callCenters, callCenterMapper.getCallCenterRecordCount(callCenter),callCenter.getPage(),callCenter.getSize());
 	}
 	
 	

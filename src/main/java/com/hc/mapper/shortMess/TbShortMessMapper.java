@@ -15,4 +15,6 @@ public interface TbShortMessMapper {
 	
 	int deleShort(List<Integer> list);
 	
+	int updateNameById(TbShortMess letter);
+	
 }

@@ -16,4 +16,5 @@ public interface TbLetterMapper {
 	
 	int deleLetter(List<Integer> list);
 	
+	int updateNameById(TbLetter letter);
 }

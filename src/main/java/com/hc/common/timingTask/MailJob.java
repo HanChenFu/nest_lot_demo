@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSONArray;
 import com.hc.mapper.emailTimingTask.TbEmailTimingTaskMapper;
 import com.hc.pojo.email.TbEmail;
 import com.hc.pojo.task.TaskData;

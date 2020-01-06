@@ -14,6 +14,7 @@ import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.mapper.shortMess.TbShortMessMapper;
 import com.hc.para.page_base.BasePara;
+import com.hc.pojo.shortMess.TbShortMess;
 import com.hc.pojo.shortMess.TbShortPara;
 import com.hc.pojo.usually.LetterPageData;
 import com.hc.service.TbSMService;
@@ -49,7 +50,7 @@ public class TbSMServiceImpl implements TbSMService{
 		if(l==null) {
 			return ResultUtil.getResultQuery("没有数据！");
 		}
-		return ResultUtil.getResultQuery(l, tbShortMessMapper.getShortMessCount(para));
+		return ResultUtil.getResultQuery(l, tbShortMessMapper.getShortMessCount(para),para.getPage(),para.getPageSize());
 	}
 
 
@@ -62,6 +63,16 @@ public class TbSMServiceImpl implements TbSMService{
 			return ResultUtil.getResultBase("删除成功！");
 		}
 		return ResultUtil.getResultBase("删除失败！");
+	}
+
+	@Override
+	@ParamCheck(names = {"name"})
+	public ResultBase updateNameById(TbShortMess letter, HttpServletRequest request) throws Exception, CustomException {
+		int size = tbShortMessMapper.updateNameById(letter);
+		if (size>0) {
+			return ResultUtil.getResultBase("修改成功！");
+		}
+		return ResultUtil.getResultBase("修改失败！");
 	}
 
 }

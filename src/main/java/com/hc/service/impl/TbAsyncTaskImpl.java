@@ -38,7 +38,6 @@ import com.hc.utils.email.SendMail;
 import com.hc.utils.file.FileUtil;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.sendCode.AliyunSMSUtil;
-import com.hc.utils.string.FormatCheck;
 
 @Service("tbAsyncTaskImpl")
 public class TbAsyncTaskImpl {
@@ -95,14 +94,15 @@ public class TbAsyncTaskImpl {
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
 	  		String s = it.next();
-	  			String str = tbUserMapper.getUserIdByEmail(s);
-	  			if(str==null) {
-	  				TbUser tb = new TbUser(s);
-	  				tbUserMapper.insertSelective(tb);
-	  				str = tb.getTbId();
-	  			}
-	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			TbLetter letter = new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2");
+//	  			String str = tbUserMapper.getUserIdByEmail(s);
+//	  			if(str==null) {
+//	  				TbUser tb = new TbUser(s);
+//	  				tbUserMapper.insertSelective(tb);
+//	  				str = tb.getTbId();
+//	  			}
+	  			int auto_id = t.getTbId() == 0? null: t.getTbId();
+//	  			TbLetter letter = new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2");
+	  			TbLetter letter = new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),s,auto_id,"2");
 	  			if (!"".equals(path)) {
 	  				letter.setAppendixTitle(tbEmail.getAppendixTitle());
 	  				letter.setAppendixPath(path);
@@ -131,15 +131,16 @@ public class TbAsyncTaskImpl {
 	  	List<String> list = new ArrayList<String>(Arrays.asList(to));//将数组转换为list集合
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
-	  		String s = it.next();
-	  			String str = tbUserMapper.getUserIdByEmail(s);
-	  			if(str==null) {
-	  				TbUser tb = new TbUser(s);
-	  				tbUserMapper.insertSelective(tb);
-	  				str = tb.getTbId();
-	  			}
+	  			String s = it.next();
+//	  			String str = tbUserMapper.getUserIdByEmail(s);
+//	  			if(str==null) {
+//	  				TbUser tb = new TbUser(s);
+//	  				tbUserMapper.insertSelective(tb);
+//	  				str = tb.getTbId();
+//	  			}
 	  			int auto_id = t.getTbId() == 0?null:t.getTbId();
-	  			TbLetter letter = new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2");
+//	  			TbLetter letter = new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2");
+	  			TbLetter letter = new TbLetter(tbEmail.getTbAdminId(),CreateSequence.getTimeMillisSequence(),s,auto_id,"2");
 	  			if (!"".equals(path)) {
 	  				letter.setAppendixTitle(tbEmail.getAppendixTitle());
 	  				letter.setAppendixPath(path);
@@ -169,14 +170,14 @@ public class TbAsyncTaskImpl {
 	  	Iterator<String> it = list.iterator();
 	  	while(it.hasNext()) {
 	  		String s = it.next();
-  			String str = tbUserMapper.getUserIdByPhone(s);
-  			if(str==null) {
-  				TbUser tb = new TbUser(s,1);
-  				tbUserMapper.insertSelective(tb);
-  				str = tb.getTbId();
-  			}
+//  			String str = tbUserMapper.getUserIdByPhone(s);
+//  			if(str==null) {
+//  				TbUser tb = new TbUser(s,1);
+//  				tbUserMapper.insertSelective(tb);
+//  				str = tb.getTbId();
+//  			}
   			int auto_id = t.getTbId() == 0?null:t.getTbId();
-  			tbShortMessMapper.insertSelective(new TbShortMess(shortPara.getTbAdminId(),CreateSequence.getTimeMillisSequence(),Integer.parseInt(str),s,auto_id,"2"));
+  			tbShortMessMapper.insertSelective(new TbShortMess(shortPara.getTbAdminId(),CreateSequence.getTimeMillisSequence(),s,auto_id,"2"));
 	  	}
 	  	String content = shortPara.getContent();
 	  	for (int i = 0; i < list.size(); i++) {

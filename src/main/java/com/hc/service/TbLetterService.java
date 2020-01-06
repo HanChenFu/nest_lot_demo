@@ -17,4 +17,6 @@ public interface TbLetterService {
 	
 	ResultBase deleLetter(BasePara para,HttpServletRequest request) throws Exception,CustomException;
 	
+	ResultBase updateNameById(TbLetter letter,HttpServletRequest request) throws Exception,CustomException;
+	
 }
