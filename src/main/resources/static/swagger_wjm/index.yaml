@@ -1,0 +1,91 @@
+swagger: '2.0'
+info:
+  #接口标题
+  title: 深圳应急系统
+  #接口文档的描述
+  description: 李燕飞
+  #版本号
+  version: 1.0.0
+
+#认证
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "token"
+    in: "header"
+schemes:
+  - http
+paths:
+
+  /mailList/insertMailList:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 通讯录
+      #接口概要
+      summary: 添加通讯录
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqInsertMailList'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+            
+definitions:
+  R:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 状态码 0：成功  非0：失败
+          format: int32
+        msg:
+          description: 失败原因
+          type: string
+  ReqInsertMailList:
+    type: object
+    properties:
+      mailListId:
+        description: 通讯录主建
+        type: integer
+      contacts:
+        description: 联系人
+        type: string
+      phoneNumber:
+        description: 电话号码
+        type: string
+      mailboxNumber:
+        description: 邮箱
+        type: string
+      remarks:
+        description: 备注
+        type: string
+      createUserId:
+        description: 经手人 id
+        type: integer
+        default: 1
+      updateUserId:
+        description: 修改人 id
+        type: integer
+        default: 1
+      createTime:
+        description: 创建时间
+        type: string
+      updateTime:
+        description: 修改时间
+        type: string
