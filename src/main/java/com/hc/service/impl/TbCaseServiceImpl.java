@@ -312,12 +312,12 @@ public class TbCaseServiceImpl implements TbCaseService{
 		ResultBase baseBean = ResultUtil.getResultBase(true, StatusCode.SUCCESS, "操作成功！");
 		
 		//案件图片检测
-		String[] imgs = tbCase.getTbImages()==null?null:tbCase.getTbImages().split(",");
-		//得到本次修改需要增加图片的数量
-		int delImgsLength = null == bean.getDelImgs()?0:bean.getDelImgs().length;
+		/*String[] imgs = tbCase.getTbImages()==null?null:tbCase.getTbImages().split(",");*/
+		//得到本次修改剩余图片的数量
+		int remainsLength = null == bean.getRemainArr()?0:bean.getRemainArr().length;
 		//得到本次修改需要增加图片的数量
 		int filsLength = null == files?0:files.length;
-		int imgsLength = null == imgs?0:imgs.length;
+		/*int imgsLength = null == imgs?0:imgs.length;*/
 		//案件保存类别检测
 		if(null==bean.getTbCaseSaveCategory()){
 			return ResultUtil.getResultBase(false, StatusCode.PARAM_NULL, "案件保存类别不能为空！");
@@ -328,7 +328,7 @@ public class TbCaseServiceImpl implements TbCaseService{
 				return baseBean;
 			}
 			
-			if(imgsLength-delImgsLength+filsLength<=0){
+			if(remainsLength+filsLength<=0){
 				return ResultUtil.getResultBase(false, StatusCode.PARAM_NULL, "案件图片不能为空！");
 			}
 		}else if(1==bean.getTbCaseSaveCategory()){
@@ -346,25 +346,35 @@ public class TbCaseServiceImpl implements TbCaseService{
 		//图片处理
 		StringBuffer path = new StringBuffer();
 		//先删除需要删除的图片
-		if(delImgsLength!=0){
-			for(String img : imgs){
-				boolean flag = true;
-				for(String img2 : bean.getDelImgs()){
-					if((SystemConfigUtil.getValue("aliyun_oss_url")+img).equals(img2)){
-						flag = false;
-						//调取阿里云OSS删除【img2】的图片
-						StsServiceSample.delAliyunUrl(img2);
+		String[] imgs = tbCase.getTbImages()==null?null:tbCase.getTbImages().split(",");//得到数据库的图片url转成数组
+		//如果数据库有数据则处理如果没有则不处理
+		if(imgs!=null&&imgs.length>0){
+			//如果前端传的剩余图片数组有数据则处理
+			if(bean.getRemainArr()!=null&&bean.getRemainArr().length>0){
+				for(String img : imgs){//循环数据库的图片
+					//定义一个表示true：表示图片需要图片不存在需要删除，false：表示图片存在
+					boolean flag = true;
+					for(String remainImg : bean.getRemainArr()){
+						//循环前端传来的剩余图片
+						if((SystemConfigUtil.getValue("aliyun_oss_url")+img).equals(remainImg)){
+							//找到图片，则把表示改为false
+							flag = false;
+						}
+					}
+					if(flag){//true：表示图片需要图片不存在需要删除，删除阿里图片，并且不拼接图片字符串
+						//调取阿里云OSS删除【img】的图片
+						StsServiceSample.delAliyunUrl(img);
+					}else{//false：表示图片存在，不删除阿里图片，并且拼接图片字符串
+						path.append(img);
+						path.append(",");
 					}
 				}
-				if(flag){
-					path.append(img);
-					path.append(",");
+			}else{
+				//如果前端传的剩余图片数组没数据则不拼接图片字符串，直接删除阿里的图片
+				for(String img : imgs){
+					//调取阿里云OSS删除【img2】的图片
+					StsServiceSample.delAliyunUrl(img);
 				}
-			}
-		}else{
-			if(null!=tbCase.getTbImages()&&!"".equals(tbCase.getTbImages())){
-				path.append(tbCase.getTbImages());
-				path.append(",");
 			}
 		}
 		//再增加需要增加的图片

@@ -6,7 +6,7 @@ public class AddAndUpdateCaseReqBean {
 	private Integer tbId;//案件ID（update） 
 	private String tbNumber;//编号(档案号)
 	/*private MultipartFile[] files;*///上传的图片流
-	private String[] delImgs;//需要删除的图片数组（update）	
+	private String[] remainArr;//剩余图片数组（update）	
 	private Integer tbUserId;//用户id
 	private Integer tbCaseTypeId;//案件类型ID	
 	private Integer tbCaseSaveCategory;//案件保存类别（0：联网保存，1：草稿箱保存）	
@@ -25,6 +25,12 @@ public class AddAndUpdateCaseReqBean {
 	private String  delTime;
 	private String  createTime;
 	
+	public String[] getRemainArr() {
+		return remainArr;
+	}
+	public void setRemainArr(String[] remainArr) {
+		this.remainArr = remainArr;
+	}
 	public String getTbImages() {
 		return tbImages;
 	}
@@ -60,18 +66,6 @@ public class AddAndUpdateCaseReqBean {
 	}
 	public void setTbNumber(String tbNumber) {
 		this.tbNumber = tbNumber;
-	}
-	/*public MultipartFile[] getFiles() {
-		return files;
-	}
-	public void setFiles(MultipartFile[] files) {
-		this.files = files;
-	}*/
-	public String[] getDelImgs() {
-		return delImgs;
-	}
-	public void setDelImgs(String[] delImgs) {
-		this.delImgs = delImgs;
 	}
 	public Integer getTbCaseSaveCategory() {
 		return tbCaseSaveCategory;

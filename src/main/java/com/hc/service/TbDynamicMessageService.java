@@ -23,6 +23,6 @@ public interface TbDynamicMessageService {
 	ResultData<TbDynamicMessageInfo> getOneInfoById(Integer tbId) throws Exception ;
 	//返回天气预报详情
 	ResultData<ResSevenDaysWeatherBean> getWeatherForecastDetails() throws Exception ;
-	//返回天气预报详情
+	//返回台风预警详情
 	ResultData<ResGetTyphoonWarningsBean> getTyphoonWarning() throws Exception ;
 }

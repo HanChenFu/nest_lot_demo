@@ -940,8 +940,8 @@ definitions:
       tbNumber:
         description: 编号(档案号)
         type: string
-      delImgs:
-        description: 需要删除的图片数组【类型：数组String[]】字符串数组
+      remainArr:
+        description: 剩余的图片数组【类型：数组String[]】字符串数组
         type: array
         items:
           type: string
