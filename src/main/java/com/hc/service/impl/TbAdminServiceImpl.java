@@ -73,7 +73,7 @@ public class TbAdminServiceImpl implements TbAdminService{
 	@Override
 	@ParamCheck(names = {"tbId"})
 	public ResultBase updateAdminPassword(UpdateUserMess bean,HttpServletRequest request) throws Exception, CustomException {
-		TbAdmin Tbadmin = tbAdminMapper.getAdminByTbId(bean.getTbId());
+		TbAdmin Tbadmin = tbAdminMapper.getAdminByTbId(bean);
 		if(Tbadmin==null){
 			return ResultUtil.getResultBase(false, StatusCode.FAIL, "该用户不存在");
 		}else{
@@ -101,8 +101,9 @@ public class TbAdminServiceImpl implements TbAdminService{
 	}
 	//查询用户密码与邮箱信息
 	@Override
-	public ResultData<ResGetNameAndEmail> getNameAndEmail(Integer tbId) throws Exception, CustomException {
-		TbAdmin tbadmin = tbAdminMapper.getAdminByTbId(tbId);
+	@ParamCheck(names = {"tbId"})
+	public ResultData<ResGetNameAndEmail> getNameAndEmail(UpdateUserMess bean) throws Exception, CustomException {
+		TbAdmin tbadmin = tbAdminMapper.getAdminByTbId(bean);
 		ResGetNameAndEmail getNameAndEmail = new ResGetNameAndEmail();
 		getNameAndEmail.setTbEmail(tbadmin.getTbEmail());
 		getNameAndEmail.setTbName(tbadmin.getTbName());
