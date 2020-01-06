@@ -24,6 +24,7 @@ public class MainApplication extends SpringBootServletInitializer{
 		TbAsyncTaskImpl tbAsyncTaskImpl = (TbAsyncTaskImpl)applicationContext.getBean("tbAsyncTaskImpl");
 		tbAsyncTaskImpl.putTimingTaskToTask();
 	}
+	
 
 	@Override //为了打包springboot项目
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
