@@ -76,16 +76,25 @@ public class TbAdminServiceImpl implements TbAdminService{
 		if(Tbadmin==null){
 			return ResultUtil.getResultBase(false, StatusCode.FAIL, "该用户不存在");
 		}else{
-			String oldPassword = MD5Util.MD5(bean.getPasswordOld());
-			if(bean.getPasswordNew()!=null&&Tbadmin.getTbPassword().equals(oldPassword)){
-				int i = tbAdminMapper.updateAdminPassword(bean);
-				if(i>0){
-					return ResultUtil.getResultBase(true, StatusCode.SUCCESS, "操作成功！");
+			String passwordOld = bean.getPasswordOld();
+			if(passwordOld!=null&&!"".equals(passwordOld)){
+				if(passwordOld.length()>12||passwordOld.length()<6){
+					return ResultUtil.getResultBase(true, StatusCode.SUCCESS, "新密码输入必须是6-12位字符！");
+				}
+				String oldPassword = MD5Util.MD5(passwordOld);
+				if(bean.getPasswordNew()!=null&&Tbadmin.getTbPassword().equals(oldPassword)){
+					bean.setPasswordNew(MD5Util.MD5(bean.getPasswordNew()));
+					int i = tbAdminMapper.updateAdminPassword(bean);
+					if(i>0){
+						return ResultUtil.getResultBase(true, StatusCode.SUCCESS, "操作成功！");
+					}else{
+						return ResultUtil.getResultBase(false, StatusCode.FAIL, "操作失败！");
+					}
 				}else{
-					return ResultUtil.getResultBase(false, StatusCode.FAIL, "操作失败！");
+					return ResultUtil.getResultBase(false, StatusCode.FAIL, "密码错误！");
 				}
 			}else{
-				return ResultUtil.getResultBase(false, StatusCode.FAIL, "密码错误！");
+				return ResultUtil.getResultBase(false, StatusCode.FAIL, "请输入密码！");
 			}
 		}
 	}

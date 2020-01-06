@@ -13,13 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
@@ -29,7 +27,6 @@ import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
 import com.hc.common.result.ResultQuery;
 import com.hc.controller.callCenter.webSocke.ImportDictValueSocket;
-import com.hc.para.page_base.BasePara;
 import com.hc.pojo.callCenter.CallCenter;
 import com.hc.service.CallCenterService;
 import com.hc.utils.conig.SystemConfigUtil;
@@ -53,7 +50,7 @@ public class CallCenterController {
 	@Autowired
 	private CallCenterService callCenterService;
 	
-	Logger log=Logger.getLogger(getClass());
+	/*Logger log=Logger.getLogger(getClass());*/
 	private final String CALL_SERVER_URL = "http://114.116.87.75:12121/bridge/callctrl";
 	private final String caller = "805";
 	
@@ -72,7 +69,7 @@ public class CallCenterController {
 			String url = CALL_SERVER_URL + "?caller="+caller+"&callee="+callee+"&authtype=no&opt=CLICK_TO_DIAL";
 			HttpClientRequest httpClientRequest = new HttpClientRequest();
 			String str = httpClientRequest.requestVoiceServer(url);
-			log.error("-*********************************-str:"+str);
+//			log.error("-*********************************-str:"+str);
 			int tbState = 0;
 			if(str.trim().equals("200")) {
 				tbState = 1;
@@ -100,7 +97,7 @@ public class CallCenterController {
 			String url = CALL_SERVER_URL + "?caller="+caller+"&callee="+callee+"&opt=CLICK_TO_HUNGUP";
 			HttpClientRequest httpClientRequest = new HttpClientRequest();
 			String str = httpClientRequest.requestVoiceServer(url);
-			log.error("-*********************************-str:"+str);
+//			log.error("-*********************************-str:"+str);	
 			return str;
 		}
 	}
