@@ -31,9 +31,9 @@
 		SELECT
 			COUNT( 1 ) 
 		FROM
-			`tb_short_mess` ts
+			`tb_short_mess` tl
 		WHERE
-			ts.tb_admin_id = #{id}
+			tl.tb_admin_id = #{id}
 		<if test="nickname!=null and nickname!=''">
 			AND tl.name like concat('%',#{nickname},'%')
 		</if>
