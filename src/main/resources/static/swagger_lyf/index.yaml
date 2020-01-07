@@ -65,7 +65,7 @@ paths:
           description: 操作异常
           schema:
             $ref: '#/definitions/R'
-  /index/userInfo/updateAdminPassword:
+  /index/userInfo/updateAdminMess:
     post:
      #标签，方便快速过滤出User相关的接口 分组
       tags:
