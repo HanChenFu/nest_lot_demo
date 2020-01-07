@@ -68,7 +68,7 @@ public class TbLetterServiceImpl implements TbLetterService{
 	}
 
 	@Override
-	@ParamCheck(names = {"nickname"})
+	@ParamCheck(names = {"tbId","nickname"})
 	public ResultBase updateNameById(TbLetter letter, HttpServletRequest request) throws Exception, CustomException {
 		int size = tbLetterMapper.updateNameById(letter);
 		if (size>0) {

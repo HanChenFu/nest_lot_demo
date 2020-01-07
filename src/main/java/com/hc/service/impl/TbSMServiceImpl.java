@@ -66,7 +66,7 @@ public class TbSMServiceImpl implements TbSMService{
 	}
 
 	@Override
-	@ParamCheck(names = {"nickname"})
+	@ParamCheck(names = {"tbId","nickname"})
 	public ResultBase updateNameById(TbShortMess letter, HttpServletRequest request) throws Exception, CustomException {
 		int size = tbShortMessMapper.updateNameById(letter);
 		if (size>0) {

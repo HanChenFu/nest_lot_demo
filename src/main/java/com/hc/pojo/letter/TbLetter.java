@@ -6,7 +6,7 @@ package com.hc.pojo.letter;
  *
  */
 public class TbLetter {
-	private int tbId;
+	private String tbId;
 	private String tbNumber;
 	private String tbAdminId;
 	private int tbUserId;
@@ -32,12 +32,6 @@ public class TbLetter {
 		this.sendingState = sendingState;
 	}
 	
-	public int getTbId() {
-		return tbId;
-	}
-	public void setTbId(int tbId) {
-		this.tbId = tbId;
-	}
 	public String getTbNumber() {
 		return tbNumber;
 	}
@@ -113,6 +107,12 @@ public class TbLetter {
 		this.nickname = nickname;
 	}
 
+	public String getTbId() {
+		return tbId;
+	}
 
+	public void setTbId(String tbId) {
+		this.tbId = tbId;
+	}
 	
 }
