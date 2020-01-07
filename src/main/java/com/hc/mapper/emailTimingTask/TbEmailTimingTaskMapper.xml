@@ -73,12 +73,14 @@
 	WHERE
 		tb_jobName = ""
 	 -->
-	<update id="updateNumberToZero" parameterType="java.lang.Integer">
+	<update id="updateNumberToZero" parameterType="java.lang.String">
 		UPDATE tb_email_timing_task
 		SET tb_number = 0
 		WHERE
-			tb_id = #{tbId}
+			tb_jobGroup = #{group}
 	</update>
+	
+	
 	
 	<!--  删除所有的task	-->
 	<delete id="deleAllTask" parameterType="java.lang.String">
@@ -126,5 +128,5 @@
 		WHERE
 			tl.tb_number > 0
 	</select>
-
+	
 </mapper>

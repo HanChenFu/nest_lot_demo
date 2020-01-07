@@ -14,6 +14,7 @@ import com.hc.common.result.ResultBase;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.task.TaskInfo;
 import com.hc.service.TaskService;
+import com.hc.utils.result.ResultUtil;
 
 @Controller
 @RequestMapping("/letter/task/")
@@ -58,7 +59,10 @@ public class TaskLetterController {
 	 */
 	@RequestMapping(value="delete")
 	public ResultBase delete(@RequestBody(required = false) TaskInfo info) throws Exception,CustomException{
-		return taskService.delete(info.getJobName(), info.getJobGroup());
+		if(info==null) {
+			return ResultUtil.getResultBase(false);
+		}
+		return taskService.delete(info.getJobName(), info.getJobGroup(),1);
 	}
 	
 	/**

@@ -65,7 +65,7 @@ public class TaskEmailController {
 		if(info==null) {
 			return ResultUtil.getResultBase(false);
 		}
-		return taskService.delete(info.getJobName(), info.getJobGroup());
+		return taskService.delete(info.getJobName(), info.getJobGroup(),0);
 	}
 
 	/**

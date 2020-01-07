@@ -18,7 +18,7 @@ public interface TaskService {
 	
 	ResultBase edit(TaskInfo info,int type)  throws Exception;
 	
-	ResultBase delete(String jobName, String jobGroup) throws Exception;
+	ResultBase delete(String jobName, String jobGroup,int type) throws Exception;
 	
 	boolean pause(String jobName, String jobGroup);
 	

@@ -42,7 +42,7 @@ public class MailJob implements Job {
 				tbEmailTimingTaskMapper.updateNumber(task.getTbId());// 这边是把执行次数减去一 }else {
 //			  	taskService.delete(name,group); 
 			}else {
-				taskService.delete(name,group);
+				taskService.delete(name,group,0);
 			}
 		} catch (Exception e) {
 			logger.error("MailJob:" + e);

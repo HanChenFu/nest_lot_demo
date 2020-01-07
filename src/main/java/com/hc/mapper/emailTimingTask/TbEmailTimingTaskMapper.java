@@ -19,7 +19,7 @@ public interface TbEmailTimingTaskMapper {
 	
 	int getTaskByAdminIdCount(BasePara base);
 	
-	int updateNumberToZero();
+	int updateNumberToZero(String group);
 	
 	int deleAllTask(String jobGroup);
 	

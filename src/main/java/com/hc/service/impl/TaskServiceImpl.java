@@ -203,7 +203,7 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	 * @param jobGroup
 	 * 
 	 * 	/**任务名称*/
-	public ResultBase delete(String jobName, String jobGroup) throws Exception{
+	public ResultBase delete(String jobName, String jobGroup,int type) throws Exception{
 		if (jobName == null || jobGroup == null || ("".contentEquals(jobName))||("".equals(jobGroup))) {
 			return ResultUtil.getResultBase(false);
 		}
@@ -212,6 +212,11 @@ private Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 			if (checkExists(jobName, jobGroup)) {
 				scheduler.pauseTrigger(triggerKey);
 			    scheduler.unscheduleJob(triggerKey);
+			    if(type == 0) {
+			    	tbEmailTimingTaskMapper.updateNumberToZero(jobGroup);
+			    }else {
+			    	tbLetterTimingTaskMapper.updateNumberToZero(jobGroup);
+			    }
 //			    logger.info("delete job, triggerKey:{},jobGroup:{}, jobName:{}", triggerKey ,jobGroup, jobName);
 				return ResultUtil.getResultBase(true);
 			}

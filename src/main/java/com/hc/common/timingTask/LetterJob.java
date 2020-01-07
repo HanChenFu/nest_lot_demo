@@ -45,7 +45,7 @@ public class LetterJob implements Job{
 				}
 				tbLetterTimingTaskMapper.updateNumber(task.getTbId());
 			}else {
-				taskService.delete(name,group);
+				taskService.delete(name,group,1);
 			}
 		} catch (Exception e) {
 			logger.error("LetterJob:"+e);
