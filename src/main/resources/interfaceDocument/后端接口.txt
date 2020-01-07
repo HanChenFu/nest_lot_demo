@@ -194,7 +194,7 @@ listid：案件的id
 需要传的参数 JSON格式： 
 {
 	"createTime": "7", 					-- 创建时间
-	"tbType": "1",						-- 呼叫类型(1 表示呼入 2表示呼出)
+	"tbType": "1",						-- 呼叫类型(0 表示呼入 1表示呼出)
 	"tbHandleType": "1",				-- 所有分类 （0 表示未分类 1表示维修）
 	"tbState": "1",						-- 接听状态(0 表示无法接通 1表示接通)	
 	"tb_duratio": "2分10秒%'",				-- 通话时长
@@ -658,7 +658,7 @@ http://localhost:8080//mailList/insertMailList
 {
 	"contacts":"老聂",			 							--联系人
 	"phoneNumber":"13417708386",		 				--电话号码
-	"mailbox_number":"642462188@qq.com",				--邮箱号
+	"mailboxNumber":"642462188@qq.com",				--邮箱号
 	"remarks":"中国电信",				 					--备注
 	"createUserId":"1"									--经手人 的 id
 }

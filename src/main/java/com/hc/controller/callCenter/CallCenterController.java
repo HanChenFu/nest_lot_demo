@@ -127,6 +127,30 @@ public class CallCenterController {
 		txt = URLDecoder.decode(txt, "UTF-8");
 		System.out.println("caller:"+caller+"===callee:"+callee+"===callid:"+callid+"===txt:"+txt);
 		 
+		ConcurrentHashMap<String, ImportDictValueSocket> webSocket = ImportDictValueSocket.webSocketMap;
+		ImportDictValueSocket importDictValueSocket = webSocket.get(callee);
+		Session session = importDictValueSocket.getSession();
+//		d = d + session.getId()+"==="+phoneNumber;
+		importDictValueSocket.sendMessage(txt);
+		System.out.println("session.Id:====="+session.getId());
+		
+		
+		String path = SystemConfigUtil.getValue("upload_path")+callee+".txt";
+		File file = new File(path);
+		if(!file.exists()){
+          file.getParentFile().mkdirs();          
+		}
+		file.createNewFile();
+
+		// write
+		FileWriter fw = new FileWriter(file, true);
+		BufferedWriter bw = new BufferedWriter(fw);
+//		String tt = "哈喽，哈喽，  你好你好\r\n";
+		bw.write(txt+"\r\\n");
+		bw.flush();
+		bw.close();
+		fw.close();
+		
 		return "caller:"+caller+"===callee:"+callee+"===callid:"+callid+"===txt:"+txt;
 		 
 	}

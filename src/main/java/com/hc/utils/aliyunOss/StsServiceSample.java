@@ -88,9 +88,9 @@ public class StsServiceSample {
 		}
 		return bean;
 	}
-
 	/**
 	 * 删除文件
+	 * case_imgs/79789/2ce4ef48-11f5-4730-8c0a-364642837066.png
 	 **/
 	public static void delAliyunUrl(String url) {
 		String key = isAliyunUrl(url);
@@ -104,16 +104,18 @@ public class StsServiceSample {
 			// 创建OSSClient实例
 			OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
 			// 删除Object
-			ossClient.deleteObject(Constants.bucketName, key);
+			ossClient.deleteObject(Constants.bucketName, url);
 			// 关闭client
 			ossClient.shutdown();
 			System.out.println("删除oss成功");
+		}else{
+			System.out.println("没有改oss文件");
 		}
-		System.out.println("没有改oss文件");
 	}
 
 	/**
 	 * 查看文件是否存在
+	 * case_imgs/79789/2ce4ef48-11f5-4730-8c0a-364642837066.png
 	 **/
 	public static String isAliyunUrl(String url) {
 		String flag = null;
@@ -129,11 +131,12 @@ public class StsServiceSample {
 				OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
 				// Object是否存在
 				System.out.println(split[split.length - 1]);
-				boolean found = ossClient.doesObjectExist(Constants.bucketName, split[split.length - 1]);
+				boolean found = ossClient.doesObjectExist(Constants.bucketName, url);
 				if (found) {
 					System.out.println(split[split.length - 1]);
 					flag = split[split.length - 1];
 				}
+				System.out.println("===========================================");
 				System.out.println(found);
 				// 关闭client
 				ossClient.shutdown();
@@ -148,7 +151,7 @@ public class StsServiceSample {
 	 * @param file
 	 *            上传图片的文件
 	 * @param filedir
-	 *            图片存储的文件夹目录
+	 *            图片存储的文件夹目录 例：case_imgs/哈哈哈哈/
 	 * @return String 图片的绝对路径
 	 */
 	public static String uploadImg2Oss(MultipartFile file, String filedir) {
@@ -350,6 +353,7 @@ public class StsServiceSample {
 	}
 
 	public static void main(String[] args) {
+		delAliyunUrl("case_imgs/79789/2ce4ef48-11f5-4730-8c0a-364642837066.png");
 		getAliyun();
 		// System.out.println(UUID.randomUUID().toString());
 		// delAliyunUrl("http://hy-zhiyin.oss-cn-hangzhou.aliyuncs.com/91f303fe-7a68-4949-8ef4-f2c70d4ef593.jpg");
