@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
@@ -59,7 +58,7 @@ public class ServiceParamCheck {
 	}
 
 	@Around("execution(* com.hc.service.impl.*.*(..)) && @annotation(checks)")
-	public Object doAccessChecks(ProceedingJoinPoint jp, ParamChecks checks) throws Exception {
+	public Object doAccessChecks(ProceedingJoinPoint jp, ParamChecks checks) throws Throwable {
 		logger.info("检查多个注解");
 		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getResponse();
@@ -78,7 +77,10 @@ public class ServiceParamCheck {
 					returnResponse(response, new ResponseMess(false, StatusCode.PARAM_NULL.toInteger(), "参数不能为空"));
 					return null;
 				}
-				checkParam(params[index], check.value(), check.names(), response);
+				if (checkParam(params[index], check.value(), check.names(), response)) {
+					return jp.proceed();
+				}
+				return null;
 			}
 		}
 		return null;

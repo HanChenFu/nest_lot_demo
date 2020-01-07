@@ -49,7 +49,7 @@ public class WebShortMessController {
 //		ResultBase updateNameById(TbShortMess letter,HttpServletRequest request) throws Exception,CustomException;
 	
 	@RequestMapping("/updateNameById")
-	ResultBase updateNameById(@RequestBody(required = false) TbShortMess letter,HttpServletRequest request) throws Exception,CustomException{
+	ResultBase updateNameById(@RequestBody(required = false) TbShortMess letter,HttpServletRequest request) throws Exception{
 		return tbSMService.updateNameById(letter, request);
 	}
 }
