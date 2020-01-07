@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.redis.RedisUtil;
@@ -52,6 +53,10 @@ public class TbAskRecordServiceImpl implements TbAskRecordService{
 	@ParamCheck(names = {"tbAdminId","tbUserId","tbName","tbDraft","tbNumber"})
 	public ResultBase insertSelective(TbAskRecord ask, HttpServletRequest request) throws Exception, CustomException {
 //		ask.setTbNumber(CreateSequence.getTimeMillisSequence());
+		String id = tbAskRecordMapper.checkTbNumberIsExist(ask);
+		if(id!=null) {
+			return ResultUtil.getResultBase(false, StatusCode.FAIL, "该文件名已经存在！");
+		}
 		int size = tbAskRecordMapper.insertSelective(ask);
 		if (size>0) {
 			return ResultUtil.getResultBase("操作成功！");

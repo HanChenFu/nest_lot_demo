@@ -16,4 +16,6 @@ public interface TbAskRecordMapper {
 	
 	int updateAskRecord(TbAskRecord ask);
 	
+	String checkTbNumberIsExist(TbAskRecord ask);
+	
 }

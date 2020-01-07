@@ -58,4 +58,13 @@
 			tb_id = #{tbId}
 	</update>
 	
+	<select id="checkTbNumberIsExist" parameterType="com.hc.pojo.askRecord.TbAskRecord" resultType="java.lang.String">
+		SELECT
+			tb_id 
+		FROM
+			tb_ask_record 
+		WHERE
+			tb_number = #{tbNumber} AND tb_admin_id = #{tbAdminId} limit 1
+	</select>
+	
 </mapper>
