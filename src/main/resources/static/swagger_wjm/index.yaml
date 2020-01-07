@@ -3,7 +3,7 @@ info:
   #接口标题
   title: 深圳应急系统
   #接口文档的描述
-  description: 李燕飞
+  description: 老吴
   #版本号
   version: 1.0.0
 
@@ -45,7 +45,203 @@ paths:
           description: 操作异常
           schema:
             $ref: '#/definitions/R'
-            
+  /mailList/getMailList:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 通讯录
+      #接口概要
+      summary: 查询通讯录
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqGetMailList'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /mailList/deleteMailList:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 通讯录
+      #接口概要
+      summary: 删除通讯录
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqDeleteMailList'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /mailList/updateMailList:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 通讯录
+      #接口概要
+      summary: 修改通讯录
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqUpdateMailList'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /stationSetting/insertStationSetting:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 座机
+      #接口概要
+      summary: 添加座机
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqInsertStationSetting'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /stationSetting/getStationSetting:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 座机
+      #接口概要
+      summary: 查询座机
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqGetStationSetting'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /stationSetting/deleteStationSetting:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 座机
+      #接口概要
+      summary: 删除座机
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqDeleteStationSetting'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+  /stationSetting/updateStationSetting:
+    post:
+     #标签，方便快速过滤出User相关的接口 分组
+      tags:
+        - 座机
+      #接口概要
+      summary: 修改座机
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 请求Body参数
+          required: true
+          schema:
+            $ref: '#/definitions/ReqUpdateStationSetting'
+      responses:
+         #返回的http状态码
+        200:
+          description: 返回管理员列表
+          #描述返回值
+          schema:
+            $ref: '#/definitions/R'
+      #执行出错的处理
+        default:
+          description: 操作异常
+          schema:
+            $ref: '#/definitions/R'
+             
 definitions:
   R:
       type: object
@@ -60,9 +256,6 @@ definitions:
   ReqInsertMailList:
     type: object
     properties:
-      mailListId:
-        description: 通讯录主建
-        type: integer
       contacts:
         description: 联系人
         type: string
@@ -78,14 +271,129 @@ definitions:
       createUserId:
         description: 经手人 id
         type: integer
-        default: 1
-      updateUserId:
-        description: 修改人 id
+        default: 1 
+  ReqGetMailList:
+    type: object
+    properties:
+      contacts:
+        description: 联系人
+        type: string
+        default: 老
+      phoneNumber:
+        description: 电话号码
+        type: string
+        default: "1"
+      mailboxNumber:
+        description: 邮箱
+        type: string
+        default: 642462188@qq.com
+      pageSize:
+        description: 每页多少条
         type: integer
+        default: 10
+      page:
+        description: 当前页
+        type: integer 
         default: 1
-      createTime:
-        description: 创建时间
+  ReqDeleteMailList:
+    type: object
+    properties:
+      mailListId:
+        description: 通讯录主建
+        type: integer
+        default: 9
+      updateUserId:
+        description: 修改人id
+        type: ineger
+        default: 1
+  ReqUpdateMailList:
+    type: object
+    properties:
+      mailListId:
+        description: 通讯录主建
+        type: integer
+        default: 9
+      contacts:
+        description: 联系人
         type: string
-      updateTime:
-        description: 修改时间
+        default: 老
+      phoneNumber:
+        description: 电话号码
         type: string
+        default: "1"
+      mailboxNumber:
+        description: 邮箱
+        type: string
+        default: 642462188@qq.com
+      remarks:
+        description: 备注
+        type: string
+        default: 642462188@qq.com
+      updateUserId:
+        description: 修改人id
+        type: ineger
+        default: 1
+  ReqInsertStationSetting:
+    type: object
+    properties:
+      seatNumber:
+        description: 座机号
+        type: integer
+        default: "801"
+      seatPassword:
+        description: 座机密码
+        type: string
+        default: "0123456"
+      ipURL:
+        description: ip连接路径
+        type: string
+        default: "192.168.1.18"
+      createUserId:
+        description: 创建人 的 id
+        type: string
+        default: 1
+  ReqGetStationSetting:
+    type: object
+    properties:
+      seatNumber:
+        description: 座机号
+        type: integer
+        default: "801"
+      pageSize:
+        description: 每页多少条
+        type: integer
+        default: 10
+      page:
+        description: 当前页
+        type: integer 
+        default: 1
+  ReqDeleteStationSetting:
+    type: object
+    properties:
+      stationSettingId:
+        description: 座机index
+        type: integer
+        default: 2
+  ReqUpdateStationSetting:
+    type: object
+    properties:
+      stationSettingId:
+        description: 座机index
+        type: integer
+        default: 2
+      seatNumber:
+        description: 座机号
+        type: integer
+        default: "801"
+      seatPassword:
+        description: 座机密码
+        type: string
+        default: "0123456"      
+      ipURL:
+        description: ip连接路径
+        type: string
+        default: "192.168.1.19"
+      updateUserId:
+        description: 创建人 的 id
+        type: string
+        default: 1
