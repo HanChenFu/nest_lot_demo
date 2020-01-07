@@ -29,17 +29,17 @@ public class WebAskRecordController {
 	}
 	
     @RequestMapping("insertSelective")
-	ResultBase insertSelective(@RequestBody TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
+	ResultBase insertSelective(@RequestBody(required = false) TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
 		return tbAskRecordService.insertSelective(ask, request);
 	}
     
     @RequestMapping("deleAskRecord")
-    ResultBase deleAskRecord(@RequestBody BasePara base,HttpServletRequest request) throws Exception,CustomException{
+    ResultBase deleAskRecord(@RequestBody(required = false) BasePara base,HttpServletRequest request) throws Exception,CustomException{
    		return tbAskRecordService.deleAskRecord(base,request);
    	}
    	
     @RequestMapping("updateAskRecord")
-    ResultBase updateAskRecord(@RequestBody TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
+    ResultBase updateAskRecord(@RequestBody(required = false) TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
    		return tbAskRecordService.updateAskRecord(ask, request);
    	}
 	

@@ -65,7 +65,7 @@ public class TbAdminServiceImpl implements TbAdminService{
 			loginUserUtil.logout(redis.get("web"+tbId).toString());
 			return ResultUtil.getResultData("退出登录成功");
 		}
-		return ResultUtil.getResultData("退出登录失败");
+		return ResultUtil.getResultBase(false,StatusCode.NOT_LOGIN, "未登录");
 	}
 
 

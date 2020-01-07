@@ -5,15 +5,15 @@ import com.hc.para.page_base.PageParam;
 public class CallCenter extends PageParam{
 	private Integer tbId;
 	private Integer tbUserId;
-	private String tbNumber;
-	private Integer tbType;
-	private Integer tbHandleType;
-	private Integer tbState;
-	private String tbDuration;
-	private String soundRecordFile;
+	private String tbNumber;//编号(档案号)
+	private Integer tbType;//呼叫类型(1 表示呼入 2表示呼出)
+	private Integer tbHandleType;//处理结果即分类 （0 表示未分类 1表示维修）
+	private Integer tbState;//接听状态(0 表示无法接通 1表示接通)
+	private String tbDuration;//通话时长
+	private String soundRecordFile;//录音文件路径
 	private String delTime;
 	private String createTime;
-	private String callName;
+	private String callName;//呼叫名称
 	
 	public Integer getTbId() {
 		return tbId;

@@ -22,7 +22,7 @@ public class WebAdminController {
 	private TbAdminService tbAdminService;
 	
 	@RequestMapping("/login")
-	public ResultBase getList(@RequestBody TbAdmin tbAdmin) throws Exception {
+	public ResultBase getList(@RequestBody(required = false) TbAdmin tbAdmin) throws Exception {
 		return tbAdminService.adminLogin(tbAdmin);
 	}
 	
@@ -32,7 +32,7 @@ public class WebAdminController {
 	}
 	
 	@RequestMapping("/updateAdminMess")
-	public ResultBase updateAdminMess(@RequestBody UpdateUserMess bean,HttpServletRequest request) throws Exception {
+	public ResultBase updateAdminMess(@RequestBody(required = false) UpdateUserMess bean,HttpServletRequest request) throws Exception {
 		return tbAdminService.updateAdminMess(bean,request);
 	}
 	

@@ -22,12 +22,12 @@ public class WebLetterFollowController {
 	private TbLetterFollowService tbLetterFollowService;
 	
 	@RequestMapping("/insertSelective")
-	ResultBase insertSelective(@RequestBody TbLetterFollow follow,HttpServletRequest request) throws Exception,CustomException {
+	ResultBase insertSelective(@RequestBody(required = false) TbLetterFollow follow,HttpServletRequest request) throws Exception,CustomException {
 		return tbLetterFollowService.insertSelective(follow, request);
 	}
 	
 	@RequestMapping("/deleteFollow")
-	ResultBase deleteFollow(@RequestBody TbLetterFollow follow,HttpServletRequest request) throws Exception,CustomException{
+	ResultBase deleteFollow(@RequestBody(required = false) TbLetterFollow follow,HttpServletRequest request) throws Exception,CustomException{
 		return tbLetterFollowService.deleteFollow(follow, request);
 	}
 	

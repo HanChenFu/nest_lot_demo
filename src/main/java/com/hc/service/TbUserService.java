@@ -15,7 +15,7 @@ public interface TbUserService {
 	 * @throws Exception
 	 * @throws CustomException
 	 */
-	ResultQuery<TbUser> getUserMessByName(TbUser tbUser, HttpServletRequest request)throws Exception,CustomException;
+	ResultQuery<TbUser> getUserMessByName(TbUser tbUser, HttpServletRequest request) throws Exception, CustomException;
 	
 	ResultBase insertSelective(TbUser tbUser, HttpServletRequest request)throws Exception,CustomException;
 	

@@ -22,12 +22,12 @@ public class WebShortMessFollowController {
 	private TbShortMessFollowService tbShortMessFollowService;
 	
 	@RequestMapping("/insertSelective")
-	ResultBase insertSelective(@RequestBody TbShortMessFollow follow,HttpServletRequest request) throws Exception,CustomException {
+	ResultBase insertSelective(@RequestBody(required = false) TbShortMessFollow follow,HttpServletRequest request) throws Exception,CustomException {
 		return tbShortMessFollowService.insertSelective(follow, request);
 	}
 	
 	@RequestMapping("/deleteFollow")
-	ResultBase deleteFollow(@RequestBody TbShortMessFollow follow,HttpServletRequest request) throws Exception,CustomException{
+	ResultBase deleteFollow(@RequestBody(required = false) TbShortMessFollow follow,HttpServletRequest request) throws Exception,CustomException{
 		return tbShortMessFollowService.deleteFollow(follow, request);
 	}
 	

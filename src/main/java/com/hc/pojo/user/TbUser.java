@@ -1,7 +1,11 @@
 package com.hc.pojo.user;
 
+import javax.validation.constraints.NotBlank;
+
 import com.hc.para.page_base.PageParam;
 
+import lombok.Data;
+@Data
 public class TbUser extends PageParam{
 	private String tbId;
 	private String wpopenid;
@@ -9,6 +13,7 @@ public class TbUser extends PageParam{
 	private String phone;
 	private String tbEmail;
 	private String passwordMD5;
+	@NotBlank
 	private String nickname;
 	private String username;
 	private String sex;

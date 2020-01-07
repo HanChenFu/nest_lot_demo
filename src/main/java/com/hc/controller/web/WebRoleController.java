@@ -21,7 +21,7 @@ public class WebRoleController {
 	private TbRoleService tbRoleServer;
 	
 	@RequestMapping("/getRoleMess")
-	public ResultQuery<Role> getRoleMess(@RequestBody Role role, HttpServletRequest request) throws Exception {
+	public ResultQuery<Role> getRoleMess(@RequestBody(required = false) Role role, HttpServletRequest request) throws Exception {
 		return tbRoleServer.getRoleMess(role,request);
 	}
 	

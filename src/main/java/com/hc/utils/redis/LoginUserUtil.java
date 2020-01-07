@@ -1,8 +1,10 @@
 package com.hc.utils.redis;
 
 import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.redis.RedisUtil;
@@ -53,7 +55,8 @@ public class LoginUserUtil {
 		if(null != obj && obj instanceof TbAdmin){
 			return (TbAdmin)obj;
 		}
-		throw new CustomException(StatusCode.NOT_LOGIN, "未登录");
+//		throw new CustomException(StatusCode.NOT_LOGIN, "未登录");
+		return null;
 	}
 
 	/**
@@ -63,7 +66,8 @@ public class LoginUserUtil {
 	 */
 	public boolean logout(String token) throws CustomException {
 		if ("".equals(token) || token.equals(null)) {
-			throw new CustomException(StatusCode.PARAM_NULL, "token 不能为空");
+//			throw new CustomException(StatusCode.PARAM_NULL, "token 不能为空");
+			return false;
 		}
 		getRedis().del(token);
 		return true;

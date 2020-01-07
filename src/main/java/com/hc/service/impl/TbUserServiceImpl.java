@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.param_checkd.annotation.ParamCheck;
 import com.hc.common.redis.RedisUtil;
@@ -78,7 +79,10 @@ public class TbUserServiceImpl implements TbUserService{
 	@Override
 	public ResultBase tokenCheck(HttpServletRequest request) throws Exception, CustomException {
 		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
-		return ResultUtil.getResultData(t);
+		if(t!=null) {
+			
+		}
+		return ResultUtil.getResultBase(false,StatusCode.NOT_LOGIN, "未登录");
 	}
 
 }

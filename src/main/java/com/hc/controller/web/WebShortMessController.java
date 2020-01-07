@@ -32,7 +32,7 @@ public class WebShortMessController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/sendSM")
-	public ResultBase sendSM(@RequestBody TbShortPara shortPara, HttpServletRequest request) throws Exception {
+	public ResultBase sendSM(@RequestBody(required = false) TbShortPara shortPara, HttpServletRequest request) throws Exception {
 		return tbSMService.sendSM(shortPara, request);
 	}
 	

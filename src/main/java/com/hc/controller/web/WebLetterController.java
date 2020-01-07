@@ -30,7 +30,7 @@ public class WebLetterController {
 	}
 	
 	@RequestMapping("/insertSelective")
-	ResultBase insertSelective(@RequestBody TbLetter letter,HttpServletRequest request) throws Exception,CustomException{
+	ResultBase insertSelective(@RequestBody(required = false) TbLetter letter,HttpServletRequest request) throws Exception,CustomException{
 		return tbLetterService.insertSelective(letter, request);
 	}
 	
@@ -40,7 +40,7 @@ public class WebLetterController {
 	}
 	
 	@RequestMapping("/updateNameById")
-	ResultBase updateNameById(@RequestBody TbLetter letter,HttpServletRequest request) throws Exception,CustomException{
+	ResultBase updateNameById(@RequestBody(required = false) TbLetter letter,HttpServletRequest request) throws Exception,CustomException{
 		return tbLetterService.updateNameById(letter, request);
 	}
 	
