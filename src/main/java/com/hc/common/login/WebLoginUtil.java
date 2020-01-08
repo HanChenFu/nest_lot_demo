@@ -78,7 +78,6 @@ public class WebLoginUtil {
 	
 	public boolean isLogin(HttpServletRequest request) {
 		System.out.println("token:"+request.getHeader("token"));
-		
 		if (redis.checkKey("token."+request.getHeader("token"))) {
 			return true;
 		}

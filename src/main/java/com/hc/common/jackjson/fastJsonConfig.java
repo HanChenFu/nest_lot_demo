@@ -12,9 +12,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
-//@Configuration
 public class fastJsonConfig extends WebMvcConfigurationSupport {
-
 	/**
 	 * 使用阿里 fastjson 作为JSON MessageConverter
 	 * 

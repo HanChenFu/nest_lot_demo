@@ -1,6 +1,7 @@
 package com.hc.common.param_checkd;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -421,9 +422,16 @@ public class ServiceParamCheck {
 	}
 
 	private void returnResponse(HttpServletResponse response, ResponseMess mess) throws IOException {
-		response.setContentType("application/json;charset=UTF-8");
-		response.getWriter().write(JSONObject.toJSON(mess).toString());
-		mess = null;
+		try {
+			response.setContentType("application/json;charset=UTF-8");
+			PrintWriter write = response.getWriter();
+			write.write(JSONObject.toJSONString(mess));
+			write.flush();
+		} catch (Exception e) {
+		}finally {
+			response.getWriter().close();
+			mess = null;
+		}
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.hc.service.impl;
 
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,8 @@ import com.hc.common.result.ResultQuery;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.askRecord.TbAskRecord;
+import com.hc.pojo.base.TbAdmin;
 import com.hc.service.TbAskRecordService;
-import com.hc.utils.documentSequence.CreateSequence;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.result.ResultUtil;
 
