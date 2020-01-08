@@ -11,7 +11,7 @@
    	<select id="queryEveryAreaDynamics" resultType="com.hc.pojo.entity.TbAreaDynamics">
 		select
 		<include refid="Base_Column_List" />
-		from tb_area_dynamics
+		from tb_area_dynamics order by del_time desc
 			LIMIT #{limitsTart},#{limitsEnd}
 	</select>
 	

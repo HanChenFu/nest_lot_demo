@@ -12,7 +12,7 @@
 	<select id="queryWorkDynamics" resultType="com.hc.pojo.entity.TbWorkDynamics">
 		select
 		<include refid="Base_Column_List" />
-		from tb_work_dynamics
+		from tb_work_dynamics order by del_time desc
 		LIMIT #{limitsTart},#{limitsEnd}
 	</select>
 	
