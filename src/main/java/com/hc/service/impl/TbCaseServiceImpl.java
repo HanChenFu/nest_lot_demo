@@ -233,7 +233,9 @@ public class TbCaseServiceImpl implements TbCaseService{
 				return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "案件图片数量不能大于六张！");
 			}
 		}else if(1==bean.getTbCaseSaveCategory()){
-			
+			if(null!=files&&files.length>6){
+				return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "案件图片数量不能大于六张！");
+			}
 		}else{
 			return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "参数案件保存类别错误！");
 		}
@@ -336,6 +338,9 @@ public class TbCaseServiceImpl implements TbCaseService{
 				return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "案件图片数量不能大于六张！");
 			}
 		}else if(1==bean.getTbCaseSaveCategory()){
+			if(null!=files&&files.length>6){
+				return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "案件图片数量不能大于六张！");
+			}
 		}else{
 			return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "参数案件保存类别错误！");
 		}
