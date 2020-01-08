@@ -2,16 +2,15 @@ package com.hc.mapper.callCenter;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.hc.pojo.callCenter.MailList;
+import com.hc.pojo.callCenter.MailListSimple;
  
 
 public interface MailListMapper {
 
 	int insertMailList(MailList mailList);
 	
-	List<MailList> getMailList(MailList mailList); 
+	List<MailListSimple> getMailList(MailList mailList); 
 	
 	int updateMailList(MailList mailList);
 	

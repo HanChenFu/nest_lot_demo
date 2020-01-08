@@ -1,8 +1,6 @@
 package com.hc.pojo.callCenter;
 
-import com.hc.pojo.base.ReqPageBean;
-
-public class MailList extends ReqPageBean{
+public class MailListSimple {
 	private Integer mailListId;							//通讯录主建
 	private String  contacts;							//联系人
 	private String  phoneNumber;						//电话号码
@@ -14,8 +12,6 @@ public class MailList extends ReqPageBean{
 	private String  updateTime;							//修改时间
 	private Integer flag;								//1=可用 2=已删除
 	private String  adminName;							//用户名
-	private Integer limitsTart;							//开始页数
-	private Integer limitsEnd;							//结束页数
 	
 	public Integer getMailListId() {
 		return mailListId;
@@ -82,18 +78,6 @@ public class MailList extends ReqPageBean{
 	}
 	public void setAdminName(String adminName) {
 		this.adminName = adminName;
-	}
-	public Integer getLimitsTart() {
-		return limitsTart;
-	}
-	public void setLimitsTart(Integer limitsTart) {
-		this.limitsTart = limitsTart;
-	}
-	public Integer getLimitsEnd() {
-		return limitsEnd;
-	}
-	public void setLimitsEnd(Integer limitsEnd) {
-		this.limitsEnd = limitsEnd;
 	}
 	
 }

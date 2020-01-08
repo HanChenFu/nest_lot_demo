@@ -9,15 +9,11 @@ import com.hc.common.code.StatusCode;
 import com.hc.common.exception.CustomException;
 import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultData;
-import com.hc.common.result.ResultQuery;
 import com.hc.common.tools.Tools;
-import com.hc.mapper.callCenter.CallCenterMapper;
 import com.hc.mapper.callCenter.MailListMapper;
-import com.hc.pojo.askRecord.TbAskRecord;
 import com.hc.pojo.base.PageUtilBean;
-import com.hc.pojo.callCenter.CallCenter;
 import com.hc.pojo.callCenter.MailList;
-import com.hc.service.CallCenterService;
+import com.hc.pojo.callCenter.MailListSimple;
 import com.hc.service.MailListService;
 import com.hc.utils.result.ResultUtil;
 
@@ -52,7 +48,7 @@ public class MailListImpl implements MailListService {
 		PageUtilBean pages = new PageUtilBean(pageSize, totalCount, page);
 		mailList.setLimitsTart(pages.limitsTart());
 		mailList.setLimitsEnd(pages.limitsEnd());
-		List<MailList> mailLists = mailListMapper.getMailList(mailList);
+		List<MailListSimple> mailLists = mailListMapper.getMailList(mailList);
 		pages.setResults(mailLists);
 		return  ResultUtil.getResultData(true, StatusCode.SUCCESS, "操作成功！", pages);
 	}

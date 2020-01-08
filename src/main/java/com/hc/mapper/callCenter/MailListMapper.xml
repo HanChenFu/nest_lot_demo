@@ -22,7 +22,7 @@
 	</insert>
 	
 	<!-- 查询通讯录 -->
-	<select id="getMailList" resultType="com.hc.pojo.callCenter.MailList">
+	<select id="getMailList" resultType="com.hc.pojo.callCenter.MailListSimple">
 		select 
 			mail.mail_List_id as mailListId,mail.contacts as contacts,mail.phone_number as phoneNumber,mail.mailbox_number as mailboxNumber,
 			mail.remarks as remarks,mail.create_user_id as createUserId,mail.update_user_id as updateUserId,mail.create_Time as createTime,
