@@ -229,6 +229,8 @@ public class TbCaseServiceImpl implements TbCaseService{
 			//案件图片检测
 			if(null==files||files.length<1){
 				return ResultUtil.getResultBase(false, StatusCode.PARAM_NULL, "案件图片不能为空！");
+			}else if(files.length>6){
+				return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "案件图片数量不能大于六张！");
 			}
 		}else if(1==bean.getTbCaseSaveCategory()){
 			
@@ -330,6 +332,8 @@ public class TbCaseServiceImpl implements TbCaseService{
 			
 			if(remainsLength+filsLength<=0){
 				return ResultUtil.getResultBase(false, StatusCode.PARAM_NULL, "案件图片不能为空！");
+			}else if(remainsLength+filsLength>6){
+				return ResultUtil.getResultBase(false, StatusCode.PARAM_ERROR, "案件图片数量不能大于六张！");
 			}
 		}else if(1==bean.getTbCaseSaveCategory()){
 		}else{
