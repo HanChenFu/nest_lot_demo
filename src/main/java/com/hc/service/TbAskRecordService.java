@@ -7,10 +7,11 @@ import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.askRecord.TbAskRecord;
+import com.hc.pojo.askRecord.TbAskRecordPara;
 
 public interface TbAskRecordService {
 
-	ResultQuery<TbAskRecord> getAskRecord(TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException;
+	ResultQuery<TbAskRecordPara> getAskRecord(TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException;
 	
 	ResultBase insertSelective(TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException;
 	

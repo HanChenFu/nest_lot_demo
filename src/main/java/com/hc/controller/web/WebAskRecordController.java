@@ -13,6 +13,7 @@ import com.hc.common.result.ResultBase;
 import com.hc.common.result.ResultQuery;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.askRecord.TbAskRecord;
+import com.hc.pojo.askRecord.TbAskRecordPara;
 import com.hc.service.TbAskRecordService;
 
 @Controller
@@ -24,7 +25,7 @@ public class WebAskRecordController {
 	private TbAskRecordService tbAskRecordService;
 	
     @RequestMapping("getAskRecord")
-	ResultQuery<TbAskRecord> getAskRecord(@RequestBody(required = false) TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
+	ResultQuery<TbAskRecordPara> getAskRecord(@RequestBody(required = false) TbAskRecord ask,HttpServletRequest request) throws Exception,CustomException{
 		return tbAskRecordService.getAskRecord(ask, request);
 	}
 	

@@ -3,7 +3,7 @@
 <mapper namespace="com.hc.mapper.askRecord.TbAskRecordMapper" >
 	
 	
-	<select id="getAskRecord" resultType="com.hc.pojo.askRecord.TbAskRecord">
+	<select id="getAskRecord" resultType="com.hc.pojo.askRecord.TbAskRecordPara">
 		SELECT
 			tb_id AS tbId,
 			tb_user_id AS tbUserId,

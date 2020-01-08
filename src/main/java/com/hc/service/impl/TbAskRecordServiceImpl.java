@@ -1,6 +1,5 @@
 package com.hc.service.impl;
 
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ import com.hc.common.result.ResultQuery;
 import com.hc.mapper.askRecord.TbAskRecordMapper;
 import com.hc.para.page_base.BasePara;
 import com.hc.pojo.askRecord.TbAskRecord;
-import com.hc.pojo.base.TbAdmin;
+import com.hc.pojo.askRecord.TbAskRecordPara;
 import com.hc.service.TbAskRecordService;
 import com.hc.utils.redis.LoginUserUtil;
 import com.hc.utils.result.ResultUtil;
@@ -36,14 +35,14 @@ public class TbAskRecordServiceImpl implements TbAskRecordService{
 	
 	@Override
 	@ParamCheck(names = {"tbAdminId"})
-	public ResultQuery<TbAskRecord> getAskRecord(TbAskRecord ask, HttpServletRequest request)
+	public ResultQuery<TbAskRecordPara> getAskRecord(TbAskRecord ask, HttpServletRequest request)
 			throws Exception, CustomException {
 //		TbAdmin t = loginUserUtil.getLoginUser(request.getHeader("token"));
 		if (ask==null) {
 			ask = new TbAskRecord();
 		}
 		ask.setTbAdminId(String.valueOf(ask.getTbAdminId()));
-		List<TbAskRecord> li = tbAskRecordMapper.getAskRecord(ask);
+		List<TbAskRecordPara> li = tbAskRecordMapper.getAskRecord(ask);
 		if(li==null) {
 			return ResultUtil.getResultQuery("没有数据！");
 		}
