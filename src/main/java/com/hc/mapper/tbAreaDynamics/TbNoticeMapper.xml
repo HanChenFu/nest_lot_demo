@@ -12,7 +12,7 @@
 	<select id="queryNotice" resultType="com.hc.pojo.entity.TbNotice">
 		select
 		<include refid="Base_Column_List" />
-		from tb_notice
+		from tb_notice order by del_time desc
 		LIMIT #{limitsTart},#{limitsEnd}
 	</select>
 	
